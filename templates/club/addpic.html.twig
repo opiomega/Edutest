@@ -1,0 +1,33 @@
+{% extends 'club.html.twig' %}
+
+{% block title %}
+Add pictures
+{% endblock %}
+
+
+{% block body %}
+
+<!-- booking-area-start -->
+            <div class="booking-area grad-bg pos-rel pt-135 pb-135">
+                <div class="shape d-none d-xl-block">
+                    <div class="shape-item fa-01 rotateme"><img src="{{asset('club/img/shape/shape-1.png')}}" alt=""></div>
+                    <div class="shape-item fa-02 rotateme"><img src="{{asset('club/img/shape/shape-2.png')}}" alt=""></div>
+                </div>
+                <div class="booking-bg-img d-none d-md-block" style="background-image:url({{asset('club/img/event.jpg')}});"></div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xl-6 offset-xl-6 col-lg-6 offset-lg-6 col-md-6 offset-md-6">
+                            <div class="booking-wrapper">
+                                <div class="booking-text">
+                                    <h3>Add Pictures</h3>
+                                </div>
+                                {{form_start(form)}}
+                                <label class="text-dark">Event name</label>
+                                {{form_widget(form.eventname)}}
+                                <br/>
+                                {{form_widget(form.photocFile,{'type':'file'})}}
+                                <br/>
+                                <button type="submit" >add</button>
+                                {{form_end(form)}}
+                               
+{% endblock %}

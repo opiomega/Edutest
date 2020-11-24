@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit {{test.title}} {% endblock %}
+
+{% block body %}
+    
+    <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';">Edit test({{test.title}})
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+    {% for message in app.flashes('danger') %}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+    {% endfor %}
+   <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+    {% set edit = true %}
+    {{ include('test/_form.html.twig', {'button_label': 'Update'}) }}
+    
+    <a href="{{ path('question_index',{'testId':test.id}) }}" class="btn btn-primary">edit questions</a><br/>
+
+    <a class="btn btn-default" href="{{ path('testadmin_index') }}">back to list</a>
+
+    {{ include('test/_delete_form.html.twig') }}
+    <div id="deleteDocument" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Delete Confirmation</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Do you really want to delete this Document ?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                         <form method="post" action="{{ path('remove_document',{'id':test.id}) }}" >
+                                            <button type="button" class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+                                           
+    {#<input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ student.id) }}">#}
+                                            <button type="submit" class="btn btn-danger btn-md">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        </div>
+      </div>
+   </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function showModal(id) {
+            $("#"+id).modal();
+        }
+    </script>
+{% endblock %}

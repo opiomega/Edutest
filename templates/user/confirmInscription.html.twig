@@ -1,0 +1,25 @@
+<div class="container mt--8 pb-5">
+      <!-- Table -->
+      <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+          <div class="card bg-secondary shadow border-0">
+            <div class="card-header bg-transparent pb-5">
+              
+            </div>
+            <div class="card-body px-lg-5 py-lg-5">
+              {% if message == 'error' %}
+              <div class="text-center text-danger mb-4">
+                <p class="text-white">{{ message }} </p>
+              </div>
+              {% else %}
+              <div class="text-center text-success mb-4">
+                <p class="text-green">{{ message }} </p>
+                <p><a href="{{ path('app_login') }}">Login</a></p>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,663 @@
+{% set page="test.html.twig" %}
+{% if app.user.status is defined %}
+    {% set page='base.html.twig' %}
+{% endif %}
+{% extends page %}
+
+{% block title %}{% if test is defined %} {% if test != null %}{{ test.title }} test {% endif %} {% endif %}{% endblock %}
+
+{% block body %}
+ <style>
+            .quiz-numero {
+                margin: 1.5rem 4rem 0 3rem;
+                height: 4em;
+                width: 4em;
+                background: #008cba;
+                color: #fff;
+                line-height: 4em;
+                border-radius: 4em;
+                font-family: Merriweather,serif;
+            }
+            ul.options-list {
+                margin: 0;
+                display: block;
+                list-style: none;
+                font-family: Arial;
+                padding-left: 110px;
+                text-align: left;
+                width: 50%;
+            }
+            ul.options-list li {
+               /* display:inline;*/
+                position: relative;
+                padding: 17px 17px;
+                background-color: #B2273D;
+                color: white;
+            /* cursor: pointer;*/
+                max-height: 150px;
+                overflow: hidden;
+                border: 1px solid #DDDDDD;
+                border-radius: 8px;
+                margin-bottom: 16px;
+                margin-top: 15px;
+
+}
+            ul.options-list li.sel_bk_color{
+                background-color: #384D78;
+                width: 60%;
+                color:white;
+            }
+        </style>
+{% if studentId is defined %}
+       <script>
+    $(document).ready(function(){
+        $("#myModal").modal('show');
+    });
+</script>
+<!-- Listing Modal -->
+                            
+<div id="myModal" class="modal fade"tabindex="-1" role="dialog" style='position:absolute;' data-backdrop="static" data-keyboard="false">
+    <!-- Modal -->
+
+  <div class="modal-dialog modal-lg" role="document" style="float:left;" >
+    <div class="modal-content" style="width:1100px;">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Terms & Conditions</h5>
+        
+        </button>
+      </div>
+      <div class="modal-body"style="width:100%;">
+      <div style="padding-left:100px;width:80%;">{{contract.content|raw}}</div>
+<div class="form-check">
+                <label class="form-check-label">
+                  <input id='check' class="form-check-input" onchange='change()' type="checkbox">
+                  <span class="form-check-sign"></span>
+                <p id='par'class="text-red ">   I agree to the terms and conditions</p>
+                </label>
+              </div>
+              <script>
+              
+               function change(){
+                   var checked=document.getElementById('check').checked;
+              if(checked==true){
+                  document.getElementById('par').className='text-green';
+                  document.getElementById('sub').disabled=false;
+              } 
+              else{
+               document.getElementById('par').className='text-red';
+               document.getElementById('sub').disabled=true;
+              }
+               }
+              </script>
+      </div>
+      <div class="modal-footer">
+       
+        <button type="button" id='sub' class="btn btn-primary"data-dismiss="modal" disabled><span></span><span>Save changes</sapn></button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endif %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.btnc {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+/* Darker background on mouse-over */
+.btnc:hover {
+  background-color: RoyalBlue;
+  color:white;
+}
+.stiky{
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  width: 200px;
+}
+</style>
+<div dir="ltr">
+    <div>
+      <center style="table-layout:fixed;font-family:Helvetica;font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;text-indent:0px;text-transform:none;white-space:normal;word-spacing:0px;{#background-color:rgb(243,243,243)#}">
+        <div style="max-width:90%;font-family:'Museo Sans Rounded','Museo Sans Rounded','Museo Sans','Museo Sans','Helvetica Neue',Helvetica,Arial,sans-serif;margin:0px auto">
+          <table align="center" style="border-spacing:0px;font-family:sans-serif;color:rgb(51,51,51);margin:0px auto;width:90%;max-width:90%">
+            <tbody>
+             <tr>
+                <td style="padding:20px 0px 0px">
+                  <table style="border-spacing:0px;font-family:sans-serif;color:white;display:block;font-weight:300;background-image:none;background-color:#384D77;border-top-left-radius:10px;border-top-right-radius:10px;border-bottom-right-radius:0px;border-bottom-left-radius:0px;text-align:left;width:100%;background-position:0% 0%;background-repeat:repeat repeat">
+                    <tbody>
+                    <tr>
+                        <td style="padding:35px 0px">
+                          <table style="border-spacing:0px;font-family:sans-serif;color:rgb(51,51,51)">
+                            <tbody>
+                              <tr>
+                                <td style="font-size:25px;color:rgb(255,255,255);padding:10px 15px 5px 40px;border-right-width:1px;border-right-style:solid;border-right-color:rgb(255,255,255)">
+                                   {% if studentId is defined %}Placement Test {% else %}Practice Test{% endif %}
+                                </td>
+                                <td style="padding:5px 0px 5px 15px;font-size:17px;color:rgb(255,255,255)">
+                                    {{ test.title }}.</td>
+                                <td>
+                                  
+                                </td>
+                              </tr>
+                              
+                            </tbody>
+                          </table>
+                        </td>
+                        
+                      </tr>
+                    </tbody>
+                  </table>
+                  
+                </td>
+                <td>
+                
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:30px;background-color:rgb(255,255,255,0.4);border-top-left-radius:0px;border-top-right-radius:0px;border-bottom-right-radius:10px;border-bottom-left-radius:10px">
+                  <div class="row">
+                  <div class="col-7">
+                     {# ADD QUESTION #}
+                      {% if test.supportPdf != null %}
+                    <a href="{{ path('show_test_pdf',{'id':test.id}) }}" target="_blank"  style="font-size:17S px;" role="button" class=" btnc">
+                          <i class="fa fa-file"></i>
+                          Supporting Document
+                        </a>
+                     {% endif %}
+                       
+                        </div>
+                        <div class="col">
+                         {% if test.listening != null %}
+                         <button onclick="showModal('listingModal')"  style="font-size:20px;" class="btn">
+                          <i class="fa fa-home"></i>
+                          Listenning
+                        </button>
+                        {% endif %}
+                      </div>
+          <!-- FUNCTIONS  -->
+                     <script>
+             $(function(){
+    
+                });
+                $(document).change(function() {
+                    $("ul.options-list li").on("click",function() {
+                                if($(this).find('input[type="radio"]').is(':checked')) { 
+                            $('ul.options-list li').removeClass('sel_bk_color');
+                            $(this).addClass('sel_bk_color');
+                            }
+                        });
+                    });
+            </script>
+            {% set cpt = 1 %}
+                  <div class="col">
+                   
+                    </div>
+
+                  </div>
+
+                    <p class="text-rede time stiky float-right" style="position:relative;background-image:url('/image/icones/35.png');top: 28%;right: -40px;font-size: 16px;background-size: 140px;background-repeat: no-repeat;background-position: center;height: 124px;text-align: center;padding-top: 3%;" id="demo"> </p>
+                  </div>
+                   <hr/>
+                   {% set markingScheme = 0 %}
+          {% for question in test.questions %}
+              {% set tot=((cpt/test.questions|length)*100)|round(1, 'floor') %}
+                {% set markingScheme = markingScheme + question.score %}
+                <div id="card-question-{{ cpt }}" {% if cpt != 1 %} style="display:none;" {% endif %}>
+                  <div class="row" >
+                   
+
+                  <p class="questionSpace"> {{ question.Content }} </p>
+                  </div>
+                   <div class = "">
+                    {% if question.type == "MCQ" %}
+                         {% set s=0 %}
+                    <ul>
+                    {% for choise in question.choises %}
+                        <div class="lesson">
+                        
+                          
+                            <li  class = " btn">
+                              <input  type="radio" name="radio-{{ cpt }}" id="value-{{ cpt }}-{{ loop.index }}i" value="{{ loop.index }}">
+                              <label for="value-{{ cpt }}-{{ loop.index }}i" > {{ choise }}</label>
+                            </li>
+                             
+                        </div>
+                        {% set s=s+1 %}
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                      <br/>
+                      <div class="form-group" >
+                      <input type="text" name="answer-{{ cpt }}" class="form-control" />
+                      </div>
+                  {% endif %}
+                    </DIV>
+                      <input type="hidden" value="{% if question.type == "MCQ" %}{{ question.correctChoise }}{% else %}{{ question.correctAnswer }}{% endif %}" name="correctChoise{{ cpt }}" id="correctChoise{{ cpt }}" />
+                      <input type="hidden" value="{{ test.id }}" name="test{{ cpt }}" id="test{{ cpt}}" />
+                      <input type="hidden" value="{{ question.type }}" id="question-{{ cpt }}-type" name="question-{{ cpt }}-type" />
+                      <label>marking scheme</label>
+                      <input type="text" value="{{ question.score }}" name="markingScheme{{ cpt }}" id="markingScheme{{ cpt }}" disabled="disabled" />
+                    </div>
+            {% set cpt = cpt + 1 %}
+            </div>
+                    {% endfor %}
+                    <div class="row">
+        <div class="col">
+       
+            <button style="" class=" hintg" id="previousButton">previous</button>
+        
+        </div>
+        <div class="col">
+            <button style="" class="hint float-right " id="nextButton">Next</button>
+        </div>
+    </div>
+                   
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </center>
+    </div>
+</div>
+
+<div id="listingModal" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title"></h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <figure>
+                                                <figcaption>Listen to the text:</figcaption>
+                                                <audio
+                                                    controls
+                                                    src="{{ asset('uploads/test/listening/'~test.listening) }}">
+                                                    Your browser does not support the
+                                                    <code>audio</code> element.
+                                                </audio>
+                                            </figure>
+                                        </div>
+                                        <div class="modal-footer">
+                                              
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+<style>
+/*input {
+    visibility:hidden;
+}*/
+
+.card {
+ font-family: din-round,sans-serif;
+ font-size: 18px;
+ text-align: center;
+ font: 500 17px/20px sans-serif;
+ background-color: transparent;
+ line-height: 24px;
+}
+
+body {
+  font: 500 17px/20px sans-serif;
+  color: #3c3c3c;
+}
+
+h1 {
+  display: block;
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+h1, h2 {
+  font-weight: 700;
+}
+
+.instructions {
+  font-size: 25px;
+    line-height: 24px;
+    margin: 0;
+    text-align: left;
+    width: 100%;
+    display: block;
+}
+
+.questionSpace {
+  display: intial;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  font-size: 19px;
+  text-align: initial;
+}
+
+.flagFrame {
+  display: inline-block;
+  flex-direction: column;
+ flex-grow: 1;
+ min-width: 150px;
+ width: 100%;
+  outline: none;
+  background-color: #1cb0f6;
+  border-radius: 16px;
+  box-shadow: 0px 4px #1899d6;
+  line-height: 0;
+  color: #fff;
+  position: relative;
+  bottom: -4px;
+}
+
+#question {
+  display: inline-block;
+}
+
+.cloze {
+ font-weight: bold;
+ padding: 3px;
+}
+
+.type {
+background: black;
+}
+
+.answerSpace {
+ display: flex;
+ flex-direction: column;
+ flex-grow: 1;
+ min-width: 150px;
+ width: 100%;
+ justify-content: center;
+ text-align: initial;
+ font-size: 19px;
+ color: #3c3c3c;
+ font: 500 17px/20px sans-serif;
+ background-color: #f7f7f7;
+ border: 2px solid #e5e5e5;
+ border-radius: 10px;
+ padding:10px 25px;
+ line-height: 24px;
+ margin:0px 0px 14px 0px;
+}
+
+#translation {
+margin: 10px 0px 0px 0px;
+}
+
+.hint {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  min-width: 150px;
+  width: 40%;
+  background-color: #B2273D;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  line-height: 20px;
+  transform: translateZ(0);
+  border-style: solid;
+  border-color: transparent;
+  border-radius: 16px;
+  border top-left-radius: 18px;
+  border top-right-radius: 18px;
+  border-width: 0 0 4px;
+  padding: 13px 16px;
+  box-shadow: 0px 5px #791007;
+}
+
+#hintLabel {
+  text-transform: uppercase;
+}
+
+#typeans {
+}
+
+input#typeans {
+border-width: 0px;
+background-color: transparent;
+outline: none;
+}
+
+.typeGood {
+}
+
+.typeBad {
+}
+
+.typeMissed {
+}
+
+.btn {
+  background-color: transparent;
+  border: 2px solid var(--gray);
+  
+  border-radius: 9px;
+  font-size: 1rem;
+  padding: 0.25rem 0.35rem;
+  margin: 0.2rem;
+   border-style: solid;
+  border-color: #e5e5e5;
+  border-radius: 16px;
+  border top-left-radius: 18px;
+  border top-right-radius: 18px;
+  border-width: 2px 2px 4px;
+  padding: 13px 16px;
+  box-shadow: 0px 2px #e5e5e5;
+  
+}
+
+.selected {
+  background-color: var(--blue-bkg);
+  border-color: var(--blue);
+  color: var(--blue-font);
+}
+
+.btn:focus,
+.btn:active {
+  animation: pick 0.15s ease-in;
+}
+
+@keyframes pick {
+  100% {
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+  }
+}
+.hintg {
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  min-width: 150px;
+  width: 40%;
+  background-color: transparent;
+  color: #afafaf;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  line-height: 20px;
+  transform: translateZ(0);
+  border-style: solid;
+  border-color: #b3b3b3;
+  border-radius: 16px;
+  border top-left-radius: 18px;
+  border top-right-radius: 18px;
+  border-width: 2px 2px 4px;
+  padding: 13px 16px;
+  box-shadow: 0px 2px #b3b3b3;
+}
+
+</style>
+<script>
+
+$(function() {
+    $('li').on('click', function() {
+       $('li').removeClass("selected");
+        $(this).addClass('selected');
+    });
+});
+    
+   
+    var score = 0;
+    //var total = 0;
+    var numberOfQuestion = 0;
+    var appCpt = parseInt("{{ app.session.get('cpt') }}");
+    var cpt  = 1;
+    var markingSchemeTotal = 0;
+    var questionScore = [];
+    $("#nextButton").click(function(){
+        //alert(cpt);
+        //alert(appCpt);
+        markingSchemeTotal+=parseFloat($("#markingScheme"+cpt).val());
+        numberOfQuestion++;
+        //cp++;
+        var answer ;
+        if ($("#question-"+cpt+"-type").val()==="MCQ")
+        {
+            answer = parseInt($("input[name='radio-"+cpt+"']:checked").val());
+            correctAnswer = parseInt($("#correctChoise"+cpt).val());
+        }
+        else
+        {
+            answer = String($("input[name='answer-"+cpt+"']").val());
+            correctAnswer = String($("#correctChoise"+cpt).val());
+        }
+       
+        if(String(correctAnswer).indexOf(";")){
+            correctAnswerParts = String(correctAnswer).split(";");
+            $.each(correctAnswerParts,function(index,value){
+                if (value==answer){
+                    //total +=parseFloat($("#markingScheme"+cpt).val());
+                    questionScore[cpt]=parseFloat($("#markingScheme"+cpt).val());
+                    return false;
+                }
+                else
+                    questionScore[cpt]=0;
+            });
+        }
+        else {
+            if(correctAnswer===answer)
+                //total +=parseFloat($("#markingScheme"+cpt).val());
+                questionScore[cpt]=parseFloat($("#markingScheme"+cpt).val());
+            else
+                questionScore[cpt]=0;
+        }
+        $("#card-question-"+cpt).hide();
+        if (cpt<appCpt-1){
+            cpt++; 
+            $("#card-question-"+cpt).show();
+            
+        }
+        else {
+            score = questionScore.reduce((a, b) => a + b, 0);
+            $(this).hide();
+            {% if studentId is defined %}
+            $.ajax({
+                method: "POST",
+                url: "{{ path('level_exam_result') }}",
+                data: { score:score , test:$("#test"+cpt).val(),studentId:{{ studentId }}}
+            })
+            {% else  %}
+            $.ajax({
+                method: "POST",
+                url: "{{ path('exam_result') }}",
+                data: { score:score , test:$("#test"+cpt).val()}
+            })
+            {% endif %}
+            .done(function( data ) {
+                console.log("Data "+data);
+                var values = jQuery.parseJSON(data);
+                alert ("Finish score = "+values.score+"/"+markingSchemeTotal);
+                
+                if (parseFloat(values.score)>=(parseFloat(markingSchemeTotal)/2))
+                    $("#titleAndMessage").html("Congratulations you succeed ! ✅");
+                else 
+                    $("#titleAndMessage").html("Sorry you failed 🚫");
+                {% if test.type == "level" %}
+                   window.location.href = '{{ path('denied',{'username':username}) }}';
+                    
+                {% endif %}
+            });
+            
+        }
+    });
+    
+    $("#previousButton").click(function(){
+        
+        if (cpt>1){
+            $("#card-question-"+cpt).hide();
+            cpt--; 
+            markingSchemeTotal-=parseFloat($("#markingScheme"+cpt).val());
+            //total -=parseFloat($("#markingScheme"+cpt).val());
+            $("#card-question-"+cpt).show();
+            
+        }
+    });
+// Set the date we're counting down to
+var countDownDate = new Date();
+   countDownDate.setHours(countDownDate.getHours() + 1);
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+    
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+    
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+  // Output the result in an element with id="demo"
+  document.getElementById("demo").innerHTML =  hours + "h "
+  + minutes + "m " + seconds + "s ";
+    
+  // If the count down is over, write some text 
+  if (distance < 0) {
+    clearInterval(x);
+    score = total;
+    $(this).hide();
+            {% if studentId is defined %}
+            $.ajax({
+                method: "POST",
+                url: "{{ path('level_exam_result') }}",
+                data: { score:score , test:$("#test"+cpt).val(),studentId:{{ studentId }}}
+            })
+            .done(function( data ) {
+                console.log("Data "+data);
+                var values = jQuery.parseJSON(data);
+              
+                /*console.log(msg);
+                console.log(parseFloat(msg)+">="+(parseFloat(numberOfQuestion)/2));*/
+                if (parseFloat(values.score)>=(parseFloat(markingSchemeTotal)/2))
+                    $("#titleAndMessage").html("Congratulations you succeed ! ✅");
+                else 
+                    $("#titleAndMessage").html("Sorry you failed 🚫");
+                {% if test.type == "level" %}
+                   window.location.href = '{{ path('denied',{'username':username}) }}';
+                    
+                {% endif %}
+            }){% endif %}
+  }
+}, 1000);
+function showModal(id) {
+            $("#"+id).modal();
+        }
+</script>
+{% endblock %}

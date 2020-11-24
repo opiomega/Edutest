@@ -1,0 +1,1312 @@
+{% extends 'prof.html.twig' %}
+
+{% block title %}Student{% endblock %}
+
+{% block body %}
+ <style>
+        #photoFileInput{display:none;}
+    </style>
+</br></br>
+<section class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card card-plain">
+              <div class="card-header">
+                <h1 class="profile-title text-left">{{ student.firstname}} {{ student.lastname}},{{age}}</h1>
+                <h5 class="text-on-back">01</h5>
+              </div>
+              <div class="card-body">
+                <form>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Education level</label>
+                        {% if student.educationlevel.name is defined %}
+                        <input type="text" class="form-control text-white" value=" {{ student.educationlevel.name}}" disabled>
+                        {% else %}
+                        <input type="text" class="form-control text-white" value="No level " disabled>
+                        {% endif %}
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Email address</label>
+                        <input  class="form-control text-white" value="{{ user.email}}" placeholder=""disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Phone number</label>
+                        <input type="text" class="form-control text-white" value="{{student.user.phone}}"disabled>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Teacher's name</label>
+                        <input type="text" class="form-control text-white" value="{% if student.teacher.lastname is defined %} {{ student.teacher.lastname }} {% else %} No teacher {% endif %}"disabled>
+                      </div>
+                    </div>
+                  </div>
+ 
+ <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>City</label>
+                        <input type="text" class="form-control text-white" value="{% if user.city!= null %} {{ user.city }}{% else %} No city{% endif %}" disabled>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Zipcode</label>
+                        <input  class="form-control text-white" placeholder="" value="{% if user.zipcode is defined %}{{ user.zipcode}}{% else %}No zipcode {% endif %}"disabled>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Adresse</label>
+                        <input value="{{ user.adress }}" type="text" class="form-control text-white" disabled>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>About me</label>
+                        <textarea  {{ student.comments }} rows="4" class="form-control form-control-alternative" disabled>{{ student.comments }}</textarea>
+                      </div>
+                    </div>
+                  </div>
+                  {% if app.user.status=="Student" or app.user.status=="Admin" %}
+                  <a href="{{ path('student_edit', {'id': student.id}) }}" class="btn btn-primary btn-simple text-white float-right" rel="tooltip"  data-placement="right">
+                  <i class="tim-icons icon-settings"></i>Edit profile</a>
+{% endif %}
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 ml-auto">
+              {% if app.user.status=="Student"%}
+          {{form_start(form,{'attr': {'id':'photoForm'}})}}
+                    <div class="input-group">
+  
+                        <div class="custom-file">
+                            {{ form_widget(form.photoFile,{'id':'photoFileInput'})}}
+                            <label class="btn btn-success btn-sm" for="photoFileInput" id="photoFileLabel"><i class="fa fa-camera"></i> Photo</label>
+                        </div>
+                    </div>
+                {{form_end(form)}}
+                {% endif %}
+            <div class="carousel-inner" role="listbox">
+                
+                  <div class="carousel-item active">
+                    {% if user.photo == null %}
+                                <img class="d-block"  src="{{ asset('img/elprof.jpg') }}"  width="100" height="100" />
+                            {% else %}
+                                <img class="d-block"width="300px" height="350px" src="{{ asset('uploads/user/photos/'~student.user.photo) }}" />
+                            {% endif %}
+                  
+                     </div>
+                    
+                      
+                    
+                    <br></br>
+                     <div class="card card-plain" style="border:solid 1px;">
+                     <div class="card-header">All clubs</div>
+                      <div class="card-body"> 
+                      {% for club in clubs %}
+                      <div class="row">
+                      <div class="col">{{club.name}}
+                      </div>
+                      <div class="col">
+                      {#<a href="{{path('homeclub_show',{'id':club.id})}}" class="btn btn-danger btn-sm">check</a>#}
+                       {% if app.user.status=="Admin"%}
+                                            <a  href="{{ path('studentclub_show', {'id': club.id}) }}">
+                                            <i class="tim-icons text-blue icon-tv-2"></i>
+                                            Check</a>
+                                            {% endif %}
+                                        {% if app.user.status=="Teacher"%}
+                                        {% if app.user.teacher[0]==club.head%}
+                                         <a  href="{{ path('homeclub_show', {'id': club.id}) }}">
+                                            <i class="tim-icons text-blue icon-tv-2"></i>
+                                            Check</a>
+                                        {% else %}
+                                         <a  href="{{ path('studentclub_show', {'id': club.id}) }}">
+                                            <i class="tim-icons text-blue icon-tv-2"></i>
+                                            Check</a>
+                                        {% endif %}
+                                        {% endif %}
+                                        {% if app.user.status=="Student"%}
+                                        {% if app.user.student[0]==club.Students%}
+                                         <a  href="{{ path('homeclub_show', {'id': club.id}) }}">
+                                            <i class="tim-icons text-blue icon-tv-2"></i>
+                                            Check</a>
+                                        {% else %}
+                                         <a  href="{{ path('studentclub_show', {'id': club.id}) }}">
+                                            <i class="tim-icons text-blue icon-tv-2"></i>
+                                            Check</a>
+                                        {% endif %}
+                                        {% endif %}
+                      </div>
+                      </div> 
+                      {% endfor %}
+                      </div>
+                      </div>
+                  </div>
+                  
+              </div> 
+          </div>
+          <div class="col"></div>
+        </div>
+      </div>
+    </section>
+   <div class="section section-tabs">
+        <div class="container">
+        
+             <div class="row ">
+          
+          <div class="col-md-10 ml-auto col-xl-6 mr-auto" style="margin-right:30px;">
+          {% for candidature in candidatures %}
+          
+          <div class="row">
+           <div class="col-md-6">
+          
+         <div class="form-group {% if candidature.test is defined  %}
+                  
+                 {% if candidature.test!= null  %} has-success {% else %}has-danger {% endif %}{% else %}has-danger{% endif %} ">
+        <input type="text" value="Test"placeholder="" class="form-control text-white form-control-danger" disabled />
+      </div></div>
+      <div class="col-md-6">
+         <div class="form-group  {% if candidature.letterOfRecommendation is defined  %}
+                 {% if candidature.letterOfRecommendation!= null  %}has-success {% else %}has-danger {% endif %}{% else %}has-danger{% endif %}">
+        <input type="text" value="Lettre of recommendation"placeholder="" class="form-control text-white " disabled/>
+      </div>
+    </div></div>
+    <div class="row">
+           <div class="col-md-6">
+         <div class="form-group {% if candidature.survey is defined  %}
+                 {% if candidature.survey!= null  %} has-success {% else %}has-danger{% endif %}{% else %}has-danger{% endif %}
+          ">
+        <input type="text" value="Questionnaire"placeholder="" class="form-control text-white"disabled />
+      </div></div>
+      <div class="col-md-6">
+         <div class="form-group {% if candidature.bankStatement is defined  %}
+                 {% if candidature.bankStatement!= null  %} has-success {% else %}has-danger{% endif %}{% else %}has-danger{% endif %}
+           ">
+        <input type="text" value="Bank statement"placeholder="" class="form-control  text-white" disabled/>
+      </div>
+    </div></div>
+    <div class="row">
+           <div class="col-md-6">
+         <div class="form-group {% if candidature.transcriptFirst is defined  %}
+                 {% if candidature.transcriptFirst!= null  %} has-success {% else %}has-danger{% endif %}{% else %}has-danger{% endif %} ">
+        <input type="text" value="First year transaction"placeholder="" class="form-control  text-white"disabled />
+      </div></div>
+      <div class="col-md-6">
+         <div class="form-group  {% if candidature.transcriptSecond is defined  %}
+                 {% if candidature.transcriptSecond!= null  %} has-success {% else %}has-danger{% endif %}{% else %} has-danger{% endif %}">
+        <input type="text" value="Second year transaction"placeholder="" class="form-control text-white "disabled />
+      </div>
+    </div></div>
+    <div class="row">
+           <div class="col-md-6">
+         <div class="form-group  {% if candidature.transcriptThird is defined  %}
+                 {% if candidature.transcriptThird!= null  %} has-success {% else %}has-danger{% endif %}{% else %}has-danger{% endif %}">
+        <input type="text" value="Third year transaction"placeholder="" class="form-control  text-white "disabled />
+      </div></div>
+      <div class="col-md-6">
+         <div class="form-group {% if candidature.transcriptBac   is defined  %}
+                 {% if candidature.transcriptBac!= null  %} has-success {% else %}has-danger{% endif %}{% else %}has-danger{% endif %}">
+        <input type="text" value="Bac transaction"placeholder="" class="form-control text-white "disabled />
+      </div>
+   </div></div>
+   <div class="row">
+           <div class="col-md-6">
+         <div class="form-group  {% if candidature.username is defined  %}
+                 {% if candidature.username!= null  %} has-success {% else %}has-danger{% endif %}{% else %}has-danger{% endif %}">
+        <input type="text" value="Univ username"placeholder="" class="form-control  text-white "disabled />
+      </div></div>
+      <div class="col-md-6">
+         <div class="form-group {% if candidature.password   is defined  %}
+                 {% if candidature.password!= null  %} has-success {% else %}has-danger{% endif %}{% else %}has-danger{% endif %}">
+        <input type="text" value="Univ Password"placeholder="" class="form-control text-white "disabled />
+      </div>
+   </div></div>
+   </div>
+   {% endfor %}
+   
+        {#  {% endif %}#}
+          
+ <div class="col-md-10 ml-auto col-xl-6 mr-auto">
+ <div class="card card-plain">
+              <div class="card-header">
+            <h1 class="profile-title text-left">Application & Universities </h1>
+            <h5 class="text-on-back">02</h5>
+            </div>
+           <div class="card-body">
+            {% set left=20 - applications|length %}
+            <h3 class="text-danger">{{left}} <span class="h4 text-white">universities left to apply</span> </h3>
+                <form>
+                <div class="row">
+                <div class="col-6">
+                <h4>University</h4>
+                </div>
+                <div class="col">
+                <h4>Email</h4>
+                </div>
+               {#} <div class="col">
+                <h4>Password</h4>
+                </div>#}
+                </div>
+                {% for application in applications %}
+                <div class="row">
+                <div class="col-6">
+                  <div class="form-group has-success">
+                  <input style="color:white;" type="email" value="{{application.universityname}}" class="form-control form-control-danger" disabled>
+                </div>
+                </div>
+                  
+                  <div class="col">
+                  <div class="form-group has-success">
+                  <input type="email" value="{{application.email}}" class="form-control form-control-danger" disabled>
+                </div>
+                </div>
+                 
+                {#}  <div class="col">
+                  {% if app.user.status=="Admin" or app.user.status=="Student"%}
+                  <div class="form-group has-success">
+                  <input type="email" value="{{application.password}}" class="form-control form-control-danger" disabled>
+                </div>
+                  {% endif %}
+                  </div>#}</div>
+{% endfor %}
+                </form>
+              </div>
+            
+          </div>
+      </div>
+
+<div class="wrapper">
+    <div class="page-header">
+    <h1 class="profile-title text-left">Parents</h1>
+                <h5 class="text-on-back">03</h5>
+       <div class="row">
+          
+ 
+
+       
+      <div class="col-lg-6 col-md-6 ml-auto mr-auto">
+            <div class="card card-coin card-plain">
+              <div class="card-header">
+              {#  <img src="../assets/img/mike.jpg" class="img-center img-fluid rounded-circle">#}
+                <h4 class="title">Father's informations</h4>
+              </div>
+              <div class="card-body">
+                <ul class="nav nav-tabs nav-tabs-primary justify-content-center">
+                  <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#linka">
+                      Name
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#linkb">
+                      Email
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#linkc">
+                      Phone
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#linkd">
+                     Job
+                    </a>
+                  </li>
+                </ul>
+                <div class="tab-content tab-subcategories">
+                  <div class="tab-pane active" id="linka">
+                  <blockquote class="blockquote text-white text-center">   {{ student.firstparentname }}</blockquote>
+                    
+                  </div>
+                  <div class="tab-pane" id="linkb">
+                    
+                        
+                             <blockquote class="blockquote text-white text-center">   {{ student.fristparentemail }}</blockquote>
+                        
+                    
+                 
+                  </div>
+                  <div class="tab-pane" id="linkc">
+                  <blockquote class="blockquote text-white text-center">   {{ student.firstparentnumber }}</blockquote>
+                  </div>
+                  <div class="tab-pane" id="linkd">
+                  <blockquote class="blockquote text-white text-center">   {{ student.firstparentjob }}</blockquote>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          
+
+
+          <div class="col-lg-6 col-md-6 ml-auto mr-auto">
+            <div class="card card-coin card-plain">
+              <div class="card-header">
+                {#<img src="../assets/img/mike.jpg" class="img-center img-fluid rounded-circle">#}
+                <h4 class="title">Mother's informations</h4>
+              </div>
+              <div class="card-body">
+                <ul class="nav nav-tabs nav-tabs-primary justify-content-center">
+                  <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#linka2">
+                      Name
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#linkb2">
+                      Email
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#linkc2">
+                      Phone
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#linkd2">
+                      Job
+                    </a>
+                  </li>
+                </ul>
+                <div class="tab-content tab-subcategories">
+                  <div class="tab-pane active" id="linka2">
+                  <blockquote class="blockquote text-white text-center">   {{ student.secondparentname }}</blockquote>
+                  </div>
+                  <div class="tab-pane" id="linkb2">
+                    <blockquote class="blockquote text-white text-center">   {{ student.secondparentemail }}</blockquote>
+                  </div>
+                  <div class="tab-pane" id="linkc2">
+                 <blockquote class="blockquote text-white text-center">   {{ student.secondparentnumbre }} </blockquote>
+                  </div>
+                   <div class="tab-pane" id="linkd2">
+                 <blockquote class="blockquote text-white text-center">   {{ student.secondparentjob }} </blockquote>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+            <div class="row">
+            <div class="col"></div>
+            <div class="col"></div></div>
+            <div class="row">
+            <div class="col"></div>
+            <div class="col"></div></div>
+            <div class="row">
+            <div class="col"></div>
+            <div class="col"></div>
+            </div>
+            <div class="row">
+            <div class="col"></div>
+            <div class="col"></div></div>
+</div>
+      </div>
+
+{#}
+  <br><br><br><br><br>
+
+ <div class="container-fluid mt--7">
+      <div class="row ">
+        <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+          <div class="card card-profile shadow">
+            <div class="row justify-content-center">
+              <div class="col-lg-3 order-lg-2">
+                <div class="card-profile-image">
+                  <a href="#" onclick="showModal('detailModal{{ student.id }}')">
+                   {% if user.photo == null %}
+                                <img onmouseover="bigImg(this)" onmouseout="normalImg(this)" src="{{ asset('img/elprof.jpg') }}" class="rounded-circle" width="100" height="100" />
+                            {% else %}
+                                <img onmouseover="bigImg(this)" onmouseout="normalImg(this)" src="{{ asset('uploads/user/photos/'~student.user.photo) }}" class="rounded-circle" width="100" height="100" />
+                            {% endif %}
+                            
+                  </a>
+                  
+                </div>
+              </div>
+            </div>
+            <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+              <div class="d-flex justify-content-between">
+                {{form_start(form,{'attr': {'id':'photoForm'}})}}
+                    <div class="input-group">
+  
+                        <div class="custom-file">
+                            {{ form_widget(form.photoFile,{'id':'photoFileInput'})}}
+                            <label class="btn btn-success btn-sm" for="photoFileInput" id="photoFileLabel"><i class="fa fa-camera"></i> Photo</label>
+                        </div>
+                    </div>
+                {{form_end(form)}}
+                <a href="#" class="btn btn-sm btn-default float-right">Message</a>
+              </div>
+            </div>
+            <div class="card-body pt-1 pt-md-4">
+              <div class="row">
+                <div class="col">
+                  <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+                    {% if student.educationlevel.name is defined %}
+                    <div>
+                      <span class="heading">{{ student.educationlevel.name}}</span>
+                      <span class="description">Education level</span>
+                    </div>
+                    {% else %}
+                    <div>
+                      <span class="heading">-</span>
+                      <span class="description">Education level</span>
+                    </div>
+                    {% endif %}
+                    
+                    {% if student.teacher.lastname is defined %}
+                    <div>
+                    
+                      <span class="heading">{{ student.teacher.lastname }}</span>
+                       <span class="description">Teacher</span>
+                       </div>
+                    {% else %}
+                    <div>
+                    <span class="heading">-</span>
+                      <span class="description">Teacher</span>
+                    </div>
+                    {% endif %}
+                    
+                    <div>
+                      <span class="heading">{{ age }}</span>
+                      <span class="description">Age</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <h3>
+                  {{ student.firstname}} {{ student.lastname}}<span class="font-weight-light">
+                 {% for age in age %}
+                  </span>
+                 {% endfor %}
+                </h3>
+                <div class="h5 font-weight-300"><label>Adress : </label>
+                  <i class="ni location_pin mr-2"></i>{{ user.adress }}
+                </div>
+               
+                <div><label>School : </label>
+                  <i class="ni education_hat mr-2"></i>{{ student.school }}
+                </div>
+                <hr class="my-4" />
+          {% if app.user.status=="Student" or app.user.status=="Admin"%}     
+
+    <a href="" class="btn btn-outline-dark float-left">edit</a>
+
+   
+{% endif %}
+{% if app.user.status=="Admin"%} 
+ {{ include('user/_delete_form.html.twig') }}
+{% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+    
+
+
+ <div class="col-xl-8 order-xl-1">
+ 
+          <div class="card bg-secondary shadow">
+          
+            <div class="card-header bg-white border-0">
+            <span class="h3 font-weight-bold mb-0"> <a href="{{path('pay',{'id': student.id})}}" class=" float-right"><i class="ni ni-money-coins text-green"></i> Pay</a></span>
+              <div class="row align-items-center">
+                <div class="col-8">
+                  <h3 class="mb-0">My account</h3>
+                  
+                </div>
+               
+              </div>
+              
+            </div>
+
+            <div class="card-body">
+              <form>
+               {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('delete') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('update') %}
+           
+          
+            <div class="alert alert-warning" role="alert">
+                {{ message }}
+                </div>   
+                {% endfor %} 
+              
+                <h6 class="heading-small text-muted mb-4 ">User information</h6>
+                
+            <button id="toggle" class="btn btn-outline-secondary btn-block" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+  <i class="ni ni-ui-04 text-info"></i>  Show/Hide info
+  </button>
+
+  
+                <div  class="pl-lg-4 ">
+                  <div class="collapse" id="collapseExample">
+                  <div  class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username">First name</label>
+                        <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value=" {{ student.firstname}}" disabled>
+                       
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Last name</label>
+                     <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value=" {{ student.lastname}}" disabled>   
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-first-name">Email</label>
+                    <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value=" {{ user.email}}" disabled>   
+                      </div>
+                    </div>
+                    {% if student.teacher.lastname is defined %}
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-last-name">Teacher's Last name</label>
+                     <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value=" {{ student.teacher.lastname }}" disabled>  
+                      </div>
+                    </div>
+                    {% endif %}
+                  </div>
+                </div>
+               
+</div>
+</div>
+                <hr class="my-4" />
+                <!-- Address -->
+                <h6 class="heading-small text-muted mb-4">Contact information</h6>
+<button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample">
+ <i class="ni ni-ui-04 text-info"></i>   Show/Hide info
+  </button>
+  
+  
+
+                <div class="pl-lg-4">
+                <div class="collapse" id="collapseExample2">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-address">Address</label>
+                    <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value=" {{ user.adress}}" disabled>    
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-city">City</label>
+                    <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="{% if user.city.name is defined %}{% if user.city.name!= null %} {{ user.city.name }}{% else %} No city {% endif %}{% endif %}" disabled>    
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-country">Postal code</label>
+                     <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value=" {{ user.zipcode }}}" disabled>   
+                      </div>
+                    </div>
+                  </div>
+                </div>
+ </div>
+                
+
+
+                <hr class="my-4" />
+<button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#collapseExample3" aria-expanded="false" aria-controls="collapseExample">
+ <i class="ni ni-ui-04 text-info"></i>   Show/Hide info
+  </button>
+                <h5 class="heading-small text-muted mb-4">Parents information</h5>
+                 
+                
+                <div class="pl-lg-4">
+                <div class="collapse" id="collapseExample3">
+                <h6 class="heading-small text-muted mb-4">Father's information</h6>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username">Father's name</label>
+                    <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value=" {{ student.firstparentname }}" disabled>    
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Father's email</label>
+                    <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value=" {{ student.fristparentemail }}" disabled>   
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-first-name">Father's job</label>
+                     <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value=" {{ student.firstparentjob }}"disabled>   
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-last-name">Father's number</label>
+                    <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value=" {{ student.firstparentnumber }}" disabled>    
+                      </div>
+                    </div>
+                  </div>
+                
+
+
+                  <div class="pl-lg-4">
+                  <h6 class="heading-small text-muted mb-4">Mother's information</h6>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username">Mother's name</label>
+                    <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value=" {{ student.secondparentname }}" disabled>    
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Mother's email</label>
+                    <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value=" {{ student.secondparentemail }}" disabled>    
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-first-name">Mother's job</label>
+                    <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value=" {{ student.secondparentjob }}" disabled>     
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-last-name">Mother's number</label>
+                       <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value=" {{ student.secondparentnumbre }}" disabled> 
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Description -->
+                <h6 class="heading-small text-muted mb-4">About me</h6>
+                <div class="pl-lg-4">
+                  <div class="form-group">
+                    <label>About Me</label>
+                   <textarea rows="4" class="form-control form-control-alternative"disabled  >{{ student.comments }}</textarea>
+                  </div>
+                </div>
+                </div>
+              </form>
+              </div>
+
+                 <hr class="my-4" />
+
+ {% if app.user.status=="Student" %}
+ <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#collapseExample4" aria-expanded="false" aria-controls="collapseExample">
+ <i class="ni ni-ui-04 text-info"></i>   Show/Hide info
+  </button>
+
+ <h5 class="heading-small text-muted mb-4">My Application</h5>
+                 <div class="collapse" id="collapseExample4">
+       
+              {{ form_start(form2)}}  
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username">Test File</label>
+                 
+                         {{ form_widget(form2.testFile ,{'type':'file'}) }}
+                        
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Letter of recommendation</label>
+                         {{ form_widget(form2.letterOfRecommendationFile) }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-first-name">Questionnaire</label>
+                        
+                         {{ form_widget(form2.surveyFile) }}
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-last-name">Bank Statement</label>
+                        
+                         {{ form_widget(form2.bankStatementFile) }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4" />
+                <!-- Address -->
+                <h6 class="heading-small text-muted mb-4">Transcripts</h6>
+                
+<div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username">First year transcription</label>
+                         {{ form_widget(form2.transcriptFirstFile) }}
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Second year transcription</label>
+                         {{ form_widget(form2.transcriptSecondFile) }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-first-name">Third year transcription</label>
+                        
+                         {{ form_widget(form2.transcriptThirdFile) }}
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-last-name">Bac transcription</label>
+                        
+                         {{ form_widget(form2.transcriptBacFile) }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <hr class="my-4" />
+                <!-- Description -->
+                {% if candidature.isSubmited == false %}
+    <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+    {% if candidature.allFieldsFull %}
+       <input type="submit" name="submitCandiature" class="btn btn-success" value="Submit candiature" />
+       {{ form_widget(form.submitCandiature,{'class':'btn btn-success'}) }}
+    {% endif %}
+    {% endif %}
+             
+           
+    {{ form_end(form2) }}
+
+
+  {% else %}
+  
+  <button class="btn btn-outline-secondary" type="button" data-toggle="collapse" data-target="#collapseExample6" aria-expanded="false" aria-controls="collapseExample">
+ <i class="ni ni-ui-04 text-info"></i>   Show/Hide info
+  </button>
+
+ <h5 class="heading-small text-muted mb-4">Application</h5>
+                 <div class="collapse" id="collapseExample6">
+              {% for candidature in candidatures %}   
+              <form>
+                
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username">Test File
+                 
+                     {% if candidature.test is defined  %}
+                 {% if candidature.test!= null  %}
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+  <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+  <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+</svg>
+
+
+                 {% else %}
+                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+  <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+</svg>
+
+                 {% endif %} 
+                 {% endif %}                
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Letter of recommendation
+                         {% if candidature.letterOfRecommendation is defined  %}
+                 {% if candidature.letterOfRecommendation!= null  %}
+                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+  <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+  <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+</svg>
+
+
+                 {% else %}
+                   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+  <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+</svg>
+
+                 {% endif %} 
+                 {% endif %} 
+                 </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-first-name">Questionnaire
+                        
+                         {% if candidature.survey is defined  %}
+                 {% if candidature.survey!= null  %}
+                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+  <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+  <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+</svg>
+
+
+                 {% else %}
+                   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+  <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+</svg>
+
+                 {% endif %} 
+                 {% endif %} 
+                 </label>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-last-name">Bank Statement
+                        
+                         {% if candidature.bankStatement is defined  %}
+                 {% if candidature.bankStatement!= null  %}
+                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+  <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+  <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+</svg>
+
+                 {% else %}
+                   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+  <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+</svg>
+
+                 {% endif %} 
+                 {% endif %} 
+                 </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4" />
+                <!-- Address -->
+                <h6 class="heading-small text-muted mb-4">Transcripts</h6>
+                
+<div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username">First year transcription
+                         {% if candidature.transcriptFirst is defined  %}
+                 {% if candidature.transcriptFirst!= null  %}
+                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+  <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+  <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+</svg>
+
+
+                 {% else %}
+                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+  <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+</svg>
+
+                 {% endif %} 
+                 {% endif %} 
+                 </label>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Second year transcription
+                         {% if candidature.transcriptSecond is defined  %}
+                 {% if candidature.transcriptSecond!= null  %}
+                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+  <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+  <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+</svg>
+
+
+                 {% else %}
+                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+  <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+</svg>
+
+                 {% endif %} 
+                 {% endif %}
+                 </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-first-name">Third year transcription
+                        
+                         {% if candidature.transcriptThird is defined  %}
+                 {% if candidature.transcriptThird!= null  %}
+                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+  <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+  <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+</svg>
+
+
+                 {% else %}
+                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+  <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+</svg>
+
+                 {% endif %} 
+                 {% endif %} 
+                 </label>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-last-name">Bac transcription
+                        
+                          {% if candidature.transcriptBac   is defined  %}
+                 {% if candidature.transcriptBac  != null  %}
+                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+  <circle class="path circle" fill="none" stroke="#73AF55" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+  <polyline class="path check" fill="none" stroke="#73AF55" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 "/>
+</svg>
+
+
+                 {% else %}
+                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+  <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+</svg>
+
+                 {% endif %} 
+                 {% endif %} 
+             </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <hr class="my-4" />
+                <!-- Description -->
+               
+              </form>
+            </div>
+            {% else %}
+          <form>
+                
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username">Test File</label>
+                 
+                      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+  <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+</svg>
+
+                        
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Letter of recommendation</label>
+                          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+  <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+</svg>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-first-name">Questionnaire</label>
+                        
+                          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+  <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+</svg>
+
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-last-name">Bank Statement</label>
+                       <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+  <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+</svg>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4" />
+                <!-- Address -->
+                <h6 class="heading-small text-muted mb-4">Transcripts</h6>
+                
+<div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username">First year transcription</label>
+                       <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+  <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+</svg>
+
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Second year transcription</label>
+                  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+  <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+</svg>
+
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-first-name">Third year transcription</label>
+                        
+                   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+  <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+</svg>
+
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-last-name">Bac transcription</label>
+                        
+               
+                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2">
+  <circle class="path circle" fill="none" stroke="#D06079" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="34.4" y1="37.9" x2="95.8" y2="92.3"/>
+  <line class="path line" fill="none" stroke="#D06079" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="95.8" y1="38" x2="34.4" y2="92.2"/>
+</svg>
+
+              
+             
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <hr class="my-4" />
+                <!-- Description -->
+               
+              </form>
+            </div>
+                  
+{% endfor %}
+</div>
+  {% endif %}
+  {% if app.user.status=="Student" or app.user.status=="Admin"%}
+              
+   <a href="{{ path('student_edit', {'id': student.id}) }}"class="btn btn-outline-dark float-left">edit</a>
+
+    
+
+ {% endif %}#}
+ {% if  app.user.status=="Admin"%}
+ {{ include('student/_delete_form.html.twig') }}
+ {% endif %}
+           
+
+ <a href="{{ path('student_index') }}"class="btn btn-outline-default float-left">back to list</a>
+
+</div>
+
+
+     <script>
+        function showModal(id) {
+            $("#"+id).modal();
+        }
+        document.getElementById("photoFileInput").onchange = function() {
+            document.getElementById("photoForm").submit();
+        };
+    </script>
+<!-- Modal -->
+<div id="detailModal{{ student.id }}" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    {#<h4 class="modal-tit"> My photo </h4> #}
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="col-modal">
+                                                    <div class="row">
+                                                        <img src="{{ asset('uploads/user/photos/'~student.user.photo) }}"  width="500" height="500" />
+                                                    </div>
+                                                    </div>
+                                                  
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+<script>
+function bigImg(x) {
+  x.style.height = "150px";
+  x.style.width = "150px";
+}
+
+function normalImg(x) {
+  x.style.height = "80px";
+  x.style.width = "80px";
+}
+$('#toggle').click(function() {
+  $('.circle-loader').toggleClass('load-complete');
+  $('.checkmark').toggle();
+});
+</script>
+
+<style>
+svg {
+  width: 30px;
+
+  
+}
+
+.path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 0;
+  &.circle {
+    -webkit-animation: dash .9s ease-in-out;
+    animation: dash .9s ease-in-out;
+  }
+  &.line {
+    stroke-dashoffset: 1000;
+    -webkit-animation: dash .9s .35s ease-in-out forwards;
+    animation: dash .9s .35s ease-in-out forwards;
+  }
+  &.check {
+    stroke-dashoffset: -100;
+    -webkit-animation: dash-check .9s .35s ease-in-out forwards;
+    animation: dash-check .9s .35s ease-in-out forwards;
+  }
+}
+
+p {
+  text-align: center;
+  margin: 20px 0 60px;
+  font-size: 1.25em;
+  &.success {
+    color: #73AF55;
+  }
+  &.error {
+    color: #D06079;
+  }
+}
+
+
+@-webkit-keyframes dash {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dashoffset: 1000;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@-webkit-keyframes dash-check {
+  0% {
+    stroke-dashoffset: -100;
+  }
+  100% {
+    stroke-dashoffset: 900;
+  }
+}
+
+@keyframes dash-check {
+  0% {
+    stroke-dashoffset: -100;
+  }
+  100% {
+    stroke-dashoffset: 900;
+  }
+}
+</style>
+
+{% endblock %}

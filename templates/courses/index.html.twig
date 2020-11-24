@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Courses index{% endblock %}
+
+{% block body %}
+<section name='Title' style='margin-top:140px;'>
+<div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';">  Courses
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+
+
+
+{% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('delete') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('update') %}
+            <div class="alert alert-warning" role="alert">
+                {{ message }}
+                </div>   
+                {% endfor %}  
+   <div style="margin-right:50px;margin-left:50px;margin-top:50px;">
+        <table style="border:none;" id="example"  class="table align-items-center table-flush  display dataTable">
+        <thead>
+            <tr>
+                
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for course in courses %}
+         
+            <tr>
+                
+                <td>{{ course.name }}</td>
+                <td>
+               <td class="actions">
+
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-bottom: 0px;margin-top: 0px">Actions</button>
+
+                                        <div class="dropdown-menu ">
+                                            <a class="dropdown-item" href="{{ path('courses_show', { 'id': course.id }) }}">show</a>
+                                          
+                                            <a class="dropdown-item" href="#" onclick="showModal('myModal{{ course.id }}')" >Delete</a>
+                                            <a class="dropdown-item" href="{{ path('courses_edit', { 'id': course.id }) }}">Edit</a>
+                                            {#<a  class="dropdown-item" href="{{ path('student_change_status',{ 'id':student.id}) }}">Changer status</a>#}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+            <!-- Modal -->
+                            <div id="myModal{{ course.id }}" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Delete confirmation</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Do you really want to delete this course !</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+                                            <a href="{{ path('courses_delete', { 'id': course.id }) }}" class="btn btn-danger btn-md">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+            
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('courses_new') }}" class="btn btn-success">Create new</a>
+     <script>
+        function showModal(id) {
+            $("#"+id).modal();
+        }
+    </script>
+     <script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+  <script>
+$(document).ready( function () {
+    $("#exemple").DataTable();
+} );
+</script>
+<script type="text/javascript">
+				 $(document).ready(function() {
+    $('#example').DataTable( {
+        "order": [[ 3, "desc" ]]
+    } );
+} );
+	</script>
+{% endblock %}

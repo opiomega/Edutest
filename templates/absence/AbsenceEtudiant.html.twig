@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+{% block stylesheet %}
+
+{% endblock %}
+{% block title %}Attendance{% endblock %}
+
+{% block body %}
+    <section name='Title' style='margin-top:140px;'>
+        <div class="container">
+            <div class="row justify-content-center">
+             <h1 class="text-center"style="color:#B2273D;">   Attendance Management
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+                </div>
+            </div>
+            </div>
+        </div>
+      </section>
+<section name="groups" style="margin-top:50px;margin-bottom:50px;">
+        <div class="container">
+            <div class="row">
+         
+  
+{% if app.user.status == "Admin" %}<a href="{{path('list_absence')}}" class='nav-link text-white float-right'><i class="tim-icons  icon-tv-2 text-blue"></i>Check all</a>{% endif %}
+  
+
+    <div class="row">
+        <div class="col-md-12">
+            {% for type, flashMessages in app.session.flashbag.all() %}
+                {% for flashMessage in flashMessages %}
+                    <div class="alert alert-{{ type }}">
+                        {{ flashMessage|raw }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+
+   
+
+    {% for classe in classes %}
+        <div class="bg-gris" style="margin-right:15px;margin-bottom:10px;height:170px;width:350px;">
+                  <div class="col">
+                    <div class=""><h4 class="text-bluee">{{ classe.name }}</h4></div>
+                    <div class=""style="padding-top:10px;"><h5>Students' number : {{ stat[classe.id] }}</h5></div>
+                    <div class="float-right" style="width:125px;background-image:url('{{asset('image/icones/20.png')}}');background-size:cover;">
+                       <a href="{{ path('etudiant_seance',{'id':classe.id}) }}"> <p class="text-white float-right"style="padding-right: 12px;font-size:14px;padding-top:10px;">sessions list</p></a>
+                    </div>
+                  </div>
+                </div>
+            <!--/.Card-->
+            
+    {% endfor %}
+
+    </div>
+
+    </div>
+    </div>
+{% endblock body %}

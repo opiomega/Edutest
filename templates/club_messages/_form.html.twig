@@ -1,0 +1,6 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    {% if app.user.id == club_message.user.id or app.user.status != "Student" %}
+        <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+    {% endif %}
+{{ form_end(form) }}

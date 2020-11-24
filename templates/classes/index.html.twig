@@ -1,0 +1,206 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}classes index{% endblock %}
+
+{% block body %}
+<section name='Title' style='margin-top:140px;'>
+<div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';">  CLasses management
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container" style="margin-top:50px;">
+      {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('delete') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('update') %}
+            <div class="alert alert-warning" role="alert">
+                {{ message }}
+                </div>   
+                {% endfor %}  
+  <table style="border:none;" id="example"  class="table align-items-center table-flush  display dataTable">
+            <thead >
+                <th style="border-bottom:none;"><h5 class="text-bluee">Name</h5></th>
+                <th style="border-bottom:none;"><h5 class="text-bluee">Action</h5></th>
+            </thead>
+            <tbody style="border:none;">
+              {% for class in classes %}
+             <tr class="bg-gris"height="50px"  onmouseover="show({{ class.id }})"onmouseout="hide({{ class.id }})" class="bg-gris">
+                <!--name-->
+                <td id="td{{ class.id }}" class="bg-gris">{{ class.name }}</td>
+                <!--action-->
+                <td class="bg-gris">
+                   {% if app.user.status=="Admin" or app.user.status=="Teacher" %}
+                    <div id="act{{ class.id }}" style="display:none;">
+                       <a {#type="button" data-toggle="modal" data-target="#exampleModal{{ class.id }}"#}href="{{path('classes_edit',{'id':class.id})}}"   class="btn btn-warning btn-simple btn-icon btn-sm">
+                         Edit
+                      </a >
+                      <a  data-toggle="modal" data-target="#modal-notification{{ class.id }}" href="#"  rel="tooltip" class="btn btn-danger btn-simple btn-icon btn-sm">
+                        Delete
+                       </a>
+                    </div>
+                   {% endif %}
+                    
+                </td>
+             </tr>
+                  <!--js function show and hide-->
+                        <script>
+                                function show(a){
+                                    document.getElementById('td'+a).style.backgroundColor='yellow';
+                                    document.getElementById('act'+a).style='display:inline;';
+                                }
+                                function hide(a){
+                                    document.getElementById('td'+a).style='';
+                                    document.getElementById('act'+a).style='display:none';
+                                }
+                            </script>
+                              <!-- Modal -->
+<div class="modal fade modal-bg" id="exampleModal{{ class.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog " role="document">
+   <form action="{{path('class_back_edit',{'id':class.id })}}" method="post">
+    <div class="modal-content modal-bg">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Class</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <label class="text-bluee">Name</label>
+            <input  name="className" class="form-control text-dark" type="text" value="{{class.name}}"/>
+            {#<input name="description" class="form-control text-dark" type="text" value="{{category.description}}"/>#}
+            <label class="text-bluee">Category</label>
+             <select class="form-control text-dark" name="classCategory">
+                {% for category in categories %}
+                    {% if category.id == class.category.id %}
+                        <option value="{{ category.id }}" selected="selected">{{ category.name }}</option>
+                    {% else %}
+                        <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         <button  style="max-height:40px;max-width:80px;"  class="redback text-white over">{{ button_label|default('Save') }}</button>
+            
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+<!--Modal delete -->
+
+    <div class="modal fade modal-bg" id="modal-notification{{class.id }}" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
+    <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+        <div class="modal-content modal-bg">
+        	
+            <div class="modal-header">
+                <h6 class="modal-title text-rede" id="modal-title-notification">Delete Confirmation</h6>
+                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+            	
+                <div class="py-3 text-center">
+                    <i class="ni ni-bell-55 ni-3x"></i>
+                                             <h4 class="heading mt-4">Do you really want to delete <span class="text-bluee">{{class.name}}</span> !</h4>
+                                        </div>
+                                        <div class="modal-footer">
+                                         <form method="post" action="{{ path('classes_delete', {'id':class.id }) }}" >
+                                            <button type="button" class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ class.id ) }}">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+           
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+     {#<button onclick="showModal('detailModal')" class="redback over text-white float-right">Create new</button>#}
+   <div style="margin-top:20px;">
+     <button  type="button" onclick="showModal('detailModal')" class="redback over text-white float-right" style="border:none;">Add new</button>
+    </div>
+     <div id="detailModal" class="modal fade" role="dialog" >
+                                        <div class="modal-dialog" >
+
+                                            <!-- Modal content-->
+                                            <div class="modal-content modal-bg">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Add new class</h4>
+                                                </div>
+                                                 {{ form_start(form)}}
+                                                <div class="modal-body">
+                                                    <div class="col-modal">
+                                                    <div class="row">
+                                                        <div class="col-8">
+                                                        
+                                                         <label class="text-bluee">Name</label>
+                                                       {{ form_widget(form.name) }}
+                                                       <label class="text-bluee">Category</label>
+                                                       {{ form_widget(form.category) }}
+
+                                                       
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                         
+                                                </div>
+                                                <div class="modal-footer">
+                                                   <button style="max-height:40px;max-width:80px;" class="btn text-white btn-sm redback">Save</button>
+                                                    <button type="button" class="btn default" data-dismiss="modal">Close</button>
+                                                   {{ form_end(form)}}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+     <script>
+        function showModal(id) {
+            $("#"+id).modal();
+        }
+    </script>
+    </div>
+</div>
+     <script>
+  $(document).ready(function() {
+    $('#example').DataTable();
+} );
+    </script>
+</section>
+<script>
+$(document).ready(function(){
+    document.getElementById('example_info').style="color:#B2273D";
+})
+</script>
+
+{% endblock %}

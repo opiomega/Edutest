@@ -1,0 +1,226 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Teacher index{% endblock %}
+
+{% block body %}
+<section name='Title' style='margin-top:140px;'>
+<div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';">   Teachers
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+<div class="container-fluid mt--3">
+      <!-- Table -->
+      <div class="row">
+        <div class="col">
+         
+             
+            </br>
+            {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('delete') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('update') %}
+           
+          
+            <div class="alert alert-warning" role="alert">
+                {{ message }}
+                </div>   
+                {% endfor %} 
+                              
+<div style="margin-right:50px;margin-left:50px;margin-top:50px;">
+  <table style="border:none;" id="example"  class="table align-items-center table-flush  display dataTable">
+            <thead >
+                <th style="border-bottom:none;"><h5 class="text-bluee">Teacher's name</h5></th>
+                <th style="border-bottom:none;"><h5 class="text-bluee">Email</h5></th>
+                <th  style="border-bottom:none;"><h5 class="text-bluee">Status</h5></th>
+                <th style="border-bottom:none;"><h5 class="text-bluee">last login</h5></th>
+                <th style="border-bottom:none;"><h5 class="text-bluee">Action</h5></th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+        {% for teacher in teachers %}
+            <tr class="bg-gris"onmouseover="show({{ teacher.id }})"onmouseout="hide({{ teacher.id }})">
+              <td id="td{{teacher.id}}" >
+                  <div class="media align-items-center">
+                    <a href="{{path('teacher_show',{'id':teacher.id})}}" class=" img-fluid rounded-circle shadow-lg mr-3">
+                      {% if teacher.user.photo == null %}
+                                <img src="{{ asset('img/elprof.jpg') }}" class="rounded-circle"  />
+                            {% else %}
+                                <img src="{{ asset('/uploads/user/photos/'~teacher.user.photo) }}" width="50px" height="50px" />
+                            {% endif %}
+                    </a>
+                        <div class="media-body">
+                         {{ teacher.firstname }} {{ teacher.lastname }}
+                         </div>
+                      </div>
+                </td>
+
+                <td><span class="mb-0 text-sm">{{ teacher.user.email }}</span></td>
+
+                    <!--Status-->
+                <td class="bg-gris">
+                  <div class="row">
+                    <div class="col-5">
+                       {% if teacher.user.active==1%}
+                     <h6 id="hable" style="color:green;" value="Enable">Enable<h6>
+                     {% else %}
+                     <h6 id="hable" style="color:red;" value="Enable">Disable<h6>
+                     {% endif %}
+                    </div>
+                    <div class="col">
+                      <button class="drop" type="dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" style=""></button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a href="{{ path('teacher_change_status',{ 'id':teacher.user.id}) }}) }}"  class="dropdown-item">
+                            {% if teacher.user.active==1 %}
+                                {% set buttonText = 'Disable' %}
+                            {% else %}
+                                {% set buttonText = 'Enable' %}
+                            {% endif %}
+                            {{buttonText}}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                 <td>
+                 {% if teacher.user.lastlogin is defined %}
+                 {% if teacher.user.lastlogin!= null %}
+              <span class="mb-0 text-dark text-sm"> {{ teacher.user.lastlogin|date('y-m-d H:m:s') }}</span>
+                 {% else %}
+                 -didnt connect-
+                 {% endif %}
+                  {% endif %}
+               <!--action-->
+                <td class="bg-gris">
+                     <button id="act{{teacher.id}}" style="display:none; " class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-bottom: 0px;margin-top: 0px">Actions</button>
+                                        <div class="dropdown-menu ">
+                                            <a class="dropdown-item" href="{{ path('teacher_show', { 'id': teacher.id }) }}">
+                                    
+                                            show</a>
+                                       
+                                         <a class="dropdown-item" href="#" onclick="showModal('myModal{{ teacher.id }}')" >
+                                        
+                                         Delete</a>
+
+                      
+                </td>
+                                 
+
+
+        {#} <td class="actions">
+         <div class="btn-group">
+                                        <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-bottom: 0px;margin-top: 0px">Actions</button>
+                                        <div class="dropdown-menu ">
+                                            <a class="dropdown-item" href="{{ path('teacher_show', { 'id': teacher.id }) }}">
+                                            <i class="tim-icons icon-tv-2"></i>
+                                            show</a>
+                                         {% if app.user.status=="Admin" or app.user.status=="Teacher" %}
+                                         <a class="dropdown-item" href="#" onclick="showModal('myModal{{ teacher.id }}')" >
+                                         <i class="tim-icons text-red icon-simple-remove"></i>
+                                         Delete</a>
+                                           {% if teacher.user.active=='1' %}
+                                                                {% set buttonText = 'Disable' %}
+                                                            {% else %}
+                                                                {% set buttonText = 'Enable' %}
+                                                            {% endif %}
+                                            <a  class="dropdown-item" href="{{ path('teacher_change_status',{ 'id':teacher.user.id}) }}"> {% if buttonText == 'Disable' %}
+                                            <i class="tim-icons text-red icon-button-power"></i>{{buttonText}}
+                                            {% else %}
+                                            <i class="tim-icons text-green icon-check-2"></i>
+                                            {{buttonText}} {% endif %}</a>{% endif %}
+                                        </div>
+                                    </div>
+
+                                </td>#}
+                            </tr>
+                              <!-- Modal -->
+                            <div id="myModal{{ teacher.id }}" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Delete confirmation</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Do you really want to delete this teacher ?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                        <form method="post" action="{{ path('teacher_delete', {'id': teacher.id}) }}">
+                                            <button type="button" class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+                                             <input type="hidden" name="_method" value="DELETE">
+                                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ teacher.id) }}">
+                                             <button type="submit" class="btn btn-danger btn-md">Delete</button>
+                                             </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <script>
+                                function show(a){
+                                    document.getElementById('td'+a).style.backgroundColor='yellow';
+                                    document.getElementById('act'+a).style='display:inline;background:url({{ asset('image/icones/20.png') }}); background-size:cover; border:none; padding:15px; color:#FFFFFF;';
+                                }
+                                function hide(a){
+                                    document.getElementById('td'+a).style='';
+                                    document.getElementById('act'+a).style='display:none';
+                                }
+                            </script>
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+          
+        {% endfor %}
+
+        </tbody>
+    </table>
+<script>
+        function showModal(id) {
+            $("#"+id).modal();
+        }
+    </script>
+    <script>
+  $(function() {
+    $('#table').bootstrapTable()
+  })
+</script>
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+
+  <script>
+$(document).ready( function () {
+    $("#exemple").DataTable();
+} );
+</script>
+<script type="text/javascript">
+				 $(document).ready(function() {
+    $('#example').DataTable( {
+        "order": [[ 3, "desc" ]]
+    } );
+} );
+	</script>
+{% endblock %}

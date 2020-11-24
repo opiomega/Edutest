@@ -1,0 +1,192 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hear about us index{% endblock %}
+
+{% block body %}
+<section name='Title' style='margin-top:140px;'>
+<div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';">  Hear about us
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+
+      <div class="container" style="margin-bottom:60px;">
+      {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('delete') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('update') %}
+            <div class="alert alert-warning" role="alert">
+                {{ message }}
+                </div>   
+                {% endfor %}  
+    <table style="border:none;" id="example"  class="table align-items-center table-flush  display dataTable">
+            <thead >
+                <th style="border-bottom:none;"><h5 class="text-bluee">Name</h5></th>
+                
+                <th style="border-bottom:none;"><h5 class="text-bluee">Action</h5></th>
+            </thead>
+            <tbody style="border:none;">
+              {% for hearaboutus in hearaboutuses %}
+             <tr class="bg-gris"height="50px"  onmouseover="show({{ hearaboutus.id }})"onmouseout="hide({{ hearaboutus.id }})" class="bg-gris">
+                <!--name-->
+               <td id="td{{ hearaboutus.id }}" class="bg-gris">{{ hearaboutus.name }}</td>
+                <!--action-->
+                <td class="bg-gris">
+                    <div id="act{{ hearaboutus.id }}" style="display:none;">
+                     <button type="button" data-toggle="modal" data-target="#exampleModal{{ hearaboutus.id }}"   class="btn btn-warning btn-simple btn-icon btn-sm">
+                        Edit
+                </button >
+                <a  data-toggle="modal" data-target="#modal-notification{{ hearaboutus.id }}" href="#"  rel="tooltip" class="btn btn-danger btn-simple btn-icon btn-sm">
+                        Delete
+                </a>
+                </div>
+                </td>
+             </tr>
+      <!--js function show and hide-->
+                        <script>
+                                function show(a){
+                                    document.getElementById('td'+a).style.backgroundColor='yellow';
+                                    document.getElementById('act'+a).style='display:inline;';
+                                }
+                                function hide(a){
+                                    document.getElementById('td'+a).style='';
+                                    document.getElementById('act'+a).style='display:none';
+                                }
+                            </script>
+ 
+    <!-- Modal -->
+<div class="modal fade modal-bg" id="exampleModal{{ hearaboutus.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog " role="document">
+   <form action="{{ path('hearaboutus_edit', {'id': hearaboutus.id}) }}" method="post">
+    <div class="modal-content modal-bg">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit this way</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <label class="text-bluee">Name</label>
+            <input  name="name" class="form-control text-dark" type="text" value="{{hearaboutus.name}}"/>
+            {#<input name="description" class="form-control text-dark" type="text" value="{{category.description}}"/>#}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         <button  style="height: 48px;width: 135px;"  class="redback text-white over">{{ button_label|default('Save') }}</button>
+            
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+<!--Modal delete -->
+
+    <div class="modal fade modal-bg" id="modal-notification{{ hearaboutus.id }}" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
+    <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+        <div class="modal-content modal-bg">
+        	
+            <div class="modal-header">
+                <h6 class="modal-title" id="modal-title-notification">Delete Confirmation</h6>
+                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+            	
+                <div class="py-3 text-center">
+                    <i class="ni ni-bell-55 ni-3x"></i>
+                                             <h4 class="heading mt-4">Do you really want to delete <span class="text-bluee">{{hearaboutus.name}}</span> !</h4>
+                                        </div>
+                                        <div class="modal-footer">
+                                         <form method="post" action="{{ path('hearaboutus_delete', {'id':hearaboutus.id }) }}" >
+                                            <button type="button" class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+                                           
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ hearaboutus.id ) }}">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                 {#}   <a href="{{ path('hearaboutus_show', {'id': hearaboutus.id}) }}">show</a>
+                    <a class="btn btn-neutral btn-icon btn-round" href="{{ path('hearaboutus_edit', {'id': hearaboutus.id}) }}">
+                     <i class="tim-icons text-yellow icon-settings-gear-63"></i></a>edit
+                </td>#}
+           
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div style="margin-top:20px;">
+     <button  type="button" onclick="showModal('detailModal')" class="redback over text-white float-right" style="border:none;">Add new</button>
+    </div>
+     <div id="detailModal" class="modal fade modal-bg" role="dialog" >
+                                        <div class="modal-dialog" >
+
+                                            <!-- Modal content-->
+                                            <div class="modal-content modal-bg">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Add new way</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="col-modal">
+                                                    {{ form_start(form)}}
+                                                    <div class="row">
+                                                        <div class="col-8">
+                                                            <label class="text-bluee">Name</label>
+                                                        {{ form_widget(form.name) }}
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                         
+                                                </div>
+                                                <div class="modal-footer">
+                                                   <button style="max-height:40px;max-width:80px;" class="btn text-white btn-sm redback">Save</button>
+                                                    <button type="button" class="btn default" data-dismiss="modal">Close</button>
+                                                   {{ form_end(form)}}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+<script>
+        function showModal(id) {
+            $("#"+id).modal();
+        }
+    </script>
+</div>
+     <script>
+  $(document).ready(function() {
+    $('#example').DataTable();
+} );
+    </script>
+</section>
+<script>
+$(document).ready(function(){
+    document.getElementById('example_info').style="color:#B2273D";
+})
+</script>
+
+{% endblock %}

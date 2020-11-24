@@ -1,0 +1,1454 @@
+{% extends 'base.html.twig' %}
+{% block stylesheet %}
+
+{% endblock %}
+{% block title %}Add application files{% endblock %}
+
+{% block body %}
+{#</br></br>
+
+<section class="section section-lg">
+      <img src="{{asset('assetss/img/path4.png')}}" class="path">
+     
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+            <h1 class="text-center">Application</h1>
+            <div class="row row-grid justify-content-center">
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+   <div class="container-fluid mt--7">
+
+      <div class="section section-tabs">
+        <div class="container">
+          
+          <div class="row">
+            <div class="col-md-10 ml-auto col-xl-6 mr-auto">
+              <div class="mb-3">
+                <large class="text-uppercase text-white font-weight-bold"><i class="tim-icons icon-bulb-63 text-yellow"></i>Tips!!</large>
+              </div>
+              <!-- Nav tabs -->
+              <div class="card">
+                <div class="card-header">
+                  <ul class="nav nav-tabs nav-tabs-primary" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active show" data-toggle="tab" href="#link1" role="tablist">
+                        <i class="tim-icons icon-email-85"></i> L.O.Recommendation
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" data-toggle="tab" href="#link2" role="tablist">
+                        <i class="tim-icons icon-paper"></i> Test
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" data-toggle="tab" href="#link3" role="tablist">
+                        <i class="tim-icons icon-credit-card"></i> Bank Stat.
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-body">
+                  <!-- Tab panes -->
+                  <div class="tab-content tab-space">
+                    <div class="tab-pane active show" id="link1">
+                      <p>Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits.
+                        <br>
+                        <br> Dramatically visualize customer directed convergence without revolutionary ROI.</p>
+                    </div>
+                    <div class="tab-pane" id="link2">
+                      <p>Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas.
+                        <br>
+                        <br>Dynamically innovate resource-leveling customer service for state of the art customer service.</p>
+                    </div>
+                    <div class="tab-pane" id="link3">
+                      <p>Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas.
+                        <br>
+                        <br> Dramatically maintain clicks-and-mortar solutions without functional solutions.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+            <div class="col-md-10 ml-auto col-xl-6 mr-auto">
+              <div class="mb-3">
+                <small class="text-uppercase text-white font-weight-bold"><i class="tim-icons icon-cloud-upload-94 text-info"></i> Upload files</small>
+              </div>
+              <!-- Tabs with Background on Card -->
+              <div class="card" style="background-image: linear-gradient(to right top, #845ec2, #b45cb6, #d65fa5, #ed6993, #fa7a82, #ff8977, #ff9a6e, #ffac69, #ffbe66, #ffd166, #ffe469, #f9f871);">
+                <div class="card-header">
+                  
+                </div>
+                <div class="card-body">
+                  <!-- Tab panes -->
+
+                  
+ {{ form_start(form)}}
+
+                  <h3 class="mb-4">My application</h3>
+              
+            
+              
+                  <h6 class="heading-small text-white mb-4">User information</h6>
+               <div class="row">
+                <div class="col">
+                  <label class="form-control-label" for="input-username">Test File PDF</label>
+                  {{form_errors(form.testFile)}}
+                  {{ form_widget(form.testFile ,{'type':'file'}) }}
+                </div>
+                <div class="col">
+                <div style="float: right">
+              
+                            <a class="  text-dark" data-toggle="collapse" data-target="#filters" style="margin-bottom:16px;padding-top: 9px">
+                                <button type="button" class="btn btn-primary mr-2 btn-sm">Letter of recommendation</button>
+                            </a>
+                        </div>
+  <div  id="filters" class="collapse">
+                  <label class="form-control-label" for="input-email">Letter of recommendation English PDF</label>
+                  {{form_errors(form.letterOfRecommendationFile)}}
+                  {{ form_widget(form.letterOfRecommendationFile) }}
+                  <label class="form-control-label" for="input-email">Letter of recommendation Math PDF</label>
+                   {{form_errors(form.letterOfRecommendationMathFile)}}
+                  {{ form_widget(form.letterOfRecommendationMathFile) }}
+                </div>
+                </div>
+               </div>
+
+               <div class="row">
+                <div class="col">
+                 <label class="form-control-label" for="input-first-name">Questionnaire PDF</label>
+                 {{form_errors(form.surveyFile)}}
+                  {{ form_widget(form.surveyFile) }}
+                </div>
+                <div class="col">
+                <label class="form-control-label" for="input-last-name">Bank Statement PDF</label>
+                 {{form_errors(form.bankStatementFile)}}
+                 {{form_errors(form.bankstatmentFilepdf)}}
+                  {{ form_widget(form.bankStatementFile,{'id':'bancheckdoc'}) }}
+                  {{form_widget(form.bankstatmentFilepdf,{'id':'bankcheckpdf'})}}
+                 <div class="bootstrap-switch-container" style="width: 118px; margin-left: 0px;"><span class="bootstrap-switch-handle-on bootstrap-switch-primary" style="width: 50px;"></span><span class="bootstrap-switch-label" style="width: 30px;">&nbsp;</span><span class="bootstrap-switch-handle-off bootstrap-switch-default" style="width: 50px;"></span>
+                 <input id="bankcheck" type="checkbox" name="bankcheck"  >Translate(Word)</div>
+                </div>
+               </div>
+
+                <div class="row">
+                <div class="col"> 
+                 <label class="form-control-label" for="input-first-name">passport PDF</label>
+                 {{form_errors(form.passportFile)}}
+                 {{form_errors(form.passportFilepdf)}}
+                  {{ form_widget(form.passportFile,{'id':'passdoc'}) }}
+                   {{ form_widget(form.passportFilepdf,{'id':'passpdf'}) }}
+                    <div class="bootstrap-switch-container" style="width: 118px; margin-left: 0px;"><span class="bootstrap-switch-handle-on bootstrap-switch-primary" style="width: 50px;"></span><span class="bootstrap-switch-label" style="width: 30px;">&nbsp;</span><span class="bootstrap-switch-handle-off bootstrap-switch-default" style="width: 50px;"></span>
+                 <input id="passcheck" type="checkbox" name="bankcheck"  >Word document</div>
+                </div>
+                <div class="col">
+                <label class="form-control-label" for="input-last-name">Student ID (CIN)PDF</label>
+                {{form_errors(form.cinFile)}}
+                 {{form_errors(form.cinFilepdf)}}
+                  {{ form_widget(form.cinFile,{'id':'cindoc'}) }}
+                  {{ form_widget(form.cinFilepdf,{'id':'cinpdf'}) }}
+                   <div class="bootstrap-switch-container" style="width: 118px; margin-left: 0px;"><span class="bootstrap-switch-handle-on bootstrap-switch-primary" style="width: 50px;"></span><span class="bootstrap-switch-label" style="width: 30px;">&nbsp;</span><span class="bootstrap-switch-handle-off bootstrap-switch-default" style="width: 50px;"></span>
+                 <input id="cincheck" type="checkbox" name="bankcheck"  >Word document</div>
+                </div>
+               </div>
+
+               <h6 class="heading-small text-white mb-4">Transcripts</h6>
+               
+               <div class="row">
+                <div class="col">
+                <label class="form-control-label" for="input-username">First year transcription PDF</label>
+                {{form_errors(form.transcriptFirstFile)}}
+                 {{form_errors(form.transcriptfirstFilepdf)}}
+                  {{ form_widget(form.transcriptFirstFile,{'id':'transfirstcheckdoc'}) }}
+                  {{form_widget(form.transcriptfirstFilepdf,{'id':'transfirstcheckpdf'})}}
+                 <div class="bootstrap-switch-container" style="width: 118px; margin-left: 0px;"><span class="bootstrap-switch-handle-on bootstrap-switch-primary" style="width: 50px;"></span><span class="bootstrap-switch-label" style="width: 30px;">&nbsp;</span><span class="bootstrap-switch-handle-off bootstrap-switch-default" style="width: 50px;"></span>
+                 <input id="firstcheck" type="checkbox" name="bankcheck"  >Translate(Word)</div>
+                </div>
+                <div class="col">
+                <label class="form-control-label" for="input-email">Second year transcription PDF</label>
+                
+                 {{form_errors(form.transcriptSecondFile)}}
+                 {{form_errors(form.transcriptsecondFilepdf)}}
+                  {{ form_widget(form.transcriptSecondFile,{'id':'transsecondcheckdoc'}) }}
+                  {{form_widget(form.transcriptsecondFilepdf,{'id':'transsecondcheckpdf'})}}
+                 <div class="bootstrap-switch-container" style="width: 118px; margin-left: 0px;"><span class="bootstrap-switch-handle-on bootstrap-switch-primary" style="width: 50px;"></span><span class="bootstrap-switch-label" style="width: 30px;">&nbsp;</span><span class="bootstrap-switch-handle-off bootstrap-switch-default" style="width: 50px;"></span>
+                 <input id="secondcheck" type="checkbox" name="bankcheck"  >Translate(Word)</div>
+                </div>
+               </div>
+               <div class="row">
+                <div class="col">
+                <label class="form-control-label" for="input-first-name">Third year transcription PDF</label>
+                 {{form_errors(form.transcriptThirdFile)}}
+                 {{form_errors(form.transcriptthirdFilepdf)}}
+                  {{ form_widget(form.transcriptThirdFile,{'id':'transthirdcheckdoc'}) }}
+                  {{form_widget(form.transcriptthirdFilepdf,{'id':'transthirdcheckpdf'})}}
+                 <div class="bootstrap-switch-container" style="width: 118px; margin-left: 0px;"><span class="bootstrap-switch-handle-on bootstrap-switch-primary" style="width: 50px;"></span><span class="bootstrap-switch-label" style="width: 30px;">&nbsp;</span><span class="bootstrap-switch-handle-off bootstrap-switch-default" style="width: 50px;"></span>
+                 <input id="thirdcheck" type="checkbox" name="bankcheck"  >Translate(Word)</div>
+                </div>
+                <div class="col">
+                <label class="form-control-label" for="input-last-name">Bac transcription PDF</label>
+              {{form_errors(form.transcriptBacFile)}}
+                 {{form_errors(form.transcriptbacFilepdf)}}
+                  {{ form_widget(form.transcriptBacFile,{'id':'transbaccheckdoc'}) }}
+                  {{form_widget(form.transcriptbacFilepdf,{'id':'transbaccheckpdf'})}}
+                 <div class="bootstrap-switch-container" style="width: 118px; margin-left: 0px;"><span class="bootstrap-switch-handle-on bootstrap-switch-primary" style="width: 50px;"></span><span class="bootstrap-switch-label" style="width: 30px;">&nbsp;</span><span class="bootstrap-switch-handle-off bootstrap-switch-default" style="width: 50px;"></span>
+                 <input id="baccheck" type="checkbox" name="bankcheck"  >Translate</div> 
+                </div>
+               </div>
+                <h6 class="heading-small text-white mb-4">Universities Authentifcator</h6>
+             <div class="row">
+                <div class="col">
+                <label class="form-control-label" for="input-first-name">Username</label>
+                  {{ form_widget(form.username) }}
+                </div>
+                <div class="col">
+                <label class="form-control-label" for="input-last-name">Password</label>
+                  {{ form_widget(form.password, { 'attr': {'type': 'password'} ,'type':'password','id':'password'}) }}
+                   <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                </div>
+               </div>
+<style>
+               .field-icon {
+  float: right;
+  margin-left: -25px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+}
+               </style>
+
+<script>
+$(".toggle-password").click(function() {
+
+  $(this).toggleClass("fa-eye fa-eye-slash");
+  var input = $($(this).attr("toggle"));
+  if (input.attr("type") == "password") {
+    input.attr("type", "text");
+  } else {
+    input.attr("type", "password");
+  }
+});
+</script>
+
+                
+                <hr class="my-4" />
+                <!-- Description -->
+                <button class="btn btn-success ">{{ button_label|default('Save') }}</button>
+             
+            </div>
+      
+    
+
+    {#<a href="{{ path('candidature_index') }}">back to list</a>#
+    
+    {{ form_end(form) }}
+                  
+                </div>
+              </div>
+              <!-- End Tabs on plain Card -->
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+
+
+<script>
+$(document).ready(function(){
+
+
+	/* Toggle Video Modal
+  -----------------------------------------*/
+	function toggle_video_modal() {
+	    
+	    // Click on video thumbnail or link
+	    $(".js-trigger-video-modal").on("click", function(e){
+          
+          // prevent default behavior for a-tags, button tags, etc. 
+	        e.preventDefault();
+        
+          // Grab the video ID from the element clicked
+          var id = $(this).attr('data-youtube-id');
+
+          // Autoplay when the modal appears
+          // Note: this is intetnionally disabled on most mobile devices
+          // If critical on mobile, then some alternate method is needed
+          var autoplay = '?autoplay=1';
+
+          // Don't show the 'Related Videos' view when the video ends
+          var related_no = '&rel=0';
+
+          // String the ID and param variables together
+          var src = '//www.youtube.com/embed/'+id+autoplay+related_no;
+          
+          // Pass the YouTube video ID into the iframe template...
+          // Set the source on the iframe to match the video ID
+          $("#youtube").attr('src', src);
+          
+          // Add class to the body to visually reveal the modal
+          $("body").addClass("show-video-modal noscroll");
+	    
+      });
+
+	    // Close and Reset the Video Modal
+      function close_video_modal() {
+        
+        event.preventDefault();
+
+        // re-hide the video modal
+        $("body").removeClass("show-video-modal noscroll");
+
+        // reset the source attribute for the iframe template, kills the video
+        $("#youtube").attr('src', '');
+        
+      }
+      // if the 'close' button/element, or the overlay are clicked 
+	    $('body').on('click', '.close-video-modal, .video-modal .overlay', function(event) {
+	        
+          // call the close and reset function
+          close_video_modal();
+	        
+      });
+      // if the ESC key is tapped
+      $('body').keyup(function(e) {
+          // ESC key maps to keycode `27`
+          if (e.keyCode == 27) { 
+            
+            // call the close and reset function
+            close_video_modal();
+            
+          }
+      });
+	}
+	toggle_video_modal();
+
+
+
+});
+</script>
+
+
+
+
+  <style>
+  
+
+/* Embed google fonts for demo layout
+-----------------------------------------*/
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900');
+
+
+/* Main Page Layout 
+-- NOTE: Just for the demo page, and not
+required for the video modal... Video Modal
+styles are down below --
+-----------------------------------------*/
+* {
+  box-sizing: border-box;
+}
+html {
+  background: #fcfcfc;
+}
+@media (min-width: 641px) {
+  html {
+    background: #4b4b4b;
+  }
+}
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.noscroll { 
+	overflow: hidden;
+}
+
+
+main {
+  font-size: 0;
+}
+main .column.left,
+main .column.right {
+  background: #fcfcfc;
+  display: block;
+  position: relative;
+  font-size: 1rem;
+  width: 100%;
+  min-height: 0;
+  vertical-align: top;
+}
+@media (min-width: 641px) {
+    main .column.left,
+    main .column.right {
+      display: inline-block;
+      width: 50%;
+      min-height: 100vh;
+    }
+    main .column.left {
+      position: fixed;  
+    }
+    main .column.right {
+      margin-left: 50%;
+    }
+}
+
+.video-banner {
+  display: block;
+}
+@media (min-width: 641px) {
+  .video-banner {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 0;
+  }
+}
+
+.video-banner .video-banner-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+.video-banner-headline {
+  position: absolute;
+  left: 1.5rem;
+  bottom: 1.5rem;
+  
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 1.25em;
+  font-weight: 900;
+  line-height: 1.0em;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.045em;
+}
+@media (min-width: 641px) {
+  .video-banner-headline {
+    left: 2em;
+    bottom: 2.75em;
+    font-size: 1.5em;
+    line-height: 1.5em;
+  }
+}
+.video-banner-icon-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  
+  display: block;
+  width: 2.5em;
+  height: 2.5em;
+  
+  -webkit-transform: translateX(-50%) translateY(-50%) scale(1.0);
+	-moz-transform: translateX(-50%) translateY(-50%) scale(1.0);
+	-ms-transform: translateX(-50%) translateY(-50%) scale(1.0);
+	-o-transform: translateX(-50%) translateY(-50%) scale(1.0);
+	transform: translateX(-50%) translateY(-50%) scale(1.0);
+  
+  -webkit-transition: 
+		all 0.2s ease-out 0.05s;
+	transition: 
+		all 0.2s ease-out 0.05s;
+}
+@media (min-width: 641px) {
+  .video-banner-icon-play {
+    width: 4.5em;
+    height: 4.5em;
+  }
+}
+.video-banner-icon-play:hover {
+  -webkit-transform: translateX(-50%) translateY(-50%) scale(1.2);
+	-moz-transform: translateX(-50%) translateY(-50%) scale(1.2);
+	-ms-transform: translateX(-50%) translateY(-50%) scale(1.2);
+	-o-transform: translateX(-50%) translateY(-50%) scale(1.2);
+	transform: translateX(-50%) translateY(-50%) scale(1.2);
+  
+  backgound: #330099;
+}
+
+.content {
+  display: block;
+  min-height: 100vh;
+  max-width: 40rem;
+  margin: 2.5rem auto;
+  padding: 1.5rem;
+}
+@media (min-width: 641px) {
+  .content {
+    margin: 5.75rem auto;
+    padding: 2.5rem;
+  }
+}
+
+.content h1,
+.content h2,
+.content p {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 1em;
+  font-weight: 300;
+  line-height: 1.5em;
+  color: #0D013D;
+}
+.content h1 {
+  font-size: 3.25em;
+  font-weight: 200;
+  line-height: 1.0em;
+  
+  margin: 0 0 0.5rem 0;
+}
+@media (min-width: 641px) {
+  .content h1 {
+    font-size: 4em;
+  }
+}
+.content h2 {
+  font-size: 1em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.155em;
+  
+  margin-top: 3em;
+}
+
+/* buttons */
+.content .button-group {
+  margin-top: 1em;
+}
+.content .button {
+  display: inline-block;
+  padding: 1em 2em;
+  min-width: 8em;
+  text-align: center;
+  font-weight: 900;
+  text-decoration: none;
+  border-radius: 1.5em;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.25);
+  
+  /* button theme - secondary is default */
+  background: #f0f0f0;
+  color: #2B2B2B;
+  
+  -webkit-transition: 
+		all 0.2s ease-out 0.05s;
+	transition: 
+		all 0.2s ease-out 0.05s;
+}
+.content .button ~ .button {
+  margin-left: 0.5em;
+}
+.content .button:hover {
+  background: #e5e5e5;
+}
+/* primary button overrides */
+.content .button.primary {
+  background: #E50055;
+  color: #fff;
+}
+.content .button.primary:hover {
+  background: #9D00E5;
+}
+
+
+/* video thumbnail grid */
+.content .video-thumb-grid {
+  position: relative;
+  font-size: 0; /* collapse the white-space */
+  width: calc(100% + 2rem);
+  margin: 0 -1rem;
+}
+.content .video-thumb {
+  display: inline-block;
+  vertical-align: top;
+  
+  text-decoration: none;
+  
+  /* calculate the width, gutters, and aspect ratio */
+  width: calc((100% - 4rem) / 2);
+  height: 0;
+  padding-top: calc(((100% - 4rem) / 2) * 0.5625); /* 16:9 calc */
+  
+  margin: 1rem 1rem; /* gutters */
+  
+  overflow: hidden; /* clipping */
+  
+  position: relative; /* enable positioning for inner content */
+  
+  font-size: 1rem; /* reset the font size */
+  
+  -webkit-transform: scale(1.0);
+	transform: scale(1.0);
+  box-shadow: 0 0 0 rgba(0,0,0,0.0);
+  
+  -webkit-transition: 
+		all 0.2s ease-out 0.05s;
+	transition: 
+		all 0.2s ease-out 0.05s;
+}
+.content .video-thumb:hover {
+	-webkit-transform: scale(1.05);
+	transform: scale(1.05);
+  box-shadow: 0 2px 4px rgba(13,1,61,0.35);
+}
+.content .video-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  
+  /* position inside the 16:9 container */
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  
+  /* clipping for source images that are letterboxed */
+  object-fit: cover;
+  object-position: 50% 50%;
+  
+  background: #2b2b2b;
+}
+
+
+
+
+
+
+
+
+/* Video Modal
+-----------------------------------------*/
+.video-modal,
+.video-modal .overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 3000;
+}
+.video-modal {
+	overflow: hidden;
+	position: fixed;
+	opacity: 0.0;
+
+  -webkit-transform: translate(500%,0%);
+  transform: translate(500%,0%);
+
+  -webkit-transition: -webkit-transform 0s linear 0s;
+  transition: transform 0s linear 0s;
+
+
+  /* using flexbox for vertical centering */
+
+  /* Flexbox display */
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+
+  /* Vertical alignment */
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+.video-modal .overlay {
+  z-index: 0;
+  background: rgba(13,1,61,0.82); /* overlay color */
+
+  opacity: 0.0;
+
+  -webkit-transition: opacity 0.2s ease-out 0.05s;
+  transition: opacity 0.2s ease-out 0.05s;
+}
+
+
+.video-modal-content {
+	position: relative;
+	top: auto;
+	right: auto;
+	bottom: auto;
+	left: auto;
+	z-index: 1;
+  
+	margin: 0 auto;
+
+	overflow-y: visible;
+
+	background: #000;
+  
+  width: calc(100% - 12em);
+  height: 0;
+  padding-top: calc((100% - 12em) * 0.5625); /* 16:9 calc */
+}
+
+/* Scaling to fit within the current Viewport size:
+   When viewport aspect ratio is greater than 16:9
+   work off the height instead of the width for calc */
+ @media (min-aspect-ratio: 16/9) {
+  .video-modal-content {
+    width: 0;
+    height: calc(100vh - 10em);
+    padding-top: 0;
+    padding-left: calc((100vh - 10em) * 1.7778); /* 16:9 calc */
+  }
+}
+
+/* Mobile Layout Tweaks - side margins reduced */
+@media (max-width: 640px) {
+	.video-modal-content {
+		width: calc(100% - 1em);
+    padding-top: calc((100% - 1em) * 0.5625); /* 16:9 calc */
+	}
+}
+
+/* modal close button */
+.close-video-modal {
+	display: block;
+    position: absolute;
+    left: 0;
+    top: -40px;
+
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* set the iframe element to stretch to fit its parent element */
+iframe#youtube {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1;
+
+	background: #000;
+	box-shadow: 0px 2px 16px rgba(0,0,0,0.5);
+}
+
+/* show the modal: 
+   add class to the body to reveal */
+.show-video-modal .video-modal {
+	opacity: 1.0;
+
+	transform: translate(0%,0%);
+	-webkit-transform: translate(0%,0%);
+}
+.show-video-modal .video-modal .overlay {
+	opacity: 1.0;
+}
+.show-video-modal .video-modal-content {
+	transform: translate(0%,0%);
+	-webkit-transform: translate(0%,0%);
+}
+  </style>
+  <script>
+ $(document).ready(function(){
+   if ($('#bankcheck:checked').val()){
+  $('#bancheckdoc').show();
+  $('#bankcheckpdf').hide()
+
+}
+else {
+    $('#bankcheckpdf').show();
+  $('#bancheckdoc').hide()
+}
+ $('#bankcheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#bankcheck:checked').val()){
+  $('#bancheckdoc').show();
+  $('#bankcheckpdf').hide()
+
+}
+else {
+    $('#bankcheckpdf').show();
+  $('#bancheckdoc').hide()
+}});
+
+//first trans
+ if ($('#firstcheck:checked').val()){
+  $('#transfirstcheckdoc').show();
+  $('#transfirstcheckpdf').hide()
+
+}
+else {
+    $('#transfirstcheckpdf').show();
+  $('#transfirstcheckdoc').hide()
+}
+ $('#firstcheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#firstcheck:checked').val()){
+  $('#transfirstcheckdoc').show();
+  $('#transfirstcheckpdf').hide()
+
+}
+else {
+    $('#transfirstcheckpdf').show();
+  $('#transfirstcheckdoc').hide()
+}});
+//second trans
+ if ($('#secondcheck:checked').val()){
+  $('#transsecondcheckdoc').show();
+  $('#transsecondcheckpdf').hide()
+
+}
+else {
+    $('#transsecondcheckpdf').show();
+  $('#transsecondcheckdoc').hide()
+}
+ $('#secondcheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#secondcheck:checked').val()){
+  $('#transsecondcheckdoc').show();
+  $('#transsecondcheckpdf').hide()
+
+}
+else {
+    $('#transsecondcheckpdf').show();
+  $('#transsecondcheckdoc').hide()
+}});
+
+
+//third trans
+ if ($('#thirdcheck:checked').val()){
+  $('#transthirdcheckdoc').show();
+  $('#transthirdcheckpdf').hide()
+
+}
+else {
+    $('#transthirdcheckpdf').show();
+  $('#transthirdcheckdoc').hide()
+}
+ $('#thirdcheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#thirdcheck:checked').val()){
+  $('#transthirdcheckdoc').show();
+  $('#transthirdcheckpdf').hide()
+
+}
+else {
+    $('#transthirdcheckpdf').show();
+  $('#transthirdcheckdoc').hide()
+}});
+
+//bac trans
+ if ($('#baccheck:checked').val()){
+  $('#transbaccheckdoc').show();
+  $('#transbaccheckpdf').hide()
+
+}
+else {
+    $('#transbaccheckpdf').show();
+  $('#transbaccheckdoc').hide()
+}
+ $('#baccheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#baccheck:checked').val()){
+  $('#transbaccheckdoc').show();
+  $('#transbaccheckpdf').hide()
+
+}
+else {
+    $('#transbaccheckpdf').show();
+  $('#transbaccheckdoc').hide()
+}});
+//passport
+if ($('#passcheck:checked').val()){
+  $('#passdoc').show();
+  $('#passpdf').hide();
+  
+
+}
+else {
+    $('#passpdf').show();
+  $('#passdoc').hide();
+  
+}
+ $('#passcheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#passcheck:checked').val()){
+  $('#passdoc').show();
+  $('#passpdf').hide()
+$('#passpdf').val('');
+}
+else {
+    $('#passpdf').show();
+  $('#passdoc').hide();
+ $('#passdoc').val('');
+}});
+
+//cin
+if ($('#cincheck:checked').val()){
+  $('#cindoc').show();
+  $('#cinpdf').hide();
+  
+
+}
+else {
+    $('#cinpdf').show();
+  $('#cindoc').hide();
+  
+}
+ $('#cincheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#cincheck:checked').val()){
+  $('#cindoc').show();
+  $('#cinpdf').hide()
+$('#cinpdf').val('');
+}
+else {
+    $('#cinpdf').show();
+  $('#cindoc').hide();
+ $('#cindoc').val('');
+}});
+});
+ </script>              
+
+<script>
+$(".toggle-password").click(function() {
+
+  $(this).toggleClass("fa-eye fa-eye-slash");
+  var input = $($(this).attr("toggle"));
+  if (input.attr("type") == "password") {
+    input.attr("type", "text");
+  } else {
+    input.attr("type", "password");
+  }
+});
+
+});
+ </script>#}
+<section name='Title' style='margin-top:140px;'>
+<div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';">   APPLICATION
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+      <style>
+       
+    </style>
+<style>
+ @font-face {
+  font-family: 'Neou-thin';
+  src:    url({{asset('bootstrap/neou/Neou-Thin.otf')}}) format('opentype');
+  font-family: 'Neou-bold';
+    src:    url({{asset('bootstrap/neou/Neou-Bold.otf')}}) format('opentype');
+  }
+.nav-tabs {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.nav-tabs .nav-item {
+  margin-bottom: -1px;
+}
+a{
+  color:#000000;
+}
+.nav-tabs .nav-link {
+  border: 1px solid transparent;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  font-family:'Neou-bold';
+}
+
+.nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
+  border-color: #e9ecef #e9ecef #dee2e6;
+}
+
+.nav-tabs .nav-link.disabled {
+  color: #000000;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+  color: #B2273D;
+  background-color: #fff;
+  border-color: #dee2e6 #dee2e6 #fff;
+}
+
+.nav-tabs .dropdown-menu {
+  margin-top: -1px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.btn .btn-danger{
+  background:#B2273D;
+  color:#000;
+}
+
+input[type=text],input[type=password], select {
+  width: 80%;
+  padding: 12px 20px;
+ 
+  margin-left:10px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+
+</style>
+<script>
+  function myFunction(img) {
+    
+  var expandImg = document.getElementById("expandedImg");
+  var img = document.getElementById(img);
+
+  if (img==test){
+    document.getElementById('test').style="padding-bottom:20px;";
+   
+  }else{
+    document.getElementById('test').style="padding-bottom:20px;display:none";
+  }
+  if(img==ltofrec){
+    document.getElementById('ltofrec').style="padding-bottom:20px;";
+   
+  }else{
+    document.getElementById('ltofrec').style="padding-bottom:20px;display:none";
+  }
+  if(img==bank){
+    document.getElementById('bank').style="padding-bottom:20px;";
+ 
+  }else{
+    document.getElementById('bank').style="padding-bottom:20px;display:none";
+  }
+
+  
+  
+ 
+}
+</script>
+<style>
+.longback{
+background-image:url('{{asset('image/icones/31.png')}}');
+width: 500px;
+    height: 57px;
+ padding-top: 17px; 
+ padding-left: 30px;
+}
+</style>
+      <section  name="content">
+        <div class="container">
+          <div class="row" style="margin-bottom:20px;margin-top:20px;">
+            <div class="col">
+             <h2 class="titleDashboardMidle" style="background:url({{ asset('image/icones/9.png') }});color:#2F5BA3;">TIPS</h2>
+             
+            </div>
+          </div>
+          {{ form_start(form)}}
+          <div class="row">
+          <div class="col-10">
+            <nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a onclick="myFunction('ltofrec')" class="nav-item nav-link active text-red" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" >
+    Letter of Recommendation<img id="ltofrec" src="{{asset('image/icones/10.png')}}" height="50px;" style="padding-bottom:20px;"></a>
+    <a  onclick="myFunction('test')" class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">
+    Counselor Questionnaire<img id="test" src="{{asset('image/icones/32.png')}}" height="50px;" style="padding-bottom:20px;display:none;"></a>
+    <a  onclick="myFunction('bank')" class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">
+    Financial Documents<img id="bank" src="{{asset('image/icones/bank stat.png')}}" height="50px;" style="padding-bottom:20px;display:none;"></a>
+  </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+  <p style="font-family:'Neou-bold';">Usually, you will need to provide 2 letters of recommendation from high school teachers to support your college applications. It is always good practice to request one of these letters from one science teacher (Math, Biology, Economics...) and another from a Humanities teacher (English, French, History...). You need to ascertain that your teachers are aware of the importance of these letters and understand what key components they need to include in their recommendations. Finally, make sure you provide your teachers with the recommendation letter package offered by Edutest as it offers ample instruction and detail on the writing process of these letters.</p></div>
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+      <p style="font-family:'Neou-bold';">This is your ticket to a solid and strong counselor recommendation letter! A good counselor recommendation shouldn't only be restricted to academic comments since your transcripts will speak for that aspect of your application. Instead, it should also include personal details and anecdotes that showcase some leadership skills or personality aspects.
+
+Please spend some time to include specific details about your activities and achievements in your questionnaire so that your counselor can efficiently develop those ideas. It is always helpful to quantify and specify activities so they are more credible and meaningful, e.g. "organized a food drive at the Tunisian Red Crescent that served around 50 people" instead of just "volunteered at Red Crescent".</p></div>
+    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+    <p style="font-family:'Neou-bold';">In order to apply for financial aid, colleges require a number of financial documents to corroborate your application. You will need to provide bank statements of the past 3 months from both parents, salary statements (fiche de paie), tax forms (fiche d'impôts avec quittance), loan certificates if applicable, and any other statement showing financial burden (medical bills, recurrent payments...). All of these documents need to be translated into English and submitted either by email or IDOC to the financial aid offices of your intended colleges.</p></div>
+</div>
+</div>
+          </div>
+        </div>
+      </section>
+<section name="candidature" style="margin-top:50px;margin-bottom:50px;">
+
+        <div class="container">
+          <div class="row" style="margin-bottom:20px;">
+            <div class="col-5">
+            <h2 class="titleDashboardMidle" style="background:url({{ asset('image/icones/11.png') }});color:#2F5BA3;">UPLOAD FILES</h2>
+             
+            </div>
+          </div>
+          <div class="row">
+          <div class="col-11">
+          <div class="row"style="margin-bottom:30px;">
+            <div class="col-6">
+            <h4 style="font-family:'Neou-bold';color:#B2273D;">Test File (PDF)</h4>
+            <div style="background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:20px;padding-left:30px;">{{form_errors(form.testFile)}}
+                {{form_errors(form.testFile)}}
+                  {{ form_widget(form.testFile ,{'type':'file','attr':{'style':'opacity:1;'}}) }}
+            </div>
+            <!--<input type="checkbox" name=""><span style="font-family:'Neou-bold';" >Translate (Word)</span>-->
+            </div>
+            <div class="col-6">
+            <h4 style="font-family:'Neou-bold';color:#B2273D;"></h3>
+              <a href="#"style=""data-toggle="collapse" data-target="#filters" class="longback  text-white float-left">
+              Letters of recommendation</a>
+               
+      <div  id="filters" class="collapse">
+            <h4 style="font-family:'Neou-bold';color:#B2273D;">Letters of recommendation English</h3>
+              <div style="background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:20px;padding-left:30px;">
+                {{form_errors(form.letterOfRecommendationFile)}}
+                  {{ form_widget(form.letterOfRecommendationFile) }}
+              </div>
+              <input type="checkbox"><span style="font-family:'Neou-bold';">Translate (Word)</span>Translate (Word)
+           
+            <h4 style="font-family:'Neou-bold';color:#B2273D;">Letters of recommendation Math</h3>
+              <div style="background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:20px;padding-left:30px;">
+                  {{form_errors(form.letterOfRecommendationMathFile)}}
+                  {{ form_widget(form.letterOfRecommendationMathFile) }}
+              </div>
+              <input type="checkbox"><span style="font-family:'Neou-bold';">Translate (Word)</span>Translate (Word)
+            </div>
+              
+          </div>
+          </div>
+           <div class="row" style="margin-bottom:10px;">
+            <div class="col-6">
+            <h4 style="font-family:'Neou-bold';color:#B2273D;">Questionnaire (PDF)</h4>
+             <div style="background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:20px;padding-left:30px;">{{form_errors(form.surveyFile)}}
+                  {{ form_widget(form.surveyFile) }}</div>
+             <!--<input type="checkbox"><span style="font-family:'Neou-bold';">Translate (Word)</span>-->
+            </div>
+            <div class="col-6">
+            <h4 style="font-family:'Neou-bold';color:#B2273D;">Bank Statement (PDF)</h4>
+             <div style="background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:20px;">
+                 {{form_errors(form.bankStatementFile)}}
+                 {{form_errors(form.bankstatmentFilepdf)}}
+                  {{ form_widget(form.bankStatementFile,{'id':'bancheckdoc'}) }}
+                  {{form_widget(form.bankstatmentFilepdf,{'id':'bankcheckpdf'})}}
+             </div>
+             <input id="bankcheck" type="checkbox" name="bankcheck"  ><span style="font-family:'Neou-bold';">Translate (Word)</span>
+            </div>
+          </div>
+           <div class="row"style="margin-bottom:10px;">
+            <div class="col-6">
+            <h4 style="font-family:'Neou-bold';color:#B2273D;">passport (PDF)</h4>
+              <div style="background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:20px;padding-left:30px;">{{form_errors(form.passportFilepdf)}}
+                  {{ form_widget(form.passportFile,{'id':'passdoc'}) }}
+                   {{ form_widget(form.passportFilepdf,{'id':'passpdf'}) }}
+                 </div>
+              <input id="passcheck" type="checkbox" name="bankcheck"  ><span style="font-family:'Neou-bold';">Translate (Word)</span>
+            </div>
+            <div class="col-6">
+            <h4 style="font-family:'Neou-bold';color:#B2273D;">Student ID (CIN)(PDF)</h4>
+             <div style="background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:20px;padding-left:30px;">{{form_errors(form.cinFile)}}
+                 {{form_errors(form.cinFilepdf)}}
+                  {{ form_widget(form.cinFile,{'id':'cindoc'}) }}
+                  {{ form_widget(form.cinFilepdf,{'id':'cinpdf'}) }}</div>
+             <input id="cincheck" type="checkbox" name="bankcheck"  ><span style="font-family:'Neou-bold';">Translate (Word)</span>
+            </div>
+          </div>
+          <h2 class="heading-small  mb-4"style="font-family:'Neou-bold';margin-top:50px;margin-bottom:20px;">Transcripts</h6>
+          <div class="row"style="margin-bottom:30px;">
+            <div class="col-6">
+            <h4 style="font-family:'Neou-bold';color:#B2273D;">First year transcription (PDF)</h4>
+            <div style="background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:20px;padding-left:30px;"> {{form_errors(form.transcriptFirstFile)}}
+                 {{form_errors(form.transcriptfirstFilepdf)}}
+                  {{ form_widget(form.transcriptFirstFile,{'id':'transfirstcheckdoc'}) }}
+                  {{form_widget(form.transcriptfirstFilepdf,{'id':'transfirstcheckpdf'})}}</div>
+            <input type="checkbox" id="firstcheck" name="bankcheck"><span style="font-family:'Neou-bold';">Translate (Word)</span>
+            </div>
+            <div class="col-6">
+            <h4 style="font-family:'Neou-bold';color:#B2273D;">Second year transcription (PDF)</h4>
+              <div style="background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:20px;padding-left:30px;">{{form_errors(form.transcriptSecondFile)}}
+                 {{form_errors(form.transcriptsecondFilepdf)}}
+                  {{ form_widget(form.transcriptSecondFile,{'id':'transsecondcheckdoc'}) }}
+                  {{form_widget(form.transcriptsecondFilepdf,{'id':'transsecondcheckpdf'})}}</div>
+              <input id="secondcheck" type="checkbox" name="bankcheck"  ><span style="font-family:'Neou-bold';">Translate (Word)</span>
+            </div>
+          </div>
+          <div class="row"style="margin-bottom:30px;">
+            <div class="col-6">
+            <h4 style="font-family:'Neou-bold';color:#B2273D;">Third year transcription (PDF) </h4>
+            <div style="background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:20px;padding-left:30px;">{{form_errors(form.transcriptThirdFile)}}
+                 {{form_errors(form.transcriptthirdFilepdf)}}
+                  {{ form_widget(form.transcriptThirdFile,{'id':'transthirdcheckdoc'}) }}
+                  {{form_widget(form.transcriptthirdFilepdf,{'id':'transthirdcheckpdf'})}}</div>
+            <input id="thirdcheck" type="checkbox" name="bankcheck"  ><span style="font-family:'Neou-bold';">Translate (Word)</span>
+            </div>
+            <div class="col-6">
+            <h4 style="font-family:'Neou-bold';color:#B2273D;">Bac transcription (PDF)</h4>
+              <div style="background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:20px;padding-left:30px;">{{form_errors(form.transcriptBacFile)}}
+                 {{form_errors(form.transcriptbacFilepdf)}}
+                  {{ form_widget(form.transcriptBacFile,{'id':'transbaccheckdoc'}) }}
+                  {{form_widget(form.transcriptbacFilepdf,{'id':'transbaccheckpdf'})}}
+              </div>
+              <input type="checkbox" id="baccheck" ><span style="font-family:'Neou-bold';">Translate (Word)</span>
+            </div>
+          </div>
+          <h2 class="heading-small  mb-4"style="font-family:'Neou-bold';margin-top:50px;margin-bottom:20px;">Common App</h6>
+          <div class="row"style="margin-bottom:30px;">
+            <div class="col-6">
+            <h4 style="color:#B2273D;">Username </h4>
+            {{ form_widget(form.username,{'attr':{'style':'background-color:rgba(241,242,242,0.7); padding-right:10px;'}}) }}
+           </div>
+            <div class="col-6">
+            <h4 style="font-family:'Neou-bold';color:#B2273D;">Password</h4>
+            {{ form_widget(form.password, { 'attr': {'type': 'password','style':'background-color:rgba(241,242,242,0.7);'} ,'type':'password','id':'password'}) }}
+            </div>
+          </div>
+          <div class="row"style="margin-bottom:30px;">
+            <div class="col-8">
+            <h4 style="font-family:'Neou-bold';color:#B2273D;">SAT score </h4>
+            <!--<input type="number" class="form-control" style="background-color:rgba(241,242,242,0.7);">-->
+            {{ form_widget(form.satScore,{'attr':{'style':'background-color:rgba(241,242,242,0.7);'}}) }}
+            </div>
+          </div>
+         <button class="float-right text-centred" style="border:none; padding-top:7px; text-align:center; color:white;background-image: url('{{asset('image/icones/20.png')}}'); background-color:rgba(0,0,0,0); background-position:top; background-size: cover; height:57px;width:150px;" type="submit">
+             Save</button>
+        </div>
+        </div>
+             {{ form_end(form)}}
+             {#<div style="height:70px;"></div>
+             <div class="row">
+                 <div class="col-md-11">
+                     <div class="row" style="margin-bottom:30px;">
+                        <div class="col-md-11">
+                            <h2 class="titleDashboardMidle" style="background:url({{ asset('image/icones/23.png') }}); padding-top:35px!important; padding-right:50px!important; background-size:60px!important;">Apply to university</h2>
+                        </div>
+                     </div>
+                    
+                    <div class="row"style="margin-bottom:30px;">
+                        <div class="col">
+                            <h4 style="color:#B2273D;">16 left</h4>
+                        </div>
+                        <div class="col">
+                            <button class="float-right text-centred add_field_button" style="border:none; padding-top:7px; text-align:center; color:white;background-image: url('{{asset('image/icones/20.png')}}'); background-color:rgba(0,0,0,0); background-size: cover; background-position:top; height:57px;width:150px;">
+                        Add</button>
+                        </div>
+                    </div>
+                    
+                    <div class="input_fields_wrap">
+                    <div class="row"style="margin-bottom:30px;">
+                        <div class="col-6">
+                            <h4 style="color:#B2273D;">university name</h4>
+                            <input class="form-control" type="text" style="background-color:rgba(241,242,242,0.7); padding-right:10px;"/>
+                        </div>
+            
+                        <div class="col-6">
+                            <h4 style="font-family:'Neou-bold';color:#B2273D;">Email</h4>
+                            <input class="form-control" type="email" style="background-color:rgba(241,242,242,0.7);">
+                        </div>
+                    </div>
+                    </div>
+                    <button class="float-right text-centred" style="border:none; padding-top:7px; text-align:center; color:white;background-image: url('{{asset('image/icones/20.png')}}'); background-color:rgba(0,0,0,0); background-size: cover; background-position:top; height:57px;width:150px;" type="submit">
+                        Apply</button>
+                 </div>
+                 
+             </div>#}
+                        
+              
+    </div>
+</section>
+{% endblock %}
+
+{% block javascripts %}
+    {% set count = 20 %}
+    {{ parent() }}
+<script>
+    $(document).ready(function() {
+            var max_fields      = {{count}}; //maximum input boxes allowed
+            var wrapper   		= $(".input_fields_wrap"); //Fields wrapper
+            var add_button      = $(".add_field_button"); //Add button ID
+	
+            var x = 1; //initlal text box count
+            $(add_button).click(function(e){ //on add input button click
+                    e.preventDefault();
+                    if(x < max_fields){ //max input box allowed
+                            x++; //text box increment
+                            $(wrapper).append("  <div class='row'><h4>"+x+"</h4><div class='col'><input class='form-control' type='text' name='univer"+x+"' style='background-color:rgba(241,242,242,0.7); padding-right:10px;'></div><div class='col'><input class='form-control' type='email' name='email"+x+"' style='background-color:rgba(241,242,242,0.7);'></div><input class='form-control' hidden='true' type='password' name='pass"+x+"'> <a href='#' class='remove_field' style='color:#AB5353;'>X</a></div><br>"); //add input box
+        $('#compt').val(x);
+                    }
+            });
+	
+            $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+                    e.preventDefault(); $(this).parent('div').remove(); x--;
+            })
+    });
+
+$(document).ready(function(){
+   if ($('#bankcheck:checked').val()){
+  $('#bancheckdoc').show();
+  $('#bankcheckpdf').hide()
+
+}
+else {
+    $('#bankcheckpdf').show();
+  $('#bancheckdoc').hide()
+}
+ $('#bankcheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#bankcheck:checked').val()){
+  $('#bancheckdoc').show();
+  $('#bankcheckpdf').hide()
+
+}
+else {
+    $('#bankcheckpdf').show();
+  $('#bancheckdoc').hide()
+}});
+});
+
+if ($('#passcheck:checked').val()){
+  $('#passdoc').show();
+  $('#passpdf').hide();
+  
+
+}
+else {
+    $('#passpdf').show();
+  $('#passdoc').hide();
+  
+}
+ $('#passcheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#passcheck:checked').val()){
+  $('#passdoc').show();
+  $('#passpdf').hide()
+$('#passpdf').val('');
+}
+else {
+    $('#passpdf').show();
+  $('#passdoc').hide();
+ $('#passdoc').val('');
+}});
+
+if ($('#cincheck:checked').val()){
+  $('#cindoc').show();
+  $('#cinpdf').hide();
+  
+
+}
+else {
+    $('#cinpdf').show();
+  $('#cindoc').hide();
+  
+}
+ $('#cincheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#cincheck:checked').val()){
+  $('#cindoc').show();
+  $('#cinpdf').hide()
+$('#cinpdf').val('');
+}
+else {
+    $('#cinpdf').show();
+  $('#cindoc').hide();
+ $('#cindoc').val('');
+}});
+if ($('#firstcheck:checked').val()){
+  $('#transfirstcheckdoc').show();
+  $('#transfirstcheckpdf').hide();
+
+}
+else {
+    $('#transfirstcheckpdf').show();
+  $('#transfirstcheckdoc').hide();
+}
+ $('#firstcheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#firstcheck:checked').val()){
+  $('#transfirstcheckdoc').show();
+  $('#transfirstcheckpdf').hide();
+}
+else {
+    $('#transfirstcheckpdf').show();
+  $('#transfirstcheckdoc').hide();
+}});
+//second trans
+ if ($('#secondcheck:checked').val()){
+  $('#transsecondcheckdoc').show();
+  $('#transsecondcheckpdf').hide()
+
+}
+else {
+    $('#transsecondcheckpdf').show();
+  $('#transsecondcheckdoc').hide()
+}
+ $('#secondcheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#secondcheck:checked').val()){
+  $('#transsecondcheckdoc').show();
+  $('#transsecondcheckpdf').hide()
+
+}
+else {
+    $('#transsecondcheckpdf').show();
+  $('#transsecondcheckdoc').hide()
+}});
+
+//third trans
+ if ($('#thirdcheck:checked').val()){
+  $('#transthirdcheckdoc').show();
+  $('#transthirdcheckpdf').hide()
+
+}
+else {
+    $('#transthirdcheckpdf').show();
+  $('#transthirdcheckdoc').hide()
+}
+ $('#thirdcheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#thirdcheck:checked').val()){
+  $('#transthirdcheckdoc').show();
+  $('#transthirdcheckpdf').hide()
+
+}
+else {
+    $('#transthirdcheckpdf').show();
+  $('#transthirdcheckdoc').hide()
+}});
+
+//bac trans
+ if ($('#baccheck:checked').val()){
+  $('#transbaccheckdoc').show();
+  $('#transbaccheckpdf').hide()
+
+}
+else {
+    $('#transbaccheckpdf').show();
+  $('#transbaccheckdoc').hide()
+}
+$('#baccheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#baccheck:checked').val()){
+  $('#transbaccheckdoc').show();
+  $('#transbaccheckpdf').hide()
+
+}
+else {
+    $('#transbaccheckpdf').show();
+  $('#transbaccheckdoc').hide()
+}});
+</script>
+{% endblock %}

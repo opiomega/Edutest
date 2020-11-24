@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Counseling index{% endblock %}
+
+{% block body %}
+<section name='Title' style='margin-top:140px;'>
+<div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';">  Students' counseling sessions
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+  
+<div class="container" style="margin-bottom:60px;">
+    <table style="border:none;" id="example"  class="table align-items-center table-flush  display dataTable">
+            <thead >
+                <th style="border-bottom:none;"><h5 class="text-bluee">Student name</th>
+                <th style="border-bottom:none;"><h5 class="text-bluee">Teacher name</th>
+            <th style="border-bottom:none;"><h5 class="text-bluee">Topic</h5></th>
+            <th style="border-bottom:none;"><h5 class="text-bluee">Medium</h5></th>
+            <th style="border-bottom:none;"><h5 class="text-bluee">Date</h5></th>
+            <th style="border-bottom:none;"><h5 class="text-bluee">From</h5></th>
+            <th style="border-bottom:none;"><h5 class="text-bluee">To</h5></th>
+            {#<th style="border-bottom:none;"><h5 class="text-bluee">Action</h5></th>#}
+            </th>
+            </thead>
+        <tbody style="border:none;">
+        {% for s in counslings %}
+          <tr class="bg-gris"height="50px"  onmouseover="show({{s.id}})"onmouseout="hide({{s.id}})" class="bg-gris">
+          <!--student name-->
+        <td id="td{{s.id}}" class="bg-gris">{{s.student.firstname}} {{s.student.lastname}}</td>
+        <!-- teacher -->
+        <td id="td{{s.id}}" class="bg-gris">{{s.teacher.firstname}} {{s.teacher.lastname}}</td>
+        <!--Topic-->
+        <td><span class="text-dark">{{s.topic}}</span></td>
+        <!--Medium-->
+        <td><span class="text-dark">{{s.medium}}</span></td>
+        <!--Date-->
+        <td ><p class=" text-red">{{s.date|date('Y-m-d')}}</p></td>
+         <!--From-->
+        <td ><p class=" text-info">{{s.sbegin}}</p></td>
+        <!--to-->
+        <td ><p class=" text-info">{{s.send}}</p></td>
+        {#<td>
+          <button id="act{{s.student.id}}" style="display:none; " class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-bottom: 0px;margin-top: 0px">Actions</button>
+                                        <div class="dropdown-menu ">
+                                               <button type="button" data-toggle="modal" data-target="#exampleModal1"   class="btn btn-warning btn-simple btn-icon btn-sm">
+                    Edit
+                </button >
+                                         <a class="dropdown-item" href="#" onclick="showModal('myModal{{ s.student.id }}')" >
+                                        
+                                         Delete</a>
+          
+        </td>#}
+            </tr>
+            
+        {% else %}
+            <tr>
+                <td colspan="8"><span class="text-dark">no records found</span></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- End Tabs on plain Card -->
+            </div>
+             <script>
+  $(document).ready(function() {
+    $('#example').DataTable();
+} );
+    </script>
+    <script>
+
+
+function show(id){
+    document.getElementById('td'+id).style.backgroundColor='yellow';
+    document.getElementById('act'+id).style='display:inline';
+}
+function hide(id){
+    document.getElementById('td'+id).style='';
+     document.getElementById('act'+id).style='display:none';
+}
+</script>
+{% endblock %}

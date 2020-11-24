@@ -1,0 +1,26 @@
+{{ form_start(form) }}
+    {{ form_errors(form.Name) }}
+            {{ form_widget(form.Name) }}
+
+    {# store the prototype on the data-prototype attribute #}
+    <ul id="fieldAvailable-fields-list"
+        data-prototype="{{ form_widget(form.fields_available.vars.prototype)|e }}"
+        data-widget-tags="{{ '<li></li>'|e }}"
+        data-widget-counter="{{ form.fields_available|length }}">
+        {% set cpt = 0 %}
+    {% for fieldAvailableField in form.fields_available %}
+        <li id="fieldAvailableLi{{ cpt }}">
+            {{ form_errors(fieldAvailableField) }}
+            {{ form_widget(fieldAvailableField) }}
+            <button id="removeField{{ cpt }}" type="button" class="btn btn-sm btn-outline-danger text-dark">X</button>
+        </li>
+        {% set cpt = cpt + 1 %}
+    {% endfor %}
+    </ul>
+
+    <button type="button"
+        class="add-another-collection-widget btn btn-success ni ni-fat-add text-white"
+        data-list-selector="#fieldAvailable-fields-list"> Add new flied</button>
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+

@@ -1,0 +1,196 @@
+{% extends 'base.html.twig'%}
+
+{% block body %}
+<section name='Title' style='margin-top:140px;'>
+<div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';">   {{subject.title}}
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+ <div class=" container">
+        <div class="content-wrapper">
+        <div class="row">
+            <div class="col-9">
+            
+            
+                            <form name="newmessage" class="forms-sample" method="post" action="{{path('messages_new',{'id':subject.id})}}">
+                                <input hidden value="#id " name="group">
+                                <div class="form-group">
+                                    <label for="exampleTextarea">Publication</label>
+                                    <textarea name="description" class="form-control p-input" id="exampleTextarea" rows="5" style="width: 100%" placeholder="" required></textarea>
+                                </div>
+                                <div class="form-group"></div>
+
+                                <div class="form-group">
+                                    <button type="submit" style="border-radius:20px;background:red;" class="btn btn-primary"><span class="btn-text">Send</span> <span class="btn-border"></span></button>
+                                </div>
+                            </form>
+                        
+               <style>
+               ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul li{
+  display:inline-block;
+  clear: both;
+  padding: 20px;
+  border-radius: 30px;
+  margin-bottom: 2px;
+  font-family: Helvetica, Arial, sans-serif;
+}
+               .him{
+  background: #eee;
+  float: left;
+}
+
+.me{
+  float: right;
+  background: #0084ff;
+  color: #fff;
+}
+
+.him + .me{
+  border-bottom-right-radius: 5px;
+}
+
+.me + .me{
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.me:last-of-type {
+  border-bottom-right-radius: 30px;
+}
+               </style>
+    <div style="background-color:transparent;" class="card overflow-auto">
+    <div class="card-body">
+    {% set i=0 %}
+    {% set j=0 %}
+    <ul>
+        {% for g in messages if i<20+j %}
+        
+            <li {% if g.user.id == app.user.id %} class="me"{% else %}class="him"{% endif %}>
+             {% if g.user.status=="Student"%}
+
+             			
+
+             				<h6 style="color:silver;">{{g.user.student[0].firstname}}  {{g.user.student[0].lastname}}<span class="badge badge-info"style="background-color:gold;">Student</span><h6>
+
+             
+
+             		{% endif %}
+
+               		{% if g.user.status=="Teacher"%}
+
+             			{% if g.user.id != app.user.id %}
+
+            				<h6 style="color:silver;">{{g.user.teacher[0].firstname }} {{g.user.teacher[0].lastname }}<span class="badge badge-success"> Teacher</span></h6> 
+                        {% endif %}
+             		{% endif %}
+
+               		{% if g.user.status=="Admin"%}
+
+               			<span class="badge badge-danger">Admin</span>
+
+               		{% endif %}
+
+            {{ g.content }}
+            <br>
+            <span style="color:silver; float:right;">
+            {% set difference = date(now).diff(date(g.dateTime)) %}
+            {% set leftDays = difference.days %}
+            {% if leftDays > 1 %}
+            
+            {{g.dateTime|date("d M Y H:i")}}
+            {% else %}
+            {{difference|date("%H h %i min ")}} ago
+            {% endif %}
+            </span>
+            </li>
+    {#}
+             <div class="event-bg" >
+                        <div class="media align-items-center">
+                       {% if g.user.id != app.user.id %}
+                           {% if g.user.photo == null %}
+                                <img src="{{ asset('image/fac.png') }}" class="rounded-circle" width="50" height="50" />
+                            {% else %}
+                                <img src="{{ asset('uploads/user/photos/'~g.user.photo) }}" class="rounded-circle" width="50" height="50"  />
+                            {% endif %}
+                     {% endif %}
+                        <div class="media-body">
+                        <div  {% if g.user.id == app.user.id %} class="card col-6 me "{% else %}class="card col-6 him"{% endif %}>
+			<div class="card-title">
+
+                          {% if g.user.status=="Student"%}
+
+             			
+
+             				<h6 style="color:silver;">{{g.user.student[0].firstname}}  {{g.user.student[0].lastname}}<span class="badge badge-info">Student</span><h6>
+
+             
+
+             		{% endif %}
+
+               		{% if g.user.status=="Teacher"%}
+
+             			{% if g.user.teacher[0] == g.club.head %}
+
+            				<h6 style="color:silver;">{{g.user.teacher[0].firstname }}<span class="badge badge-success"> Head</span></h6> 
+
+             			{% else %}
+
+             				<span class="badge badge-success">Guest</span>
+
+             			{% endif %}
+
+             		{% endif %}
+
+               		{% if g.user.status=="Admin"%}
+
+               			<span class="badge badge-danger">Admin</span>
+
+               		{% endif %}
+
+                        </div>
+                        
+                        <div class="card-body" style="background-color:transparent;">
+                        
+                          <span class="mb-0 text-sm"> {{ g.content }} <span style="color:silver; float:right;">{{g.dateTime|date("m/d/Y H:i")}}</span></span>
+                          </div></div>
+                        </div>
+                      </div>
+
+                      </div>
+                      <br>#}
+                      {% set i=i+1 %}
+                      
+            {% endfor %}
+            </ul>
+            <a href="#"  onclick="add()">Show more</a>
+
+            <script>
+            public function add(){
+              var  j=j+5;
+            }
+            </script>
+</div></div>
+        </div>
+        <br><br>
+    
+    <div class="col-3">
+    {% for sub in subjects %}
+    <a href="{{path('messages_index',{'id':sub.id})}}">{{sub.title}}</a>
+    <br>
+    {% endfor %}
+    </div>
+{% endblock %}

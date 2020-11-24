@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+ 
+    <style>
+      .fc-button-group>.fc-button:not(:first-child){
+        background-image:url('{{asset('image/icones/27.png')}}');
+      }
+    </style>
+<div class="container-fluid mt--7">
+ <div class="container">
+     <div class="row">
+         <div class="col-md-9"></div>
+         <div class="col-md-3">
+            <div class="float-right redback over">
+              {% if app.user.status=='Student'%}  <a href="{{ path('booked_student_from_student_index',{'id':app.user.student.first.id}) }}" class="float-right text-centred" style="padding-left:16px;  padding-top: 16px; width: 100%; height:100%;"><span class="text-white" style="font-size:15px;">Booked Sessions</span></a>{% endif %}
+            </div>
+         </div>
+     </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+              
+    <div id="calendar-holder"></div>
+    
+    </div></div></div>
+</div>
+     <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@4.1.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.js"></script>
+
+   
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', () => {
+            var calendarEl = document.getElementById('calendar-holder');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                defaultView: 'dayGridMonth',
+                editable: false,
+                
+                eventSources: [
+                    {
+                        events:[
+                            {% set i=0%}
+                            {% set f=0%}
+                            {% set len=endtime|length%}
+                            
+                            {% for n in starttime%}
+                            {
+                              
+                              title: '',
+                              start:'{{n}}',
+                              end:'{{endtime[i]}}',
+                              url:{% if app.user.status=='Student'%}'{{path('counsling_student',{'id':id[i]})}}'{% endif %}{% if app.user.status=='Teacher'%}'{{path('counsling_edit',{'id':id[f]})}}'{% endif %},
+                              textcolor:'white',
+                              allDays:true
+                              
+                            },
+                            {% set i=i+1%}
+                           {% set len=len-1 %}
+                            {% endfor %}
+                              {% set f=f+1 %}
+                           
+                        ]
+                    },
+                ],
+                   header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay',
+                },
+                
+                plugins: [ 'interaction', 'dayGrid', 'timeGrid' ], // https://fullcalendar.io/docs/plugin-index
+                timeZone: 'UTC',
+                
+                
+                
+            });
+            
+            calendar.render();
+        });
+    </script>
+
+    
+
+{% endblock %}

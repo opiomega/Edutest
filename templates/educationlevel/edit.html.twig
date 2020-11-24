@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Educationlevel{% endblock %}
+
+{% block body %}
+</br></br>
+
+<section class="section section-lg">
+      <img src="{{asset('assetss/img/path4.png')}}" class="path">
+     
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+            <h1 class="text-center">Edit Category</h1>
+            <div class="row row-grid justify-content-center">
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+<div class="container-fluid mt--7">
+      <!-- Table -->
+      <div class="row">
+        <div class="col-xl-8 order-xl-1">
+          <div class="card shadow">
+            <div class="card-header border-0">
+        
+    <h1>Edit Education level</h1>
+{{ form_start(form)}}
+    
+                 <div class="row">
+                    <div class="col-lg-8">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-address">Name</label>
+                        {{ form_widget(form.name) }}
+                      </div>
+                    </div>
+                  </div>
+                  <button class="btn btn-warning">{{ button_label|default('Update') }}</button>
+                  {{ include('educationlevel/_delete_form.html.twig') }}
+{{ form_end(form)}}
+</div></div></div></div>
+
+    <a href="{{ path('educationlevel_index') }}" class="btn btn-outline-default float-left">back to list</a>
+
+    
+{% endblock %}

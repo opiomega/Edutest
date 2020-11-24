@@ -1,0 +1,224 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Module{% endblock %}
+{% block stylesheets %}
+{{parent()}}
+<style>
+
+</style>
+<link rel="stylesheet" href="{{asset('style.css')}}"/>
+
+{% endblock %}
+{% block body %}
+<style>
+#coursecontent * {
+    color: #000000 !important;
+}
+</style>
+
+
+{#}
+<div class="container" style="margin-top:10%;">
+<div class="row">
+<div class="col-12">
+<div class="card bg-white shadow" >
+<div class=" card-header">
+</div>
+<div class="card-body">
+
+  {% if module.typeCourse.name=="Course" %}
+<!--Course-->
+<div class="row">
+<div class="col-8"></div>
+<div class="col-4"><h3 class="text-muted">Title: {{module.title}}</h3><hr class="line-success"></div>
+<div class="container">
+
+
+<div class="Header 5 text-info" style="line-height: 24px; width:350px;"></div>
+
+</div>
+  
+</div>
+<div class="container">
+<div class="row">
+<div class="col-3" >
+<div class="card card-plain" style="border: solid 1px;">
+<div class="card-header text-info"><i class="tim-icons icon-attach-87"></i>
+Documents:
+</div>
+<div class="card-body">
+{% set i=1 %}
+{% for module_document in module_documents %}
+<span class='text-red'>Attachement n°{{i}}
+<a class="tim-icons icon-cloud-download-93btn " href="{{ path('show_module_pdf',{'id':module_document.id} )}}">Show pdf</a></span><br/>
+{% set i=i+1 %}
+{% else %}
+<h5 class="text-danger">No Documents available for the moment</h5>
+
+{% endfor %}
+</div>
+</div>
+</div>
+<div class="col-9">
+<h4 class="text-muted">Description: <span class="text-dark">{{module.description}}</span></h4>
+<div class="card card-plain" style="border:solid 1px;">
+<div class="card-body">
+<div class="text-dark" id="coursecontent">{{module.content|raw}}</div>
+</div>
+</div>
+
+</div>
+<div class="col-1"></div>
+{% if app.user.status=="Admin" or app.user.status=="Teacher" %}
+  <a href="{{ path('module_document_index',{'moduleId':module.id}) }}" class="btn btn-primary float-right">Edit documents</a>
+{% endif %}
+{% if app.user.status=="Admin"%}
+<a href="{{path('module_edit', { 'id': module.id })}}" class="btn btn-primary float-right">Edit module</a>
+{% endif %}
+</div>
+</div>
+{% endif %}
+{% if module.typeCourse.name=="Video" %}
+<!--Video-->
+<div class="row">
+<div class="col-3"></div>
+<div class="col-9">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ module.video }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h3 class="text-muted">{{module.title}}</h3>
+</div>
+
+</div>
+<div class="row">
+<div class="col-2"></div>
+<div class="col-6">
+<h4 class="text-dark"> {{module.description}}</h4>
+</div>
+</div>
+{% endif %}
+</div>
+</div>
+</div>
+</div>
+
+<script>
+  jQuery(document).ready(function() {
+        $('form').on('sonata.add_element', function(){
+            initTinyMCE();
+        });
+    });
+</script>
+</div>#}
+
+<!--QUIZZ-->
+<style>
+.responsive-iframe {
+  position: relative;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+</style>
+        <section id="quizz-intro-section" class="quizz-intro-section learn-section" style="min-height: 175px;">
+        <div class="container">
+
+            <div class="title-ct">
+                <h3><strong></strong></h3>
+                <div class="tt-right">
+                    <a href="#" class="skip"><i class="icon md-arrow-right"></i>Back</a>
+                </div>
+            </div>
+
+            <div class="question-content-wrap">
+                <div class="row">
+                    <div class="col-md-9">
+                     <div style="margin-top:10px;margin-left:20px;">
+                    <p class="skip">{{catname}} / {{classname}} / {{firstweek}} /<a href="{{path('module_weeks',{'idClass':class.id,'idWeek':week.id})}}" class="skip"> {{topic.title}} </a>/ {{module.title}}</p>
+                    </div>
+                        <div class="question-content">
+                            <div class="attachments">
+                            {% for module_document in module_documents %}
+                                <a target='_blank' href="{{ path('show_module_pdf',{'id':module_document.id} )}}"><i class="fas fa-paperclip"></i>{{module_document.supportDocument}}</a>
+                               
+                            {% endfor %}
+                            </div>
+                            <div class="mc-title">
+                                <h3 class="md">{{module.title}}</h3>
+                                <div class="meta">
+                                    {{module.description}} 
+                                </div>
+                            </div>
+                            <h4 class="sm bold"></h4>
+                            <div id="disabled">
+                            {% if module.typeCourse.name=="Course" %}
+                            
+                            <p class="unselectable">{{module.content|raw}}</p>
+                            {% endif %}
+                            {% if module.typeCourse.name=="Video" %}
+                            <div style="height:400px;">
+                            <iframe class="responsive-iframe" src="https://www.youtube.com/embed/{{ module.video }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            {% endif %}
+                            </div>
+                            
+                            {#<div class="quest-list">
+                                <h4 class="sm bold">My humble point</h4>
+                                <ul class="list-disc">
+                                    <li><p>sed diam nonummy nibh euismod tincidunt ut laoreet</p></li>
+                                    <li><p>sed diam nonummy nibh euismod tincidunt utrlaoreet</p></li>
+                                </ul>
+                            </div>#}
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-3">
+                        <aside class="question-sidebar" {#style="height: 700px;"#}>
+                            <div class="score-sb">
+                                <h4 class="title-sb sm bold">Overview<span></span></h4>
+                                <div class="list-wrap ps-container ps-active-x ps-active-y" style="height: 100%; max-height: none;">
+                                <ul>
+                                 {% set i=0 %}
+                                   {% for week in weeks %}
+                                    <li class=" active"><i class="icon"></i>
+                                    <a href="{{path('module_weeks',{'idClass':class.id,'idWeek':week.id})}}" >{{week.title}}</a><span></span>
+                                      
+                                    </li>
+                                    {% endfor %}
+                                </ul><div class="ps-scrollbar-x-rail" style="width: 326px; display: inherit; left: 0px;"><div class="ps-scrollbar-x" style="left: 0px; width: 150px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; height: 520px; display: inherit; right: 0px;"><div class="ps-scrollbar-y" style="top: 0px; height: 150px;"></div></div></div>
+                            </div>
+                            
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+    $(document).ready(function() {
+    $("#quizz-intro-section").on("contextmenu",function(e){
+       return false;
+    }); 
+}); 
+$(document).ready(function() {
+  $('#disabled').bind("cut copy paste", function(event) {
+    event.preventDefault();
+  });
+})
+    </script>
+    <style>
+      .unselectable {
+        -webkit-user-select: none;
+        -webkit-touch-callout: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        color: #cc0000;
+      }
+      
+      
+    </style>
+{% endblock %}

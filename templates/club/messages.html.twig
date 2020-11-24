@@ -1,0 +1,146 @@
+{% extends 'club.html.twig'%}
+
+{% block body %}
+ <div class=" container-scroller">
+        <div class="content-wrapper">
+            <h3 class="page-heading mb-4"> Club Messages </h3>
+            <div class="row mb-2">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form name="newmessage" class="forms-sample" method="post" action="{{path('club_messages_new',{'id':club.id})}}">
+                                <input hidden value="#id " name="group">
+                                <div class="form-group">
+                                    <label for="exampleTextarea">Publication</label>
+                                    <textarea name="description" class="form-control p-input" id="exampleTextarea" rows="5" style="width: 200%" placeholder="" required></textarea>
+                                </div>
+                                <div class="form-group"></div>
+
+                                <div class="form-group">
+                                    <button type="submit" style="border-radius:20px;background:red;" class="btn btn-primary"><span class="btn-text">Send</span> <span class="btn-border"></span></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <div style="background-image:url({{asset('club/img/bg/bg-10.jpg')}})" class="card overflow-auto">
+    <div class="card-body">
+    {% set i=0 %}
+    {% set j=0 %}
+        {% for g in club_message if i<10+j %}
+              {#}   <div class="card gradiant-default col-xl-10" style="background:silver;min-height:169px;">
+                    <div class="card-body">
+                    
+                       {% if g.user.status=="Student"%}
+                        <h5 styel="color:blue;" class="card-title mb-4">{{g.user.student[0].firstname}}</h5>
+                        {% endif %}
+                   
+                     
+                    
+                        {% if g.user.status=="Teacher"%}
+                         <h5 styel="color:blue;" class="card-title mb-4">{{g.user.teacher[0].lastname}}</h5>
+                        {% endif %}
+                        
+                        <div style="float: left">
+                            <div class="btn-group"  style="float: right;margin-top: -40px;">
+                                <button type="button" class="btn btn-info">Action</button>
+                                <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#delete">supprimer</a>
+
+                                </div>
+                            </div>
+                        </div>
+                         
+
+                        <div  style="float: left">
+                            <div style="float: left">
+                                 {% if g.user.photo == null %}
+                                    <img src="{{ asset('Dash/images/man.png') }}"  class="rounded-circle" width="50" height="50" />
+                               {% else %}
+                                    <img src="{{ asset('uploads/user/photos/'~g.user.photo) }}"  class="rounded-circle" width="50" height="50" />
+                                {% endif %}
+                                <p style="color:black;margin-left: 59px; margin-top: -43px;">
+                                {{ g.content}}
+                                </p>
+                                   
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>#}
+             <div class="event-bg">
+                        <div class="media align-items-center">
+                       
+                           {% if g.user.photo == null %}
+                                <img src="{{ asset('img/elprof.jpg') }}" class="rounded-circle"  />
+                            {% else %}
+                                <img src="{{ asset('uploads/user/photos/'~g.user.photo) }}" class="rounded-circle" width="50" height="50"  />
+                            {% endif %}
+                     
+                        <div class="media-body">
+                        <div class="card col-6">
+			<div class="card-title">
+
+                          {% if g.user.status=="Student"%}
+
+             			{% if g.user.student[0] in g.club.Students %}
+
+             				<h6 style="color:silver;">{{g.user.student[0].firstname}} <span class="badge badge-info">Member</span><h6>
+
+             			{% else %}
+
+             				<span class="badge badge-info">Guest</span>
+
+             			{% endif %}
+
+             		{% endif %}
+
+               		{% if g.user.status=="Teacher"%}
+
+             			{% if g.user.teacher[0] == g.club.head %}
+
+            				<h6 style="color:silver;">{{g.user.teacher[0].firstname }}<span class="badge badge-success"> Head</span></h6> 
+
+             			{% else %}
+
+             				<span class="badge badge-success">Guest</span>
+
+             			{% endif %}
+
+             		{% endif %}
+
+               		{% if g.user.status=="Admin"%}
+
+               			<span class="badge badge-danger">Admin</span>
+
+               		{% endif %}
+
+                        </div>
+                        <div class="card-body">
+                          <span class="mb-0 text-sm"> {{ g.content }} <span style="color:silver; float:right;">{{g.dateTime|date("m/d/Y H:i")}}</span></span>
+                          </div></div>
+                        </div>
+                      </div>
+
+                      </div>
+                      <br>
+                      {% set i=i+1 %}
+                      
+            {% endfor %}
+            <a href="#"  onclick="add()">Show more</a>
+
+            <script>
+            public function add(){
+              var  j=j+5;
+            }
+            </script>
+</div></div>
+        </div>
+        <br><br>
+    </div>
+{% endblock %}

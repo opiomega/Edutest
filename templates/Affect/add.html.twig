@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+	<title>jQuery UI Multiselect</title> 
+	<link rel="stylesheet" href="{{asset('michael-multiselect/css/common.css')}}" type="text/css" />
+	<link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/ui-lightness/jquery-ui.css" />
+	<link type="text/css" href="{{asset('michael-multiselect/css/ui.multiselect.css')}}" rel="stylesheet" />
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="{{asset('michael-multiselect/js/plugins/localisation/jquery.localisation-min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('michael-multiselect/js/plugins/scrollTo/jquery.scrollTo-min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('michael-multiselect/js/ui.multiselect.js')}}"></script>
+	<script type="text/javascript">
+		$(function(){
+			$.localise('ui-multiselect', {/*language: 'en',*/ path: 'michael-multiselect/js/locale/'});
+			$(".multiselect").multiselect();
+			$('#switcher').themeswitcher();
+		});
+	</script>
+</head>
+<body>
+<section class="section section-lg">
+   
+     
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+            <h1 class="text-center"><i class="tim-icons icon-book-bookmark text-warning"></i>Tests management</h1>
+            <div class="row row-grid justify-content-center">
+            <ul class="nav nav-pills justify-content-end">
+     {% for teacher in teachers %}
+  <li class="nav-item">
+    <a href="{{ path('affect_index',{'idTeacher':teacher.id}) }}" class="btn btn-danger btn-neutral">
+                 {#} <span class="btn-inner--icon btn-lg"><img src="{{ asset('img/choose.png')}}"></span>#}
+                 <div class="media align-items-center">
+                        <a href="{{ path('affect_index',{'idTeacher':teacher.id}) }}" class="avatar rounded-circle mr-3">
+                           {% if teacher.user.photo == null %}
+                                <img src="{{ asset('img/elprof.jpg') }}" class="rounded-circle"  />
+                            {% else %}
+                                <img src="{{ asset('/uploads/user/photos/'~teacher.user.photo) }}" width="50px" height="50px "  />
+                            {% endif %}
+                        </a>
+                        <div class="media-body">
+                          <span class="mb-0 text-sm">{{ teacher.firstname }} {{ teacher.lastname }}</span>
+                        </div>
+                      </div>
+                
+                </a>
+  </li>
+   {% endfor %}
+ 
+</ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+<div id="wrapper"> 
+	<div id="header"> 
+		
+	</div>
+	
+	<div id="content">
+   
+    
+    <br/>
+
+    <form method="post"  action="{{path('std_add',{'idTeacher':teachers[0].id})}}" >
+      <select class="multiselect" multiple="multiple" name="add[]">
+      {% for student in students %}
+     
+        <option value="{{student.id}}">{{student.firstname}} {{student.lastname}}</option>
+        
+        {% endfor %}
+        {% for stud in std %}
+       
+         <option value="{{stud.id}}" selected="selected">{{stud.firstname}} {{stud.lastname}}</option>
+        
+{% endfor %}
+
+       
+      </select>
+      <br/>
+      <input type="submit" name="submit" value="update"/>
+    </form>
+    
+    <script type="text/javascript"
+      src="http://jqueryui.com/themeroller/themeswitchertool/">
+    </script>
+    <div id="switcher"></div>
+    
+  
+	</div> 
+ 
+	<div id="footer"> 
+
+	</div> 
+</div>
+</body> 
+</html>

@@ -1,0 +1,28 @@
+<form method="post" action="{{ path('module_delete', {'id': module.id}) }}" >
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ module.id) }}">
+    <button class="btn btn-danger float-right" onclick="showModal('myModal{{ module.id }}')">Delete</button>
+</form>
+ <script>
+        function showModal(id) {
+            $("#"+id).modal();
+        }
+    </script>
+    <!-- Modal -->
+                            <div id="myModal{{ module.id }}" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Confirmation de supprission</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Voulez-vous vraiment supprimer cette ce cours !</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+                                            <a href="{{ path('module_delete', { 'id': module.id }) }}" class="btn btn-danger btn-md">Supprimer</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>

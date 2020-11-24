@@ -1,0 +1,467 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Teacher{% endblock %}
+
+{% block body %}
+ {#<style>
+        #photoFileInput{display:none;}
+    </style>
+
+ <section class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card card-plain">
+              <div class="card-header">
+                <h1 class="profile-title text-left">{{ teacher.firstname}} {{ teacher.lastname}}, {{age}}</h1>
+                <h5 class="text-on-back">01</h5>
+              </div>
+              <div class="card-body">
+                <form>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Courses</label>
+                         {% if teacher.courses.name is defined %}
+                        <input type="text" class="form-control text-white" value=" {{ teacher.courses.name }}" disabled>
+                        {% else %}
+                        <input type="text" class="form-control text-white" value="No courses yet" disabled>
+                        {% endif %}
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Email address</label>
+                        <input  class="form-control text-white" value="{{ user.email}}" placeholder=""disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Score</label>
+                        <input type="text" class="form-control text-white" value="{{ teacher.score}}"disabled>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Phone number</label>
+                        <input type="text" class="form-control text-white" value="{% if user.phone is defined %} {{ user.phone }} {% else %} No number {% endif %}"disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label>Adresse</label>
+                        <input type="text" class="form-control text-white" value="{{ user.adress }}" placeholder="Hello there!"disabled>
+                      </div>
+                    </div>
+                  </div>
+                  {% if app.user.status=="Teacher" or app.user.status=="Admin" %}
+                  <a  class="btn btn-primary text-white btn-round float-right" rel="tooltip" href="{{ path('teacher_edit', {'id': teacher.id}) }}" data-placement="right">Edit profile</a>
+                  {% endif %}
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 ml-auto">
+               {% if app.user.status=="Teacher"%}
+          {{form_start(form,{'attr': {'id':'photoForm'}})}}
+                    <div class="input-group">
+  
+                        <div class="custom-file">
+                            {{ form_widget(form.photoFile,{'id':'photoFileInput'})}}
+                            <label class="btn btn-success btn-sm" for="photoFileInput" id="photoFileLabel"><i class="fa fa-camera"></i> Photo</label>
+                        </div>
+                    </div>
+                {{form_end(form)}}
+                {% endif %}
+            <div class="carousel-inner" role="listbox">
+                
+                  <div class="carousel-item active">
+                  
+                  
+                     {% if user.photo == null %}
+                                <img class="d-block" src="{{ asset('img/elprof.jpg') }}"  />
+                            {% else %}
+                                <img class="d-block" src="{{ asset('/uploads/user/photos/'~teacher.user.photo) }}" style="min-width:200px;"   />
+                            {% endif %}
+                    <div class="carousel-caption d-none d-md-block">
+                      
+                    </div>
+                     
+                  </div>
+                  
+              </div> 
+          </div>
+          <div class="col"></div>
+        </div>
+      </div>
+    </section>
+    {#
+ <div class="container-fluid mt--7">
+      <div class="row ">
+        <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+          <div class="card card-profile shadow">
+            <div class="row justify-content-center">
+              <div class="col-lg-3 order-lg-2">
+                <div class="card-profile-image">
+                  <a href="#" onclick="showModal('detailModal{{ teacher.id }}')">
+                   {% if user.photo == null %}
+                                <img src="{{ asset('img/elprof.jpg') }}" class="rounded-circle" width="100" height="100" onmouseover="bigImg(this)" onmouseout="normalImg(this)" />
+                            {% else %}
+                                <img src="{{ asset('/uploads/user/photos/'~teacher.user.photo) }}" class="rounded-circle" width="100" height="100" onmouseover="bigImg(this)" onmouseout="normalImg(this)" />
+                            {% endif %}
+                            
+                  </a>
+                  
+                </div>
+              </div>
+            </div>
+            <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+              <div class="d-flex justify-content-between">
+                {{form_start(form,{'attr': {'id':'photoForm'}})}}
+                    <div class="input-group">
+  
+                        <div class="custom-file">
+                            {{ form_widget(form.photoFile,{'id':'photoFileInput'})}}
+                            <label class="btn btn-success btn-sm" for="photoFileInput" id="photoFileLabel"><i class="fa fa-camera"></i> Photo</label>
+                        </div>
+                    </div>
+                {{form_end(form)}}
+              
+              </div>
+            </div>
+            <div class="card-body pt-0 pt-md-4">
+              <div class="row">
+                <div class="col">
+                  <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+                    <div>
+                      <span class="heading">{{ teacher.score}}</span>
+                      <span class="description">Teacher score</span>
+                    </div>
+                    <div>
+                      <span class="heading">{{ age }}</span>
+                      <span class="description">Age </span>
+                    </div>
+                    <div>
+                    
+                    {% if teacher.courses.name is defined %}
+                      <span class="h5">{{ teacher.courses.name }}</span></br>
+                    {% else %}
+                      <span class="h5">-no courses-</span>
+                      {% endif %}
+                      <span class="description">Courses </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <h3>
+                  {{ teacher.firstname }} {{ teacher.lastname}}<span class="font-weight-light">
+                
+                  </span>
+                </h3>
+                <div class="h5 mt-4">
+              
+                  <i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer
+                </div>
+                <div class="h5 font-weight-300"><label>Adress : </label>
+                  <i class="ni location_pin mr-2"></i>{{ user.adress }}
+                </div>
+                <div class="h5 mt-4">
+                  <i class="ni business_briefcase-24 mr-2"></i>
+                </div>
+                <div><label>University : </label>
+                  <i class="ni education_hat mr-2"></i>{{ teacher.university }}
+                </div>
+                <hr class="my-4" />
+               
+  {% if app.user.status=="Teacher" or app.user.status=="Admin"%}
+    <a href="{{ path('user_edit', {'id': user.id}) }}" class="btn btn-outline-dark float-left">edit</a>
+
+    
+{% endif %}
+{% if app.user.status=="Admin"%}
+{{ include('user/_delete_form.html.twig') }}
+{% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+    
+
+
+ <div class="col-xl-8 order-xl-1">
+          <div class="card bg-secondary shadow">
+            <div class="card-header bg-white border-0">
+              <div class="row align-items-center">
+                <div class="col-8">
+                  <h3 class="mb-0">My account</h3>
+                </div>
+                
+              </div>
+            </div>
+
+            <div class="card-body">
+              <form>
+             {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('delete') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('update') %}
+            <div class="alert alert-warning" role="alert">
+                {{ message }}
+                </div>   
+                {% endfor %}  
+                <h6 class="heading-small text-muted mb-4">User information</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username">First name</label>
+                        <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value=" {{ teacher.firstname }}" disabled>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Last name</label>
+                     <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value=" {{ teacher.lastname}}" disabled>   
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-first-name">Email</label>
+                    <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value=" {{ user.email}}" disabled>   
+                      </div>
+                    </div>
+                   <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-last-name"> Score</label>
+                     <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value=" {{ teacher.score }}" disabled>  
+                      </div>
+                    </div>
+                  </div>
+                </div>
+    
+{% if app.user.status=="Teacher" or app.user.status=="Admin" %}
+    <a href="{{ path('teacher_edit', {'id': teacher.id}) }}"class="btn btn-outline-dark float-left">edit</a>
+
+    {{ include('teacher/_delete_form.html.twig') }}
+    {% endif %}
+</div></div></div></div>
+     
+    <a href="{{ path('teacher_index') }}"class="btn btn-outline-default float-left">back to list</a>
+
+
+     <script>
+        function showModal(id) {
+            $("#"+id).modal();
+        }
+    </script>
+
+    <td>
+    <div id="detailModal{{ teacher.id }}" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                
+                                                    <h4 class="modal-tit">Profile picture</h4>
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="col-modal">
+                                                    <div class="row">
+                                                        <div class="col-6 "><b> </b></div>
+                                                        <img src="{{ asset('/uploads/user/photos/'~teacher.user.photo) }}"  width="400" height="400" />
+                                                    </div>
+                                                    </div>
+                                                  
+                                                <div class="modal-footer">
+                                                     <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Close</button> 
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+      </td>
+
+#
+      
+     <script>
+        function showModal(id) {
+            $("#"+id).modal();
+        }
+        document.getElementById("photoFileInput").onchange = function() {
+            document.getElementById("photoForm").submit();
+        };
+    </script>
+
+
+
+<script>
+function bigImg(x) {
+  x.style.height = "150px";
+  x.style.width = "150px";
+}
+
+function normalImg(x) {
+  x.style.height = "100px";
+  x.style.width = "100px";
+}
+</script>#}
+ <style>
+            .bottom-left {
+  position: absolute;
+  
+  left: 16px;
+}
+          </style>
+<section name='Title' style='margin-top:140px;'>
+<div class="container">
+        <div class="row justify-content-center">
+             <h1 class="text-center"style="color:#B2273D;">Teacher profile
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+<section class="section" style="margin-bottom:50px;">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7">
+            
+           
+            
+           <div >
+                <h2 class="profile-title text-bluee bottom-left " style="background:url({{asset('image/icones/7.png')}}) no-repeat; background-position:top right; padding-right:50px; padding-top:30px; background-size:60px;">{{ teacher.firstname}} {{ teacher.lastname}}, {{age}}  </h2>
+                <div style="height:90px;"></div>
+                 {#<img src="{{asset('image/icones/7.png')}}" style="padding-bottom: 20px; padding-left: 200px;" height="60px">#}
+              
+                <form>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="h4 text-rede">Courses</label>
+                        <input type="text" class="form-control " value="{{ teacher.courses.name is defined?teacher.courses.name:'--' }}" disabled style="background-color:rgba(241,242,242,0.7);">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="h4 text-rede">Email address</label>
+                        <input  class="form-control " value="{{ teacher.user.email }}" placeholder=""disabled style="background-color:rgba(241,242,242,0.7);"> 
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="h4 text-rede">Score</label>
+                        <input type="text" class="form-control" value="{{ teacher.score }}"disabled style="background-color:rgba(241,242,242,0.7);">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="h4 text-rede">Phone number</label>
+                        <input type="text" class="form-control bg-gris" value="{{ teacher.user.phone }}"disabled style="background-color:rgba(241,242,242,0.7);">
+                      </div>
+                    </div>
+                  </div>
+ 
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="h4 text-rede">City</label>
+                        <input type="text" class="form-control bg-gris " value="{{ teacher.user.city }}" disabled style="background-color:rgba(241,242,242,0.7);">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="h4 text-rede">Zipcode</label>
+                        <input  class="form-control " placeholder="" value="{{ teacher.user.zipcode }}"disabled style="background-color:rgba(241,242,242,0.7);">
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class=" h4 text-rede">Adresse</label>
+                        <input value="{{ teacher.user.adress }}" type="text" class="form-control " disabled style="background-color:rgba(241,242,242,0.7);">
+                      </div>
+                    </div>
+                  </div>
+                    <div class="row">
+                        <div class="col-md-9"></div>
+                        <div class="col-md-3">
+                            <div class=" text-white float-right"  style="width:110px;height:50px;background-image:url('{{asset('image/icones/20.png')}}');background-size:cover;"  data-placement="right">
+                           <div class="row"><a class="text-white" href="{{ path('teacher_edit', {'id': teacher.id}) }}" style="
+    padding-left: 30px;
+    padding-top: 13px;
+    font-size:14px;
+" class="h7 text-center"style="">Edit profile</a></div></div>
+                        </div>
+                    </div>
+                </form>
+           </div>
+          </div>
+          <div class="col-5 " style="margin-top:70px;">   
+            <div class="carousel-inner" role="listbox">
+                  <div class="carousel-item active">
+                                <img class="d-block"width="370px" height="370px" src="{{ teacher.user.photo==null? asset('img/elprof.png') : asset('uploads/user/photos/'~teacher.user.photo) }}"style="margin-top:28px;"  />
+                                <img src="{{asset('image/icones/30.png')}}" height="100px"  style="top:0; right:0;position: absolute;padding-right:40px;"> 
+                  </div>
+                  
+            </div>
+                  {{form_start(form,{'attr': {'id':'photoForm'}})}}
+                 {# <div class=" text-white float-right"  style="width:110px;height:70px;background-image:url('{{asset('image/icones/20.png')}}');background-size:cover;"  data-placement="right">#}
+                  {{ form_widget(form.photoFile,{'id':'photoFileInput','attr':{'style':'display:none;'}})}}
+                  <label class=" text-white float-right"  style="text-align:center; padding:10px; width:110px;height:50px;background-image:url('{{asset('image/icones/20.png')}}');background-size:cover;"  data-placement="right" for="photoFileInput" id="photoFileLabel"><i class="fa fa-camera"></i> Photo</label>
+                  {# {{ form_widget(form.photoFile,{'id':'photoFileInput', 'attr':{'class':'text-white','style':'padding-left: 30px;
+    padding-top: 13px;
+    font-size:14px;
+    background: none;
+    border:none;'}})}} 
+                      <button type="submit" class="text-white" href="#" style="
+    padding-left: 30px;
+    padding-top: 13px;
+    font-size:14px;
+    background: none;
+    border:none;
+" class="h7 text-center"style="">Edit photo</button>#}
+                  <!--</div>-->
+                  {{form_end(form)}}
+          </div>
+        </div>
+      </div>
+      <div class="container">
+                   
+
+      </div>
+    </section>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        document.getElementById("photoFileInput").onchange = function() {
+            document.getElementById("photoForm").submit();
+        };
+    </script>
+{% endblock %}

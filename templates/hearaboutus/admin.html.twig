@@ -1,0 +1,113 @@
+{% block admin %}
+{% if app.user.status=="Admin" %}
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Dashboard" data-placement="bottom" href="{{path('admin')}}" >
+              <i class="tim-icons icon-tv-2"></i>Insights
+              <p class="d-lg-none d-xl-none">Insights</p>
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Students management" data-placement="bottom" href="{{ path('student_index') }}" >
+              <i class="tim-icons icon-single-02"></i>Students 
+              <p class="d-lg-none d-xl-none">Students Management</p>
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Teachers management" data-placement="bottom" href="{{ path('teacher_index') }}" >
+              <i class="tim-icons icon-pencil"></i>Teachers 
+              <p class="d-lg-none d-xl-none">Insights</p>
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Courses management" data-placement="bottom" href="{{ path('module_selectCategory') }}" >
+              <i class="tim-icons icon-single-copy-04"></i>Courses
+              <p class="d-lg-none d-xl-none">Courses</p>
+            </a>
+          </li>
+          
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="List of universities" data-placement="bottom" href="{{ path('university_index') }}" >
+              <i class="tim-icons icon-bank"></i>Universities
+              <p class="d-lg-none d-xl-none">Facebook</p>
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Tests management" data-placement="bottom" href="{{ path('testadmin_index') }}" >
+              <i class="tim-icons icon-atom"></i>Tests
+              <p class="d-lg-none d-xl-none">Instagram</p>
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Clubs management" data-placement="bottom" href="{{ path('club_index') }}" >
+              <i class="tim-icons icon-palette"></i>Clubs
+              <p class="d-lg-none d-xl-none">Instagram</p>
+            </a>
+          </li>
+          <li class="dropdown nav-item">
+            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+              <i class="tim-icons icon-bold"></i> BackOffice
+            </a>
+            
+            <div class="dropdown-menu dropdown-with-icons">
+            <a href="{{ path('category_index') }}" class="dropdown-item">
+                <i class="tim-icons icon-caps-small"></i>Category management
+              </a>
+                <a href="{{ path('education_group_index') }}" class="dropdown-item">
+                <i class="tim-icons icon-caps-small"></i>Groups
+              </a>
+           
+              <a href="{{path('classes_index')}}" class="dropdown-item">
+                <i class="tim-icons icon-paper"></i> Classes management
+              </a>
+              <a href="{{path('educationlevel_index')}}" class="dropdown-item">
+                <i class="tim-icons icon-bullet-list-67"></i>Education level
+              </a>
+              <a href="{{path('city_index')}}" class="dropdown-item">
+                <i class="tim-icons icon-world"></i>Cities
+              </a>
+              <a href="{{path('hearaboutus_index')}}" class="dropdown-item">
+                <i class="tim-icons icon-link-72"></i>Hear about us
+              </a>
+            {#}  <a href="{{path('zipcode_index')}}" class="dropdown-item">
+                <i class="tim-icons icon-square-pin"></i>ZipCode
+              </a>#}
+            </div>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link  d-none d-lg-block" href="{{ path('app_logout') }}">
+              <i class="tim-icons icon-user-run"></i> Logout
+            </a>
+          </li>
+
+          <li class="nav-item dropdown no-arrow p-0 show">
+              <a class="nav-link pr-0" id="alertsDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="paddnig:10px;">
+                <div class="media align-items-center">
+                    <i class="fa fa-bell fa-fw"></i>
+                    <span class="badge badge-danger badge-counter" style="color:#FEFEFE">{{ notificationReposetory.findBy({'seen':false}) | length }}</span>
+                </div>
+              </a>
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in hide"  id="notificationsDropdown" style="display:none;" >
+                <h6 class="dropdown-header">
+                  Notifications
+                </h6>
+                  {% for notification in notificationReposetory.findAll()|reverse %}
+                <a class="dropdown-item d-flex align-items-center" href="{{ path('candidature_show_by_notification',{'id':notification.id}) }}" >
+                  <div class="mr-3">
+                    <div class="icon-circle bg-primary">
+                      <i class="fas fa-file-alt text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500">{{ notification.date |date('Y-m-d h:i:s') }}</div>
+                    <span class="font-weight-bold">new candidature  from {{ notification.candidature.student.firstName }} {{ notification.candidature.student.lastName }} </span>
+                  </div>
+                </a>
+                    {% endfor %}
+                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+              </div>
+          </li>
+
+          {% endif %}
+{% endblock %}

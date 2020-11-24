@@ -1,0 +1,299 @@
+{% extends 'base.html.twig' %}
+{% block title %}Attendance list{% endblock %}
+{% block body %}
+              <!-- Tabs with Background on Card -->
+              <div class="card card-plain">
+                <div class="card-header">
+                  <ul class="nav nav-tabs nav-tabs-primary" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active show" data-toggle="tab" href="#link1" role="tablist">
+                        Students
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" data-toggle="tab" href="#link2" role="tablist">
+                        Teachers
+                      </a>
+                    </li>
+                    
+                  </ul>
+                </div>
+                <div class="card-body">
+                  <!-- Tab panes -->
+                  <div class="tab-content tab-space">
+                    <div class="tab-pane active show" id="link1">
+                      <form action="{{path('student_filter')}}" method="post">
+  <div class="row">
+  <div class="col-4">
+  <select name="group" class="form-control">
+  {% for g in groups %}
+  <option value='{{g.id}}'>{{g.name}}</option>
+  {% endfor %}
+  </select>
+  </div>
+
+<div class="col-3">
+<select name='month' class="form-control" id='mon' >
+      <option value="01">January</option>
+      <option value="02">February</option>
+      <option value="03">March</option>
+      <option value="04">April</option>
+      <option value="05">May</option>
+      <option value="06">June</option>
+      <option value="07">July</option>
+      <option value="08"> August</option>
+      <option value="09">September</option>
+      <option value="10">October</option>
+     <option value="11"> November</option>
+      <option value="12">December</option>
+      </select>
+  </div> 
+  <button type="submit" class="btn btn-info btn-sm">Filter</button>
+  </div>
+  </form>
+  <br><br>
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                
+                <th>Name</th>
+                <th>Group>
+                <th>Session</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Absence registered</td>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+{% for abs in studentabsent %}
+
+<td>{{abs.student.firstname}} {{abs.student.lastname}}</td>
+<td>{% if abs.seance!= null %}{{abs.seance.educationgroup.name}} {% else %}--{% endif %}</td>
+<td>{% if abs.seance!= null  %} <span class='text-blue'>{{abs.seance.date|date('Y-m-d')}}</span>/<span class='text-red'>{{abs.seance.dateend|date('Y-m-d')}}</span>{% else %}--{% endif %}</td>
+<td>{% if abs.seance!= null %}{{abs.seance.beginTime}}{% else %}--{% endif %}</td>
+<td>{% if abs.seance!= null %}{{abs.seance.endTime}}{% else %}--{% endif %}</td>
+{% if abs.status=="0" %}
+<td>{{abs.date|date('Y-m-d')}}</td>
+{% else %}
+<td> Present</td>
+{% endif %}
+
+<td>
+{#<p>{{abs.status}}</p>
+ <input type="checkbox" id="checkbox{{ abs.student.id }}" class="js-switch" {% if abs.status=="1" %}checked{% endif %} onchange="absent({{ abs.student.id }},'{{abs.date|date('Y-m-d')}}')"/>
+#}
+ <link href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" rel="stylesheet" />
+ 
+<form name='myForm{{abs.id}}'>
+<div class="switch-toggle switch-3 switch-candy">
+  <input id="on{{abs.id}}" name="state-d{{abs.id}}" type="radio"  {% if abs.status=="1" %}checked="checked" {% endif %}value='1'/>
+  <label for="on{{abs.id}}" onclick="">Present</label>
+
+  <input id="na{{abs.id}}" name="state-d{{abs.id}}" type="radio" disabled  />
+  <label for="na{{abs.id}}" class="disabled" onclick="">&nbsp;</label>
+
+  <input id="off{{abs.id}}"  name="state-d{{abs.id}}" type="radio" value='0' style='background-color:red;'  {% if abs.status=="0" %}checked{% endif %} />
+  <label for="off{{abs.id}}" onclick="">Absent</label>
+
+  <a></a>
+</div>
+</form>
+
+</td>
+<script>
+$('input[type=radio][name=state-d{{abs.id}}]').change(function() {
+     var stat=this.value;
+     var dat="{{abs.date|date('Y-m-d')}}";
+     //alert(dat);
+     var theUrl = "{{ path('agents_students_absent',{'date':'date'}) }}";
+   theUrl = theUrl.replace("date",dat);
+     $.ajax({url: theUrl,
+              
+              data: "studentId="+{{abs.student.id}}+"&seanceId="+{% if abs.seance!=null%}{{ abs.seance.id}}{% endif %}+"&status="+stat,  
+      
+});
+});
+ function absent(id,date){
+   //alert(date);
+   var theUrl = "{{ path('agents_students_absent',{'date':'date'}) }}";
+   theUrl = theUrl.replace("date",date);
+              $.ajax({url:theUrl ,
+              
+              data: "studentId="+id+"&seanceId="+{% if abs.seance!=null%}{{ abs.seance.id}}{% endif %}+"&status="+$("#checkbox"+id).is(':checked'),  
+                 /*success:function(data)
+                           {
+                     if(jQuery.trim(data) === "SQLSuccess")
+                                   {
+                           alert("absent");
+                          // alert(data);
+                                      } else { alert("test1");}
+                              },
+                   error: function(error)
+                           {
+                    alert("test: " );
+                           }*/
+               });
+        }
+    </script>
+   </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+             
+        
+        {% endfor %}
+        </tbody>
+    </table>
+                    </div>
+                    <div class="tab-pane" id="link2">
+                      <form action="{{path('teacher_filter')}}" method="post">
+  <div class="row">
+  <div class="col-4">
+  <select name="groupt" class="form-control">
+  {% for g in groups %}
+  <option value='{{g.id}}'>{{g.name}}</option>
+  {% endfor %}
+  </select>
+  </div>
+
+<div class="col-3">
+<select name='montht' class="form-control" id='mon' >
+      <option value="01">January</option>
+      <option value="02">February</option>
+      <option value="03">March</option>
+      <option value="04">April</option>
+      <option value="05">May</option>
+      <option value="06">June</option>
+      <option value="07">July</option>
+      <option value="08"> August</option>
+      <option value="09">September</option>
+      <option value="10">October</option>
+     <option value="11"> November</option>
+      <option value="12">December</option>
+      </select>
+  </div> 
+  <button type="submit" class="btn btn-info btn-sm">Filter</button>
+  </div>
+  </form>
+  <br><br>
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                
+                <th>Name</th>
+                <th>Session</th>
+                <th>Group</th>
+                <th>From</th>
+                <th>To</th>
+               <th>Date</th>
+               <th>Action</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+{% for absn in teacher %}
+<tr>
+<td>{% if absn.seance!= null %}{{absn.seance.teacher.firstname}} {{absn.seance.teacher.lastname}}{% else %}--{% endif %}</td>
+<td>{% if absn.seance!= null and absn.seance.category!=null %}{{absn.seance.category.name}}{% else %}--{% endif %}</td>
+<td>{% if absn.seance!= null %}{{absn.seance.educationgroup.name}} <span class='text-blue'>{{absn.seance.date|date('Y-m-d')}}</span>/<span class='text-red'>{{absn.seance.dateend|date('Y-m-d')}}</span>{% else %}--{% endif %}</td>
+<td>{% if absn.seance!= null %}{{absn.seance.beginTime}}{% else %}--{% endif %}</td>
+<td>{% if absn.seance!= null %}{{absn.seance.endTime}}{% else %}--{% endif %}</td>
+{% if absn.status=="0"%}
+<td>{{absn.date}}</td>
+{% else %}
+<td>Present</td>
+{% endif %}
+<td>  
+<link href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" rel="stylesheet" />
+ 
+<form name='myForm{{absn.id}}{{absn.seance.id}}'>
+<div class="switch-toggle switch-3 switch-candy">
+  <input id="on{{absn.id}}{{absn.seance.id}}" name="state-d{{absn.id}}{{absn.seance.id}}" type="radio"  {% if absn.status=="1" %}checked="checked" {% endif %}value='1'/>
+  <label for="on{{absn.id}}{{absn.seance.id}}" onclick="">Present</label>
+
+  <input id="na{{absn.id}}{{absn.seance.id}}" name="state-d{{absn.id}}{{absn.seance.id}}" type="radio" disabled  />
+  <label for="na{{absn.id}}{{absn.seance.id}}" class="disabled" onclick="">&nbsp;</label>
+
+  <input id="off{{absn.id}}{{absn.seance.id}}"  name="state-d{{absn.id}}{{absn.seance.id}}" type="radio" value='0' style='background-color:red;'  {% if absn.status=="0" %}checked{% endif %} />
+  <label for="off{{absn.id}}{{absn.seance.id}}" onclick="">Absent</label>
+
+  <a></a>
+</div>
+</form>
+  {#<input type="checkbox" class="js-switch" {% if absn.status=="0" %}checked{% endif %} onchange="absentteacher({{ absn.seance.teacher.id }},'{{absn.date}}')"/>#}</td>
+
+
+</tr>
+<script>
+ $('input[type=radio][name=state-d{{absn.id}}{{absn.seance.id}}]').change(function() {
+     var stat=this.value;
+     var stat=this.value;
+     var dat="{{absn.date|date('Y-m-d')}}";
+     //alert(dat);
+     var theUrl = "{{ path('agents_teachers_absent',{'date':'date'}) }}";
+ theUrl = theUrl.replace("date",dat);
+     $.ajax({url: theUrl,
+              
+              data: "id="+{{absn.seance.teacher.id}}+"&seanceId="+{{ absn.seance.id }},
+      
+});
+});
+        function absentteacher (id,date){
+            // alert(date);
+   var theUrl = "{{ path('agents_teachers_absent',{'date':'date'}) }}";
+   theUrl = theUrl.replace("date",date);
+            $.ajax({
+               
+                url: theUrl,
+                type: "POST",
+                data: "id="+id+"&seanceId="+{% if absn.seance!= null %}{{ absn.seance.id }}{% endif %},
+                
+                });
+        }
+    </script>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+                    </div>
+                   
+                  </div>
+                </div>
+              </div>
+              <!-- End Tabs on plain Card -->
+            </div>
+
+{#}
+
+ <a class="  text-dark" data-toggle="collapse" data-target="#filtersstudent" style="margin-bottom:16px;padding-top: 9px">
+                                <button type="button" class="btn btn-primary mr-2 btn-sm">Students</button>
+                            </a>
+    <a class="  text-dark" data-toggle="collapse" data-target="#filters" style="margin-bottom:16px;padding-top: 9px">
+                                <button type="button" class="btn btn-primary mr-2 btn-sm">Teachers</button>
+                            </a>                    
+  <div  id="filtersstudent" class="collapse" > 
+ 
+</div>
+  <div  id="filters" class="collapse"> 
+  #}
+
+<script>
+
+ function check(){
+     var e = document.getElementById("studentfilter");
+     var val = e.options[e.selectedIndex].value;
+       if(val=='month'){
+      document.getElementById("mon").style.visibility = 'visible';
+       }
+       if(val=='group'){
+           document.getElementById("mon").style.visibility = 'hidden';
+       }
+ }
+</script>
+{% endblock %}

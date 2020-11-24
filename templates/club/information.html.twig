@@ -1,0 +1,235 @@
+{% extends 'club.html.twig' %}
+
+{% block title %}
+Club information
+{% endblock %}
+
+
+{% block body %}
+ <!-- booking-area-start -->
+            <div class="booking-area grad-bg pos-rel pt-135 pb-135">
+                <div class="shape d-none d-xl-block">
+                    <div class="shape-item fa-01 rotateme"><img src="{{asset('club/img/shape/shape-1.png')}}" alt=""></div>
+                    <div class="shape-item fa-02 rotateme"><img src="{{asset('club/img/shape/shape-2.png')}}" alt=""></div>
+                </div>
+                <div class="booking-bg-img d-none d-md-block" style="background-image:url({{asset('club/img/bg/bg-2.jpg')}});"></div>
+             <div class="gallery-area pt-130 pb-100 fix">
+                <div class="container-fluid">
+                
+                    <div class="row">
+                        <div class="col-xl-7 offset-xl-6 col-lg-6 offset-lg-6 col-md-6 offset-md-6">
+                            <div class="booking-wrapper">
+                                <div class="booking-text">
+                                    <h3>Informations management</h3>
+                                    
+                                </div>
+                                
+<div class="section section-tabs">
+        <div class="container-fluid">
+          
+          <div class="row">
+            <div class="col">
+              <div class="mb-3">
+                <large class="text-uppercase text-white font-weight-bold"><i class="tim-icons icon-bulb-63 text-yellow"></i>Tips!!</large>
+              </div>
+              <!-- Nav tabs -->
+              <div class="card" style="background:#0f1232;;">
+                <div class="card-header">
+                  <ul class="nav nav-tabs nav-tabs-primary" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active text-dark show" data-toggle="tab" href="#link1" role="tablist">
+                        <i class="tim-icons icon-email-85"></i> Informations
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link text-dark" data-toggle="tab" href="#link2" role="tablist">
+                        <i class="tim-icons icon-paper"></i> About us
+                      </a>
+                    </li>
+                  {#}  <li class="nav-item">
+                      <a class="nav-link text-dark" data-toggle="tab" href="#link3" role="tablist">
+                        <i class="tim-icons icon-credit-card"></i> Bank Stat.
+                      </a>
+                    </li>#}
+                  </ul>
+                </div>
+                <div class="card-body">
+                  <!-- Tab panes -->
+                  <div class="tab-content tab-space">
+                    <div class="tab-pane active show" id="link1">
+                      {{form_start(form)}}
+                      {{ form_label(form.name, 'Club name', {
+    'label_attr': {'class': 'text-blue'},'style':'color:blue;'
+}) }}
+                      {{form_widget(form.name)}}
+                      <label>Meeting date</label>
+                      {{form_widget(form.meatingDate)}}
+                      <label>Club logo</label>
+                      {{form_widget(form.logoFile)}}
+                      <label>Add members</label>
+                      {{form_widget(form.students, {'attr': {'class': 'text-blue'},'style':'color:blue;'})}}
+                      </br>
+                      <label>Club activities</label>
+                      {{form_widget(form.activity)}}
+                      <br/>
+                       <button class="btn btn-success "><span class="btn-text">{{ button_label|default('Save') }}</span> <span class="btn-border"></span></button>
+                      {{form_end(form)}}
+                    </div>
+                    <div class="tab-pane" id="link2">
+                   
+                      {{form_start(form1)}}
+                      {{form_widget(form1.about)}}
+                      <br/>
+                      <button type="submit" class="btn btn-success "><span class="btn-text">{{ button_label|default('Save') }}</span> <span class="btn-border"></button>
+                      {{form_end(form1)}}
+                    </div>
+                   {#} <div class="tab-pane" id="link3">
+                      <p>Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas.
+                        <br>
+                        <br> Dramatically maintain clicks-and-mortar solutions without functional solutions.</p>
+                    </div>#}
+                  </div>
+                </div>
+              </div>
+            </div>
+                               {#} <div class="gallery-area fix">
+                                
+                                <div class="row">
+                                
+                        <div class="col-xl-8  offset-xl-2">
+                        
+                            <div class="portfolio-menu portfolio-2-menu text-center mb-55">
+                            
+                                <button class="active" data-filter=".cat1">Info</button>
+                                 <button class="" data-filter=".cat2">About us</button>
+                                 <button class="" data-filter=".cat3">Photo</button>
+
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div id="portfolio-grid" class="row row-portfolio" style="position: relative; ">
+                        <div class="grid-sizer"></div>
+                      <div class="grid-item cat1 " style="position: absolute; dispaly:none;">
+                      {{form_start(form)}}
+                      {{form_widget(form.name)}}
+                      {{form_end(form)}}
+                                <form id="booking-form" action="#">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-box user-icon mb-30">
+                                                <input type="text" name="name" placeholder="Club name ">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-box email-icon mb-30">
+                                                <input type="text" name="email" placeholder="Club activity">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-box date-icon mb-30">
+                                                <input type="text" name="date" placeholder="Booking date">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-box person-icon mb-30">
+                                                <input type="text" name="person" placeholder="Person">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-box time-icon mb-30">
+                                                <input type="text" name="time" placeholder="Atten time">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-box message-icon mb-30">
+                                                <textarea name="message" id="message" cols="30" rows="10" placeholder="Club description"></textarea>
+                                            </div>
+                                            <div class="contact-btn">
+                                                <button class="btn" type="submit"><span class="btn-text">Edit</span> <span class="btn-border"></span></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+<div class=" col grid-item cat2 " style="position: absolute;">
+
+<form id="booking-form" action="#">
+                                    <div class="row">
+                                        
+                                        
+                                        <div class="col-lg-12">
+                                            <div class="form-box message-icon mb-30">
+                                                <textarea name="message" id="message" cols="30" rows="10" placeholder="Write message"></textarea>
+                                            </div>
+                                            <div class="contact-btn">
+                                                <button class="btn" type="submit"><span class="btn-text">Add</span> <span class="btn-border"></span></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+</div>
+<div class=" col grid-item cat3 " style="position: absolute; ">
+<h1>hello goodie goodie</h1>
+</div></div>#}                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <!-- booking-area-end -->
+
+   {#}         
+<div class="section section-tabs">
+        <div class="container">
+          
+          <div class="row">
+            <div class="col-md-10 ml-auto col-xl-6 mr-auto">
+              <div class="mb-3">
+                <large class="text-uppercase text-white font-weight-bold"><i class="tim-icons icon-bulb-63 text-yellow"></i>Tips!!</large>
+              </div>
+              <!-- Nav tabs -->
+              <div class="card">
+                <div class="card-header">
+                  <ul class="nav nav-tabs nav-tabs-primary" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active show" data-toggle="tab" href="#link1" role="tablist">
+                        <i class="tim-icons icon-email-85"></i> L.O.Recommendation
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" data-toggle="tab" href="#link2" role="tablist">
+                        <i class="tim-icons icon-paper"></i> Test
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" data-toggle="tab" href="#link3" role="tablist">
+                        <i class="tim-icons icon-credit-card"></i> Bank Stat.
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-body">
+                  <!-- Tab panes -->
+                  <div class="tab-content tab-space">
+                    <div class="tab-pane active show" id="link1">
+                      <p>Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits.
+                        <br>
+                        <br> Dramatically visualize customer directed convergence without revolutionary ROI.</p>
+                    </div>
+                    <div class="tab-pane" id="link2">
+                      <p>Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas.
+                        <br>
+                        <br>Dynamically innovate resource-leveling customer service for state of the art customer service.</p>
+                    </div>
+                    <div class="tab-pane" id="link3">
+                      <p>Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas.
+                        <br>
+                        <br> Dramatically maintain clicks-and-mortar solutions without functional solutions.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+#}
+{% endblock %}

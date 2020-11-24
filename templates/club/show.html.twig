@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Club{% endblock %}
+
+{% block body %}
+</br></br>
+<section class="section section-lg">
+      <img src="{{asset('assetss/img/path4.png')}}" class="path">
+     
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+            <h1 class="text-center">Module Management</h1>
+            <div class="row row-grid justify-content-center">
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+      <div class="row justify-content-center"> 
+    <div class="col-8">
+    <div class="card " style="border:solid 1px ;">
+    <div class="card card-header">
+    <h1>Club</h1>
+ </div>
+      <div class="card card-body ">
+    <table class="table">
+        <tbody>
+            
+            <tr>
+                <th>Name</th>
+                <td>{{ club.name }}</td>
+            </tr>
+            <tr>
+                <th>MeatingDate</th>
+                <td>{{ club.meatingDate ? club.meatingDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Logo</th>
+                <td><img src="{{ asset('uploads/clubs/logos/'~club.logo) }}" style="width:170px; height:170px;"/></td>
+            </tr>
+            <tr>
+                <th>Activity</th>
+                <td>{{ club.activity }}</td>
+            </tr>
+            {#<tr>
+                <th>LogoUpdatedAt</th>
+                <td>{{ club.logoUpdatedAt ? club.logoUpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>#}
+        </tbody>
+    </table>
+     {% if app.user.status == "Admin" or ( app.user.status == "Teacher" and club.head != null and club.head.id == app.user.teacher[0].id ) %}
+        <a class="btn btn-warning" href="{{ path('club_edit', {'id': club.id}) }}">edit</a>
+    {% endif %}
+</div>
+<div class=" card-footer">
+ {% if app.user.status == "Admin" or ( app.user.status == "Teacher" and club.head != null and club.head.id == app.user.teacher[0].id ) or ( app.user.status == "Student" and app.user.student[0] in club.students ) %}
+    <a href="{{ path('club_messages_index',{'id':club.id}) }}" class="btn btn-primary">Messages</a>
+    <a class="btn btn-info" href="{{ path('club_messages_new',{'id':club.id}) }}" class="btn">Add message</a>
+    {% endif %}
+</div></div>
+    <a class="btn " href="{{ path('club_index') }}">back to list</a>
+    
+    {{ include('club/_delete_form.html.twig') }}
+{% endblock %}

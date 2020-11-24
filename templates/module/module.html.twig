@@ -1,0 +1,1017 @@
+{% extends 'lay.html.twig' %}
+
+{% block body %}
+
+{#}
+<div style="position:absolute;"> 
+<nav class="nav flex-column"  style="position:fixed ; padding-top:200px;">
+<ul class="navbar-nav">
+  <li class="nav-item "><a class="nav-link" href="#"><i class="tim-icons icon-single-02" ></i>Active</a></li>
+  <li class="nav-item "><a class="nav-link" href="#"><i class="tim-icons icon-single-02" ></i>Link</a></li>
+ <li> <a class="nav-link" href="#"><i class="tim-icons icon-single-02" ></i>Link</a></li>
+  <li><a class="nav-link " href="#"><i class="tim-icons icon-single-02" ></i>Disabled</a></li>
+  </ul>
+</nav>
+</div>
+#}
+<script>
+$(document).ready(function(){
+
+
+	/* Toggle Video Modal
+  -----------------------------------------*/
+	function toggle_video_modal() {
+	    
+	    // Click on video thumbnail or link
+	    $(".js-trigger-video-modal").on("click", function(e){
+          
+          // prevent default behavior for a-tags, button tags, etc. 
+	        e.preventDefault();
+        
+          // Grab the video ID from the element clicked
+          var id = $(this).attr('data-youtube-id');
+
+          // Autoplay when the modal appears
+          // Note: this is intetnionally disabled on most mobile devices
+          // If critical on mobile, then some alternate method is needed
+          var autoplay = '?autoplay=1';
+
+          // Don't show the 'Related Videos' view when the video ends
+          var related_no = '&rel=0';
+
+          // String the ID and param variables together
+          var src = '//www.youtube.com/embed/'+id+autoplay+related_no;
+          
+          // Pass the YouTube video ID into the iframe template...
+          // Set the source on the iframe to match the video ID
+          $("#youtube").attr('src', src);
+          
+          // Add class to the body to visually reveal the modal
+          $("body").addClass("show-video-modal noscroll");
+	    
+      });
+
+	    // Close and Reset the Video Modal
+      function close_video_modal() {
+        
+        event.preventDefault();
+
+        // re-hide the video modal
+        $("body").removeClass("show-video-modal noscroll");
+
+        // reset the source attribute for the iframe template, kills the video
+        $("#youtube").attr('src', '');
+        
+      }
+      // if the 'close' button/element, or the overlay are clicked 
+	    $('body').on('click', '.close-video-modal, .video-modal .overlay', function(event) {
+	        
+          // call the close and reset function
+          close_video_modal();
+	        
+      });
+      // if the ESC key is tapped
+      $('body').keyup(function(e) {
+          // ESC key maps to keycode `27`
+          if (e.keyCode == 27) { 
+            
+            // call the close and reset function
+            close_video_modal();
+            
+          }
+      });
+	}
+	toggle_video_modal();
+
+
+
+});
+</script>
+
+</br></br>
+{% if app.user.status=="Student"%}
+{% if app.user.student[0].teacher == null %}
+<br><br><br><br>
+ <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+<div class="alert alert-info alert-with-icon" role="alert">
+<a type="button" href="{{path('apprentice')}}" aria-hidden="true" class="close"  aria-label="Close">
+        <i class="tim-icons icon-simple-remove"></i>
+    </a>
+    <span data-notify="icon" class="tim-icons icon-trophy"></span>
+     <span><b>  No teacher accoreded to you! - </b> Please contact the addministration</span>
+  
+  
+</div>
+
+</div></div></div>
+
+{% else  %}
+
+<section class="section section-lg">
+      <img src="{{asset('assetss/img/path4.png')}}" class="path">
+     
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+            <h1 class="text-center"><i class="tim-icons icon-book-bookmark text-warning"></i>Courses available</h1>
+            <div class="row row-grid justify-content-center">
+            <ul class="nav nav-pills justify-content-end">
+     {% for category in catagories %}
+  <li class="nav-item">
+  <a class="nav-link {% if category.id==idCategory %} btn-info{% endif %} " href="{{path('module_selectClasse',{'id':category.id})}}">{{ category.name }}</a>  
+
+    
+  </li>
+   {% endfor %}
+ 
+</ul>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+            <div class="row row-grid justify-content-center">
+            <ul class="nav nav-pills justify-content-end">
+     {% for classe in classes %}
+  <li class="nav-item">
+  
+    <a class="nav-link {% if classe.id==idClass %} btn-info{% endif %} " href="{{path('module_student',{'idCategory':classe.category.id,'idClass':classe.id})}}">{{ classe.name }}</a>
+  </li>
+   {% endfor %}
+ 
+</ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="wrapper">
+    <div class="page-header header-filter">
+      <div class="squares square1"></div>
+      <div class="squares square2"></div>
+      <div class="squares square3"></div>
+      <div class="squares square4"></div>
+      <div class="squares square5"></div>
+      <div class="squares square6"></div>
+      <div class="squares square7"></div>
+      
+    
+ 
+   <section id="section-1"class="column right">
+    
+    <article class="content">
+   
+     {# 
+      <h1>
+        YouTube<br/> 
+        Video Modal
+      </h1>
+      
+      <p>
+        In this demo I worked out how to leverage just the YouTube video’s unique ID, and pass it in to a reusable modal component that takes advantage of YouTube’s embed&nbsp;method. 
+      </p>
+      
+      <h2>
+        Launch From Thumbnails
+      </h2>
+      #}
+      
+      
+      <div class="blur-hoverr">
+     {% set i=0 %}
+     {% for module in modules if module.video is not null %}
+         {% else %}
+     <br><br><br><br>
+ <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+<div class="alert alert-info alert-with-icon" role="alert">
+<a type="button" href="{{path('apprentice')}}" aria-hidden="true" class="close"  aria-label="Close">
+        <i class="tim-icons icon-simple-remove"></i>
+    </a>
+    <span data-notify="icon" class="tim-icons icon-trophy"></span>
+     <span><b>  No Videos available! - </b> Will be available soon</span>
+  
+  
+</div>
+
+</div></div></div>
+
+     {% endfor %}
+        {% for module in modules if module.video is not null and module in modules and i<4 %}
+         
+        <!-- Daft Punk - Human After All -->
+          <a
+           href="https://www.youtube.com/embed/{{ module.video }}" 
+           data-youtube-id="hrB-_nIer88" 
+           class="video-thumb js-trigger-video-modal" onmouseover="document.getElementById('{{module.id}}').style.display='block';"
+           onmouseout="document.getElementById('{{module.id}}').style.display='none';"
+        >
+          <img 
+            class="blurr-item video-banner-img" 
+            src="{{asset('assetss/img/denys.jpg')}}" 
+            alt="" style=" box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"
+          /><div id="{{module.id}}" class="h2 centered text-info" style="display:none;">Centered</div>
+        </a>
+         
+           {% set i=i+1 %}
+          
+        {% endfor %}
+       
+     </div></div>
+    </article>
+  {% if i==4 %}
+
+        <a href="{{path('list')}}" class="btn btn-success text-white">See All</a>
+        {% endif %}
+ 
+
+
+</div></div>
+<br><br><br>
+<!-- video modal -->
+<section class="video-modal">
+
+    <!-- Modal Content Wrapper -->
+    <div 
+         id="video-modal-content" class="video-modal-content"
+     >
+      
+       <!-- iframe -->
+       <iframe 
+          id="youtube" 
+          width="100%" 
+          height="100%" 
+          frameborder="0" 
+          allow="autoplay" 
+          allowfullscreen 
+          src=
+        ></iframe>
+
+        <a 
+        	href="#" 
+        	class="close-video-modal" 
+        >
+        	<!-- X close video icon -->
+          <svg 
+            version="1.1" 
+            xmlns="http://www.w3.org/2000/svg" 
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            x="0"
+            y="0"
+            viewBox="0 0 32 32" 
+            style="enable-background:new 0 0 32 32;" 
+            xml:space="preserve" 
+            width="24" 
+            height="24" 
+          >
+
+            <g id="icon-x-close">
+                <path fill="#ffffff" d="M30.3448276,31.4576271 C29.9059965,31.4572473 29.4852797,31.2855701 29.1751724,30.980339 L0.485517241,2.77694915 C-0.122171278,2.13584324 -0.104240278,1.13679247 0.52607603,0.517159487 C1.15639234,-0.102473494 2.17266813,-0.120100579 2.82482759,0.477288136 L31.5144828,28.680678 C31.9872448,29.1460053 32.1285698,29.8453523 31.8726333,30.4529866 C31.6166968,31.0606209 31.0138299,31.4570487 30.3448276,31.4576271 Z" id="Shape"></path>
+                <path fill="#ffffff" d="M1.65517241,31.4576271 C0.986170142,31.4570487 0.383303157,31.0606209 0.127366673,30.4529866 C-0.12856981,29.8453523 0.0127551942,29.1460053 0.485517241,28.680678 L29.1751724,0.477288136 C29.8273319,-0.120100579 30.8436077,-0.102473494 31.473924,0.517159487 C32.1042403,1.13679247 32.1221713,2.13584324 31.5144828,2.77694915 L2.82482759,30.980339 C2.51472031,31.2855701 2.09400353,31.4572473 1.65517241,31.4576271 Z" id="Shape"></path>
+            </g>
+
+          </svg>
+        </a>
+
+    </div><!-- end modal content wrapper -->
+
+
+    <!-- clickable overlay element -->
+    <div class="overlay"></div>
+
+
+</section>
+<!-- end video modal -->
+       
+      </div>
+      
+      
+    </div>
+    <div class="main">
+      <div id="section-2" class="section section-basic" id="basic-elements">
+         <img src="{{asset('assetss/img/path1.png')}}" class="path">
+        <div class="container">
+        <h2 class="title">Documents</h2>
+        <div class="row"> 
+          
+          </br></br>
+           
+          {% for module in modules %}
+          {% if module.typeCourse.name=="Course"%}
+          <div class="col-lg-3">
+          <div id="{{module.id}}" class="card card-coin card-plain " onmouseover="this.className='card card-coin bg-gradient-red';" onmouseout="this.className='card card-coin card-plain';" style="padding-bottom:40px; data-background-color:none; ">
+          
+                  <div class="card-header">
+                <img src="{{asset('img/school-material.png')}}" height="20px" width="20px" class="img-center img-fluid">
+              </div>
+              <div class="info">
+              
+              
+                  <h4 class="info-title"> {% if module.title is defined %}
+                   {% if module.title != null %}
+                   {{module.title}}
+                   {% else %}
+                   No title
+                   {% endif %}
+                   {% else %}
+                   No title
+                   {% endif %}
+                  </h4>
+                  <h5 class="info-title text-white">
+                     {% if module.teacher.lastname is defined %}
+                  {% if module.teacher.lastname != null %}
+                  {{ module.teacher.lastname }}
+                   {% else %}
+                       - no data- 
+                    {% endif %}
+                    {% else %}  Added by Admin
+                    {% endif %}</h5>
+                  <hr class="line-primary">
+                  <p style="max-height: 20px;">{% if module.description is defined %}
+                   {% if module.description != null %}
+                  {{ module.description }}
+                  {% else %}
+                       No description 
+                    {% endif %}
+                    {% else %}
+                     No description 
+                     {% endif %}
+                  </p>
+                  <ul class="nav justify-content-center">
+  <li class="nav-item">
+    <a class="nav-link "style="font-size:20px;" href="{{ path('module_show', { 'id': module.id }) }}">Check this course<i class="tim-icons icon-minimal-right " style="color:white;"></i></a>
+  </li>
+ 
+</ul>
+                
+                </div></div></div>
+                {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        
+{% endif %}
+{% else %}
+<section class="section section-lg">
+      <img src="{{asset('assetss/img/path4.png')}}" class="path">
+     
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+            <h1 class="text-center"><i class="tim-icons icon-book-bookmark text-warning"></i>Courses available</h1>
+            <div class="row row-grid justify-content-center">
+            <ul class="nav nav-pills justify-content-end">
+     {% for category in catagories %}
+  <li class="nav-item">
+  
+    <a class="nav-link {% if category.id==idCategory %} btn-info{% endif %} " href="{{path('module_selectClasse',{'id':category.id})}}">{{ category.name }}</a>
+  </li>
+   {% endfor %}
+ 
+</ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="wrapper">
+    <div class="page-header header-filter">
+      <div class="squares square1"></div>
+      <div class="squares square2"></div>
+      <div class="squares square3"></div>
+      <div class="squares square4"></div>
+      <div class="squares square5"></div>
+      <div class="squares square6"></div>
+      <div class="squares square7"></div>
+      
+    
+ 
+   <section id="section-1"class="column right">
+    
+    <article class="content">
+   
+     {# 
+      <h1>
+        YouTube<br/> 
+        Video Modal
+      </h1>
+      
+      <p>
+        In this demo I worked out how to leverage just the YouTube video’s unique ID, and pass it in to a reusable modal component that takes advantage of YouTube’s embed&nbsp;method. 
+      </p>
+      
+      <h2>
+        Launch From Thumbnails
+      </h2>
+      #}
+      <div class="card card-plain" style="border:solid 1px;">
+      
+      <div class="blur-hoverr">
+     {% set i=0 %}
+        {% for module in modules if module.video is not null and module in modules and i<5 %}
+         
+        <!-- Daft Punk - Human After All -->
+          <a
+           href="https://www.youtube.com/embed/{{ module.video }}" 
+           data-youtube-id="hrB-_nIer88" 
+           class="video-thumb js-trigger-video-modal" onmouseover="document.getElementById('{{module.id}}').style.display='block';"
+           onmouseout="document.getElementById('{{module.id}}').style.display='none';"
+        >
+          <img 
+            class="blurr-item video-banner-img" 
+            src="{{asset('assetss/img/denys.jpg')}}" 
+            alt="" style=" box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"
+          /><div id="{{module.id}}" class="h2 centered text-info" style="display:none;">Centered</div>
+        </a>
+         
+           {% set i=i+1 %}
+          
+        {% endfor %}
+       
+     </div></div>
+    </article>
+  {% if i==5 %}
+
+        <a href="{{path('list')}}" class="btn btn-success text-white">See All</a>
+        {% endif %}
+ 
+
+
+</div></div>
+<br><br><br>
+<!-- video modal -->
+<section class="video-modal">
+
+    <!-- Modal Content Wrapper -->
+    <div 
+         id="video-modal-content" class="video-modal-content"
+     >
+      
+       <!-- iframe -->
+       <iframe 
+          id="youtube" 
+          width="100%" 
+          height="100%" 
+          frameborder="0" 
+          allow="autoplay" 
+          allowfullscreen 
+          src=
+        ></iframe>
+
+        <a 
+        	href="#" 
+        	class="close-video-modal" 
+        >
+        	<!-- X close video icon -->
+          <svg 
+            version="1.1" 
+            xmlns="http://www.w3.org/2000/svg" 
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            x="0"
+            y="0"
+            viewBox="0 0 32 32" 
+            style="enable-background:new 0 0 32 32;" 
+            xml:space="preserve" 
+            width="24" 
+            height="24" 
+          >
+
+            <g id="icon-x-close">
+                <path fill="#ffffff" d="M30.3448276,31.4576271 C29.9059965,31.4572473 29.4852797,31.2855701 29.1751724,30.980339 L0.485517241,2.77694915 C-0.122171278,2.13584324 -0.104240278,1.13679247 0.52607603,0.517159487 C1.15639234,-0.102473494 2.17266813,-0.120100579 2.82482759,0.477288136 L31.5144828,28.680678 C31.9872448,29.1460053 32.1285698,29.8453523 31.8726333,30.4529866 C31.6166968,31.0606209 31.0138299,31.4570487 30.3448276,31.4576271 Z" id="Shape"></path>
+                <path fill="#ffffff" d="M1.65517241,31.4576271 C0.986170142,31.4570487 0.383303157,31.0606209 0.127366673,30.4529866 C-0.12856981,29.8453523 0.0127551942,29.1460053 0.485517241,28.680678 L29.1751724,0.477288136 C29.8273319,-0.120100579 30.8436077,-0.102473494 31.473924,0.517159487 C32.1042403,1.13679247 32.1221713,2.13584324 31.5144828,2.77694915 L2.82482759,30.980339 C2.51472031,31.2855701 2.09400353,31.4572473 1.65517241,31.4576271 Z" id="Shape"></path>
+            </g>
+
+          </svg>
+        </a>
+
+    </div><!-- end modal content wrapper -->
+
+
+    <!-- clickable overlay element -->
+    <div class="overlay"></div>
+
+
+</section>
+<!-- end video modal -->
+       
+      </div>
+      
+      
+    </div>
+    <div class="main">
+      <div id="section-2" class="section section-basic" id="basic-elements">
+         <img src="{{asset('assetss/img/path1.png')}}" class="path">
+        <div class="container">
+        <div class="row"> 
+          <h2 class="title">Documents</h2>
+          </br></br>
+           {% if typeCourses[0].name=="Course"%}
+          {% for module in modules %}
+          <div class="col-lg-3">
+          <div id="{{module.id}}" class="card card-coin card-plain " onmouseover="this.className='card card-coin bg-gradient-red';" onmouseout="this.className='card card-coin card-plain';" style="padding-bottom:40px; data-background-color:none;">
+          
+                  <div class="card-header">
+                <img src="{{asset('img/school-material.png')}}" height="20px" width="20px" class="img-center img-fluid">
+              </div>
+              <div class="info">
+              
+              
+                  <h4 class="info-title"> {% if module.title is defined %}
+                   {% if module.title != null %}
+                   {{module.title}}
+                   {% else %}
+                   No title
+                   {% endif %}
+                   {% else %}
+                   No title
+                   {% endif %}
+                  </h4>
+                  <h5 class="info-title text-white">
+                     {% if module.teacher.lastname is defined %}
+                  {% if module.teacher.lastname != null %}
+                  {{ module.teacher.lastname }}
+                   {% else %}
+                       - no data- 
+                    {% endif %}
+                    {% else %}  Added by Admin
+                    {% endif %}</h5>
+                  <hr class="line-primary">
+                  <p>{% if module.description is defined %}
+                   {% if module.description != null %}
+                  {{ module.description }}
+                  {% else %}
+                       No description 
+                    {% endif %}
+                    {% else %}
+                     No description 
+                     {% endif %}
+                  </p>
+                  <ul class="nav justify-content-center">
+  <li class="nav-item">
+    <a class="nav-link "style="font-size:20px;" href="{{ path('module_show', { 'id': module.id }) }}">Check this course<i class="tim-icons icon-minimal-right " style="color:white;"></i></a>
+  </li>
+ 
+</ul>
+                
+                </div></div></div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        
+{% endif %}
+{% endif %}
+<style>
+
+/* Embed google fonts for demo layout
+-----------------------------------------*/
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900');
+
+
+/* Main Page Layout 
+-- NOTE: Just for the demo page, and not
+required for the video modal... Video Modal
+styles are down below --
+-----------------------------------------*/
+* {
+  box-sizing: border-box;
+}
+html {
+  background: #fcfcfc;
+}
+@media (min-width: 641px) {
+  html {
+    background: #4b4b4b;
+  }
+}
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.noscroll { 
+	overflow: hidden;
+}
+
+
+main {
+  font-size: 0;
+  width: 100%;
+}
+main .column.left,
+main .column.right {
+  background: #fcfcfc;
+  display: block;
+  position: relative;
+  font-size: 1rem;
+  width: 100%;
+  min-height: 0;
+  vertical-align: top;
+}
+@media (min-width: 641px) {
+    main .column.left,
+    main .column.right {
+      display: inline-block;
+      width: 100%;
+      min-height: 100vh;
+    }
+    main .column.left {
+      position: fixed;  
+    }
+    main .column.right {
+      margin-left: 50%;
+    }
+}
+
+.video-banner {
+  display: block;
+}
+@media (min-width: 641px) {
+  .video-banner {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 0;
+  }
+}
+
+.video-banner .video-banner-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+.video-banner-headline {
+  position: absolute;
+  left: 1.5rem;
+  bottom: 1.5rem;
+  
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 1.25em;
+  font-weight: 900;
+  line-height: 1.0em;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.045em;
+}
+@media (min-width: 641px) {
+  .video-banner-headline {
+    left: 2em;
+    bottom: 2.75em;
+    font-size: 1.5em;
+    line-height: 1.5em;
+  }
+}
+.video-banner-icon-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  
+  display: block;
+  width: 2.5em;
+  height: 2.5em;
+  
+  -webkit-transform: translateX(-50%) translateY(-50%) scale(1.0);
+	-moz-transform: translateX(-50%) translateY(-50%) scale(1.0);
+	-ms-transform: translateX(-50%) translateY(-50%) scale(1.0);
+	-o-transform: translateX(-50%) translateY(-50%) scale(1.0);
+	transform: translateX(-50%) translateY(-50%) scale(1.0);
+  
+  -webkit-transition: 
+		all 0.2s ease-out 0.05s;
+	transition: 
+		all 0.2s ease-out 0.05s;
+}
+@media (min-width: 641px) {
+  .video-banner-icon-play {
+    width: 4.5em;
+    height: 4.5em;
+  }
+}
+.video-banner-icon-play:hover {
+  -webkit-transform: translateX(-50%) translateY(-50%) scale(1.2);
+	-moz-transform: translateX(-50%) translateY(-50%) scale(1.2);
+	-ms-transform: translateX(-50%) translateY(-50%) scale(1.2);
+	-o-transform: translateX(-50%) translateY(-50%) scale(1.2);
+	transform: translateX(-50%) translateY(-50%) scale(1.2);
+  
+  backgound: #330099;
+}
+
+.content {
+  display: inline;
+  min-height: 60rem;
+  max-width: 40rem;
+  margin: 2.5rem auto;
+  padding: 1.5rem;
+}
+@media (min-width: 700px) {
+  .content {
+    margin: 5.75rem auto;
+    padding: 2.5rem;
+  }
+}
+
+.content h1,
+.content h2,
+.content p {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 1em;
+  font-weight: 300;
+  line-height: 1.5em;
+  color: #0D013D;
+}
+.content h1 {
+  font-size: 3.25em;
+  font-weight: 200;
+  line-height: 1.0em;
+  
+  margin: 0 0 0.5rem 0;
+}
+@media (min-width: 641px) {
+  .content h1 {
+    font-size: 4em;
+  }
+}
+.content h2 {
+  font-size: 1em;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.155em;
+  
+  margin-top: 3em;
+}
+
+/* buttons */
+.content .button-group {
+  margin-top: 1em;
+}
+.content .button {
+  display: inline-block;
+  padding: 1em 2em;
+  min-width: 8em;
+  text-align: center;
+  font-weight: 900;
+  text-decoration: none;
+  border-radius: 1.5em;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.25);
+  
+  /* button theme - secondary is default */
+  background: #f0f0f0;
+  color: #2B2B2B;
+  
+  -webkit-transition: 
+		all 0.2s ease-out 0.05s;
+	transition: 
+		all 0.2s ease-out 0.05s;
+}
+.content .button ~ .button {
+  margin-left: 0.5em;
+}
+.content .button:hover {
+  background: #e5e5e5;
+}
+/* primary button overrides */
+.content .button.primary {
+  background: #E50055;
+  color: #fff;
+}
+.content .button.primary:hover {
+  background: #9D00E5;
+}
+
+
+/* video thumbnail grid */
+.content .video-thumb-grid {
+  position: relative;
+  font-size: 0; /* collapse the white-space */
+  width: calc(100% + 2rem);
+  margin: 0 -1rem;
+}
+.content .video-thumb {
+  display: inline-block;
+  vertical-align: top;
+  
+  text-decoration: none;
+  
+  /* calculate the width, gutters, and aspect ratio */
+  width: calc((80% - 4rem) / 5);
+  height: 0;
+  padding-top: calc(((65% - 4rem) / 2) * 0.5625); /* 16:9 calc */
+  
+  margin: 1rem 1rem; /* gutters */
+  
+  overflow: hidden; /* clipping */
+  
+  position: relative; /* enable positioning for inner content */
+  
+  font-size: 1rem; /* reset the font size */
+  
+  -webkit-transform: scale(1.0);
+	transform: scale(1.0);
+  box-shadow: 0 0 0 rgba(0,0,0,0.0);
+  
+  -webkit-transition: 
+		all 0.2s ease-out 0.05s;
+	transition: 
+		all 0.2s ease-out 0.05s;
+}
+.content .video-thumb:hover {
+	-webkit-transform: scale(1.05);
+	transform: scale(1.05);
+  box-shadow: 0 2px 4px rgba(13,1,61,0.35);
+}
+.content .video-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  
+  /* position inside the 16:9 container */
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  
+  /* clipping for source images that are letterboxed */
+  object-fit: cover;
+  object-position: 50% 50%;
+  
+  background: #2b2b2b;
+}
+
+
+/* Video Modal
+-----------------------------------------*/
+.video-modal,
+.video-modal .overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 3000;
+}
+.video-modal {
+	overflow: hidden;
+	position: fixed;
+	opacity: 0.0;
+
+  -webkit-transform: translate(500%,0%);
+  transform: translate(500%,0%);
+
+  -webkit-transition: -webkit-transform 0s linear 0s;
+  transition: transform 0s linear 0s;
+
+
+  /* using flexbox for vertical centering */
+
+  /* Flexbox display */
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+
+  /* Vertical alignment */
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+.video-modal .overlay {
+  z-index: 0;
+  background: rgba(13,1,61,0.82); /* overlay color */
+
+  opacity: 0.0;
+
+  -webkit-transition: opacity 0.2s ease-out 0.05s;
+  transition: opacity 0.2s ease-out 0.05s;
+}
+
+
+.video-modal-content {
+	position: relative;
+	top: auto;
+	right: auto;
+	bottom: auto;
+	left: auto;
+	z-index: 1;
+  
+	margin: 0 auto;
+
+	overflow-y: visible;
+
+	background: #000;
+  
+  width: calc(100% - 12em);
+  height: 0;
+  padding-top: calc((100% - 12em) * 0.5625); /* 16:9 calc */
+}
+
+/* Scaling to fit within the current Viewport size:
+   When viewport aspect ratio is greater than 16:9
+   work off the height instead of the width for calc */
+ @media (min-aspect-ratio: 16/9) {
+  .video-modal-content {
+    width: 0;
+    height: calc(100vh - 10em);
+    padding-top: 0;
+    padding-left: calc((100vh - 10em) * 1.7778); /* 16:9 calc */
+  }
+}
+
+/* Mobile Layout Tweaks - side margins reduced */
+@media (max-width: 640px) {
+	.video-modal-content {
+		width: calc(100% - 1em);
+    padding-top: calc((100% - 1em) * 0.5625); /* 16:9 calc */
+	}
+}
+
+/* modal close button */
+.close-video-modal {
+	display: block;
+    position: absolute;
+    left: 0;
+    top: -40px;
+
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* set the iframe element to stretch to fit its parent element */
+iframe#youtube {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1;
+
+	background: #000;
+	box-shadow: 0px 2px 16px rgba(0,0,0,0.5);
+}
+
+/* show the modal: 
+   add class to the body to reveal */
+.show-video-modal .video-modal {
+	opacity: 1.0;
+
+	transform: translate(0%,0%);
+	-webkit-transform: translate(0%,0%);
+}
+.show-video-modal .video-modal .overlay {
+	opacity: 1.0;
+}
+.show-video-modal .video-modal-content {
+	transform: translate(0%,0%);
+	-webkit-transform: translate(0%,0%);
+}
+ .blurr-item:hover {
+  opacity: .8;
+  filter: blur(10px);
+  transform: scale(0.95);
+  z-index: 1;
+}
+ .blur-hoverr .blurr-hidden {
+  position: absolute;
+  top: calc(20% + 7px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: all 0.15s ease;
+  z-index: 100;
+
+  
+}
+ .blur-hoverr:hover .blurr-hidden {
+  opacity: 1;
+  top: 50%;
+}
+.blur-hoverr {
+  position: relative;
+  padding-bottom: 100px;
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+</style>
+
+
+{% endblock %}

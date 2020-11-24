@@ -1,0 +1,778 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="wrapper">
+    <div class="page-header">
+      <img src="../assets/img/blob.png" class="path">
+      <img src="../assets/img/path2.png" class="path2">
+      <img src="../assets/img/triunghiuri.png" class="shapes triangle">
+      <img src="../assets/img/waves.png" class="shapes wave">
+      <img src="../assets/img/patrat.png" class="shapes squares">
+      <img src="../assets/img/cercuri.png" class="shapes circle">
+      <div class="content-center">
+        <div class="row row-grid justify-content-between align-items-center text-left">
+          <div class="col-lg-6 col-md-6">
+            <h1 class="text-white">We keep your coin
+              <br/>
+              <span class="text-white">secured</span>
+            </h1>
+            <p class="text-white mb-3">A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel...</p>
+            <div class="btn-wrapper mb-3">
+              <p class="category text-success d-inline">From 9.99%/mo</p>
+              <a href="#blk" class="btn btn-success btn-link btn-sm"><i class="tim-icons icon-minimal-right"></i></a>
+            </div>
+            <div class="btn-wrapper">
+              <div class="button-container">
+                <button href="javascript:void(0)" class="btn btn-icon btn-simple btn-round btn-neutral">
+                  <i class="fab fa-twitter"></i>
+                </button>
+                <button href="javascript:void(0)" class="btn btn-icon btn-simple btn-round btn-neutral">
+                  <i class="fab fa-dribbble"></i>
+                </button>
+                <button href="javascript:void(0)" class="btn btn-icon btn-simple btn-round btn-neutral">
+                  <i class="fab fa-facebook"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          
+             <div class="col-xl-3 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0"><i class="ni ni-book-bookmark text-orange"></i>Classes</h5>
+                      <span class="h2 font-weight-bold mb-0">{{ classes|length}} Classes</span>
+                    </div>
+                    <div class="table-responsive">
+              <table id="example" class="table align-items-center table-flush table-striped display dataTable">
+                <thead class="thead-light">
+            <tr>
+                
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for class in classes %}
+            <tr>
+                
+                <td>{{ class.name }}</td>
+               
+                 <td class="actions">
+ <div class="btn-group">
+                                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-bottom: 0px;margin-top: 0px">Actions</button>
+         
+<div class="dropdown-menu ">
+  <button type="button" class="btn btn-sm btn-block btn-secondary mb-3 " data-toggle="modal" data-target="#myModalClassEdit1{{ class.id }}">edit</button>
+                                        <a class="dropdown-item" onclick="showModal('myModalClassEdit{{ class.id }}')" href="#">
+                                        <i class="ni text-primary"><img src="{{ asset('icons_website/edit.png')}}" height="32" widh="32"></img> </i>
+                                        Edit</a>
+                                            <a class="dropdown-item" href="#" onclick="showModal('myModaldelete1{{ class.id }}')" >
+                                            <i class="ni text-primary"><img src="{{ asset('icons_website/delete.png')}}" height="32" widh="32"></img> </i>
+                                            Delete</a>
+                                            
+                                            
+                                        </div></div>
+                                </td>
+                            </tr>
+
+     <div class="modal fade" id="myModalClassEdit1{{ class.id }}" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Edit class</h4>
+                                        </div>
+                                        <form action="{{path('class_back_edit',{'id': class.id})}}" method="post">
+                                        <div class="modal-body">
+                                            <p>New name</p>
+                                            
+            
+                                                <input type="text" name="className" class="form-control" value="{{class.name}}"/>
+                                        </div>
+                                        <div class="modal-footer">
+                                        
+            <input type="submit" value="submit" class="btn btn-success">
+                <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Close</button> 
+                                        </div>
+                                                      </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                            <!-- Modal -->
+                            <div id="myModaldelete1{{ class.id }}" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Delete confirmation</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Do you really want to delete {{class.name}} !</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                              <form method="post" action="{{ path('classes_delete', {'id':class.id}) }}" >
+                                            <button type="button" class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+                                           
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ class.id) }}">
+                                            <button type="submit" class="btn btn-danger btn-md">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+           
+        {% endfor %}
+        </tbody>
+    </table>
+ 
+
+    </br>
+ <button type="button" class="btn btn-sm btn-success mb-3 float-right" data-toggle="modal" data-target="#modal-default1">Create new</button>
+
+      <div class="modal fade" id="modal-default1" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+        <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+           <div class="modal-content">
+        	
+            <div class="modal-header">
+                <h6 class="modal-title" id="modal-title-default">Create new Class</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+              {{ form_start(form2)}}
+            <div class="modal-body">
+            	
+            
+                 {{ form_widget(form2.name) }}
+            </div>
+            
+            <div class="modal-footer">
+                 <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+                <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Close</button> 
+                {{ form_end(form2)}}
+            </div>
+            
+        </div>
+    </div>
+    </div>
+<script>
+    $(document).ready( function () {
+    $("#exemple").DataTable();
+     } );
+   </script>
+
+  
+    
+
+    </div></div></div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</br></br>
+
+<section class="section section-lg">
+      <img src="{{asset('assetss/img/path4.png')}}" class="path">
+     
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+            <h1 class="text-center">Categories Management</h1>
+            <div class="row row-grid justify-content-center">
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    </br>
+
+   <div class="container-fluid mt--7">
+          <div class="row">
+
+
+
+            <div class="col-xl-3 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0"><i class="ni ni-book-bookmark text-orange"></i>Classes</h5>
+                      <span class="h2 font-weight-bold mb-0">{{ classes|length}} Classes</span>
+                    </div>
+                    <div class="table-responsive">
+              <table id="example" class="table align-items-center table-flush table-striped display dataTable">
+                <thead class="thead-light">
+            <tr>
+                
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for class in classes %}
+            <tr>
+                
+                <td>{{ class.name }}</td>
+               
+                 <td class="actions">
+ <div class="btn-group">
+                                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-bottom: 0px;margin-top: 0px">Actions</button>
+         
+<div class="dropdown-menu ">
+  <button type="button" class="btn btn-sm btn-block btn-secondary mb-3 " data-toggle="modal" data-target="#myModalClassEdit1{{ class.id }}">edit</button>
+                                        <a class="dropdown-item" onclick="showModal('myModalClassEdit{{ class.id }}')" href="#">
+                                        <i class="ni text-primary"><img src="{{ asset('icons_website/edit.png')}}" height="32" widh="32"></img> </i>
+                                        Edit</a>
+                                            <a class="dropdown-item" href="#" onclick="showModal('myModaldelete1{{ class.id }}')" >
+                                            <i class="ni text-primary"><img src="{{ asset('icons_website/delete.png')}}" height="32" widh="32"></img> </i>
+                                            Delete</a>
+                                            
+                                            
+                                        </div></div>
+                                </td>
+                            </tr>
+
+     <div class="modal fade" id="myModalClassEdit1{{ class.id }}" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Edit class</h4>
+                                        </div>
+                                        <form action="{{path('class_back_edit',{'id': class.id})}}" method="post">
+                                        <div class="modal-body">
+                                            <p>New name</p>
+                                            
+            
+                                                <input type="text" name="className" class="form-control text-dark" value="{{class.name}}"/>
+                                        </div>
+                                        <div class="modal-footer">
+                                        
+            <input type="submit" value="submit" class="btn btn-success">
+                <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Close</button> 
+                                        </div>
+                                                      </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                            <!-- Modal -->
+                            <div id="myModaldelete1{{ class.id }}" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Delete confirmation</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Do you really want to delete {{class.name}} !</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                              <form method="post" action="{{ path('classes_delete', {'id':class.id}) }}" >
+                                            <button type="button" class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+                                           
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ class.id) }}">
+                                            <button type="submit" class="btn btn-danger btn-md">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+           
+        {% endfor %}
+        </tbody>
+    </table>
+ 
+
+    </br>
+ <button type="button" class="btn btn-sm btn-success mb-3 float-right" data-toggle="modal" data-target="#modal-default1">Create new</button>
+
+      <div class="modal fade" id="modal-default1" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+        <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+           <div class="modal-content">
+        	
+            <div class="modal-header">
+                <h6 class="modal-title" id="modal-title-default">Create new Class</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+              {{ form_start(form2)}}
+            <div class="modal-body">
+            	
+            
+                 {{ form_widget(form2.name) }}
+            </div>
+            
+            <div class="modal-footer">
+                 <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+                <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Close</button> 
+                {{ form_end(form2)}}
+            </div>
+            
+        </div>
+    </div>
+    </div>
+<script>
+    $(document).ready( function () {
+    $("#exemple").DataTable();
+     } );
+   </script>
+
+  
+    
+
+    </div></div></div></div></div>
+
+
+
+
+    
+           <div class="col-xl-3 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0"><i class="ni ni-chart-bar-32 text-red"></i>Education level</h5>
+                      <span class="h2 font-weight-bold mb-0">{{educationlevels|length}} Levels</span>
+                    </div>
+                    <div class="table-responsive">
+              <table id="example" class="table align-items-center table-flush table-striped display dataTable">
+                <thead class="thead-light">
+            <tr>
+                
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for educationlevel in educationlevels %}
+  
+            <tr>
+                
+                <td>{{ educationlevel.name }}</td>
+                
+                 <td class="actions">
+
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-bottom: 0px;margin-top: 0px">Actions</button>
+
+                                        <div class="dropdown-menu ">
+                                        <a class="dropdown-item" onclick="showModal('myModalEdicationLevelEdit{{ educationlevel.id }}')" href="#">
+                                        <i class="ni text-primary"><img src="{{ asset('icons_website/edit.png')}}" height="32" widh="32"></img> </i>
+                                        Edit</a>
+                                            <a class="dropdown-item" href="#" onclick="showModal('myModaldelete2{{ educationlevel.id }}')" >
+                                            <i class="ni text-primary"><img src="{{ asset('icons_website/delete.png')}}" height="32" widh="32"></img> </i>
+                                            Delete</a>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+ <div id="myModaldelete2{{ educationlevel.id }}" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Delete confirmation</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Do you really want to delete {{educationlevel.name}} !</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                         <form method="post" action="{{ path('educationlevel_delete', {'id': educationlevel.id}) }}" >
+                                            <button type="button" class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+                                           
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ educationlevel.id) }}">
+                                            <button type="submit" class="btn btn-danger btn-md">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+<div id="myModalEdicationLevelEdit{{ educationlevel.id }}" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Edit educationLevel</h4>
+                                        </div>
+                                        <form action="{{path('education_level_back_edit',{'id': educationlevel.id})}}" method="post">
+                                        <div class="modal-body">
+                                            <p>New name</p>
+                                            
+            
+                                                <input type="text" name="educationLevelName" class="form-control" value="{{educationlevel.name}}"/>
+                                        </div>
+                                        <div class="modal-footer">
+                                        
+            <input type="submit" value="submit" class="btn btn-success">
+                <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Close</button> 
+                                        </div>
+                                                      </form>
+                                    </div>
+                                </div>
+                            </div>
+
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+         
+        {% endfor %} 
+        </tbody>
+        
+    </table>
+     
+     </br>
+ <button type="button" class="btn btn-sm btn-success mb-3 float-right" data-toggle="modal" data-target="#modal-default2">Create new</button>
+
+      <div class="modal fade" id="modal-default2" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+        <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+           <div class="modal-content">
+        	
+            <div class="modal-header">
+                <h6 class="modal-title" id="modal-title-default">Create new Education level</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            {{ form_start(form4)}}
+            <div class="modal-body">
+            	
+              
+                 {{ form_widget(form4.name) }}
+            </div>
+            
+            <div class="modal-footer">
+                 <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+                <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Close</button> 
+                {{ form_end(form4)}}
+            </div>
+            
+        </div>
+    </div></div>
+
+   <script>
+    $(document).ready( function () {
+    $("#exemple").DataTable();
+     } );
+   </script>
+
+   
+</div></div></div></div></div>
+
+
+
+
+  <!-- Cities -->       
+            <div class="col-xl-3 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0"><i class="ni ni-square-pin text-yellow"></i>Cities</h5>
+                      <span class="h2 font-weight-bold mb-0">{{cities|length}} Cities</span>
+                    </div>
+                    <div class="table-responsive">
+              <table id="example" class="table align-items-center table-flush table-striped display dataTable">
+                <thead class="thead-light">
+            <tr>
+                
+                <th>Name</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for city in cities %}
+            <tr>
+                
+                <td>{{ city.name }}</td>
+              <td class="actions">
+
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-bottom: 0px;margin-top: 0px">Actions</button>
+
+                                        <div class="dropdown-menu ">
+                                        <a class="dropdown-item" onclick="showModal('myModalCityEdit{{ city.id }}')" href="#">
+                                        <i class="ni text-primary"><img src="{{ asset('icons_website/edit.png')}}" height="32" widh="32"></img> </i>
+                                        Edit</a>
+                                            <a class="dropdown-item" href="#" onclick="showModal('myModaldelete3{{ city.id }}')" >
+                                            <i class="ni text-primary"><img src="{{ asset('icons_website/delete.png')}}" height="32" widh="32"></img> </i>
+                                            Delete</a>
+                                            
+                                            
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Modal -->
+                            <div id="myModaldelete3{{ city.id }}" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Delete confirmation</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Do you really want to delete {{city.name}} !</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                         <form method="post" action="{{ path('city_delete', {'id': city.id}) }}" >
+                                            <button type="button" class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+                                           
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ city.id) }}">
+                                            <button type="submit" class="btn btn-danger btn-md">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                         <div id="myModalCityEdit{{ city.id }}" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Edit city</h4>
+                                        </div>
+                                        <form action="{{path('cit_edit',{'id': city.id})}}" method="post">
+                                        <div class="modal-body">
+                                            <p>New name</p>
+                                            
+            
+                                                <input type="text" name="cityName" class="form-control" value="{{city.name}}"/>
+                                        </div>
+                                        <div class="modal-footer">
+                                        
+            <input type="submit" value="submit" class="btn btn-success">
+                <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Close</button> 
+                                        </div>
+                                                      </form>
+                                    </div>
+                                </div>
+                            </div>
+        
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+            
+        {% endfor %}
+        </tbody>
+    </table>
+  </br>
+
+      <button type="button" class="btn btn-sm btn-success mb-3 float-right" data-toggle="modal" data-target="#modal-default">Create new</button>
+      <div class="modal fade" id="modal-default" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+        <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+           <div class="modal-content">
+        	
+            <div class="modal-header">
+                <h6 class="modal-title" id="modal-title-default">Create new city</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+            	
+               {{ form_start(form1)}}
+                {{ form_widget(form1.name) }}
+                
+            </div>
+            
+            <div class="modal-footer">
+                 <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+                <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Close</button> 
+                {{ form_end(form1)}}
+            </div>
+            
+        </div>
+    </div></div>
+
+
+
+<script>
+    $(document).ready( function () {
+    $("#exemple").DataTable();
+     } );
+   </script>
+
+  
+
+</div></div></div></div></div>
+
+
+
+   <div class="col-xl-3 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0"><i class="ni ni-tag text-primary"></i>Zip code</h5>
+                      <span class="h2 font-weight-bold mb-0">{{zipcodes|length}} Zip codes</span>
+                    </div>
+<div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+            <tr>
+                
+                <th>Numbre</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for zipcode in zipcodes %}
+            <tr>
+                
+                <td>{{ zipcode.numbre }}</td>
+                
+                   <td class="actions">
+
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-bottom: 0px;margin-top: 0px">Actions</button>
+
+                                        <div class="dropdown-menu ">
+                                            <a  class="dropdown-item" onclick="showModal('myModalZipCodeEdit{{ zipcode.id }}')" href="#">
+                                            <i class="ni text-primary"><img src="{{ asset('icons_website/edit.png')}}" height="32" widh="32"></img> </i>
+                                            Edit</a>
+                                            <a class="dropdown-item" href="#" onclick="showModal('myModaldelete4{{ zipcode.id }}')" >
+                                            <i class="ni text-primary"><img src="{{ asset('icons_website/delete.png')}}" height="32" widh="32"></img> </i>
+                                            Delete</a>
+                                            
+                                    </div>
+                                </td>
+                            </tr>
+                              <!-- Modal -->
+                            <div id="myModaldelete4{{ zipcode.id }}" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Confirmation de supprission</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Do you really want to delete {{ zipcode.numbre}} !</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                        <form method="post" action="{{ path('zipcode_delete', {'id': zipcode.id}) }}">
+                                            <button type="button" class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+                                             <input type="hidden" name="_method" value="DELETE">
+                                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ zipcode.id) }}">
+                                             <button type="submit" class="btn btn-danger btn-md">Delete</button>
+                                             </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                             <!-- Modal edit -->
+                            <div id="myModalZipCodeEdit{{ zipcode.id }}" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Edit zipCode</h4>
+                                        </div>
+                                        <form action="{{path('zip_code_edit',{'id': zipcode.id})}}" method="post">
+                                        <div class="modal-body">
+                                            <p>New name</p>
+                                            
+            
+                                                <input type="text" name="zipCodeName" class="form-control" value="{{zipcode.numbre}}"/>
+                                        </div>
+                                        <div class="modal-footer">
+                                        
+            <input type="submit" value="submit" class="btn btn-success">
+                <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Close</button> 
+                                        </div>
+                                                      </form>
+                                    </div>
+                                </div>
+                            </div>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+</br>
+
+
+    </br>
+ <button type="button" class="btn btn-sm btn-success mb-3 float-right" data-toggle="modal" data-target="#modal-default3">Create new</button>
+      <div class="modal fade" id="modal-default3" tabindex="-1" role="dialog" aria-labelledby="modal-default" aria-hidden="true">
+        <div class="modal-dialog modal- modal-dialog-centered modal-" role="document">
+           <div class="modal-content">
+        	
+            <div class="modal-header">
+                <h6 class="modal-title" id="modal-title-default">Create new zip code</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+            	
+              {{ form_start(form3)}}
+                                                       {{ form_widget(form3.numbre) }}
+            </div>
+            
+            <div class="modal-footer">
+                 <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+                <button type="button" class="btn btn-link  ml-auto" data-dismiss="modal">Close</button> 
+                {{ form_end(form3)}}
+            </div>
+            
+        </div>
+    </div></div>
+
+</div></div></div></div></div>
+
+
+   <script>
+    $(document).ready( function () {
+    $("#exemple").DataTable();
+     } );
+   </script>
+   <script>
+        function showModal(id) {
+            $("#"+id).modal();
+        }
+    </script>
+  
+
+
+   
+            {% endblock %}

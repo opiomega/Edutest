@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Category{% endblock %}
+
+{% block body %}
+<section name='Title' style='margin-top:140px;'>
+    <div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';">  Edit Category
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+</section>
+  <section name="new session" style="margin-bottom:60px;margin-top:50px;">
+    <div class="container">
+    {% for type, flashMessages in app.session.flashbag.all() %}
+                            {% for flashMessage in flashMessages %}
+                                <div class="alert alert-{{ type }}">
+                                    {{ flashMessage|raw }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                        {{ form_start(form) }}
+        <div class="row justify-content-center"> 
+            <div class="col-10">
+             {{ form_row(form) }}
+             <button class="btn text-white btn-sm redback float-right">{{ button_label|default('Update') }}</button>
+            </div>
+        </div>
+        {{form_end(form)}}
+    
+
+    <a href="{{ path('category_index') }}"class="btn btn-outline-default ">back to list</a>
+
+  
+{% endblock %}

@@ -1,0 +1,220 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+{{parent()}}
+<link rel="stylesheet" href="{{asset('style.css')}}"/>
+<style>
+.section-outline .section-list li .list-body .fas {
+    position: absolute;
+    font-size: 12px;
+   /* color: #a6a6a6;*/
+    left: 68px;
+    top: 17%;
+}
+.section-outline .section-list li .list-body {
+    position: relative;
+    padding: 0px 130px 16px 105px;
+}
+.question-content-wrap .question-content p {
+    margin-top: 9px;
+}
+.section-outline .section-list li .line {
+    position: absolute;
+    width: 3px;
+    height: 97%;
+    background-color: #d4d4d4;
+    top: -10px;
+    right: 30px;
+    z-index: 1;
+}
+.section-outline .section-list li .div-x {
+    position: absolute;
+    width: 23px;
+    height: 23px;
+    background-color: #d4d4d4;
+    border: 1px solid #d4d4d4;
+    margin: auto;
+    right: 20px;
+    top: -20px;
+    bottom: 0;
+    text-align: center;
+    z-index: 9;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -ms-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+}
+</style>
+{% endblock %}
+{% block body %}
+<section name='Title' style='margin-top:140px;'>
+        <div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;">   COURSES
+            <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+
+            </div>
+          </div>
+        </div>
+      </section>
+<!--QUIZZ-->
+        <section id="quizz-intro-section" class="quizz-intro-section learn-section" style="min-height: 175px;">
+        <div class="container">
+
+            <div class="title-ct">
+                <h3><strong></strong></h3>
+                <div class="tt-right">
+                    <a href="{{path('module_selectCategory')}}" class="skip"><i class="icon md-arrow-right"></i>Back</a>
+                </div>
+            </div>
+
+            <div class="question-content-wrap">
+                <div class="row">
+                    <div class="col-md-9">
+                     <div style="margin-top:10px;margin-left:20px;">
+                    <p class="skip">{{catname}} / {{classname}} {%  if firstweek is defined and firstweek is not null %}/ {{firstweek.title}} {% else %}/ {{semainee.title}} {% endif %}</p>
+                    </div>
+                        <div class="question-content">
+                               <!-- SECTION OUTLINE -->
+                                <div class="section-outline">
+                                {% set i=0 %}
+                                {% for topic in topics %}
+                               
+                              <h4 style="margin-bottom:30px;" class="tit-section xsm"><a style="color:white;" data-toggle="collapse" href="#multiCollapseExampless{{topic.id}}"aria-expanded="false" aria-controls="multiCollapseExampless{{topic.id}}">{{topic.title}}</a></h4>
+                                    <div class="collapse multi-collapse {% if i==0 %}show{% endif %}" id="multiCollapseExampless{{topic.id}}">
+                                        <ul class="section-list">
+                                        {% set j=1 %}
+                                        {% for module in modules %}
+                                            {% if module.Topic == topic %}
+                                        <li class="o-view" style="height: 70px;">
+                                            <div class="count"><span>{{j}}</span></div>
+                                            <div class="list-body">
+                                            {% if module.typeCourse.name=='Course'%}
+                                            <i class="fas fa-pencil-alt"></i>
+                                            {% endif %}
+                                            {% if module.typeCourse.name=='Video'%}
+                                                <i class="fas fa-video"></i>
+                                            {% endif %}
+                                                <p><a href="{{ path('module_show', { 'idClass':class.id,'id': module.id,'idWeek':semainee.id }) }}">{{module.title}}</a></p>
+                                                <div class="data-lessons">
+                                                    <span>{{module.description}}</span>
+                                                </div>
+    
+                                                <div class="download">
+                                                    <a href="#"><i class="icon md-download-1"></i></a>
+                                                    <div class="download-ct">
+                                                        <span>Reference 12 mb</span>
+                                                    </div>
+                                                </div>
+                                                <div class="div-x"><i class="fas fa-check" style="left: 6px;top: 5%;"></i></div>
+                                                <div class="line"></div>
+                                            </div>
+                                        </li>
+                                        {% set j=j+1%}
+                                        {% endif %}
+                                        {% endfor %}
+                                        {% for test in tests %}
+                                        {% if topic == test.topic %}
+                                       {% set exist=0 %}
+                                                
+                                                {% for score in scores %}
+                                               {% if  test.id == score.test.id and app.user.student[0].id == score.student.id %}
+                                                    {% set exist=exist+1 %}
+                                               
+                                               
+                                                {% endif %}
+                                                {% endfor %}
+                                                {% if exist==1%}
+                                                <li class="o-view"style="height: 70px;">
+                                                {% else %}
+                                                <li style="height: 70px;">
+                                                {% endif %}
+                                        <div class="count"><span>{{loop.index}}</span></div>
+                                            <div class="list-body">
+                                                <i class="fas fa-puzzle-piece"></i>
+                                                <p><a href="#">{{test.title}}</a></p>
+                                                <div class="data-lessons">
+                                                    <span>{{test.description}}</span>
+                                                </div>
+    
+                                                <div class="download">
+                                                    <a href="#"><i class="icon md-download-1"></i></a>
+                                                    <div class="download-ct">
+                                                        <span>Reference 12 mb</span>
+                                                    </div>
+                                                </div>
+                                                 {% set existe=0 %}
+                                                
+                                                {% for score in scores %}
+                                               {% if  test.id == score.test.id and app.user.student[0].id == score.student.id %}
+                                                    {% set existe=existe+1 %}
+                                               
+                                               
+                                                {% endif %}
+                                                {% endfor %}
+                                                {% if existe==1%}
+                                                <div class="div-x"><i class="fas fa-check" style="left: 6px;top: 5%;"></i></div>
+                                                <div class="line"></div>
+                                                    <a href="{{path('test_check',{'id':test.id})}}" class="mc-btn-2 btn-style-2">Check Correct</a>
+                                                {% else %}
+                                                 <a href="{{path('test',{'id':test.id})}}" class="mc-btn-2 btn-style-2">Pass Test</a>
+                                                <div class="div-x"><i class="icon md-check-2"></i></div>
+                                                <div class="line"></div>
+                                                {% endif %}
+                                            </div>
+                                        </li>
+                                       
+                                        {% endif %}
+                                        {% endfor %}
+                                        
+                                        </ul>
+                                    </div>
+                                {% set i=i+1 %}
+                                     {% endfor %}
+                                
+                        </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-3">
+                        <aside class="question-sidebar" {#style="height: 700px;"#}>
+                            <div class="score-sb">
+                                <h4 class="title-sb sm bold">Overview<span></span></h4>
+                                <div class="list-wrap ps-container ps-active-x ps-active-y" style="height: 100%; max-height: none;">
+                                <ul>
+                                 {% set i=0 %}
+                                   {% for week in weeks %}
+                                    <li class=" active"><i class="icon"></i>
+                                    <a href="{{path('module_weeks',{'idClass':class.id,'idWeek':week.id})}}"{#} {% if week.id == firstweek.id %}style="color:red;"{% endif %}#}>{{week.title}}</a><span></span>
+                                      
+                                    </li>
+                                    {% endfor %}
+                                </ul><div class="ps-scrollbar-x-rail" style="width: 326px; display: inherit; left: 0px;"><div class="ps-scrollbar-x" style="left: 0px; width: 150px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; height: 520px; display: inherit; right: 0px;"><div class="ps-scrollbar-y" style="top: 0px; height: 150px;"></div></div></div>
+                            </div>
+                           {#} <input type="submit" value="Submit all answer" class="submit mc-btn btn-style-1">#}
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  <style>
+    .section-outline .section-list li .mc-btn-2 {
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+    </style>  
+    {% endblock %}

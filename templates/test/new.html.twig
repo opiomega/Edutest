@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add new Test {% endblock %}
+
+{% block body %}
+    {% for message in app.flashes('danger') %}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+{% endfor %}
+<section name='Title' style='margin-top:140px;'>
+<div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';">Add new test
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+
+   <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+    {{ include('test/_form.html.twig') }}
+
+  
+       
+    
+     <a href="{{ path('test_selectCategory')}}"class="float-left">back to category list</a>
+     </div> 
+    </div> </div>
+{% endblock %}

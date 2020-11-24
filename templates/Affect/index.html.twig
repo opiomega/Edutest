@@ -1,0 +1,355 @@
+{#{% extends 'base.html.twig'%}
+{% block body %}
+<section class="section section-lg">
+      <img src="{{asset('assetss/img/path4.png')}}" class="path">
+     
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+            <h1 class="text-center">Categories Management</h1>
+            <div class="row row-grid justify-content-center">
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+
+{% endblock %}
+#}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"> 
+<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+	<title>jQuery UI Multiselect</title> 
+	<link rel="stylesheet" href="{{asset('michael-multiselect/css/common.css')}}" type="text/css" />
+	<link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/ui-lightness/jquery-ui.css" />
+	<link type="text/css" href="{{asset('michael-multiselect/css/ui.multiselect.css')}}" rel="stylesheet" />
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="{{asset('michael-multiselect/js/plugins/localisation/jquery.localisation-min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('michael-multiselect/js/plugins/scrollTo/jquery.scrollTo-min.js')}}"></script>
+	<script type="text/javascript" src="{{asset('michael-multiselect/js/ui.multiselect.js')}}"></script>
+<!-- CSS Files -->
+  <link href="{{asset('css/argon-dashboard.css?v=1.1.0')}}" rel="stylesheet" />
+  
+
+ <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <!-- Nucleo Icons -->
+  <link href="{{asset('assetss/css/nucleo-icons.css')}}" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link href="{{asset('assetss/css/blk-design-system.css')}}" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="{{asset('assetss/demo/demo.css')}}" rel="stylesheet" />
+
+	<script type="text/javascript">
+		$(function(){
+			$.localise('ui-multiselect', {/*language: 'en',*/ path: 'michael-multiselect/js/locale/'});
+			$(".multiselect").multiselect();
+			$('#switcher').themeswitcher();
+		});
+	</script>
+</head>
+<body>
+ {% set path= app.request.pathInfo|split('/') %}
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top navbar-transparent " color-on-scroll="100">
+    <div class="container">
+      <div class="navbar-translate">
+       {% if app.user.status=="Admin" %}
+        <a class="navbar-brand" href="{{path('admin')}}" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom" >
+          
+        <img width="60px" height="30px" src="{{ asset('img/icons/logo-edutest-.png')}}" class="navbar-brand-img" alt="...">
+      
+    
+        </a>
+        
+         {% endif %}
+      {% if app.user.status=="Teacher" %}
+      <a class="navbar-brand" href="{{path('professor')}}" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom" >
+          <span>Tunisia•</span> Edutest
+        </a>
+      {% endif %}
+      {% if app.user.status=="Student" %}
+      <a class="navbar-brand" href="{{path('apprentice')}}" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom" >
+          <span>Tunisia•</span> Edutest
+        </a>
+      {% endif %}
+        <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-bar bar1"></span>
+          <span class="navbar-toggler-bar bar2"></span>
+          <span class="navbar-toggler-bar bar3"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse justify-content-end" id="navigation">
+        <div class="navbar-collapse-header">
+          <div class="row">
+            <div class="col-6 collapse-brand">
+              <a>
+                BLK•
+              </a>
+            </div>
+            <div class="col-6 collapse-close text-right">
+              <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="tim-icons icon-simple-remove"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <ul class="navbar-nav">
+        <!--Admin-->
+         {% if app.user.status=="Admin" %}
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Dashboard" data-placement="bottom" href="{{path('admin')}}" >
+              <i class="tim-icons icon-tv-2"></i>Insights
+              <p class="d-lg-none d-xl-none">Insights</p>
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Students management" data-placement="bottom" href="{{ path('student_index') }}" >
+              <i class="tim-icons icon-single-02"></i>Students 
+              <p class="d-lg-none d-xl-none">Students Management</p>
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Teachers management" data-placement="bottom" href="{{ path('teacher_index') }}" >
+              <i class="tim-icons icon-pencil"></i>Teachers 
+              <p class="d-lg-none d-xl-none">Insights</p>
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Courses management" data-placement="bottom" href="{{ path('module_selectCategory') }}" >
+              <i class="tim-icons icon-single-copy-04"></i>Courses
+              <p class="d-lg-none d-xl-none">Courses</p>
+            </a>
+          </li>
+          
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="List of universities" data-placement="bottom" href="{{ path('university_index') }}" >
+              <i class="tim-icons icon-bank"></i>Universities
+              <p class="d-lg-none d-xl-none">Facebook</p>
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Tests management" data-placement="bottom" href="{{ path('testadmin_index') }}" >
+              <i class="tim-icons icon-atom"></i>Tests
+              <p class="d-lg-none d-xl-none">Instagram</p>
+            </a>
+          </li>
+          <li class="dropdown nav-item">
+            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+              <i class="tim-icons icon-bold"></i> BackOffice
+            </a>
+            
+            <div class="dropdown-menu dropdown-with-icons">
+            <a href="{{ path('category_index') }}" class="dropdown-item">
+                <i class="tim-icons icon-caps-small"></i>Category management
+              </a>
+           
+              <a href="{{path('classes_index')}}" class="dropdown-item">
+                <i class="tim-icons icon-paper"></i> Classes management
+              </a>
+              <a href="{{path('educationlevel_index')}}" class="dropdown-item">
+                <i class="tim-icons icon-bullet-list-67"></i>Education level
+              </a>
+              <a href="{{path('city_index')}}" class="dropdown-item">
+                <i class="tim-icons icon-world"></i>Cities
+              </a>
+              <a href="{{path('zipcode_index')}}" class="dropdown-item">
+                <i class="tim-icons icon-square-pin"></i>ZipCode
+              </a>
+            </div>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link btn btn-defaul d-none d-lg-block" href="{{ path('app_logout') }}">
+              <i class="tim-icons icon-user-run"></i> Logout
+            </a>
+          </li>
+
+          
+          {% endif %}
+          <!--Teacher-->
+           {% if app.user.status=="Teacher" %}
+          <li class="nav-item p-0">
+               <a class="nav-link" rel="tooltip" title="Dashboard" data-placement="bottom" href="{{ path('professor') }}" >
+              <i class="tim-icons icon-tv-2"></i>Insights
+              <p class="d-lg-none d-xl-none">Insights</p>
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Students list" data-placement="bottom" href="{{path('students_of_teacher_index')}}" >
+              <i class="tim-icons icon-notes"></i>Students
+              <p class="d-lg-none d-xl-none">Students</p>
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Courses management" data-placement="bottom" href="{{ path('module_selectCategory') }}" >
+              <i class="tim-icons icon-single-copy-04"></i>Courses
+              <p class="d-lg-none d-xl-none">Courses</p>
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Tests management" data-placement="bottom" href="{{ path('test_selectCategory') }}" >
+              <i class="tim-icons icon-atom"></i>Tests
+              <p class="d-lg-none d-xl-none">Instagram</p>
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Students application progress" data-placement="bottom" href="{{path('candidature_index')}}" >
+              <i class="tim-icons icon-chart-pie-36"></i>Applications
+              <p class="d-lg-none d-xl-none">Applications</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn btn-default d-none d-lg-block" href="{{ path('app_logout') }}">
+              <i class="tim-icons icon-user-run"></i> Logout
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Profile" data-placement="bottom" href="{{path('profile_show')}}" >
+              <i class="tim-icons icon-single-02"></i>Profile
+              <p class="d-lg-none d-xl-none">Facebook</p>
+            </a>
+          </li>
+          {% endif %}
+          <!--Student-->
+           {% if app.user.status=="Student" %}
+          <li class="nav-item p-0">
+               <a class="nav-link" rel="tooltip" title="Dashboard" data-placement="bottom" href="{{path('apprentice')}}" >
+              <i class="tim-icons icon-tv-2"></i>Insights
+              <p class="d-lg-none d-xl-none">Insights</p>
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Application management" data-placement="bottom" href="{{path('candidature_index')}}" >
+              <i class="tim-icons icon-chart-pie-36"></i>Application
+              <p class="d-lg-none d-xl-none">Applications</p>
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Courses management" data-placement="bottom" href="{{ path('module_selectCategory') }}" >
+              <i class="tim-icons icon-single-copy-04"></i>Courses
+              <p class="d-lg-none d-xl-none">Courses</p>
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Tests management" data-placement="bottom" href="{{ path('test_selectCategory') }}" >
+              <i class="tim-icons icon-atom"></i>Tests
+              <p class="d-lg-none d-xl-none">Instagram</p>
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Video list" data-placement="bottom" href="{{ path('test_selectCategory') }}" >
+              <i class="tim-icons icon-video-66"></i>Videos
+              <p class="d-lg-none d-xl-none">vid list</p>
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="List of universities" data-placement="bottom" href="{{ path('univ_student_index') }}" >
+              <i class="tim-icons icon-bank"></i>Universities
+              <p class="d-lg-none d-xl-none">Facebook</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn btn-default d-none d-lg-block" href="{{ path('app_logout') }}">
+              <i class="tim-icons icon-user-run"></i> Logout
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Profile" data-placement="bottom" href="{{path('profil_show')}}" >
+              <i class="tim-icons icon-single-02"></i>Profile
+              <p class="d-lg-none d-xl-none">Facebook</p>
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+<section class="section section-lg">
+   
+     
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+            <h1 class="text-center"><i class="tim-icons icon-book-bookmark text-warning"></i>Tests management</h1>
+            <div class="row row-grid justify-content-center">
+            <ul class="nav nav-pills justify-content-end">
+     {% for teacher in teachers %}
+  <li class="nav-item">
+   <a href="{{ path('affect_add',{'idTeacher':teacher.id}) }}" >
+                 {#} <span class="btn-inner--icon btn-lg"><img src="{{ asset('img/choose.png')}}"></span>#}
+                 <div class="media align-items-center">
+                        <a href="{{ path('affect_add',{'idTeacher':teacher.id}) }}" class="avatar rounded-circle mr-3">
+                           {% if teacher.user.photo == null %}
+                                <img src="{{ asset('img/elprof.jpg') }}" class="rounded-circle"  />
+                            {% else %}
+                                <img src="{{ asset('/uploads/user/photos/'~teacher.user.photo) }}" width="50px" height="50px "  />
+                            {% endif %}
+                            </a>
+                        
+                       <div class="media-body">
+                          <span class="mb-0 text-sm">{{ teacher.firstname }} {{ teacher.lastname }}</span>
+                        </div>
+                      </div>
+                       
+                </a>
+              
+  </li>
+   {% endfor %}
+ 
+</ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+ 
+
+   
+    
+    <br/>
+
+    <form action="index.html">
+      <select id="countries" class="multiselect" multiple="multiple" name="countries[]">
+      {% for student in students %}
+      
+        {% if student.teacher== null %}
+        <option value="{{student.id}}">{{student.firstname}} {{student.lastname}}</option>
+        {% endif %}
+        {% if student.teacher is defined %}
+        {% if student.teacher!= null %}
+         <option value="{{student.id}}" selected="selected">{{student.firstname}} {{student.lastname}}</option>
+        {% endif %}
+        {% endif %}
+
+
+        {% endfor %}
+      </select>
+      <br/>
+      <input type="submit" value="Submit Form"/>
+    </form>
+    
+    <script type="text/javascript"
+      src="http://jqueryui.com/themeroller/themeswitchertool/">
+    </script>
+    <div id="switcher"></div>
+    
+  
+	</div> 
+ 
+	<div id="footer"> 
+
+	</div> 
+</div>
+</body> 
+</html>

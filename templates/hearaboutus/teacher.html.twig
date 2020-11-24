@@ -1,0 +1,57 @@
+{% block teacher %}
+   {% if app.user.status=="Teacher" %}
+          <li class="nav-item p-0">
+               <a class="nav-link" rel="tooltip" title="Dashboard" data-placement="bottom" href="{{ path('professor') }}">
+              <i class="tim-icons icon-tv-2"></i>Insights
+              <p class="d-lg-none d-xl-none">Insights</p>
+            </a>
+          </li>
+          {#<li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Students list" data-placement="bottom" href="{{path('students_of_teacher_index')}}">
+              <i class="tim-icons icon-notes"></i>Students
+              <p class="d-lg-none d-xl-none">Students</p>
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Courses management" data-placement="bottom" href="{{ path('module_selectCategory') }}">
+              <i class="tim-icons icon-single-copy-04"></i>Courses
+              <p class="d-lg-none d-xl-none">Courses</p>
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Tests management" data-placement="bottom" href="{{ path('test_selectCategory') }}">
+              <i class="tim-icons icon-atom"></i>Tests
+              <p class="d-lg-none d-xl-none">Instagram</p>
+            </a>
+          </li>#}
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Tests management" data-placement="bottom" href="{{ path('education_group_teacher_index') }}">
+              <i class="tim-icons icon-caps-small"></i>Education group
+              <p class="d-lg-none d-xl-none">Instagram</p>
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Students application progress" data-placement="bottom" href="{{path('candidature_index')}}">
+              <i class="tim-icons icon-chart-pie-36"></i>Applications
+              <p class="d-lg-none d-xl-none">Applications</p>
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Clubs management" data-placement="bottom" href="{{ path('club_index') }}">
+              <i class="tim-icons icon-palette"></i>Clubs
+              <p class="d-lg-none d-xl-none">Instagram</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link btn btn-default d-none d-lg-block" href="{{ path('app_logout') }}">
+              <i class="tim-icons icon-user-run"></i> Logout
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Profile" data-placement="bottom" href="{{path('profile_show')}}">
+              <i class="tim-icons icon-single-02"></i>Profile
+              <p class="d-lg-none d-xl-none">Facebook</p>
+            </a>
+          </li>
+          {% endif %}
+{% endblock %}

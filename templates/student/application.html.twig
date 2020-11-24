@@ -1,0 +1,160 @@
+{% extends "base.html.twig"%}
+{% block stylesheet %}
+
+{% endblock %}
+{% block title %} Universities{% endblock %}
+
+{% block body %}
+<section name='Title' style='margin-top:140px;'>
+<div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;">   UNIVERSITIES
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+      
+        <section  name="content" style="margin-top:50px;">
+        <div class="container">
+          {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('delete') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('update') %}
+           
+          
+            <div class="alert alert-warning" role="alert">
+                {{ message }}
+                </div>   
+                {% endfor %} 
+          <div class="row">
+            <div class="col">
+               <div style="background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:10px;">
+               <div class="row">
+               <div class="col-4"style="font-family:'Neou-bold';"><span class="h4 text-bluee" style="padding-left:20px;opacity:1;">UNIVERSITY NAME</span></div>
+               <div class="col-4"style="font-family:'Neou-bold';"><span class="h4 text-bluee" style="padding-left:20px;opacity:1;">EMAIL</span></div>
+               <div class="col-4"style="font-family:'Neou-bold';"><span class="h4 text-bluee" style="padding-left:20px;opacity:1;">ACTION</span></div>
+               </div>
+               </div>
+            </div>
+          </div>
+           
+          <!-- Condition -->
+          
+          <div  class="row" style="margin-top:20px;">
+          <div class="col">
+          <!--js function show and hide-->
+                        <script>
+                                function show(a){
+                                    document.getElementById('td'+a).style='background-color:yellow;padding-top:20px;padding-bottom:10px;margin-bottom:10px;';
+                                    document.getElementById('act'+a).style='display:inline;';
+                                }
+                                function hide(a){
+                                    document.getElementById('td'+a).style='background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:10px;margin-bottom:10px;';
+                                    document.getElementById('act'+a).style='display:none';
+                                }
+                            </script>
+                            {% for application in application%}
+             <div id="td{{application.id}}"onmouseover="show({{application.id}})"onmouseout="hide({{application.id}})" style="background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:10px;margin-bottom:10px;">
+               <div  class="row">
+               <div  class="col-4"style="font-family:'Neou-bold';"><p style="padding-left:20px;opacity:1;">{{application.universityname}}</p></div>
+               <div class="col-4"style="font-family:'Neou-bold';"><p style="padding-left:20px;opacity:1;">{{application.email}}</p></div>
+               <div class="col-4"style="font-family:'Neou-bold';"><p style="padding-left:20px;opacity:1;">{% if candidature[0] is defined and candidature[0].isSubmited == false %}
+            <div class="btn-group">
+                                        <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-bottom: 0px;margin-top: 0px">Actions</button>
+                                        <div class="dropdown-menu ">
+                                        <a class="dropdown-item" data-toggle="modal" data-target="#exampleModal{{ application.id }}" >
+                                            <i class="tim-icons text-yellow icon-settings-gear-63"></i>
+                                            Edit</a>
+                                            <a class="dropdown-item"  data-toggle="modal" data-target="#modal-notification{{ application.id }}">
+                                            <i class="tim-icons text-red icon-simple-remove"></i>
+                                            Delete</a>
+            </div>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal{{ application.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+   <form action="{{path('application_edit',{'id':application.id})}}" method="post">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit application</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+    <label class="text-muted">University Name:</label>
+            <input  name="name" class="form-control text-dark" type="text" value="{{application.universityname}}" disabled/>
+            <label class="text-muted">Email:</label>
+            <input name="email" style="color: #000000;" class="form-control " type="text" value="{{application.email}}"/>
+           {#} <label class="text-muted">Password:</label>#}
+            <input name="password" style='color:#000000;' hidden="true" class="form-control " type="text" value="{{application.password}}"/>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         <button type="submit" class="btn btn-success">{{ button_label|default('Update') }}</button>
+            
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+
+<!--Modal delete -->
+
+    <div class="modal fade" id="modal-notification{{application.id}}" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
+    <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+        <div class="modal-content bg-gradient-danger">
+        	
+            <div class="modal-header">
+                <h6 class="modal-title" id="modal-title-notification">Delete Confirmation</h6>
+                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+            	
+                <div class="py-3 text-center">
+                    <i class="ni ni-bell-55 ni-3x"></i>
+                                             <h4 class="heading mt-4">Do you really want to delete {{application.universityname}}'s application!</h4>
+                                        </div>
+                                        <div class="modal-footer">
+                                         <form method="post" action="{{path('application_delete',{'id':application.id})}}" >
+                                            <button type="button" class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+                                           
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ application.id) }}">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    </div></div>
+                {% endif %}</p></div>
+               </div>
+             </div>
+             {% endfor %}
+          </div>
+          </div>
+
+        
+        
+
+
+
+     
+  </div>
+  </div>
+{% endblock  %}

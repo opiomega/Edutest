@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    {% block stylesheets %}
+        <meta charset="UTF-8" />
+        <!-- Favicon -->
+      <link rel="icon" type="image/png" href="{{asset('image/aerogami.png')}}"/>
+           
+   <link href="{{asset('bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" />
+   <link href="{{asset('asset/css/style.css')}}" rel="stylesheet" />
+
+     <link href="{{asset('bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" />
+
+     <!--Calendar-->
+         <link rel="stylesheet" href="{{asset('asset/css/calander/core@4.1.0/main.min.css')}}">
+         <link rel="stylesheet" href="{{asset('asset/css/calander/daygrid@4.1.0/main.min.css')}}">
+         <link rel="stylesheet" href="{{asset('asset/css/calander/timegrid@4.1.0/main.min.css')}}">
+    <!--Datatable-->
+    <script src="{{asset('asset/js/jquery.min.js')}}" type="text/javascript"></script>
+    <link href="{{asset('asset/css/jquery.dataTables.min.css')}}" rel="stylesheet" />
+ <style>
+      @font-face {
+ 
+  font-family: 'Neou-bold';
+    src:    url({{asset('bootstrap/neou/Neou-Bold.otf')}}) format('opentype');
+  }
+  .bg-silver-center{
+      background-color:rgba(241,242,242,0.7);
+      margin-left:20px;
+      padding-top:20px;
+      padding-bottom:20px;
+      padding-left:40px;
+      padding-right:40px;
+  }
+ 
+  .card,.card-body,.card-header,.card-plain{
+      background-color:rgba(255,255,255,0.1);
+      border:none;
+  }
+  .text-rede{
+      color:#B2273D;
+  }
+  .text-bluee{
+     color:#2F5BA3;
+  }
+  .bg-rede{
+      background-color:#B2273D;
+  }
+  .bg-gris{
+      background-color:rgba(241,242,242,0.7);
+      padding-top:20px;
+      padding-bottom:20px;
+  }
+  .bg-image-red{
+      background-image:url('{{asset('image/icones/20.png')}}');
+      padding-top:10px;
+      padding-bottom:10px;
+      color:white;
+      padding-left:20px;
+  }
+    </style>
+    {% endblock %}
+    </head>
+    <body style="background-image: url({{asset('image/login.jpg')}});
+    background-size: cover;
+    font-family: Neou-bold;">
+    
+  
+     
+<nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
+      <div class="container px-4">
+        <a class="navbar-brand" href="#">
+          <img src="{{ asset('loginImages/3.png')}}" height="80px" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar-collapse-main">
+          <!-- Collapse header -->
+          <div class="navbar-collapse-header d-md-none">
+            <div class="row">
+              <div class="col-6 collapse-brand">
+                <a href="../index.html">
+                  <img src="{{ asset('/img/brand/blue.png')}}">
+                </a>
+              </div>
+              <div class="col-6 collapse-close">
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
+                  <span></span>
+                  <span></span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Navbar items -->
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item" style="padding-right:20px;">
+              <a class="nav-link nav-link-icon" href="{{ path('app_login') }}">
+                <img src="{{asset('loginImages/1.png')}}" height="40px" style="    padding-bottom: 10px;
+    width: 29px;
+    height: 40px;
+">
+                <span style="font-size:30px;" class=" nav-link-inner--text text-white">Login</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-icon" href="{{ path('user_registration') }}">
+                <img src="{{asset('loginImages/2.png')}}" style="padding-bottom: 13px;
+    width: 25px;
+    height: 39px;">
+                <span style="font-size:30px;" class="nav-link-inner--text text-white">Register</span>
+              </a>
+            </li>
+            
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+
+
+
+  
+ 
+
+       
+            {% block body %}
+            {% endblock  %}
+    
+
+{% block javascript %}
+          <!--   Core   -->
+  <script src="{{asset('asset/js/core/jquery.min.js')}}" type="text/javascript"></script>
+            <script src="{{asset('asset/js/core/popper.min.js')}}" type="text/javascript"></script>
+  <script src="{{asset('asset/js/core/bootstrap.min.js')}}" type="text/javascript"></script>
+  <script src="{{asset('asset/js/plugins/perfect-scrollbar.jquery.min.js')}}"></script>
+ 
+  <script src="{{asset('asset/js/plugins/bootstrap-switch.js')}}"></script>
+
+  <script src="{{asset('asset/js/plugins/nouislider.min.js')}}" type="text/javascript"></script>
+   <!--Calendar-->
+    <script src="{{asset('asset/js/calendar/core@4.1.0/main.min.js')}}"></script>
+    <script src="{{asset('asset/js/calendar/interaction@4.1.0/main.min.js')}}"></script>
+    <script src="{{asset('asset/js/calendar/daygrid@4.1.0/main.min.js')}}"></script>
+    <script src="{{asset('asset/js/calendar/timegrid@4.1.0/main.min.js')}}"></script>
+
+    <!--DataTable-->
+    <script src="{{asset('asset/js/jquery.dataTables.min.js')}}" type="text/javascript"></script>
+    
+
+  {% endblock  %}
+    </body>
+
+</html>

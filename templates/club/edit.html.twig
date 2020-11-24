@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% block stylesheet %}
+
+{% endblock %}
+{% block title %}Edit {{club.name}}{% endblock %}
+
+{% block body %}
+    <section name='Title' style='margin-top:140px;'>
+        <div class="container">
+            <div class="row justify-content-center">
+             <h1 class="text-center"style="color:#B2273D;"> EDIT club 
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+                </div>
+            </div>
+            </div>
+        </div>
+      </section>
+      <section name="new session" style="margin-bottom:60px;margin-top:50px;">
+    <div class="container">
+  
+    {{ include('club/_form.html.twig', {'button_label': 'Update'}) }}
+
+      <div style="margin-top:20px;">
+    <a href="{{ path('club_messages_index',{'id':club.id}) }}" class="btn btn-primary">Messages</a>
+    <a href="{{ path('club_messages_new',{'id':club.id}) }}" class="btn btn-info">Add message</a>
+     {{ include('club/_delete_form.html.twig') }}
+    </div>
+    
+   
+    </div></div>
+    <div style="margin-top:20px;">
+ 
+   </div>
+   <a href="{{ path('club_index') }}">back to list</a> 
+   
+{% endblock %}

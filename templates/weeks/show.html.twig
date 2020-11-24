@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Weeks{% endblock %}
+
+{% block body %}
+    <h1>Weeks</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ week.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ week.title }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('weeks_index') }}">back to list</a>
+
+    <a href="{{ path('weeks_edit', {'id': week.id}) }}">edit</a>
+
+    {{ include('weeks/_delete_form.html.twig') }}
+{% endblock %}

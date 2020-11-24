@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{% block stylesheet %}
+
+{% endblock %}
+{% block title %}Add a Club{% endblock %}
+
+{% block body %}
+    <section name='Title' style='margin-top:140px;'>
+        <div class="container">
+            <div class="row justify-content-center">
+             <h1 class="text-center"style="color:#B2273D;"> Add new club 
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+                </div>
+            </div>
+            </div>
+        </div>
+      </section>
+      <section name="new session" style="margin-bottom:60px;margin-top:50px;">
+    <div class="container">
+    {{ include('club/_form.html.twig') }}
+    <div style="margin-top:20px;">
+    <a class="btn btn-primary" href="{{ path('club_index') }}">back to list</a>
+    </div>
+   </div> </div></div></div>
+{% endblock %}

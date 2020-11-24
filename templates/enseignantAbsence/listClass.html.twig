@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+{% block title %}Groups{% endblock %}
+{% block body %}
+  <section name='Title' style='margin-top:140px;'>
+        <div class="container">
+            <div class="row justify-content-center">
+             <h1 class="text-center"style="color:#B2273D;">   Attendance Management
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+                </div>
+            </div>
+            </div>
+        </div>
+      </section>
+<section name="groups" style="margin-top:50px;margin-bottom:50px;">
+
+<div class="container-fluid mt--7">
+      <!-- Table -->
+      <div class="row">
+        <div class="col">
+          <div class="card card-plain" style="border:solid 1px;">
+            <div class="card-header border-0">
+        <h3 class="page-heading mb-4">Teachers attendance managment</h3>
+        <a href="{{path('list_absence')}}" class='nav-link text-blue float-right' style="border:solid 1px;"><i class="fa fa-desktop" aria-hidden="true"></i>Check all</a>
+         <div class="row" style="float:right;">
+         <form method="post" id="resetAttendanceForm" action="{{ path('reset_teacher') }}" id="" >
+         <div class="col"><label for="teacher">Teachers
+         <select class="form-control" name="selectteacher">
+         <option value="all">All</option>
+         {% for teacher in teachers%}
+           <option value="{{teacher.id}}">{{teacher.firstname}} {{teacher.lastname }}</option>
+           {% endfor %}
+         </select></label>
+         </div>
+          <input type="hidden" name="_method" value="DELETE">
+         <div class="col"> <button type="button"  id="resetAttendence" onclick="showModal('myModalResetAttendence')" class="float-right text-centred" style="border:none; padding-top:7px; text-align:center; color:white;background-image: url('{{asset('image/icones/20.png')}}'); background-color:rgba(0,0,0,0); background-position:top; background-size: cover; height:57px;width:150px;" >Reset attendance</button></div>
+         </form>
+         </div></div>
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col-md-12">
+                    {% for type, flashMessages in app.session.flashbag.all() %}
+                        {% for flashMessage in flashMessages %}
+                            <div class="alert alert-{{ type }}">
+                                {{ flashMessage|raw }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!--/.Card-->
+            <div class="row">
+            {% for classe in classes if classe.teacher != null %}
+
+
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-4 groupOfTeacher groupOfTeacher{{ classe.teacher.id}}" >
+                        <div class="card card-statistics">
+                            <div class="card-body">
+                                <div class="clearfix">
+
+                                    <div class="float-">
+                                      {#  <p class="card-text ">Nombre d'étudiant : {{ stat[classe.id] }}</p>#}
+                                        <h4 class="bold-text"> {{ classe.name }}</h4>
+                                    </div>
+                                </div>
+                                <p class="text-muted">
+
+                                    <a href="{{ path('enseignant_seance',{'id':classe.id}) }}" class="btn btn-primary btn-md" style="float: right">Sessions list</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+            {% endfor %}
+
+        </div>
+        </div>
+    </div>
+            <div id="myModalResetAttendence" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Reset attendance</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>are you sure ?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default btn-md btn-danger" data-dismiss="modal">No</button>
+                                            <a href="#" id="confirmResetAttendance" class="btn btn-success btn-md">Yes</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+{% endblock body %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        
+        $(document).ready(function(){
+            if ($("select[name=selectteacher]").val()=="all")
+               $('.groupOfTeacher').show();
+           else
+            {
+               $('.groupOfTeacher').hide();
+               $('.groupOfTeacher'+$("select[name=selectteacher]").val()).show();
+            }
+        });
+        $("select[name=selectteacher]").change(function(){
+           if ($(this).val()=="all")
+               $('.groupOfTeacher').show();
+           else
+            {
+               $('.groupOfTeacher').hide();
+               $('.groupOfTeacher'+$(this).val()).show();
+            }
+        });
+        $("#confirmResetAttendance").click(function(){
+            $("#resetAttendanceForm").submit();
+        });
+        function showModal(id) {
+            $("#"+id).modal();
+        }
+    </script>
+{% endblock %}

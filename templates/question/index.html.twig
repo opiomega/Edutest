@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Question index{% endblock %}
+
+{% block body %}
+
+<section name='Title' style='margin-top:140px;'>
+<div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';">  QUestions
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="container" style="margin-bottom:60px;">
+          {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('delete') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('update') %}
+            <div class="alert alert-warning" role="alert">
+                {{ message }}
+                </div>   
+                {% endfor %}  
+            <table style="border:none;" id="example"  class="table align-items-center table-flush  display dataTable">
+            <thead >
+                <th style="border-bottom:none;"><h5 class="text-bluee">Content</h5></th>
+                <th style="border-bottom:none;"><h5 class="text-bluee">Choices</h5></th>
+                <th style="border-bottom:none;"><h5 class="text-bluee">CorrectChoice</h5></th>
+                <th style="border-bottom:none;"><h5 class="text-bluee">Type</h5></th>
+                <th style="border-bottom:none;"><h5 class="text-bluee">Correct answer</h5></th>
+                <th style="border-bottom:none;"><h5 class="text-bluee">actions</h5></th>
+            
+        </thead>
+        <tbody>
+        {% for question in questions %}
+            <tr>
+                
+                <td>{{ question.Content }}</td>
+                <td>{{ question.choises ? question.choises|join(', ') : '' }}</td>
+                <td>{{ question.correctChoise }}</td>
+                <td>{{ question.type=="QA"?"Question & answer":question.type }}</td>
+                <td>{{ question.correctAnswer }}</td>
+                <td>
+                     <a class="btn btn-info btn-sm btn-round btn-icon" href="{{ path('question_show', {'id': question.id}) }}"><i class="fa fa-desktop"></i></a>
+                     {% if app.user.status == "Admin" %}
+                        <a class="btn btn-warning btn-sm btn-round btn-icon" href="{{ path('question_edit', {'id': question.id}) }}"><i class="fa fa-edit"></i></a>
+                     {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+        {% if app.user.status == "Admin" %}
+            <a href="{{ path('test_edit',{'id':test.id}) }}"class="btn btn-info ">Edit test informations</a>
+        {% endif %}
+</div></div>
+    <a href="{{ path('test_show',{'id':test.id}) }}"class="btn btn-outline-primary "> Back to test information</a>
+    <a href="{{ path('question_new',{'id':test.id}) }}" class="btn btn-success float-right">Create new</a>
+{% endblock %}

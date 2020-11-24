@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ club.name }} messages index{% endblock %}
+
+{% block body %}
+</br></br>
+<section class="section section-lg">
+      <img src="{{asset('assetss/img/path4.png')}}" class="path">
+     
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+            <h1 class="text-center">Club Messages</h1>
+            <div class="row row-grid justify-content-center">
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+     <div class="row justify-content-center"> 
+    <div class="col-8">
+    <div class="card card-plain" style="border:solid 1px ;">
+    <div class="card card-header">
+    <h1>{{ club.name }} messages </h1>
+</div>
+    <table class="table">
+        <thead>
+            <tr>
+                
+                <th>Time</th>
+                <th>Content</th>
+                <th>User</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for club_message in club_messages %}
+            <tr>
+                
+                <td>{{ club_message.dateTime|date('Y-m-d H:i:s')  }}</td>
+                <td>{{ club_message.content }}</td>
+                <td>
+                    {% if (club_message.user.teacher[0].firstname is defined) and (club_message.user.teacher[0].lastname is defined)  %}
+                      {{ club_message.user.teacher[0].firstname }}   {{ club_message.user.teacher[0].lastname }}
+                    {% elseif (club_message.user.student[0].firstname is defined) and (club_message.user.student[0].lastname is defined)  %}
+                      {{ club_message.user.student[0].firstname }}   {{ club_message.user.student[0].lastname }}
+                    {% else %}
+                          Admin
+                    {% endif %}
+                </td>
+                <td>
+                <div class="btn-group">
+                                        <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-bottom: 0px;margin-top: 0px">Actions</button>
+                                        <div class="dropdown-menu ">
+                                            <a class="dropdown-item" href="{{ path('club_messages_show', {'id': club_message.id}) }}">
+                                            <i class="tim-icons text-blue icon-tv-2"></i>
+                                            Show</a>
+                                              {% if app.user.id == club_message.user.id %}
+                                            <a class="dropdown-item" href="{{ path('club_messages_edit', {'id': club_message.id}) }}">
+                                            <i class="tim-icons text-yellow icon-settings-gear-63"></i>
+                                            Edit</a>
+                                            {% endif %}
+                </div>
+                    
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+<div class="card-footer">
+    <a class="btn btn-success"href="{{ path('club_messages_new',{'id':club.id}) }}">Create new</a>
+    </div></div>
+    <a href="{{ path('club_show',{'id':club.id}) }}" class="btn btn-primary">Back to club homepage</a>
+{% endblock %}

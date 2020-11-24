@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Module index{% endblock %}
+
+{% block body %}
+<section name='Title' style='margin-top:140px;'>
+<div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';">New Module 
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+</section>
+<style>
+.longback{
+background-image:url('{{asset('image/icones/31.png')}}');
+    width: 250px;
+    height: 57px;
+    padding-top: 5px;
+    padding-left: 15px;
+
+}
+.overlong:hover{
+  background-image:url('{{asset('image/icones/21.png')}}');
+    width: 250px;
+    height: 57px;
+    padding-top: 5px;
+    padding-left: 15px;
+}
+</style>
+<section>
+    <div class="container">
+
+
+{{ form_start(form) }}
+<div class="pl-lg-4">
+{{ tinymce_init() }}
+{% for input in form %}
+
+                  <div class="row">
+                    <div class="col-lg-8">
+                      <div class="form-group">
+                        
+                        {{ form_row(input)}}
+                      </div>
+                    </div></div>
+
+                  
+   {% endfor %}
+   </div>
+                    
+                    {% if module.typeCourse.name=="Course"%}
+                    <div class="row">
+                      <div class="col-md">
+    <button style="border:none;background-color:transparent;"  class="redback over text-white float-left">{{ button_label|default('Add docuement') }}</button>
+                      </div>
+                      <div class="col-md">
+    <input style="border:none;background-color:transparent;"type="submit" class="longback overlong text-white float-right"name="saveWAD" value="Save without adding documents" />
+                      </div>
+                    </div>
+             {% endif %}
+                {% if module.typeCourse.name=="Video"%}
+    <button class="btn btn-success float-left">{{ button_label|default('Add video') }}</button>
+    
+             {% endif %}
+              
+                   {{ form_end(form)}}
+                   
+<div style="margin-top:20px;">
+{{ include('module/_delete_form.html.twig') }}
+
+    <a href="{{ path('module_selectCategory') }}"class="float-left">back to cateories list</a>
+</div>
+   
+{% endblock %}

@@ -1,0 +1,262 @@
+{% extends "layout.html.twig" %}
+{% block body%}
+<br><br><br><br>
+  <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+              
+              <!-- Nav tabs -->
+              <div class="card card-plain" style="border:solid 1px;">
+                <div class="card-header">
+                  <ul class="nav nav-tabs nav-tabs-primary" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" data-toggle="tab" href="#link1" role="tablist">
+                        <span class="btn-inner--icon" style="float:top;margin-bottom:20px;">
+                  <span class="btn-inner--text" style="color:white;"><img height="50px"width="50px" src="{{asset('img/icons/student.png')}}">Student</span></span>
+                      </a>
+                    </li>
+                    <li class="nav-item " style="float:right;">
+                      <a class="nav-link" data-toggle="tab" href="#link2" role="tablist">
+                        <span class="btn-inner--icon" style="float:top;margin-bottom:20px;">
+                  <span class="btn-inner--text" style="color:white;"><img height="50px"width="50px" src="{{asset('img/icons/professor.png')}}">Teacher</span></span>
+                      </a>
+                    </li>
+                   
+                  </ul>
+                </div>
+                <div class="card-body">
+                  <!-- Tab panes -->
+                  <div class="tab-content tab-space">
+                    <div class="tab-pane active" id="link1">
+                      <form action="{{path('student_google')}}" method="post">
+                     <h6 class="heading-small text-muted ">Student information</h6>
+<div class="form-row">
+    <div class="form-group col">
+      <label class="form-control-label" >First name</label>
+                      
+                        <input type="text" name="firstname" class="form-control" value='{{firstname}}'>
+    </div>
+    <div class="form-group col">
+      <label class="form-control-label">Last name</label>
+                    
+                        <input type="text" name="lastname" class="form-control" value='{{lastname}}'>
+    </div>
+    <div class="form-group col">
+      <label class="form-control-label" >School</label>
+                    
+                           <input type="text" name="school" class="form-control">
+    </div>
+  </div>
+<div class="form-row">
+    <div class="form-group col">
+      <label class="form-control-label" >Phone number</label>
+      <input class="form-control" type="text" name="phone">
+      </div>
+    <div class="form-group col">
+    <label class="form-control-label" >Address</label>
+    <input class="form-control" type="text" name="adress">
+    </div>
+    <div class="form-group col">
+    <label class="form-control-label" >Birthdate</label>
+    <div class='input-group date' id='datetimepicker1'>
+    <input  type="text" name="date" class="form-control datepicker">
+    <span class="input-group-addon">
+                        <span class="tim-icons icon-calendar-60"></span>
+                    </span>
+    </div></div></div>
+    <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker1').datetimepicker({
+                   format: 'MM/DD/YYYY'
+                });
+            });
+        </script>
+<div class="form-row">
+    <div class="form-group col">
+      <label class="form-control-label" >Achievments</label>
+                    
+                        <input type="text" name="achive" class="form-control">
+    </div>
+    <div class="form-group col">
+      <label class="form-control-label">Special skills</label>
+                      
+                        <input type="text" name="skill" class="form-control">
+    </div>
+     <div class="form-group col">
+      <label class="form-control-label">Hobbies</label>
+                     
+                        <input type="text" name="hobbies" class="form-control">
+    </div>
+  </div>
+
+<h6 class="heading-small text-muted mb-4">Parents information</h6>
+  
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label class="form-control-label">Father's name</label>
+                     
+                        <input type="text" name="fathername" class="form-control">
+    </div>
+    <div class="form-group col-md-4">
+      <label class="form-control-label" >Father's email</label>
+                     
+                        <input type="email" name="fatheremail" class="form-control">
+    </div>
+    <div class="form-group col-md-4">
+      <label class="form-control-label" >Father's job</label>
+                    
+                        <input type="text" name="fatherjob" class="form-control">
+                      
+    </div>
+    
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+       <label class="form-control-label" >Mother's name</label>
+                       
+                        <input type="text" name="mothername" class="form-control">
+    </div>
+    <div class="form-group col-md-4">
+      <label class="form-control-label" >Mother's email</label>
+                     
+                        <input type="email" name="motheremail" class="form-control">
+    </div>
+    <div class="form-group col-md-4">
+    
+      <label class="form-control-label" >Mother's job</label>
+                      
+                        <input type="text" name="motherjob" class="form-control">
+    </div>
+  </div>
+  <div class="form-row">
+ 
+    <div class="form-group col-md-6">
+      <label class="form-control-label">Father's phone number</label>
+                       
+                        <input type="text" name="fathernumber" class="form-control">
+    </div>
+    <div class="form-group col-md-6">
+       <label class="form-control-label" >Mother's phone numbre</label>
+                        
+                        <input type="text" name="mothernumber" class="form-control">
+    </div>
+  </div>
+                
+ <hr class="my-4" />
+<div class="form-row">
+  <div class="form-group col">
+   <label class="form-control-label" >Interset</label>
+                       
+                         <select class="form-control" name="course" >
+                        {% for course in courses %}
+                         <option value="{{course.name}}">{{course.name}}</option>
+                        {% endfor %}
+   </div>
+    <div class="form-group col">
+        <label class="form-control-label">Education level</label>
+                      
+                        <select class="form-control" name="education">
+                        {% for eduction in levels %}
+                        <option value="{{education.name}}">{{education.name}}</option>
+                        {% endfor %}
+                        </select>
+    </div>
+   {#} <div class="form-group col">          
+         <label class="form-control-label">Classes</label>
+                        {{ form_widget(form.classes) }}
+    </div>#}
+</div>
+
+                 <div class="form-row">
+                   <div class="form-group col-md-6">
+                        <label class="form-control-label" >Hear about us from</label>
+                        
+                        <select class="form-control" name="hear" >
+                           {% for hear in hears %}
+                           <option value="{{hear.name}}">{{hear.name}}</option>
+                           {% endfor %}
+                           </select>
+                      </div>
+                   
+                  </div>
+
+              
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="form-control-label">Comment</label>
+                        
+                        <input type="text" name="comment" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="form-control-label">Which representative did you talk to</label>
+                      
+                       <input type="text" name="talk" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                  <input hidden="true" value="Student" name="statuss">
+                  <img name="photo" height="250px" width="250px" src="{{avatar}}" class="d-block">
+                  <div class="col-4">
+                  <input type="file" class="form-control" name="pic">
+                  </div>
+                  <button type="submit" class="btn" style="float:right;"><span>Sign up</span><span></span></button>
+                     </form>
+                    </div>
+                    <div class="tab-pane" id="link2">
+                     {{form_start(formt)}}
+                     <h6 class="heading-small text-muted mb-4">Teacher information</h6>
+    <div class="form-row">
+    <div class="form-group col-md-6">
+ <label class="form-control-label" for="input-address">First name</label>
+                        {{ form_widget(formt.firstname,{'value':firstname}) }}
+    </div>
+    <div class="form-group col-md-6">
+<label class="form-control-label" for="input-address">Last name</label>
+                        {{ form_widget(formt.lastname,{'value':lastname}) }}
+    </div>
+    </div>
+    <div class="form-row">
+    <div class="form-group col-md-6">
+ <label class="form-control-label" for="input-address">Univesity </label>
+                        {{ form_widget(formt.university) }}
+                      </div>
+    
+    <div class="form-group col-md-6">
+<label class="form-control-label" for="input-address">Score </label>
+                        {{ form_widget(formt.score) }}
+    </div>
+    </div>
+
+     {#<div class="form-row">
+    <div class="form-group col-md-6">
+<label class="form-control-label" for="input-address">Courses</label>
+                        {{ form_widget(form.courses) }}
+    </div></div> #}
+    <div class="form-row">
+    <div class="form-group col-md-6">
+     <label class="form-control-label" for="input-address">Tests</label>
+                        {{ form_widget(formt.testsCategory) }}
+    </div></div>
+    <input hidden="true" value="Teacher" name="statust">
+     <img height="250px" width="250px" src="{{avatar}}" class="d-block">
+                  <div class="col-4">
+                  <input type="file" class="form-control" name="pic">
+                  </div>
+                  <button type="submit" class="btn" style="float:right;"><span>Sign up</span><span></span></button>
+                     {{form_end(formt)}}
+                    </div>
+                   
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            </div></div></div>
+{% endblock %}

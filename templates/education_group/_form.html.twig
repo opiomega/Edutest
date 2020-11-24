@@ -1,0 +1,11 @@
+{#{% for type, flashMessages in app.session.flashbag.all() %}
+                {% for flashMessage in flashMessages %}
+                    <div class="alert alert-{{ type }}">
+                        {{ flashMessage|raw }}
+                    </div>
+                {% endfor %}
+            {% endfor %}#}
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-success float-right">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

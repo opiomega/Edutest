@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CandidatureDeadline{% endblock %}
+
+{% block body %}
+    <h1>CandidatureDeadline</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ candidature_deadline.id }}</td>
+            </tr>
+            <tr>
+                <th>Test</th>
+                <td>{{ candidature_deadline.test ? candidature_deadline.test|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>LetterOfRecommendation</th>
+                <td>{{ candidature_deadline.letterOfRecommendation ? candidature_deadline.letterOfRecommendation|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>TranscriptBac</th>
+                <td>{{ candidature_deadline.transcriptBac ? candidature_deadline.transcriptBac|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Passport</th>
+                <td>{{ candidature_deadline.passport ? candidature_deadline.passport|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Cin</th>
+                <td>{{ candidature_deadline.cin ? candidature_deadline.cin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>LetterOfRecommendationMath</th>
+                <td>{{ candidature_deadline.letterOfRecommendationMath ? candidature_deadline.letterOfRecommendationMath|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>TranscriptThird</th>
+                <td>{{ candidature_deadline.transcriptThird ? candidature_deadline.transcriptThird|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>TranscriptSecond</th>
+                <td>{{ candidature_deadline.transcriptSecond ? candidature_deadline.transcriptSecond|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>TranscriptFirst</th>
+                <td>{{ candidature_deadline.transcriptFirst ? candidature_deadline.transcriptFirst|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Survey</th>
+                <td>{{ candidature_deadline.survey ? candidature_deadline.survey|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>BankStatement</th>
+                <td>{{ candidature_deadline.bankStatement ? candidature_deadline.bankStatement|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('candidature_deadline_index') }}">back to list</a>
+
+    <a href="{{ path('candidature_deadline_edit', {'id': candidature_deadline.id}) }}">edit</a>
+
+    {{ include('candidature_deadline/_delete_form.html.twig') }}
+{% endblock %}

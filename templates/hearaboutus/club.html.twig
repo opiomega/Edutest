@@ -1,0 +1,373 @@
+<html class="no-js" lang="zxx">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>{{club.name}}</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+{% block stylesheets %}
+      
+       
+		<link rel="icon" type="image/png" href="{{asset('img/icons/aerogami.png')}}"/>
+        <!-- Place favicon.ico in the root directory -->
+        <link href="{{asset('assetss/css/blk-design-system.css')}}" rel="stylesheet" />
+        <!-- CSS here -->
+        <link rel="stylesheet" href="{{asset('club/css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{asset('club/css/owl.carousel.min.css')}}">
+        <link rel="stylesheet" href="{{asset('club/css/animate.min.css')}}">
+        <link rel="stylesheet" href="{{asset('club/css/magnific-popup.css')}}">
+        <link rel="stylesheet" href="{{asset('club/css/fontawesome-all.min.css')}}">
+        <link rel="stylesheet" href="{{asset('club/css/dripicons.css')}}">
+        <link rel="stylesheet" href="{{asset('club/css/meanmenu.css')}}">
+        <link rel="stylesheet" href="{{asset('club/css/slick.css')}}">
+        <link rel="stylesheet" href="{{asset('club/css/default.css')}}">
+        <link rel="stylesheet" href="{{asset('club/css/style.css')}}">
+        <link rel="stylesheet" href="{{asset('club/css/responsive.css')}}">
+
+
+        <link href="http://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+         <!-- Nucleo Icons -->
+  <link href="{{asset('assetss/css/nucleo-icons.css')}}" rel="stylesheet" />
+  
+        {% endblock %}
+    </head>
+    <body>
+  {% set path= app.request.pathInfo|split('/') %}
+        <!-- header-start -->
+        <header>
+           <div class="top-bar-area-3 dark-soft pt-30 pb-30  pl-55 pr-55 d-none d-md-block">
+                <div class="container-fluid">
+                     
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top navbar-transparent " color-on-scroll="100">
+    <div class="container">
+      <div class="navbar-translate">
+       {% if app.user.status=="Admin" %}
+       <a class="navbar-brand" href="{{path('admin')}}" rel="tooltip" title="Edutest" data-placement="bottom" >
+          <span>Tunisia•</span> Edutest
+        </a>
+         {% endif %}
+      {% if app.user.status=="Teacher" %}
+      <a class="navbar-brand" href="{{path('professor')}}" rel="tooltip" title="Edutest" data-placement="bottom" >
+          <span>Tunisia•</span> Edutest
+        </a>
+      {% endif %}
+      {% if app.user.status=="Student" %}
+      <a class="navbar-brand" href="{{path('apprentice')}}" rel="tooltip" title="Edutest" data-placement="bottom" >
+          <span>Tunisia•</span> Edutest
+        </a>
+      {% endif %}
+        <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-bar bar1"></span>
+          <span class="navbar-toggler-bar bar2"></span>
+          <span class="navbar-toggler-bar bar3"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse justify-content-end" id="navigation">
+        <div class="navbar-collapse-header">
+          <div class="row">
+            <div class="col-6 collapse-brand">
+             
+            </div>
+            <div class="col-6 collapse-close text-right">
+              <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="tim-icons icon-simple-remove"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <ul class="navbar-nav">
+       <!--Admin-->
+        {% include 'admin.html.twig'%}
+         {% block admin %}
+         
+         {% endblock %}
+          <!--Teacher-->
+          {% include 'teacher.html.twig'%}
+          {% block teacher%}
+          
+         {% endblock %}
+          <!--Student-->
+          {% include 'student.html.twig'%}
+          {% block student %}
+          
+         {% endblock %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- End Navbar -->
+
+                </div>
+            </div>
+            <div class="main-menu-area header-menu-3 dark pl-55 pr-55">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xl-2 col-lg-3 col-md-5 d-flex align-items-center">
+                            <div class="logo logo-bg">
+                                <a href="{% if app.user.status=='Admin'%} {{path('studentclub_show',{'id':club.id})}}{% endif %}
+                                {% if app.user.status=='Teacher'%}{% if app.user.teacher==club.head%}{{path('homeclub_show',{'id':club.id})}}{% else %}{{path('studentclub_show',{'id':club.id})}}{% endif %}{% endif %}
+                                {% if app.user.status=='Student'%}{% if app.user.Student[0] in club.Students %}{{path('homeclub_show',{'id':club.id})}} {% else %}{{path('studentclub_show',{'id':club.id})}}{% endif %}{% endif %}">
+                                    
+                                    <img src="{{ asset('uploads/clubs/logos/'~club.logo) }}"style="width:210px; height:190px;" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xl-10">
+                            <div class="header-3-btn f-right">
+                                <a class="btn pink-btn" href="#" tabindex="0"><span class="btn-text">Book Ticket</span> <span class="btn-border"></span></a>
+                            </div>
+                            <div class="header-right f-right d-none d-xl-block">
+                                <div class="menu-bar info-bar text-right">
+                                    <span class="bar1"></span>
+                                    <span class="bar2"></span>
+                                    <span class="bar3"></span>
+                                </div>
+                            </div>
+                            <div class="main-menu header-3-menu">
+                                <nav id="mobile-menu" style="display: block;">
+                              
+                                    <ul>
+                                    {% if app.user.status=="Admin"%}
+                                            <li class="active"><a href="{{path('studentclub_show',{'id':club.id})}}">home </a>
+                                                 <ul class="sub-menu text-left">
+                                                    <li><a href="{{path('homeclub_show',{'id':club.id})}}">Members dash</a></li>
+                                                   
+                                                </ul>
+                                            </li>
+                                           
+                                            <li><a href="{{path('gallery_index',{'id':club.id})}}">gallery</a>
+                                                <ul class="sub-menu text-left">
+                                                    <li><a href="{{path('photo_new',{'id':club.id})}}">Add new photo</a></li>
+                                                    {#<li><a href="gallery-full-width.html">gallery full width</a></li>
+                                                    <li><a href="gallery-carousel.html">gallery carousel</a></li>
+                                                    <li><a href="gallery-details.html">gallery-details</a></li>#}
+                                                </ul>
+                                            </li>
+                                            <li><a href="{{path('event_index',{'id':club.id})}}">Events</a>
+                                                <ul class="sub-menu text-left">
+                                                    <li><a href="{{path('clubevents_new',{'id':club.id})}}">Add new event</a></li>
+                                                    {#<li><a href="events-list.html">events list</a></li>
+                                                    <li><a href="events-details.html">events details</a></li>#}
+                                                </ul>
+                                            </li>
+                                            <li><a href="{{path('about_index',{'id':club.id})}}">about us </a>
+                                                {#<ul class="sub-menu text-left">
+                                                    <li><a href="about-us.html">about us</a></li>
+                                                    <li><a href="shop.html">shop</a></li>
+                                                    <li><a href="product-details.html">productdetails</a></li>
+                                                    <li><a href="book-table.html">book table</a></li>
+                                                    <li><a href="member.html">member</a></li>
+                                                    <li><a href="checkout.html">checkout</a></li>
+                                                    <li><a href="cart.html">cart</a></li>
+                                                    <li><a href="register.html">register</a></li>
+                                                    <li><a href="wishlist.html">wishlist</a></li>
+                                                    <li><a href="login.html">login</a></li>
+                                                    <li><a href="contact.html">contact</a></li>
+                                                </ul>#}
+                                            </li>
+                                            {#<li><a href="blog.html">blog <i class="far fa-angle-down"></i></a>
+                                                <ul class="sub-menu text-left">
+                                                    <li><a href="blog.html">blog</a></li>
+                                                    <li><a href="blog-details.html">Blog Details</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="contact.html">contact</a></li>#}
+                                              <li><a href="{{path('information_index',{'id':club.id})}}">infomrmation</a></li>
+                                                 <li><a href="{{path('club_messages_index',{'id':club.id})}}">Messages</a></li>
+                                          {% endif %}
+                                          
+                                          {% if app.user.status=="Student"%}
+                                       
+                                          {% if app.user.student[0] in club.Students %}
+                                        
+                                           <li class="active"><a href="{{path('homeclub_show',{'id':club.id})}}">home </a>
+                                               
+                                            </li>
+                                           
+                                            <li><a href="{{path('gallery_index',{'id':club.id})}}">gallery</a>
+                                                <ul class="sub-menu text-left">
+                                                    <li><a href="{{path('photo_new',{'id':club.id})}}">Add new photo</a></li>
+                                                   
+                                                </ul>
+                                            </li>
+                                            <li><a href="{{path('event_index',{'id':club.id})}}">Events</a>
+                                                <ul class="sub-menu text-left">
+                                                    <li><a href="{{path('clubevents_new',{'id':club.id})}}">Add new event</a></li>
+                                                    {#<li><a href="events-list.html">events list</a></li>
+                                                    <li><a href="events-details.html">events details</a></li>#}
+                                                </ul>
+                                            </li>
+                                            
+                                            <li><a href="{{path('club_messages_index',{'id':club.id})}}">Messages</a></li>
+                                              {% else  %}
+                                              
+                                               <li class="active"><a href="{{path('studentclub_show',{'id':club.id})}}">home </a>
+                                               
+                                            </li>
+                                           
+                                            <li><a href="{{path('gallery_index',{'id':club.id})}}">gallery</a>
+                                                
+                                            </li>
+                                            <li><a href="{{path('event_index',{'id':club.id})}}">Events</a>
+                                                <ul class="sub-menu text-left">
+                                                   
+                                                  
+                                                </ul>
+                                            </li>
+                                            <li><a href="{{path('about_index',{'id':club.id})}}">about us </a>
+                                            <li><a href="{{path('about_index',{'id':club.id})}}">Contact us </a>
+                                              
+                                            </li>
+                                              {% endif %}
+                                              {% endif %}
+                                          {% if app.user.status=="Teacher"%}
+                                          {% if app.user.teacher[0] == club.head %}
+                                          <li class="active"><a href="{{path('homeclub_show',{'id':club.id})}}">home </a>
+                                               
+                                            </li>
+                                           
+                                            <li><a href="{{path('gallery_index',{'id':club.id})}}">gallery</a>
+                                                <ul class="sub-menu text-left">
+                                                    <li><a href="{{path('photo_new',{'id':club.id})}}">Add new photo</a></li>
+                                                   
+                                                </ul>
+                                            </li>
+                                            <li><a href="{{path('event_index',{'id':club.id})}}">Events</a>
+                                                <ul class="sub-menu text-left">
+                                                    <li><a href="{{path('clubevents_new',{'id':club.id})}}">Add new event</a></li>
+                                                   
+                                                </ul>
+                                            </li>
+                                            <li><a href="{{path('about_index',{'id':club.id})}}">about us </a>
+                                                
+                                            </li>
+                                            {#<li><a href="blog.html">blog <i class="far fa-angle-down"></i></a>
+                                                <ul class="sub-menu text-left">
+                                                    <li><a href="blog.html">blog</a></li>
+                                                    <li><a href="blog-details.html">Blog Details</a></li>
+                                                </ul>
+                                            </li>
+                                            <li><a href="contact.html">contact</a></li>#}
+                                              <li><a href="{{path('information_index',{'id':club.id})}}">infomrmation</a></li>
+                                              <li><a href="{{path('club_messages_index',{'id':club.id})}}">Messages</a></li>
+                                          {% endif %}
+                                          {% endif %}
+                                    </ul>
+                               
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mobile-menu"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="extra-info">
+                <div class="close-icon">
+                    <button>
+                        <i class="tim-icons icon-simple-remove"></i>
+                    </button>
+                </div>
+                <div class="logo-side mb-30">
+                    <a href="index.html">
+                        <img src="img/logo/logo.png" alt="">
+                    </a>
+                </div>
+                <div class="side-info mb-30">
+                    <div class="contact-list mb-30">
+                        <h4>{{club.name}}</h4>
+                        <p>{{club.activity}}</p>
+                    </div>
+                    <div class="contact-list mb-30">
+                        <h4>Club presedent</h4>
+                         <p>Name: {{club.head.firstname}} {{ club.head.lastname}}</p>
+                        <p>E-mail: {{club.head.user.email}}</p>
+                        <p>Phone number: {{ club.head.user.phone}}</p>
+                    </div>
+                   
+                </div>
+                <div class="instagram">
+                    <a href="#">
+                        <img src="{{ asset('/uploads/user/photos/'~club.head.user.photo) }}" alt="">
+                    </a>
+                   {#} <a href="#">
+                        <img src="{{asset('club/img/portfolio/p2.jpg')}}" alt="">
+                    </a>
+                    #}
+                </div>
+                
+            </div>
+        </header>
+        {% block body %}
+        {% endblock %}
+ {% block javascripts %}
+ <script src="{{asset('assetss/js/core/jquery.min.js')}}" type="text/javascript"></script>
+                <!-- JS here -->
+                <script src="{{asset('assetss/js/plugins/perfect-scrollbar.jquery.min.js')}}"></script>
+        <script data-cfasync="false" src="{{asset('club/js/email-decode.min.js')}}"></script>
+        <script src="{{asset('club/js/vendor/modernizr-3.5.0.min.js')}}"></script>
+        <script src="{{asset('club/js/vendor/jquery-1.12.4.min.js')}}"></script>
+        <script src="{{asset('club/js/popper.min.js')}}"></script>
+        <script src="{{asset('club/js/bootstrap.min.js')}}"></script>
+        <script src="{{asset('club/js/jquery.counterup.min.js')}}"></script>
+        <script src="{{asset('club/js/jquery.countdown.min.js')}}"></script>
+        <script src="{{asset('club/js/waypoints.min.js')}}"></script>
+        <script src="{{asset('club/js/owl.carousel.min.js')}}"></script>
+        <script src="{{asset('club/js/isotope.pkgd.min.js')}}"></script>
+        <script src="{{asset('club/js/slick.min.js')}}"></script>
+        <script src="{{asset('club/js/jquery.meanmenu.min.js')}}"></script>
+        <script src="{{asset('club/js/ajax-form.js')}}"></script>
+        <script src="{{asset('club/js/wow.min.js')}}"></script>
+        <script src="{{asset('club/js/jquery.scrollUp.min.js')}}"></script>
+        <script src="{{asset('club/js/imagesloaded.pkgd.min.js')}}"></script>
+        <script src="{{asset('club/js/jquery.magnific-popup.min.js')}}"></script>
+        <script src="{{asset('club/js/plugins.js')}}"></script>
+        <script src="{{asset('club/js/main.js')}}"></script>
+         <!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker -->
+  <script src="{{asset('assetss/js/plugins/moment.min.js')}}"></script>
+  <script src="{{asset('assetss/js/plugins/bootstrap-datetimepicker.js')}}" type="text/javascript"></script>
+
+  <!-- Control Center for Black UI Kit: parallax effects, scripts for the example pages etc -->
+  <script src="{{asset('assetss/js/blk-design-system.min.js?v=1.0.0')}}" type="text/javascript"></script>
+  <script>
+    $(document).ready(function() {
+      blackKit.initDatePicker();
+      blackKit.initSliders();
+    });
+
+  </script>
+        <a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647; display: none;"><i class="tim-icons icon-minimal-up"></i></a>
+     <script>
+  $(document).ready(function () {
+    $('.add-another-collection-widget').click(function (e) {
+        var list = $($(this).attr('data-list-selector'));
+        // Try to find the counter of the list or use the length of the list
+        var counter = list.data('widget-counter') || list.children().length;
+
+        // grab the prototype template
+        var newWidget = list.attr('data-prototype');
+        // replace the "__name__" used in the id and name of the prototype
+        // with a number that's unique to your fieldAvailables
+        // end name attribute looks like name="contact[fieldAvailables][2]"
+        newWidget = newWidget.replace(/__name__/g, counter);
+        // Increase the counter
+        counter++;
+        // And store it, the length cannot be used if deleting widgets is allowed
+        list.data('widget-counter', counter);
+
+        // create a new list element and add it to the list
+        var newElem = $(list.attr('data-widget-tags')).html(newWidget);
+        newElem.attr('id','fieldAvailableLi'+counter);
+        newElem.append('<button id="removeField'+counter+'" type="button" onclick="removeElement('+counter+')" class="btn btn-outline-danger btn-sm ni ni-fat-remove text-dark"></button>');
+        newElem.appendTo(list);
+    });
+});
+$( "#alertsDropdown" ).click(function() {
+    $("#notificationsDropdown").toggle('slow');
+});
+  </script> 
+{% endblock %}
+</body>
+</html>

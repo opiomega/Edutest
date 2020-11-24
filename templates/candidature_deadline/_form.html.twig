@@ -1,0 +1,202 @@
+
+
+    
+ <hr class="my-3">
+{{ form_start(form) }}
+    
+                            <div class="row">
+                            <div class="col-md-8"> 
+                              <label class="text-bluee">Test</label>
+                              <div class='input-group date' >
+                                {{ form_widget(form.test, {'id':'datetimepicker1','attr': {'class': 'form-control input-inline datetimepicker'}}) }}
+                              
+                            </div>
+                            </div></div>
+
+                            <div class="row">
+                            <div class="col-md-8"> 
+                              <label class="text-bluee">Letter of recommenation english</label>
+                              <div class='input-group date' >
+                                {{ form_widget(form.letterOfRecommendation, {'id':'datetimepicker2','attr': {'class': 'form-control input-inline datetimepicker'}}) }}
+                                </div></div>
+                            </div>
+                            <!---->
+                           <div class="row">
+                            <div class="col-md-8"> 
+                              <label class="text-bluee">Letter of recommenation mathematic</label>
+                              <div class='input-group date' >
+                                {{ form_widget(form.letterOfRecommendationMath, {'id':'datetimepicker3','attr': {'class': 'form-control input-inline datetimepicker'}}) }}
+                                </div></div>
+                            </div>
+                            <!---->
+                           <div class="row">
+                            <div class="col-md-8"> 
+                              <label class="text-bluee">Bank statement</label>
+                              <div class='input-group date' >
+                                {{ form_widget(form.bankStatement, {'id':'datetimepicker4','attr': {'class': 'form-control input-inline datetimepicker'}}) }}
+                                </div></div>
+                            </div>
+                            <!---->
+                            <div class="row">
+                            <div class="col-md-8"> 
+                              <label class="text-bluee">First year transcription</label>
+                              <div class='input-group date' >
+                                {{ form_widget(form.transcriptFirst, {'id':'datetimepicker5','attr': {'class': 'form-control input-inline datetimepicker'}}) }}
+                                </div></div>
+                            </div>
+                            <!---->
+                            <div class="row">
+                            <div class="col-md-8"> 
+                              <label class="text-bluee">Second year transcription</label>
+                              <div class='input-group date'>
+                                {{ form_widget(form.transcriptSecond, {'id':'datetimepicker6','attr': {'class': 'form-control input-inline datetimepicker'}}) }}
+                                </div></div>
+                            </div>
+                            <!---->
+                            <div class="row">
+                            <div class="col-md-8"> 
+                              <label class="text-bluee">Third year transcription</label>
+                              <div class='input-group date'>
+                                {{ form_widget(form.transcriptThird, {'id':'datetimepicker7','attr': {'class': 'form-control input-inline datetimepicker'}}) }}
+                                </div></div>
+                            </div>
+                            <!---->
+                            <div class="row">
+                            <div class="col-md-8"> 
+                              <label class="text-bluee">Baccalaureate </label>
+                              <div class='input-group date'>
+                                {{ form_widget(form.transcriptBac, {'id':'datetimepicker8','attr': {'class': 'form-control input-inline datetimepicker'}}) }}
+                                </div></div>
+                            </div>
+                            <!---->
+                            <div class="row">
+                            <div class="col-md-8"> 
+                              <label class="text-bluee">Passport </label>
+                              <div class='input-group date'>
+                                {{ form_widget(form.passport, {'id':'datetimepicker9','attr': {'class': 'form-control input-inline datetimepicker'}}) }}
+                                
+                            </div>
+                            </div></div>
+                           
+                            <!---->
+                            <div class="row">
+                            <div class="col-md-8"> 
+                              <label class="text-bluee">ID(CIN) </label>
+                              <div class='input-group date'>
+                                {{ form_widget(form.cin, {'id':'datetimepicker10','attr': {'class': 'form-control input-inline datetimepicker'}}) }}
+                            </div>
+                            </div></div>
+                            <!---->
+                            <div class="row">
+                            <div class="col-md-8"> 
+                              <label class="text-bluee">Questionnaire </label>
+                              <div class='input-group date'>
+                                {{ form_widget(form.survey, {'id':'datetimepicker11','attr': {'class': 'form-control input-inline datetimepicker'}}) }}
+                               </div></div>
+                            </div>
+          <div style="margin-top:20px;">
+    <button style="border:none;background-color:transparent;"class="redback over text-white float-right">{{ button_label|default('Save') }}</button>
+        </div>
+  <script type="text/javascript">
+                    
+                        $('#datetimepicker1').click(function() {
+                     
+                         $('#datetimepicker1').datetimepicker({
+                           inline: true,
+                            sideBySide: true,
+                           format:'YYYY-MM-DD HH:mm:ss ',
+                           defaultDate: null
+                           
+                         });
+                        });
+                          //document.getElementById('datetimepicker1').value = "";
+                          $('#datetimepicker2').click(function() {
+                         $('#datetimepicker2').datetimepicker({
+                            inline: true,
+                            sideBySide: true,
+                           format:'YYYY-MM-DD HH:mm:ss ',
+                           defaultDate: null
+                         });});
+                        // document.getElementById('datetimepicker2').value = "";
+                        $('#datetimepicker3').click(function() {
+                         $('#datetimepicker3').datetimepicker({
+                           inline: true,
+                            sideBySide: true,
+                           format:'YYYY-MM-DD HH:mm:ss ',
+                           defaultDate: null
+                           
+                         });});
+                         //document.getElementById('datetimepicker3').value = "";
+                         $('#datetimepicker4').click(function() {
+                         $('#datetimepicker4').datetimepicker({
+                           inline: true,
+                            sideBySide: true,
+                          format:'YYYY-MM-DD HH:mm:ss ',
+                           defaultDate: null
+                         });});
+                        // document.getElementById('datetimepicker4').value = "";
+                        $('#datetimepicker5').click(function() {
+                         $('#datetimepicker5').datetimepicker({
+                           inline: true,
+                            sideBySide: true,
+                           format:'YYYY-MM-DD HH:mm:ss ',
+                           defaultDate: null
+                         });});
+                        // document.getElementById('datetimepicker5').value = "";
+                        $('#datetimepicker6').click(function() {
+                         $('#datetimepicker6').datetimepicker({
+                           inline: true,
+                            sideBySide: true,
+                           format:'YYYY-MM-DD HH:mm:ss ',
+                           defaultDate: null
+                         });});
+                        // document.getElementById('datetimepicker6').value = "";
+                        $('#datetimepicker7').click(function() {
+                         $('#datetimepicker7').datetimepicker({
+                           inline: true,
+                            sideBySide: true,
+                           format:'YYYY-MM-DD HH:mm:ss ',
+                           defaultDate: null
+                         });});
+                        // document.getElementById('datetimepicker7').value = "";
+                        $('#datetimepicker8').click(function() {
+                         $('#datetimepicker8').datetimepicker({
+                           inline: true,
+                            sideBySide: true,
+                           format:'YYYY-MM-DD HH:mm:ss ',
+                           defaultDate: null
+                         });});
+                       //  document.getElementById('datetimepicker8').value = "";
+                       
+                       $('#datetimepicker9').click(function() {
+                         $('#datetimepicker9').datetimepicker({
+                           inline: true,
+                            sideBySide: true,
+                           format:'YYYY-MM-DD HH:mm:ss ',
+                           defaultDate: null
+                         });});
+                        // document.getElementById('datetimepicker9').value = "";
+                        $('#datetimepicker10').click(function() {
+                         $('#datetimepicker10').datetimepicker({
+                           inline: true,
+                            sideBySide: true,
+                           format:'YYYY-MM-DD HH:mm:ss ',
+                           defaultDate: null
+                         });});
+                       //  document.getElementById('datetimepicker10').value = "";
+                       $('#datetimepicker11').click(function() {
+                         $('#datetimepicker11').datetimepicker({
+                           inline: true,
+                            sideBySide: true,
+                           format:'YYYY-MM-DD HH:mm:ss ',
+                           defaultDate: null
+                         });
+                       //  document.getElementById('datetimepicker11').value = "";
+                        
+  });
+                       
+        </script>
+   
+ 
+{{ form_end(form) }}
+ 

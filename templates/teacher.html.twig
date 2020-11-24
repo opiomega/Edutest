@@ -1,0 +1,53 @@
+{% block  teacher %}
+<li class="nav-item p-0" style='margin-left:20px;padding:0;'>
+            <a class="nav-link nav-button" rel="tooltip" title="Dashboard" data-placement="bottom" href="{{ path('professor') }}" style='color:#384D77;font-weight: bold; {% if app.request.attributes.get('_route')=="professor" %} background: url({{ asset('image/icones/19.png') }}) no-repeat; {#background-position:-30px 0px;#} background-size:cover;  color:#FFFFFF; top:-7px; left:13px; {#padding-left:50px; padding-bottom:25px;#}padding-left:30%;{% else %}padding-left:40%;{% endif %}width:170px; height:73px; position:relative;  text-align:center;'  >
+             Insights
+              
+            </a>
+          </li>
+          
+   
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Education group " data-placement="bottom" href="{{ path('education_group_teacher_index') }}" style='color:#384D77;font-weight: bold;{% if app.request.attributes.get('_route') in ["education_group_teacher_index","students_of_teacher_index","students_socre_index"] %} text-align:center; background: url({{ asset('image/icones/20.png') }}) no-repeat; background-size:cover; width:115px; height:73px; color:#FFFFFF; position:relative; top:-7px; {% endif %}'>
+              Education group
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Book a counsling session" data-placement="bottom" href="{{ path('counsling_index') }}" style='color:#384D77;font-weight: bold;{% if app.request.attributes.get('_route') in ["counsling_index","counsling_new","booked_student_index"] %} text-align:center; background: url({{ asset('image/icones/20.png') }}) no-repeat; background-size:cover; width:127px; height:73px; color:#FFFFFF; position:relative; top:-7px; padding-right:0;{% endif %}'>
+              Counseling
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Students application progress" data-placement="bottom" href="{{ path('absence_etudiants_index') }}"style='color:#384D77;font-weight: bold; {% if app.request.attributes.get('_route') in ["absence_etudiants_index","etudiant_seance","etudiant_detail"] %} text-align:center; background: url({{ asset('image/icones/20.png') }}) no-repeat; background-size:cover; width:130px; height:73px; color:#FFFFFF; position:relative; top:-7px; {% endif %}' >
+            Attendance
+            </a>
+          </li>
+          
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Video list" data-placement="bottom" href="{{ path('candidature_index',{'status':'teacher'}) }}" style='color:#384D77;font-weight: bold; {% if app.request.attributes.get('_route') == "candidature_index" %} text-align:center; background: url({{ asset('image/icones/20.png') }}) no-repeat; background-size:cover; width:133px; height:73px; color:#FFFFFF; position:relative; top:-7px; text-align:center; {% endif %}'>
+              Applications
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" href="{{ path('subject_index') }}" rel="tooltip" title="Clubs management" data-placement="bottom" href="#"style='color:#384D77;font-weight: bold; {% if 'club' in app.request.attributes.get('_route') %} text-align:center; background: url({{ asset('image/icones/20.png') }}) no-repeat; background-size:cover; width:90px; height:73px; color:#FFFFFF; position:relative; top:-7px; padding-right:0;{% endif %}' >
+              Forums
+              
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" href="{{ path('club_index') }}" rel="tooltip" title="Clubs management" data-placement="bottom" href="#"style='color:#384D77;font-weight: bold; {% if 'club' in app.request.attributes.get('_route') %} text-align:center; background: url({{ asset('image/icones/20.png') }}) no-repeat; background-size:cover; width:90px; height:73px; color:#FFFFFF; position:relative; top:-7px; padding-right:0;{% endif %}' >
+              Clubs
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a class="nav-link" rel="tooltip" title="Profile" data-placement="bottom" href="{{ path('profile_show') }}" style='color:#384D77;font-weight: bold;{% if app.request.attributes.get('_route') in ['profile_show'] %} text-align:center; background: url({{ asset('image/icones/20.png') }}) no-repeat; background-size:cover; width:90px; height:73px; color:#FFFFFF; position:relative; top:-7px; padding-right:0;{% endif %}'>
+              Profile  
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="{{ path('app_logout') }}" style='color:#B2273D;font-weight: bold;'>
+            Logout
+            </a>
+          </li>
+    
+{% endblock %}

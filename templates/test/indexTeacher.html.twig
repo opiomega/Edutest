@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Test index{% endblock %}
+
+{% block body %}
+<h1 class="text-center inline-photo show-on-scroll">Test</h1>
+<div class="container-fluid mt--7">
+      <!-- Table -->
+      <div class="row justify-content-center">
+        <div class="col">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <h3 class="mb-0">Test list</h3>
+            </div>
+            <div class="table-responsive">
+
+
+              <table id="example" class="table align-items-center table-flush table-striped display dataTable">
+                <thead class="thead-light">
+            <tr>
+                
+                <th>Title</th>
+                <th>Description</th>
+                <th>SupportPdf</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for test in educationGroup.tests %}
+            <tr>
+                
+                <td><span class="mb-0 text-dark text-sm">{{ test.title }}</span></td>
+                <td><span class="mb-0 text-dark text-sm">{{ test.description }}</sapn></td>
+                <td><span class="mb-0 text-dark text-sm">{{ test.supportPdf }}</span></td>
+              
+
+
+ <td class="actions">
+
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-bottom: 0px;margin-top: 0px">Actions</button>
+
+                                        <div class="dropdown-menu ">
+
+                                         <a class="dropdown-item" href="{{ path('test_show', { 'id': test.id }) }}">
+                                            <i class="tim-icons text-blue icon-tv-2"></i>
+                                            Show</a>
+                                              {#{% if app.user.status == "Admin" or app.user.status == "Teacher"  %}
+                                            <a class="dropdown-item" href="{{ path('test_edit', { 'id': test.id }) }}">
+                                            <i class="tim-icons text-yellow icon-settings-gear-63"></i>
+                                            Edit</a>
+                                            <a class="dropdown-item"  href="#" onclick="showModal('myModal{{ test.id }}')">
+                                            <i class="tim-icons text-red icon-simple-remove"></i>
+                                            Delete</a>
+                                            {% endif %}#}
+
+                                            
+                                            
+                                    </div>
+                                </td>
+                            </tr>
+                              <!-- Modal -->
+                            {#<div id="myModal{{ test.id }}" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Delete Confirmation</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Do you really want to delete this test!</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                        <form method="post" action="{{ path('test_delete', {'id': test.id}) }}">
+                                            <button type="button" class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+                                             <input type="hidden" name="_method" value="DELETE">
+                                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ test.id) }}">
+                                             <button type="submit" class="btn btn-danger btn-md">Delete</button>
+                                             </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>#}
+
+
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div></div></div></div>
+
+        
+    
+
+      <script>
+        function showModal(id) {
+            $("#"+id).modal();
+        }
+    </script>
+     <script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+  <script>
+$(document).ready( function () {
+    $("#exemple").DataTable();
+} );
+</script>
+<script type="text/javascript">
+				 $(document).ready(function() {
+    $('#example').DataTable( {
+        "order": [[ 3, "desc" ]]
+    } );
+} );
+	</script>
+   
+{% endblock %}

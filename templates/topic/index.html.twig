@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Topic index{% endblock %}
+
+{% block body %}
+<section name='Title' style='margin-top:140px;'>
+    <div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';">   Topics
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+</section>
+<style>
+#loader
+{
+    position: fixed;
+    z-index: 9999999;
+    left: 0px;
+    top: 100px;
+    width: 100%;
+    height: 100%;
+    background: url('{{asset('image/Preloader_11.gif')}}') 50% 50% no-repeat #f9f9f9;
+}
+
+</style>
+<div id="loader"></div>
+    <div style="margin-right:50px;margin-left:50px;margin-top:50px;">
+
+             {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('delete') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('update') %}
+           
+          
+            <div class="alert alert-warning" role="alert">
+                {{ message }}
+                </div>   
+                {% endfor %} 
+
+<table style="border:none;" id="example"  class="table align-items-center table-flush  display dataTable">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for topic in topics %}
+            <tr>
+                <td>{{ topic.id }}</td>
+                <td>{{ topic.title }}</td>
+                <td>
+                    <a href="{{ path('topic_show', {'id': topic.id}) }}">show</a>
+                    <a href="{{ path('topic_edit', {'id': topic.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('topic_new') }}">Create new</a>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+     <script>
+  
+        function showModal(id) {
+            $("#"+id).modal();
+        }
+          $(document).ready(function() {
+    $('#example').DataTable();
+} );
+$(document).ready(function(){
+    document.getElementById('example_info').style="color:#B2273D";
+});
+   $(window).load(function () {
+            $("#loader").fadeOut("slow");
+        });
+
+    </script>
+{% endblock %}

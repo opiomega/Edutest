@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ClubMessages{% endblock %}
+
+{% block body %}
+</br></br>
+<section class="section section-lg">
+      <img src="{{asset('assetss/img/path4.png')}}" class="path">
+     
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+            <h1 class="text-center">Club Messages</h1>
+            <div class="row row-grid justify-content-center">
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+     <div class="row justify-content-center"> 
+    <div class="col-8">
+    <div class="card card-plain" style="border:solid 1px ;">
+    <div class="card card-header">
+    <h1>Club Messages</h1>
+</div>
+<div class=" card-body">
+    <table class="table">
+        <tbody>
+           
+            <tr>
+                <th>User</th>
+                <td>{% if (club_message.user.teacher[0].firstname is defined) and (club_message.user.teacher[0].lastname is defined)  %}
+                      {{ club_message.user.teacher[0].firstname }}   {{ club_message.user.teacher[0].lastname }}
+                    {% elseif (club_message.user.student[0].firstname is defined) and (club_message.user.student[0].lastname is defined)  %}
+                      {{ club_message.user.student[0].firstname }}   {{ club_message.user.student[0].lastname }}
+                    {% else %}
+                          Admin
+                    {% endif %}</td>
+            </tr>
+            <tr>
+                <th>Time</th>
+                <td>{{ club_message.dateTime|date('Y-m-d H:i:s')  }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ club_message.content }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="card-footer">
+{% if app.user.id == club_message.user.id %}    
+        <a class="btn btn-warning" href="{{ path('club_messages_edit', {'id': club_message.id}) }}">edit</a>
+    {% endif %}
+</div></div>
+    <a class="btn" href="{{ path('club_messages_index',{'id':club_message.club.id}) }}">back to list</a>
+    
+
+    {{ include('club_messages/_delete_form.html.twig') }}
+{% endblock %}

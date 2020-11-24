@@ -1,0 +1,223 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Student index{% endblock %}
+
+{% block body %}
+<section name='Title' style='margin-top:140px;'>
+    <div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';">   STUDENTs
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+</section>
+
+
+    <div style="margin-right:50px;margin-left:50px;margin-top:50px;">
+
+             {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('delete') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('update') %}
+           
+          
+            <div class="alert alert-warning" role="alert">
+                {{ message }}
+                </div>   
+                {% endfor %} 
+
+   {% if app.user.status=="Admin"%}
+<a href="{{path('candidature_index')}}" class="btn btn-primary float-right">Check Student's applications</a>
+{% endif %}
+{% if app.user.status=="Teacher" or app.user.status=="Admin"%}
+<a href="{{path('students_socre_index')}}" class="btn btn-danger ">Check Student's scores</a>
+{% endif %}
+
+<table style="border:none;" id="example"  class="table align-items-center table-flush  display dataTable">
+            <thead >
+                <th scope="col" ><h5 class="text-bluee">Student name</h5></th>
+                <th><h5 class="text-bluee">Status</h5></th>
+                {% if app.user.status=="Admin"%}
+                <th><h5 class="text-bluee">Creation date</h5></th>
+                <th><h5 class="text-bluee">Payment day</h5></th>
+                <th scope="col"><h5 class="text-bluee">Next payement day</h5></th>
+                {% endif %}
+                <th><h5 class="text-bluee">Last login</h5></th>
+
+                <th><h5 class="text-bluee">Placement test</h5></th>
+
+                <th scope="col"><h5 class="text-bluee">actions</h5></th>
+        </thead>
+        <tbody style="border:none;">
+       {% for student in students %}
+                            <script>
+                                function show(a){
+                                    document.getElementById('td'+a).style.backgroundColor='yellow';
+                                    document.getElementById('act'+a).style='display:inline;background:url({{ asset('image/icones/20.png') }}); background-size:cover; border:none; padding:15px; color:#FFFFFF;';
+                                }
+                                function hide(a){
+                                    document.getElementById('td'+a).style='';
+                                    document.getElementById('act'+a).style='display:none';
+                                }
+                            </script>
+            <tr class="bg-gris"height="50px"  onmouseover="show({{student.id}})"onmouseout="hide({{student.id}})" >               
+                             <!--name-->
+                <td id="td{{student.id}}" class="bg-gris">
+                  <div class="media align-items-center">
+                    <a href="{{path('student_show',{'id':student.id})}}" class=" img-fluid rounded-circle shadow-lg mr-3">
+                      {% if student.user.photo == null %}
+                                <img src="{{ asset('image/fac.png') }}"width="55px" height="50px" class="rounded-circle"  />
+                            {% else %}
+                                <img src="{{ asset('uploads/user/photos/'~student.user.photo) }}" width="50px" height="50px" />
+                            {% endif %}
+                    </a>
+                        <div class="media-body">
+                         {{ student.firstname }} {{ student.lastname }}
+                         </div>
+                      </div>
+                </td>
+                     
+                     <!--Status-->
+                <td class="bg-gris">
+                  <div class="row">
+                    <div class="col-5">
+                       {% if student.user.active==1%}
+                     <h6 id="hable" style="color:green;" value="Enable">Enable<h6>
+                     {% else %}
+                     <h6 id="hable" style="color:red;" value="Enable">Disable<h6>
+                     {% endif %}
+                    </div>
+                    {% if app.user.status == "Admin" %}
+                    <div class="col">                      
+                      <button class="drop" type="dropdown-toggle" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#" style=""></button>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a href="{{ path('change_status',{ 'id':student.user.id}) }}"  class="dropdown-item">
+                            {% if student.user.active==1 %}
+                                {% set buttonText = 'Disable' %}
+                            {% else %}
+                                {% set buttonText = 'Enable' %}
+                            {% endif %}
+                            {{buttonText}}
+                        </a>
+                      </div>
+                    </div>
+                    {% endif %}
+                  </div>
+                </td>
+
+                {% if app.user.status=="Admin"%}
+                <!--Register date-->
+               <td style="color:#EA1313!important;">
+                     {{ student.createdat!=null?student.createdat|date('Y-m-d h:i:s'):'--' }}
+                </td>
+                 <!--Payment day-->
+                <td>
+                    {% if student.paymentday is defined and  student.paymentday!=null %}
+                       <a href="{{path('payement_edit',{'id':student.id})}}"> {{ student.paymentday|date('Y-m-d') }}   </a>
+                    {% else %}  
+                        Didn't pay yet
+                    {% endif %}  
+                </td>
+                 <!--Next payment day-->
+                <td >
+                    {% if student.nextpaymentday is defined and  student.nextpaymentday!=null %}
+                        {{student.nextpaymentday|date('Y-m-d')}}
+                    {% else %}
+                        --
+                    {% endif %}  
+                </td>
+            {% endif %}
+                <!--Last loging-->
+                <td>
+                    {% if student.user.lastlogin is defined %}
+                        {% if student.user.lastlogin!= null %}
+                        {{ student.user.lastlogin|date('Y-m-d H:m:s') }}
+                        {% else %}
+                            -didnt connect-
+                        {% endif %}
+                    {% endif %}
+                </td>
+                <td style="color:{{ student.levelTest?'#33CC33':'#CC3333' }}!important;">{{ student.levelTest?'Yes':'No' }}</td>
+
+                                  <td >
+                                    <div  class="btn-group">
+                                        <button id="act{{student.id}}" style="display:none; " class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-bottom: 0px;margin-top: 0px">Actions</button>
+                                        <div class="dropdown-menu ">
+                                           <a class="dropdown-item" href="{{ path('student_show', { 'id': student.id }) }}">
+                                            show</a>
+                                        {% if app.user.status=="Admin"%}
+                                         <a class="dropdown-item" href="#" onclick="showModal('myModal{{ student.id }}')" >
+                                         Delete</a>
+                                        {% endif %}
+                                        
+                                        </div>
+                                    </div>
+
+
+                                </td>
+                            </tr>
+                             <!-- Modal -->
+                            <div id="myModal{{ student.id }}" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Delete Confirmation</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Do you really want to delete this student ?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                         <form method="post" action="{{ path('student_delete', {'id': student.id}) }}" >
+                                            <button type="button" class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+                                           
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ student.id) }}">
+                                            <button type="submit" class="btn btn-danger btn-md">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                  
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+           
+        {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+     <script>
+        function showModal(id) {
+            $("#"+id).modal();
+        }
+          $(document).ready(function() {
+    $('#example').DataTable();
+} );
+$(document).ready(function(){
+    document.getElementById('example_info').style="color:#B2273D";
+});
+    </script>
+
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Students' application!{% endblock %}
+
+{% block body %}
+<div id="StudentsDashboard">
+    <section name='Title' style='margin-top:140px;'>
+        <div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;">   Application
+            <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+            {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('delete') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('update') %}
+            <div class="alert alert-warning" role="alert">
+                {{ message }}
+                </div>   
+                {% endfor %}  
+    <div class="container">
+        <div class="justify-content-center">
+            <div class="row">
+                <div class="col-12">
+                   <table style="border:none;" id="example"  class="table align-items-center table-flush  display dataTable">
+            <thead >
+                <th style="border-bottom:none;"><h5 class="text-bluee">student's name</h5></th>
+                <th style="border-bottom:none;"><h5 class="text-bluee">Submitted</h5></th>
+                <th style="border-bottom:none;"><h5 class="text-bluee">actions</h5></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for candidature in candidatures %}
+             <tr class="bg-gris"height="50px"  onmouseover="show({{ candidature.student.id }})"onmouseout="hide({{ candidature.student.id }})" class="bg-gris">
+                <td id="td{{candidature.student.id}}"> <span class="mb-0  text-sm">{{ candidature.student.firstname }} {{ candidature.student.lastname }}</span></td>
+                <td> <span class="mb-0 text-sm">{% if candidature.isSubmited==true %}✅{% else %}🚫{% endif %}</span></td> 
+
+                                    <!--action-->
+                <td class="bg-gris">
+                    
+                    <button id="act{{candidature.student.id}}" style="display:none;background:url({{ asset('image/icones/20.png') }}); background-size:cover; border:none; padding:15px; " data-toggle="dropdown">Action</button>
+                        <div  class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 39px, 0px); top: 0px; left: 0px; will-change: transform;" x-out-of-boundaries="">
+                            <a class="dropdown-item" href="{{ path('candidature_show', { 'id': candidature.id }) }}">show</a>
+                                          
+                            <a class="dropdown-item" href="#" onclick="showModal('myModal{{ candidature.id }}')" >Delete</a>
+                            <a class="dropdown-item" href="{{ path('candidature_edit', { 'id': candidature.id }) }}">
+                                Edit</a>
+                            {% if candidature.isSubmited== true %}
+                            <a class="dropdown-item" href="{{ path('candidature_zip', { 'id': candidature.id }) }}">
+                                Download</a>
+                            {% endif %}
+                        </div>
+                </td>
+            
+                             <!-- Modal -->
+                            <div id="myModal{{ candidature.id }}" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Delete Confirmation</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>>Do you want to delete!!</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+                                            <a href="{{ path('candidature_delete', { 'id': candidature.id }) }}" class="btn btn-danger btn-md">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+     
+            </tr>
+             <div id="myModal{{ candidature.id }}" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Delete</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Do you really want to delete this candidature !</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+                                            <a href="{{ path('candidature_delete', { 'id': candidature.id }) }}" class="btn btn-danger btn-md">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div></div>
+  {#}  {% if app.user.status =="Admin" %}
+<a href="{{ path('candidature_new') }}" class="redback over text-white float-right" >
+<p style="margin-top: 10%; margin-left: 20%;">Create new<p></a>
+{% endif %}
+#}
+ <script>
+        function showModal(id) {
+            $("#"+id).modal();
+        }
+    </script>
+        <script>
+  $(document).ready(function() {
+    $('#example').DataTable();
+} );
+    </script>
+    <script>
+                                
+        function show(id){
+            document.getElementById('td'+id).style.backgroundColor='yellow';
+            document.getElementById('act'+id).style='display:inline;background:url({{ asset('image/icones/20.png') }}); background-size:cover; border:none; padding:15px; color:#FFFFFF;';
+        }
+        function hide(id){
+            document.getElementById('td'+id).style='';
+            document.getElementById('act'+id).style='display:none';
+        }
+    </script>
+{% endblock %}

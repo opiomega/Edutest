@@ -1,0 +1,11 @@
+
+{% block title %} {% endblock %}
+
+{% block body %}
+    
+    <h1>Hello {{ user.username }}</h1>
+    {#<p>If you want to change your password <a href="{{ path('reset_password',{'id':user.id}) }}">click here</a></p>
+    <p>If you want to change your password <a href="http://localhost:8000/resetPassword/{{ user.id }}">click here</a></p>
+    #}
+    <p>If you want to change your password <a href="{{ url('reset_password', {'id': user.id, 'key':key}) }}">click here</a></p>
+{% endblock %}

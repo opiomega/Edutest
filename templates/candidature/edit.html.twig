@@ -1,0 +1,1421 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Candidature{% endblock %}
+
+{% block body %}
+
+{# {{ form_start(form)}}
+   
+
+
+
+
+
+
+<section class="section section-lg">
+      <img src="{{asset('assetss/img/path4.png')}}" class="path">
+     
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+            <h1 class="text-center">Application management</h1>
+            <div class="row row-grid justify-content-center">
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+   <div class="container-fluid mt--7">
+
+      <div class="section section-tabs">
+        <div class="container">
+          
+          <div class="row">
+            <div class="col-md-10 ml-auto col-xl-6 mr-auto">
+              <div class="mb-3">
+                <large class="text-uppercase text-white font-weight-bold"><i class="tim-icons icon-bulb-63 text-yellow"></i>Tips!!</large>
+              </div>
+              <!-- Nav tabs -->
+              <div class="card">
+                <div class="card-header">
+                  <ul class="nav nav-tabs nav-tabs-primary" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active show" data-toggle="tab" href="#link1" role="tablist">
+                        <i class="tim-icons icon-email-85"></i> L.O.Recommendation
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" data-toggle="tab" href="#link2" role="tablist">
+                        <i class="tim-icons icon-paper"></i> Test
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" data-toggle="tab" href="#link3" role="tablist">
+                        <i class="tim-icons icon-credit-card"></i> Bank Stat.
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-body">
+                  <!-- Tab panes -->
+                  <div class="tab-content tab-space">
+                    <div class="tab-pane active show" id="link1">
+                      <p>Collaboratively administrate empowered markets via plug-and-play networks. Dynamically procrastinate B2C users after installed base benefits.
+                        <br>
+                        <br> Dramatically visualize customer directed convergence without revolutionary ROI.</p>
+                    </div>
+                    <div class="tab-pane" id="link2">
+                      <p>Completely synergize resource taxing relationships via premier niche markets. Professionally cultivate one-to-one customer service with robust ideas.
+                        <br>
+                        <br>Dynamically innovate resource-leveling customer service for state of the art customer service.</p>
+                    </div>
+                    <div class="tab-pane" id="link3">
+                      <p>Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas.
+                        <br>
+                        <br> Dramatically maintain clicks-and-mortar solutions without functional solutions.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+ 
+
+            </div>
+            <div class="col-md-10 ml-auto col-xl-6 mr-auto">
+              <div class="mb-3">
+                <small class="text-uppercase text-white font-weight-bold"><i class="tim-icons icon-cloud-upload-94 text-info"></i> Upload files</small>
+              </div>
+              <!-- Tabs with Background on Card -->
+              <div class="card" style="background-image: linear-gradient(to right top, #845ec2, #b45cb6, #d65fa5, #ed6993, #fa7a82, #ff8977, #ff9a6e, #ffac69, #ffbe66, #ffd166, #ffe469, #f9f871); ">
+                <div class="card-header">
+                  
+                </div>
+                <div class="card-body">
+                  <!-- Tab panes -->
+
+                  
+ {{ form_start(form)}}
+
+                  <h3 class="mb-4">My application</h3>
+              
+             {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('delete') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('update') %}
+           
+          
+            <div class="alert alert-warning" role="alert">
+                {{ message }}
+                </div>   
+                {% endfor %} 
+              
+                  <h6 class="heading-small text-white mb-4">User information</h6>
+               <div class="row">
+                <div class="col">
+                  <label class="form-control-label" for="input-username">Test File PDF
+                  {% if candidature.test is defined %}
+                  {% if candidature.test!= null %}
+                    <i style="font-size:20px;font-weight: bolder;" class="tim-icons text-green icon-check-2 rounded"></i>
+                  {% else %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="tim-icons text-red  icon-simple-remove"></i>
+                    {% endif %}{% endif %}
+                    </label>
+                    {{form_errors(form.testFile)}}
+                  {{ form_widget(form.testFile ,{'type':'file'}) }}
+                </div>
+                <div class="col">
+               
+                
+                  <label class="form-control-label" for="input-email">Letter of recommendation English PDF
+                  {% if candidature.letterOfRecommendation is defined %}
+                  {% if candidature.letterOfRecommendation!= null %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="tim-icons text-green icon-check-2"></i>
+{% else %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="tim-icons text-red icon-simple-remove"></i>
+                    {% endif %}{% endif %}
+                  </label>
+                  {{form_errors(form.letterOfRecommendationFile)}}
+                  {{ form_widget(form.letterOfRecommendationFile) }}
+                  <label class="form-control-label" for="input-email">Letter of recommendation Math PDF
+                  {% if candidature.letterOfRecommendationMath is defined %}
+                  {% if candidature.letterOfRecommendationMath!= null %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="tim-icons text-green icon-check-2"></i>
+                   {% else %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="tim-icons text-red icon-simple-remove"></i>
+                    {% endif %}{% endif %}
+                  </label>
+                  {{form_errors(form.letterOfRecommendationMathFile)}}
+                  {{ form_widget(form.letterOfRecommendationMathFile) }}
+              
+                </div>
+               </div>
+
+               <div class="row">
+                <div class="col">
+                 <label class="form-control-label" for="input-first-name">Questionnaire PDF
+                 {% if candidature.survey is defined %}
+                  {% if candidature.survey!= null %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="tim-icons text-green icon-check-2"></i>
+{% else %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="tim-icons text-red icon-simple-remove"></i>
+                    {% endif %}{% endif %}
+                 </label>
+                 {{form_errors(form.surveyFile)}}
+                  {{ form_widget(form.surveyFile) }}
+                </div>
+                <div class="col">
+                <label class="form-control-label" for="input-last-name">Bank Statement PDF
+                {% if candidature.bankStatement is defined %}
+                  {% if candidature.bankStatement!= null %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="tim-icons text-green icon-check-2"></i>
+{% else %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="tim-icons text-red icon-simple-remove"></i>
+                    {% endif %}{% endif %}
+                </label>
+                {{form_errors(form.bankStatementFile)}}
+                 {{form_errors(form.bankstatmentFilepdf)}}
+                  {{ form_widget(form.bankStatementFile,{'id':'bancheckdoc'}) }}
+                  {{form_widget(form.bankstatmentFilepdf,{'id':'bankcheckpdf'})}}
+                 <div class="bootstrap-switch-container" style="width: 118px; margin-left: 0px;"><span class="bootstrap-switch-handle-on bootstrap-switch-primary" style="width: 50px;"></span><span class="bootstrap-switch-label" style="width: 30px;">&nbsp;</span><span class="bootstrap-switch-handle-off bootstrap-switch-default" style="width: 50px;"></span>
+                 <input id="bankcheck" type="checkbox" name="bankcheck"  >Translate(Word)</div>
+                
+               </div>
+
+                <div class="row">
+                <div class="col">
+                 <label class="form-control-label" for="input-first-name">Passport PDF
+                 {% if candidature.passport is defined %}
+                  {% if candidature.passport!= null %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="tim-icons text-green icon-check-2"></i>
+{% else %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="tim-icons text-red icon-simple-remove"></i>
+                    {% endif %}{% endif %}</label>
+                    {{form_errors(form.passportFile)}}
+                 {{form_errors(form.passportFilepdf)}}
+                  {{ form_widget(form.passportFile,{'id':'passdoc'}) }}
+                   {{ form_widget(form.passportFilepdf,{'id':'passpdf'}) }}
+                    <div class="bootstrap-switch-container" style="width: 118px; margin-left: 0px;"><span class="bootstrap-switch-handle-on bootstrap-switch-primary" style="width: 50px;"></span><span class="bootstrap-switch-label" style="width: 30px;">&nbsp;</span><span class="bootstrap-switch-handle-off bootstrap-switch-default" style="width: 50px;"></span>
+                 <input id="passcheck" type="checkbox" name="bankcheck"  >Word document</div>
+                
+                </div>
+                <div class="col">
+                <label class="form-control-label" for="input-last-name">Student ID (CIN)
+                {% if candidature.cin is defined %}
+                  {% if candidature.cin!= null %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="tim-icons text-green icon-check-2"></i>
+{% else %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="tim-icons text-red icon-simple-remove"></i>
+                    {% endif %}{% endif %}</label>
+                    {{form_errors(form.cinFile)}}
+                 {{form_errors(form.cinFilepdf)}}
+                  {{ form_widget(form.cinFile,{'id':'cindoc'}) }}
+                  {{ form_widget(form.cinFilepdf,{'id':'cinpdf'}) }}
+                   <div class="bootstrap-switch-container" style="width: 118px; margin-left: 0px;"><span class="bootstrap-switch-handle-on bootstrap-switch-primary" style="width: 50px;"></span><span class="bootstrap-switch-label" style="width: 30px;">&nbsp;</span><span class="bootstrap-switch-handle-off bootstrap-switch-default" style="width: 50px;"></span>
+                 <input id="cincheck" type="checkbox" name="bankcheck"  >Word Document</div>
+                
+                </div>
+               </div>
+
+               <h6 class="heading-small text-white mb-4">Transcripts</h6>
+               
+               <div class="row">
+                <div class="col">
+                <label class="form-control-label" for="input-username">First year transcription PDF
+                {% if candidature.transcriptFirst is defined %}
+                  {% if candidature.transcriptFirst!= null %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="tim-icons text-green icon-check-2"></i>
+{% else %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="tim-icons text-red icon-simple-remove"></i>
+                    {% endif %}{% endif %}</label>
+                    {{form_errors(form.transcriptFirstFile)}}
+                 {{form_errors(form.transcriptfirstFilepdf)}}
+                  {{ form_widget(form.transcriptFirstFile,{'id':'transfirstcheckdoc'}) }}
+                  {{form_widget(form.transcriptfirstFilepdf,{'id':'transfirstcheckpdf'})}}
+                 <div class="bootstrap-switch-container" style="width: 118px; margin-left: 0px;"><span class="bootstrap-switch-handle-on bootstrap-switch-primary" style="width: 50px;"></span><span class="bootstrap-switch-label" style="width: 30px;">&nbsp;</span><span class="bootstrap-switch-handle-off bootstrap-switch-default" style="width: 50px;"></span>
+                 <input id="firstcheck" type="checkbox" name="bankcheck"  >Translate(Word)</div>
+                </div>
+                <div class="col">
+                <label class="form-control-label" for="input-email">Second year transcription PDF
+                {% if candidature.transcriptSecond is defined %}
+                  {% if candidature.transcriptSecond!= null %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="tim-icons text-green icon-check-2"></i>
+{% else %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="tim-icons text-red icon-simple-remove"></i>
+                    {% endif %}{% endif %}</label>
+                {{form_errors(form.transcriptSecondFile)}}
+                 {{form_errors(form.transcriptsecondFilepdf)}}
+                  {{ form_widget(form.transcriptSecondFile,{'id':'transsecondcheckdoc'}) }}
+                  {{form_widget(form.transcriptsecondFilepdf,{'id':'transsecondcheckpdf'})}}
+                 <div class="bootstrap-switch-container" style="width: 118px; margin-left: 0px;"><span class="bootstrap-switch-handle-on bootstrap-switch-primary" style="width: 50px;"></span><span class="bootstrap-switch-label" style="width: 30px;">&nbsp;</span><span class="bootstrap-switch-handle-off bootstrap-switch-default" style="width: 50px;"></span>
+                 <input id="secondcheck" type="checkbox" name="bankcheck"  >Translate(Word)</div>
+                </div>
+               </div>
+               <div class="row">
+                <div class="col">
+                <label class="form-control-label" for="input-first-name">Third year transcription PDF
+                {% if candidature.transcriptThird is defined %}
+                  {% if candidature.transcriptThird!= null %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="tim-icons text-green icon-check-2"></i>
+{% else %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="tim-icons text-red icon-simple-remove"></i>
+                    {% endif %}{% endif %}</label>
+                    {{form_errors(form.transcriptThirdFile)}}
+                 {{form_errors(form.transcriptthirdFilepdf)}}
+                  {{ form_widget(form.transcriptThirdFile,{'id':'transthirdcheckdoc'}) }}
+                  {{form_widget(form.transcriptthirdFilepdf,{'id':'transthirdcheckpdf'})}}
+                 <div class="bootstrap-switch-container" style="width: 118px; margin-left: 0px;"><span class="bootstrap-switch-handle-on bootstrap-switch-primary" style="width: 50px;"></span><span class="bootstrap-switch-label" style="width: 30px;">&nbsp;</span><span class="bootstrap-switch-handle-off bootstrap-switch-default" style="width: 50px;"></span>
+                 <input id="thirdcheck" type="checkbox" name="bankcheck"  >Translate(Word)</div>
+                </div>
+                <div class="col">
+                <label class="form-control-label" for="input-last-name">Bac transcription PDF
+                {% if candidature.transcriptBac is defined %}
+                  {% if candidature.transcriptBac!= null %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="tim-icons text-green icon-check-2"></i>
+{% else %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="tim-icons text-red icon-simple-remove"></i>
+                    {% endif %}{% endif %}</label>
+                    {{form_errors(form.transcriptBacFile)}}
+                 {{form_errors(form.transcriptbacFilepdf)}}
+                  {{ form_widget(form.transcriptBacFile,{'id':'transbaccheckdoc'}) }}
+                  {{form_widget(form.transcriptbacFilepdf,{'id':'transbaccheckpdf'})}}
+                 <div class="bootstrap-switch-container" style="width: 118px; margin-left: 0px;"><span class="bootstrap-switch-handle-on bootstrap-switch-primary" style="width: 50px;"></span><span class="bootstrap-switch-label" style="width: 30px;">&nbsp;</span><span class="bootstrap-switch-handle-off bootstrap-switch-default" style="width: 50px;"></span>
+                 <input id="baccheck" type="checkbox" name="bankcheck"  >Translate(Word)</div> 
+                </div>
+               </div>
+                
+
+<h6 class="heading-small text-white mb-4">Universities Authentifcator</h6>
+             <div class="row">
+                <div class="col">
+                <label class="form-control-label" for="input-first-name">Username
+                {% if candidature.username is defined %}
+                  {% if candidature.username!= null %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="tim-icons text-green icon-check-2"></i>
+{% else %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="tim-icons text-red icon-simple-remove"></i>
+                    {% endif %}{% endif %}</label>
+                  {{ form_widget(form.username) }}
+                </div>
+                <div class="col">
+                <label class="form-control-label" for="input-last-name">Password
+                {% if candidature.password is defined %}
+                  {% if candidature.password!= null %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="tim-icons text-green icon-check-2"></i>
+{% else %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="tim-icons text-red icon-simple-remove"></i>
+                    {% endif %}{% endif %}</label>
+                    
+                 {{ form_widget(form.password, { 'attr': {'type': 'password'} ,'type':'password','id':'password'}) }}
+                   <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                </div>
+               </div>
+               <style>
+               .field-icon {
+  float: right;
+  margin-left: -25px;
+  margin-top: -25px;
+  position: relative;
+  z-index: 2;
+}
+               </style>
+
+ <script>
+ $(document).ready(function(){
+   if ($('#bankcheck:checked').val()){
+  $('#bancheckdoc').show();
+  $('#bankcheckpdf').hide()
+ 
+
+}
+else {
+    $('#bankcheckpdf').show();
+  $('#bancheckdoc').hide()
+ 
+}
+ $('#bankcheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#bankcheck:checked').val()){
+  $('#bancheckdoc').show();
+  $('#bankcheckpdf').hide();
+  $('#bankcheckpdf').val('');
+}
+else {
+    $('#bankcheckpdf').show();
+  $('#bancheckdoc').hide();
+ $('#bancheckdoc').val('');
+}});
+
+//first trans
+ if ($('#firstcheck:checked').val()){
+  $('#transfirstcheckdoc').show();
+  $('#transfirstcheckpdf').hide()
+
+}
+else {
+    $('#transfirstcheckpdf').show();
+  $('#transfirstcheckdoc').hide();
+ 
+}
+ $('#firstcheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#firstcheck:checked').val()){
+  $('#transfirstcheckdoc').show();
+  $('#transfirstcheckpdf').hide();
+  $('#transfirstcheckpdf').val('');
+
+}
+else {
+    $('#transfirstcheckpdf').show();
+  $('#transfirstcheckdoc').hide();
+ $('#transfirstcheckdoc').val('');
+}});
+//second trans
+ if ($('#secondcheck:checked').val()){
+  $('#transsecondcheckdoc').show();
+  $('#transsecondcheckpdf').hide();
+
+}
+else {
+    $('#transsecondcheckpdf').show();
+  $('#transsecondcheckdoc').hide();
+
+}
+ $('#secondcheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#secondcheck:checked').val()){
+  $('#transsecondcheckdoc').show();
+  $('#transsecondcheckpdf').hide();
+$('#transsecondcheckpdf').val('');
+}
+else {
+    $('#transsecondcheckpdf').show();
+  $('#transsecondcheckdoc').hide();
+  $('#transsecondcheckdoc').val('');
+}});
+
+
+//third trans
+ if ($('#thirdcheck:checked').val()){
+  $('#transthirdcheckdoc').show();
+  $('#transthirdcheckpdf').hide();
+  
+
+}
+else {
+    $('#transthirdcheckpdf').show();
+  $('#transthirdcheckdoc').hide();
+  
+}
+ $('#thirdcheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#thirdcheck:checked').val()){
+  $('#transthirdcheckdoc').show();
+  $('#transthirdcheckpdf').hide();
+  
+$('#transthirdcheckpdf').val('');
+}
+else {
+    $('#transthirdcheckpdf').show();
+  $('#transthirdcheckdoc').hide();
+ $('#transthirdcheckdoc').val('');
+}});
+
+//bac trans
+ if ($('#baccheck:checked').val()){
+  $('#transbaccheckdoc').show();
+  $('#transbaccheckpdf').hide();
+  
+
+}
+else {
+    $('#transbaccheckpdf').show();
+  $('#transbaccheckdoc').hide();
+  
+}
+ $('#baccheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#baccheck:checked').val()){
+  $('#transbaccheckdoc').show();
+  $('#transbaccheckpdf').hide()
+$('#transbaccheckpdf').val('');
+}
+else {
+    $('#transbaccheckpdf').show();
+  $('#transbaccheckdoc').hide();
+ $('#transbaccheckdoc').val('');
+}});
+
+//passport
+if ($('#passcheck:checked').val()){
+  $('#passdoc').show();
+  $('#passpdf').hide();
+  
+
+}
+else {
+    $('#passpdf').show();
+  $('#passdoc').hide();
+  
+}
+ $('#passcheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#passcheck:checked').val()){
+  $('#passdoc').show();
+  $('#passpdf').hide()
+$('#passpdf').val('');
+}
+else {
+    $('#passpdf').show();
+  $('#passdoc').hide();
+ $('#passdoc').val('');
+}});
+
+//cin
+if ($('#cincheck:checked').val()){
+  $('#cindoc').show();
+  $('#cinpdf').hide();
+  
+
+}
+else {
+    $('#cinpdf').show();
+  $('#cindoc').hide();
+  
+}
+ $('#cincheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#cincheck:checked').val()){
+  $('#cindoc').show();
+  $('#cinpdf').hide()
+$('#cinpdf').val('');
+}
+else {
+    $('#cinpdf').show();
+  $('#cindoc').hide();
+ $('#cindoc').val('');
+}});
+});
+ </script>              
+
+<script>
+$(".toggle-password").click(function() {
+
+  $(this).toggleClass("fa-eye fa-eye-slash");
+  var input = $($(this).attr("toggle"));
+  if (input.attr("type") == "password") {
+    input.attr("type", "text");
+  } else {
+    input.attr("type", "password");
+  }
+});
+
+</script>
+                
+                <hr class="my-4" />
+                <!-- Description -->
+              
+               {{ include('candidature/_form.html.twig', {'button_label': 'Update'}) }}
+            </div>
+      </div>
+    
+
+    {#<a href="{{ path('candidature_index') }}">back to list</a>#
+    
+    {{ form_end(form) }}
+                  
+                <a href="{{ path('candidature_index') }}"class="btn btn-outline-default float-right">back to list</a>{#{{ include('candidature/_delete_form.html.twig') }}#
+              </div>
+              <!-- End Tabs on plain Card -->
+            </div>
+          </div>
+<div class="row justify-content-center">
+<div class="col-8">
+             <div class="card card-plain" style="border:solid 1px;">
+<div class="card-title">
+<h2>Apply to university</h2>
+<h3 style="color:red;">{{count}}<span style="color:white;">Left</span></h3>
+ {% for message in app.flashes('suc') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('del') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('update') %}
+           
+          
+            <div class="alert alert-warning" role="alert">
+                {{ message }}
+                </div>   
+                {% endfor %} 
+</div>
+<div class="card-body">
+<form action="{{path('condapplication_new',{'id':candidature.id})}}" method="post">
+
+<div class="input_fields_wrap">
+{% if candidature.isSubmited == false %}
+    <button class="add_field_button">Add More Fields</button>
+   {% endif %}
+    <div class="row">
+<div class="col">
+<h5 for="university">university name</h5>
+<input class="form-control" type="text" name="univer1" {% if candidature.isSubmited == true %} disabled {% endif %}/>
+</div>
+<div class="col">
+<h5 for="email">Email</h5>
+<input class="form-control" type="email" name="email1" {% if candidature.isSubmited == true %}disabled{% endif %}/>
+</div>
+{#<div class="col">
+<h5 for="pass">Password</h5>#
+<input class="form-control" type="password" hidden="true" name="pass1"/>
+{#</div>#
+</div>
+<br>
+</div>
+<script>
+ $(document).ready(function() {
+	var max_fields      = {{count}}; //maximum input boxes allowed
+	var wrapper   		= $(".input_fields_wrap"); //Fields wrapper
+	var add_button      = $(".add_field_button"); //Add button ID
+	
+	var x = 1; //initlal text box count
+	$(add_button).click(function(e){ //on add input button click
+		e.preventDefault();
+		if(x < max_fields){ //max input box allowed
+			x++; //text box increment
+			$(wrapper).append("  <div class='row'><h4>"+x+"</h4><div class='col'><input class='form-control' type='text' name='univer"+x+"'></div><div class='col'><input class='form-control' type='email' name='email"+x+"'></div><input class='form-control' hidden='true' type='password' name='pass"+x+"'> <a href='#' class='remove_field'>Remove</a></div><br>"); //add input box
+      $('#compt').val(x);
+		}
+	});
+	
+	$(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+		e.preventDefault(); $(this).parent('div').remove(); x--;
+	})
+});
+
+</script>
+ <input id="compt" type="hidden" name="compteur">
+ {% if candidature.isSubmited == false %}
+<button class="btn btn-primary" type="submit">Apply</button>
+{% endif %}
+</form>
+</div>
+</div>
+</div>
+      </div>
+
+        </div>
+      </div>
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{#
+ </div>
+<div class="container-fluid mt--7">
+      <div class="row">
+        <div class="col-xl-8 order-xl-1">
+          <div class="card  shadow">
+            <div class="card-header  border-0">
+              <div class="row align-items-center">
+                <div class="col-8">
+                  <h3 class="mb-0">Edit Candidature</h3>
+                </div>
+                
+              </div>
+            </div>
+            <div class="card-body">
+              <form>
+                <h6 class="heading-small text-muted mb-4">User information</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                   <div class="col-lg-6">
+                            {% for message in app.flashes('success') %}
+                                <div class="alert alert-warning" role="alert">
+                                    {{ message }}
+                                </div>   
+                            {% endfor %}
+                            {% for message in app.flashes('update') %}
+                                <div class="alert alert-warning" role="alert">
+                                    {{ message }}
+                                </div>   
+                            {% endfor %}
+                        </div>
+                    </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username">Test File</label>
+                         {{ form_widget(form.testFile ,{'type':'file'}) }}
+                        
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Letter of recommendation</label>
+                         {{ form_widget(form.letterOfRecommendationFile) }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-first-name">Questionnaire</label>
+                        
+                         {{ form_widget(form.surveyFile) }}
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-last-name">Bank Statement</label>
+                        
+                         {{ form_widget(form.bankStatementFile) }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4" />
+                <!-- Address -->
+                <h6 class="heading-small text-muted mb-4">Transcripts</h6>
+                
+<div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username">First year transcription</label>
+                         {{ form_widget(form.transcriptFirstFile) }}
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Second year transcription</label>
+                         {{ form_widget(form.transcriptSecondFile) }}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-first-name">Third year transcription</label>
+                        
+                         {{ form_widget(form.transcriptThirdFile) }}
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-last-name">Bac transcription</label>
+                        
+                         {{ form_widget(form.transcriptBacFile) }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+               
+                <!-- Description -->
+                {{ include('candidature/_form.html.twig', {'button_label': 'Update'}) }}
+              </form>
+         <hr class="my-4" />
+    
+<div>
+    <a href="{{ path('candidature_index') }}"class="btn btn-outline-default float-right">back to list</a>{{ include('candidature/_delete_form.html.twig') }}
+</div>
+        </div>
+          </div>
+        </div>
+      </div>
+    {{ form_end(form)}}#}
+<section name='Title' style='margin-top:140px;'>
+<div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';">   APPLICATION
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+      <style>
+       
+    </style>
+<style>
+ @font-face {
+  font-family: 'Neou-thin';
+  src:    url({{asset('bootstrap/neou/Neou-Thin.otf')}}) format('opentype');
+  font-family: 'Neou-bold';
+    src:    url({{asset('bootstrap/neou/Neou-Bold.otf')}}) format('opentype');
+  }
+.nav-tabs {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.nav-tabs .nav-item {
+  margin-bottom: -1px;
+}
+a{
+  color:#000000;
+}
+.nav-tabs .nav-link {
+  border: 1px solid transparent;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  font-family:'Neou-bold';
+}
+
+.nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
+  border-color: #e9ecef #e9ecef #dee2e6;
+}
+
+.nav-tabs .nav-link.disabled {
+  color: #000000;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+  color: #B2273D;
+  background-color: #fff;
+  border-color: #dee2e6 #dee2e6 #fff;
+}
+
+.nav-tabs .dropdown-menu {
+  margin-top: -1px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.btn .btn-danger{
+  background:#B2273D;
+  color:#000;
+}
+
+input[type=text],input[type=password], select {
+  width: 80%;
+  padding: 12px 20px;
+ 
+  margin-left:10px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+
+</style>
+<script>
+  function myFunction(img) {
+    
+  var expandImg = document.getElementById("expandedImg");
+  var img = document.getElementById(img);
+
+  if (img==test){
+    document.getElementById('test').style="padding-bottom:20px;";
+   
+  }else{
+    document.getElementById('test').style="padding-bottom:20px;display:none";
+  }
+  if(img==ltofrec){
+    document.getElementById('ltofrec').style="padding-bottom:20px;";
+   
+  }else{
+    document.getElementById('ltofrec').style="padding-bottom:20px;display:none";
+  }
+  if(img==bank){
+    document.getElementById('bank').style="padding-bottom:20px;";
+ 
+  }else{
+    document.getElementById('bank').style="padding-bottom:20px;display:none";
+  }
+
+  
+  
+ 
+}
+</script>
+<style>
+.longback{
+background-image:url('{{asset('image/icones/31.png')}}');
+width: 500px;
+    height: 57px;
+ padding-top: 17px; 
+ padding-left: 30px;
+}
+</style>
+      <section  name="content">
+        <div class="container">
+          <div class="row" style="margin-bottom:20px;margin-top:20px;">
+            <div class="col">
+             <h2 class="titleDashboardMidle" style="background:url({{ asset('image/icones/9.png') }});color:#2F5BA3;">TIPS</h2>
+             
+            </div>
+          </div>
+          {{ form_start(form,{'attr':{'id':'cnadidatureForm'}})}}
+          {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('delete') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('update') %}
+           
+          
+            <div class="alert alert-warning" role="alert">
+                {{ message }}
+                </div>   
+                {% endfor %} 
+          <div class="row">
+          <div class="col-10">
+            <nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a onclick="myFunction('ltofrec')" class="nav-item nav-link active text-red" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" >
+    Letter of Recommendation<img id="ltofrec" src="{{asset('image/icones/10.png')}}" height="50px;" style="padding-bottom:20px;"></a>
+    <a  onclick="myFunction('test')" class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">
+    Counselor Questionnaire<img id="test" src="{{asset('image/icones/32.png')}}" height="50px;" style="padding-bottom:20px;display:none;"></a>
+    <a  onclick="myFunction('bank')" class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">
+    Financial Documents<img id="bank" src="{{asset('image/icones/bank stat.png')}}" height="50px;" style="padding-bottom:20px;display:none;"></a>
+  </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+  <p style="font-family:'Neou-bold';">Usually, you will need to provide 2 letters of recommendation from high school teachers to support your college applications. It is always good practice to request one of these letters from one science teacher (Math, Biology, Economics...) and another from a Humanities teacher (English, French, History...). You need to ascertain that your teachers are aware of the importance of these letters and understand what key components they need to include in their recommendations. Finally, make sure you provide your teachers with the recommendation letter package offered by Edutest as it offers ample instruction and detail on the writing process of these letters.</p></div>
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+      <p style="font-family:'Neou-bold';">This is your ticket to a solid and strong counselor recommendation letter! A good counselor recommendation shouldn't only be restricted to academic comments since your transcripts will speak for that aspect of your application. Instead, it should also include personal details and anecdotes that showcase some leadership skills or personality aspects.
+
+Please spend some time to include specific details about your activities and achievements in your questionnaire so that your counselor can efficiently develop those ideas. It is always helpful to quantify and specify activities so they are more credible and meaningful, e.g. "organized a food drive at the Tunisian Red Crescent that served around 50 people" instead of just "volunteered at Red Crescent".</p></div>
+    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+    <p style="font-family:'Neou-bold';">In order to apply for financial aid, colleges require a number of financial documents to corroborate your application. You will need to provide bank statements of the past 3 months from both parents, salary statements (fiche de paie), tax forms (fiche d'impôts avec quittance), loan certificates if applicable, and any other statement showing financial burden (medical bills, recurrent payments...). All of these documents need to be translated into English and submitted either by email or IDOC to the financial aid offices of your intended colleges.</p></div>
+</div>
+</div>
+          </div>
+        </div>
+      </section>
+<section name="candidature" style="margin-top:50px;margin-bottom:50px;">
+
+        <div class="container">
+          <div class="row" style="margin-bottom:20px;">
+            <div class="col-5">
+            <h2 class="titleDashboardMidle" style="background:url({{ asset('image/icones/11.png') }});color:#2F5BA3;">UPLOAD FILES</h2>
+             
+            </div>
+          </div>
+          <div class="row">
+          <div class="col-11">
+          <div class="row"style="margin-bottom:30px;">
+            <div class="col-6">
+                {% if candidature.test is defined %}
+                  {% if candidature.test!= null %}
+                    <i style="font-size:20px;font-weight: bolder;" class="fas fa-check text-green rounded"></i>
+                  {% else %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="fas fa-ban icon-remove"></i>
+                    {% endif %}{% endif %}
+            <h4 style="font-family:'Neou-bold';color:#B2273D;">Test File (PDF)</h4>
+            <div style="background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:20px;padding-left:30px;">{{form_errors(form.testFile)}}
+                {{form_errors(form.testFile)}}
+                  {{ form_widget(form.testFile ,{'type':'file','attr':{'style':'opacity:1;'}}) }}
+            </div>
+            <!--<input type="checkbox" name=""><span style="font-family:'Neou-bold';" >Translate (Word)</span>-->
+            </div>
+            <div class="col-6">
+            <h4 style="font-family:'Neou-bold';color:#B2273D;"></h3>
+              <a href="#"style=""data-toggle="collapse" data-target="#filters" class="longback  text-white float-left">
+              Letters of recommendation</a>
+               
+      <div  id="filters" class="collapse">
+          {% if candidature.letterOfRecommendation is defined %}
+                  {% if candidature.letterOfRecommendation!= null %}
+                    <i style="font-size:20px;font-weight: bolder;" class="fas fa-check text-green rounded"></i>
+                  {% else %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="fas fa-ban icon-remove"></i>
+                    {% endif %}{% endif %}
+            <h4 style="font-family:'Neou-bold';color:#B2273D;">Letters of recommendation English</h3>
+              <div style="background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:20px;padding-left:30px;">
+                {{form_errors(form.letterOfRecommendationFile)}}
+                  {{ form_widget(form.letterOfRecommendationFile) }}
+              </div>
+              <input type="checkbox"><span style="font-family:'Neou-bold';">Translate (Word)</span>Translate (Word)
+           <br/>
+              {% if candidature.letterOfRecommendationMath is defined %}
+                  {% if candidature.letterOfRecommendationMath!= null %}
+                    <i style="font-size:20px;font-weight: bolder;" class="fas fa-check text-green rounded"></i>
+                  {% else %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="fas fa-ban icon-remove"></i>
+                    {% endif %}{% endif %}
+            <h4 style="font-family:'Neou-bold';color:#B2273D;">Letters of recommendation Math</h3>
+              <div style="background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:20px;padding-left:30px;">
+                  {{form_errors(form.letterOfRecommendationMathFile)}}
+                  {{ form_widget(form.letterOfRecommendationMathFile) }}
+              </div>
+              <input type="checkbox"><span style="font-family:'Neou-bold';">Translate (Word)</span>Translate (Word)
+            </div>
+              
+          </div>
+          </div>
+           <div class="row" style="margin-bottom:10px;">
+            <div class="col-6">
+                {% if candidature.survey is defined %}
+                  {% if candidature.survey!= null %}
+                    <i style="font-size:20px;font-weight: bolder;" class="fas fa-check text-green rounded"></i>
+                  {% else %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="fas fa-ban icon-remove"></i>
+                    {% endif %}{% endif %}
+            <h4 style="font-family:'Neou-bold';color:#B2273D;">Questionnaire (PDF)</h4>
+             <div style="background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:20px;padding-left:30px;">{{form_errors(form.surveyFile)}}
+                  {{ form_widget(form.surveyFile) }}</div>
+             <!--<input type="checkbox"><span style="font-family:'Neou-bold';">Translate (Word)</span>-->
+            </div>
+            <div class="col-6">
+                
+                {% if candidature.bankStatement is defined %}
+                  {% if candidature.bankStatement!= null %}
+                    <i style="font-size:20px;font-weight: bolder;" class="fas fa-check text-green rounded"></i>
+                  {% else %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="fas fa-ban icon-remove"></i>
+                    {% endif %}{% endif %}
+            <h4 style="font-family:'Neou-bold';color:#B2273D;">Bank Statement (PDF)</h4>
+             <div style="background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:20px;">
+                 {{form_errors(form.bankStatementFile)}}
+                 {{form_errors(form.bankstatmentFilepdf)}}
+                  {{ form_widget(form.bankStatementFile,{'id':'bancheckdoc'}) }}
+                  {{form_widget(form.bankstatmentFilepdf,{'id':'bankcheckpdf'})}}
+             </div>
+             <input id="bankcheck" type="checkbox" name="bankcheck"  ><span style="font-family:'Neou-bold';">Translate (Word)</span>
+            </div>
+          </div>
+           <div class="row"style="margin-bottom:10px;">
+            <div class="col-6">
+                {% if candidature.passport is defined %}
+                  {% if candidature.passport!= null %}
+                    <i style="font-size:20px;font-weight: bolder;" class="fas fa-check text-green rounded"></i>
+                  {% else %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="fas fa-ban icon-remove"></i>
+                    {% endif %}{% endif %}
+            <h4 style="font-family:'Neou-bold';color:#B2273D;">passport (PDF)</h4>
+              <div style="background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:20px;padding-left:30px;">{{form_errors(form.passportFilepdf)}}
+                  {{ form_widget(form.passportFile,{'id':'passdoc'}) }}
+                   {{ form_widget(form.passportFilepdf,{'id':'passpdf'}) }}
+                 </div>
+              <input id="passcheck" type="checkbox" name="bankcheck"  ><span style="font-family:'Neou-bold';">Translate (Word)</span>
+            </div>
+            <div class="col-6">
+                {% if candidature.cin is defined %}
+                  {% if candidature.cin!= null %}
+                    <i style="font-size:20px;font-weight: bolder;" class="fas fa-check text-green rounded"></i>
+                  {% else %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="fas fa-ban icon-remove"></i>
+                    {% endif %}{% endif %}
+            <h4 style="font-family:'Neou-bold';color:#B2273D;">Student ID (CIN)(PDF)</h4>
+             <div style="background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:20px;padding-left:30px;">{{form_errors(form.cinFile)}}
+                 {{form_errors(form.cinFilepdf)}}
+                  {{ form_widget(form.cinFile,{'id':'cindoc'}) }}
+                  {{ form_widget(form.cinFilepdf,{'id':'cinpdf'}) }}</div>
+             <input id="cincheck" type="checkbox" name="bankcheck"  ><span style="font-family:'Neou-bold';">Translate (Word)</span>
+            </div>
+          </div>
+          <h2 class="heading-small  mb-4"style="font-family:'Neou-bold';margin-top:50px;margin-bottom:20px;">Transcripts</h6>
+          <div class="row"style="margin-bottom:30px;">
+            <div class="col-6">
+            {% if candidature.transcriptfirst is defined %}
+                  {% if candidature.transcriptfirst!= null %}
+                    <i style="font-size:20px;font-weight: bolder;" class="fas fa-check text-green rounded"></i>
+                  {% else %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="fas fa-ban icon-remove"></i>
+                    {% endif %}{% endif %}
+            <h4 style="font-family:'Neou-bold';color:#B2273D;">First year transcription (PDF)</h4>
+            <div style="background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:20px;padding-left:30px;"> {{form_errors(form.transcriptFirstFile)}}
+                 {{form_errors(form.transcriptfirstFilepdf)}}
+                  {{ form_widget(form.transcriptFirstFile,{'id':'transfirstcheckdoc'}) }}
+                  {{form_widget(form.transcriptfirstFilepdf,{'id':'transfirstcheckpdf'})}}</div>
+            <input type="checkbox" id="firstcheck" name="bankcheck"><span style="font-family:'Neou-bold';">Translate (Word)</span>
+            </div>
+            <div class="col-6">
+                 {% if candidature.transcriptsecond is defined %}
+                  {% if candidature.transcriptsecond!= null %}
+                    <i style="font-size:20px;font-weight: bolder;" class="fas fa-check text-green rounded"></i>
+                  {% else %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="fas fa-ban icon-remove"></i>
+                    {% endif %}{% endif %}
+            <h4 style="font-family:'Neou-bold';color:#B2273D;">Second year transcription (PDF)</h4>
+              <div style="background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:20px;padding-left:30px;">{{form_errors(form.transcriptSecondFile)}}
+                 {{form_errors(form.transcriptsecondFilepdf)}}
+                  {{ form_widget(form.transcriptSecondFile,{'id':'transsecondcheckdoc'}) }}
+                  {{form_widget(form.transcriptsecondFilepdf,{'id':'transsecondcheckpdf'})}}</div>
+              <input id="secondcheck" type="checkbox" name="bankcheck"  ><span style="font-family:'Neou-bold';">Translate (Word)</span>
+            </div>
+          </div>
+          <div class="row"style="margin-bottom:30px;">
+            <div class="col-6">
+                {% if candidature.transcriptthird is defined %}
+                  {% if candidature.transcriptthird!= null %}
+                    <i style="font-size:20px;font-weight: bolder;" class="fas fa-check text-green rounded"></i>
+                  {% else %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="fas fa-ban icon-remove"></i>
+                    {% endif %}{% endif %}
+            <h4 style="font-family:'Neou-bold';color:#B2273D;">Third year transcription (PDF) </h4>
+            <div style="background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:20px;padding-left:30px;">{{form_errors(form.transcriptThirdFile)}}
+                 {{form_errors(form.transcriptthirdFilepdf)}}
+                  {{ form_widget(form.transcriptThirdFile,{'id':'transthirdcheckdoc'}) }}
+                  {{form_widget(form.transcriptthirdFilepdf,{'id':'transthirdcheckpdf'})}}</div>
+            <input id="thirdcheck" type="checkbox" name="bankcheck"  ><span style="font-family:'Neou-bold';">Translate (Word)</span>
+            </div>
+            <div class="col-6">
+                {% if candidature.transcriptbac is defined %}
+                  {% if candidature.transcriptbac!= null %}
+                    <i style="font-size:20px;font-weight: bolder;" class="fas fa-check text-green rounded"></i>
+                  {% else %}
+                    <i style="font-size:20px;font-weight: bolder;"  class="fas fa-ban icon-remove"></i>
+                    {% endif %}{% endif %}
+            <h4 style="font-family:'Neou-bold';color:#B2273D;">Bac transcription (PDF)</h4>
+              <div style="background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:20px;padding-left:30px;">{{form_errors(form.transcriptBacFile)}}
+                 {{form_errors(form.transcriptbacFilepdf)}}
+                  {{ form_widget(form.transcriptBacFile,{'id':'transbaccheckdoc'}) }}
+                  {{form_widget(form.transcriptbacFilepdf,{'id':'transbaccheckpdf'})}}
+              </div>
+              <input type="checkbox" id="baccheck" ><span style="font-family:'Neou-bold';">Translate (Word)</span>
+            </div>
+          </div>
+          <h2 class="heading-small  mb-4"style="font-family:'Neou-bold';margin-top:50px;margin-bottom:20px;">Common App</h6>
+          <div class="row"style="margin-bottom:30px;">
+            <div class="col-6">
+            <h4 style="color:#B2273D;">Username </h4>
+            {{ form_widget(form.username,{'attr':{'style':'background-color:rgba(241,242,242,0.7); padding-right:10px;'}}) }}
+           </div>
+            <div class="col-6">
+            <h4 style="font-family:'Neou-bold';color:#B2273D;">Password</h4>
+            {{ form_widget(form.password, { 'attr': {'type': 'password','style':'background-color:rgba(241,242,242,0.7);'} ,'type':'password','id':'password'}) }}
+            </div>
+          </div>
+          <div class="row"style="margin-bottom:30px;">
+            <div class="col-8">
+            <h4 style="font-family:'Neou-bold';color:#B2273D;">SAT score </h4>
+            <!--<input type="number" class="form-control" style="background-color:rgba(241,242,242,0.7);">-->
+            {{ form_widget(form.satScore,{'attr':{'style':'background-color:rgba(241,242,242,0.7);'}}) }}
+            </div>
+          </div>
+         {#<button class="float-right text-centred" style="border:none; padding-top:7px; text-align:center; color:white;background-image: url('{{asset('image/icones/20.png')}}'); background-color:rgba(0,0,0,0); background-position:top; background-size: cover; height:57px;width:150px;" type="submit">
+             Save</button>
+          <input id="compt" type="hidden" name="compteur">
+            {% if candidature.isSubmited == false %}
+                <button class="float-right text-centred" style="border:none; padding-top:7px; text-align:center; color:white;background-image: url('{{asset('image/icones/20.png')}}'); background-color:rgba(0,0,0,0); background-position:top; background-size: cover; height:57px;width:150px;" type="submit">Apply</button>
+            {% endif %}#}
+          {% if candidature.isSubmited == false %}
+    <button class="float-right text-centred" style="border:none; padding-top:7px; text-align:center; color:white;background-image: url('{{asset('image/icones/20.png')}}'); background-color:rgba(0,0,0,0); background-position:top; background-size: cover; height:57px;width:150px;">{{ button_label|default('Save') }}</button>
+    {% if candidature.allFieldsFull and applications|length==20 %}
+       {#<input type="submit" name="submitCandiature" class="float-right text-centred" style="border:none; padding-top:7px; text-align:center; color:white;background-image: url('{{asset('image/icones/20.png')}}'); background-color:rgba(0,0,0,0); background-position:top; background-size: cover; height:57px;width:150px;" value="Submit candiature" />#}
+        {#{{ form_widget(form.submitCandiature,{'class':'btn btn-success'}) }}#}
+        <button type="button"  id="submitCandidatureButton" onclick="showModal('myModalSubmitCandidature')" class="float-right text-centred" style="border:none; padding-top:7px; text-align:center; color:white;background-image: url('{{asset('image/icones/20.png')}}'); background-color:rgba(0,0,0,0); background-position:top; background-size: cover; height:57px;width:150px;" >Submit application</button>
+        <input type="hidden" name="submitCandiature" value="submitCandiature" />
+    {% endif %}
+    {% endif %}
+        </div>
+        </div>
+             {{ form_end(form)}}
+             {#{{ include('candidature/_form.html.twig', {'button_label': 'Update'}) }}#}
+             <div style="height:70px;"></div>
+             <div class="row">
+                 <div class="col-md-11">
+                     <div class="row" style="margin-bottom:30px;">
+                        <div class="col-md-11">
+                            <h2 class="titleDashboardMidle" style="background:url({{ asset('image/icones/23.png') }}); padding-top:35px!important; padding-right:50px!important; background-size:60px!important;">Apply to university</h2>
+                        </div>
+                     </div>
+                    
+                    <div class="row"style="margin-bottom:30px;">
+                        <div class="col">
+                            <h4 style="color:#B2273D;">{{count}} left</h4>
+                        </div>
+                        <div class="col">
+                           {% if candidature.isSubmited == false %} 
+                            <button class="float-right text-centred add_field_button" style="border:none; padding-top:7px; text-align:center; color:white;background-image: url('{{asset('image/icones/20.png')}}'); background-color:rgba(0,0,0,0); background-size: cover; background-position:top; height:57px;width:150px;">
+                        Add</button>
+                        {% endif %}
+                        </div>
+                    </div>
+                    {% for message in app.flashes('suc') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('del') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('update') %}
+           
+          
+            <div class="alert alert-warning" role="alert">
+                {{ message }}
+                </div>   
+                {% endfor %}
+                <form action="{{path('condapplication_new',{'id':candidature.id})}}" method="post">
+                    <div class="input_fields_wrap">
+                    <div class="row"style="margin-bottom:30px;">
+                        <div class="col">
+                            <h4 style="color:#B2273D;">university name</h4>
+                            <input class="form-control" {% if candidature.isSubmited %}disabled{% endif %} type="text" name="univer1" style="background-color:rgba(241,242,242,0.7); padding-right:10px;"/>
+                        </div>
+            
+                        <div class="col">
+                            <h4 style="font-family:'Neou-bold';color:#B2273D;">Email</h4>
+                            <input class="form-control" {% if candidature.isSubmited %}disabled{% endif %} type="email" name="email1" style="background-color:rgba(241,242,242,0.7);">
+                        </div>
+                        
+                        <div class="col">
+                            <h4 style="font-family:'Neou-bold';color:#B2273D;">Password</h4>
+                            <input class="form-control" {% if candidature.isSubmited %}disabled{% endif %} type="password" name="pass1" style="background-color:rgba(241,242,242,0.7);">
+                        </div>
+                        <input id="compt" type="hidden" name="compteur">
+                    </div>
+                    </div>
+                    {% if candidature.isSubmited == false %}
+                    <button class="float-right text-centred" style="border:none; padding-top:7px; text-align:center; color:white;background-image: url('{{asset('image/icones/20.png')}}'); background-color:rgba(0,0,0,0); background-size: cover; background-position:top; height:57px;width:150px;" type="submit">
+                        Apply</button>
+                    {% endif %}
+                </form>
+                 </div>
+
+                 
+             </div>
+                        
+              
+    </div>
+</section>
+                    
+                    <div id="myModalSubmitCandidature" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Submit application</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>are you sure ?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default btn-md btn-danger" data-dismiss="modal">No</button>
+                                            <a href="#" id="confirmSubmitCandidature" class="btn btn-success btn-md">Yes</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+{% endblock %}
+
+{% block javascripts %}
+    {% set count = 20 %}
+    {{ parent() }}
+<script>
+    $(document).ready(function() {
+            var max_fields      = {{count}}; //maximum input boxes allowed
+            var wrapper   		= $(".input_fields_wrap"); //Fields wrapper
+            var add_button      = $(".add_field_button"); //Add button ID
+	
+            var x = 1; //initlal text box count
+            $(add_button).click(function(e){ //on add input button click
+                    e.preventDefault();
+                    if(x < max_fields){ //max input box allowed
+                            x++; //text box increment
+                            $(wrapper).append("  <div class='row'><h4>"+x+"</h4><div class='col'><input class='form-control' type='text' name='univer"+x+"' style='background-color:rgba(241,242,242,0.7); padding-right:10px;'></div><div class='col'><input class='form-control' type='email' name='email"+x+"' style='background-color:rgba(241,242,242,0.7);'></div><div class='col'><input class='form-control' {#hidden='true'#} type='password' name='pass"+x+"'></div> <a href='#' class='remove_field' style='color:#AB5353;'>X</a></div><br>"); //add input box
+        $('#compt').val(x);
+                    }
+            });
+	
+            $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+                    e.preventDefault(); $(this).parent('div').remove(); x--;
+            })
+    });
+
+$(document).ready(function(){
+   if ($('#bankcheck:checked').val()){
+  $('#bancheckdoc').show();
+  $('#bankcheckpdf').hide()
+
+}
+else {
+    $('#bankcheckpdf').show();
+  $('#bancheckdoc').hide()
+}
+ $('#bankcheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#bankcheck:checked').val()){
+  $('#bancheckdoc').show();
+  $('#bankcheckpdf').hide()
+
+}
+else {
+    $('#bankcheckpdf').show();
+  $('#bancheckdoc').hide()
+}});
+});
+
+if ($('#passcheck:checked').val()){
+  $('#passdoc').show();
+  $('#passpdf').hide();
+  
+
+}
+else {
+    $('#passpdf').show();
+  $('#passdoc').hide();
+  
+}
+ $('#passcheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#passcheck:checked').val()){
+  $('#passdoc').show();
+  $('#passpdf').hide()
+$('#passpdf').val('');
+}
+else {
+    $('#passpdf').show();
+  $('#passdoc').hide();
+ $('#passdoc').val('');
+}});
+
+if ($('#cincheck:checked').val()){
+  $('#cindoc').show();
+  $('#cinpdf').hide();
+  
+
+}
+else {
+    $('#cinpdf').show();
+  $('#cindoc').hide();
+  
+}
+ $('#cincheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#cincheck:checked').val()){
+  $('#cindoc').show();
+  $('#cinpdf').hide()
+$('#cinpdf').val('');
+}
+else {
+    $('#cinpdf').show();
+  $('#cindoc').hide();
+ $('#cindoc').val('');
+}});
+if ($('#firstcheck:checked').val()){
+  $('#transfirstcheckdoc').show();
+  $('#transfirstcheckpdf').hide();
+
+}
+else {
+    $('#transfirstcheckpdf').show();
+  $('#transfirstcheckdoc').hide();
+}
+ $('#firstcheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#firstcheck:checked').val()){
+  $('#transfirstcheckdoc').show();
+  $('#transfirstcheckpdf').hide();
+}
+else {
+    $('#transfirstcheckpdf').show();
+  $('#transfirstcheckdoc').hide();
+}});
+//second trans
+ if ($('#secondcheck:checked').val()){
+  $('#transsecondcheckdoc').show();
+  $('#transsecondcheckpdf').hide()
+
+}
+else {
+    $('#transsecondcheckpdf').show();
+  $('#transsecondcheckdoc').hide()
+}
+ $('#secondcheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#secondcheck:checked').val()){
+  $('#transsecondcheckdoc').show();
+  $('#transsecondcheckpdf').hide()
+
+}
+else {
+    $('#transsecondcheckpdf').show();
+  $('#transsecondcheckdoc').hide()
+}});
+
+//third trans
+ if ($('#thirdcheck:checked').val()){
+  $('#transthirdcheckdoc').show();
+  $('#transthirdcheckpdf').hide()
+
+}
+else {
+    $('#transthirdcheckpdf').show();
+  $('#transthirdcheckdoc').hide()
+}
+ $('#thirdcheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#thirdcheck:checked').val()){
+  $('#transthirdcheckdoc').show();
+  $('#transthirdcheckpdf').hide()
+
+}
+else {
+    $('#transthirdcheckpdf').show();
+  $('#transthirdcheckdoc').hide()
+}});
+
+//bac trans
+ if ($('#baccheck:checked').val()){
+  $('#transbaccheckdoc').show();
+  $('#transbaccheckpdf').hide()
+
+}
+else {
+    $('#transbaccheckpdf').show();
+  $('#transbaccheckdoc').hide()
+}
+$('#baccheck').change(function(){
+   //alert($('#bankcheck:checked').val());
+if ($('#baccheck:checked').val()){
+  $('#transbaccheckdoc').show();
+  $('#transbaccheckpdf').hide()
+
+}
+else {
+    $('#transbaccheckpdf').show();
+  $('#transbaccheckdoc').hide()
+}});
+
+$("#confirmSubmitCandidature").click(function(){
+    
+});
+$("#confirmSubmitCandidature").click(function(){
+    $("#cnadidatureForm").submit();
+});
+function showModal(id) {
+    $("#"+id).modal();
+}
+    </script>
+{% endblock %}

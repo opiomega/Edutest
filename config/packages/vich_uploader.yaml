@@ -1,0 +1,93 @@
+vich_uploader:
+    db_driver: orm
+
+    #mappings:
+    #    products:
+    #        uri_prefix: /images/products
+    #        upload_destination: '%kernel.project_dir%/public/images/products'
+    mappings:
+        user_photos:
+            uri_prefix:         '%app.path.user_photos%'
+            upload_destination: '%kernel.project_dir%/public%app.path.user_photos%'
+            namer: vich_uploader.namer_origname
+        category_photos:
+            uri_prefix:         '%app.path.category_photos%'
+            upload_destination: '%kernel.project_dir%/public%app.path.category_photos%'
+            namer: vich_uploader.namer_origname
+
+        candidature_tests:
+            uri_prefix:         '%app.path.candidature_tests%'
+            upload_destination: '%kernel.project_dir%/public%app.path.candidature_tests%'
+            namer: vich_uploader.namer_origname
+        candidature_passport:
+            uri_prefix:         '%app.path.candidature_passport%'
+            upload_destination: '%kernel.project_dir%/public%app.path.candidature_passport%'
+            namer: vich_uploader.namer_origname
+        candidature_cin:
+            uri_prefix:         '%app.path.candidature_cin%'
+            upload_destination: '%kernel.project_dir%/public%app.path.candidature_cin%'
+            namer: vich_uploader.namer_origname
+        candidature_letterOfRecommendations:
+            uri_prefix:         '%app.path.candidature_letterOfRecommendations%'
+            upload_destination: '%kernel.project_dir%/public%app.path.candidature_letterOfRecommendations%'
+            namer: vich_uploader.namer_origname
+        candidature_letterOfRecommendationsMath:
+            uri_prefix:         '%app.path.candidature_letterOfRecommendationsMath%'
+            upload_destination: '%kernel.project_dir%/public%app.path.candidature_letterOfRecommendationsMath%'
+            namer: vich_uploader.namer_origname
+        candidature_transcriptsBac:
+            uri_prefix:         '%app.path.candidature_transcriptsBac%'
+            upload_destination: '%kernel.project_dir%/public%app.path.candidature_transcriptsBac%'
+            namer: vich_uploader.namer_origname
+        candidature_transcriptsThird:
+            uri_prefix:         '%app.path.candidature_transcriptsThird%'
+            upload_destination: '%kernel.project_dir%/public%app.path.candidature_transcriptsThird%'
+            namer: vich_uploader.namer_origname
+        candidature_transcriptsSecond:
+            uri_prefix:         '%app.path.candidature_transcriptsSecond%'
+            upload_destination: '%kernel.project_dir%/public%app.path.candidature_transcriptsSecond%'
+            namer: vich_uploader.namer_origname
+        candidature_transcriptsFirst:
+            uri_prefix:         '%app.path.candidature_transcriptsFirst%'
+            upload_destination: '%kernel.project_dir%/public%app.path.candidature_transcriptsFirst%'
+            namer: vich_uploader.namer_origname
+        candidature_surveys:
+            uri_prefix:         '%app.path.candidature_surveys%'
+            upload_destination: '%kernel.project_dir%/public%app.path.candidature_surveys%'
+            namer: vich_uploader.namer_origname
+        candidature_bankStatements:
+            uri_prefix:         '%app.path.candidature_bankStatements%'
+            upload_destination: '%kernel.project_dir%/public%app.path.candidature_bankStatements%'
+            namer: vich_uploader.namer_origname
+        module_supportsPdf:
+            uri_prefix:         '%app.path.module_supportsPdf%'
+            upload_destination: '%kernel.project_dir%/public%app.path.module_supportsPdf%'
+            namer: vich_uploader.namer_origname
+        test_supportsPdf:
+            uri_prefix:         '%app.path.test_supportsPdf%'
+            upload_destination: '%kernel.project_dir%/public%app.path.test_supportsPdf%'
+            namer: vich_uploader.namer_origname
+        universities_photos:
+            uri_prefix:         '%app.path.universities_photos%'
+            upload_destination: '%kernel.project_dir%/public%app.path.universities_photos%'
+            namer: vich_uploader.namer_origname
+        module_supportsDocument:
+            uri_prefix:         '%app.path.module_supportsDocument%'
+            upload_destination: '%kernel.project_dir%/public%app.path.module_supportsDocument%'
+            namer: vich_uploader.namer_origname
+        logos:
+            uri_prefix:         '%app.path.logos%'
+            upload_destination: '%kernel.project_dir%/public%app.path.logos%'
+            namer: vich_uploader.namer_origname
+        events:
+            uri_prefix:         '%app.path.events%'
+            upload_destination: '%kernel.project_dir%/public%app.path.events%'
+            namer: vich_uploader.namer_origname
+        photoc:
+            uri_prefix:         '%app.path.photoc%'
+            upload_destination: '%kernel.project_dir%/public%app.path.photoc%'
+            namer: vich_uploader.namer_origname
+        test_listening_audio:
+            uri_prefix:         '%app.path.test_listening_audio%'
+            upload_destination: '%kernel.project_dir%/public%app.path.test_listening_audio%'
+            namer: vich_uploader.namer_origname

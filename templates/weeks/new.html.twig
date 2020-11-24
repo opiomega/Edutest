@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Weeks{% endblock %}
+
+{% block body %}
+    <h1>Create new Weeks</h1>
+
+    {{ include('weeks/_form.html.twig') }}
+
+    <a href="{{ path('weeks_index') }}">back to list</a>
+{% endblock %}

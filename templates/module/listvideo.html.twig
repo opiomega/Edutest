@@ -1,0 +1,172 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+Video list
+{% endblock %}
+
+
+{% block body %}
+{#}
+ <div id="StudentsDashboard">
+    <section name='Title' style='margin-top:140px;'>
+        <div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;">   TESTS
+            <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+
+            </div>
+          </div>
+        </div>
+      </section>
+           <div class="row">
+               <div class="col-md-12" style="height:50px;" ></div>
+           </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+                            {% set active="active" %}
+                            {% for category in categories %}
+                               <div class="col-md-2"> <button {% if category.name | length > 7 %} style="font-size:13px" {% endif %} class="categoryButton {% if active=='active'%} {{active}} {% else %}''{% endif %}" data-filter=".cat{{category.name}}">
+                                    {{category.name}}
+                                </button></div>
+                                
+                                {% set active=""%}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="portfolio-grid" class="row row-portfolio" style="position: relative; height: 800px;">
+                        <div class="grid-sizer"></div>
+                        {% for category in categories %}
+                    {% for module in category.module %}
+                        {% if module.video is not null and module in modules %}
+                        <div class="col-xl-4 col-lg-4 col-md-6 grid-item cat{{category.name}} mb-30" style="position: absolute; left: 33.3333%; top: 0px;">
+                            
+                            <div class="gallery-wrapper">
+                                <div class="text-center ">&nbsp;{{module.title}}&nbsp;</div>
+                            <div class="gallery-img">
+                               
+                                <a href="#"><img height=" 200px" src="{{asset('image/logo-edutest.png')}}" alt=""></a>
+                                <div class="gallery-video gallery-2-video">
+                                    <a class="popup-video" href="https://www.youtube.com/watch?v={{module.video}}"><i class="tim-icons icon-triangle-right-17" style="margin-top:60px; height:30px;width:30px;"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                                
+                        </div>
+                        {% else %}
+                       
+                               {% endif %} 
+   
+                         {% endfor %}
+                      
+                        {% endfor %}
+                       
+                    </div>
+                </div>
+            </div>
+
+{#}
+{#}
+ <div id="StudentsDashboard">
+    <section name='Title' style='margin-top:140px;'>
+        <div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;">   TESTS
+            <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+
+            </div>
+          </div>
+        </div>
+      </section>
+           <div class="row">
+               <div class="col-md-12" style="height:50px;" ></div>
+           </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        {% set cpt = 1 %}
+        {% for category in categories %}
+            <div class="col-md-2"><button class="categoryButton" id="categoryButton{{ category.id }}" {% if category.name | length > 7 %} style="font-size:13px" {% endif %} >{{ category.name }}</button></div>
+            
+            {% if cpt == 4 %}
+                </div>
+                <div class="row">
+                {% set cpt = 0 %}
+            {% endif %}
+            {% set cpt = cpt +1 %}
+        {% endfor %}
+    </div>
+    <div style="height:70px;"></div>
+    <div class="container">
+    <div class="row" >
+        {% for video in ['yBCAv_NzzPQ','01tp_yW7c60','xHTdQws8f4Q','3RWYMXwjCFg','ki4e8E7DzmY'] %}
+            <div class="col-md-6 video modulevideo" style="display:none;">
+                
+                <a class="popup-video" style="width:80%; height:300px;" src="https://www.youtube.com/watch?v={{ video }}" ></a>
+                <h3>Video title</h3>
+            </div>
+            
+            {% if cpt == 2 %}
+                </div>
+                <div style="height:70px;"></div>
+                <div class="row">
+                {% set cpt = 0 %}
+            {% endif %}
+            {% set cpt = cpt +1 %}
+        {% endfor %}
+    </div>
+    </div>
+    </div>#}
+    	
+		{#<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />#}
+        <div id="StudentsDashboard">
+    <section name='Title' style='margin-top:140px;'>
+        <div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;"> Video Gallery
+            <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+
+            </div>
+          </div>
+        </div>
+      </section>
+    <div class="container">
+		
+			<div class="row">
+            {% for module in modules %}
+				<div class="col-md-4">
+					<div class="thumbnail">
+						<a data-fancybox="video-gallery" href="https://www.youtube.com/watch?v={{module.video}}&amp;autoplay=1"><img src="http://img.youtube.com/vi/{{module.video}}/mqdefault.jpg"></a>
+					</div>
+				</div>
+            {% endfor %}
+				
+			</div>
+		</div>
+		{#<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>#}
+		
+		{#<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>#}
+	
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        {% for category in categories %}
+            $("#categoryButton{{category.id}}").click(function(){
+                $(".categoryButton").removeClass('categorySelected');
+                $("#categoryButton{{ category.id }}").addClass('categorySelected');
+                $('.video').hide();
+                $('.video a').hide();
+                $('.modulevideo').show();
+                $('.modulevideo a').show();
+            })
+        {% endfor %}
+ 
+    </script>
+{% endblock %}

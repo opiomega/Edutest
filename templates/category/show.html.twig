@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Category{% endblock %}
+
+{% block body %}
+</br></br>
+
+<section class="section section-lg">
+      <img src="{{asset('assetss/img/path4.png')}}" class="path">
+     
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+            <h1 class="text-center">Category</h1>
+            <div class="row row-grid justify-content-center">
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+<div class="container-fluid mt--8">
+
+   <div class="row">
+
+     <div class="col-xl-10 order-xl-1">
+     
+          <div class="card bg-secondary shadow">
+    
+
+    
+    <h2 class="heading text-dark mb-4">Category information</h2>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-8">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-address">Category ID</label>
+                    <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="  {{ category.id }} " disabled>    
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-8">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-address">Category name</label>
+                    <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value=" {{ category.name }} " disabled>    
+                      </div>
+                    </div>
+                  </div>
+                  
+
+    <a href="{{ path('category_index') }}" class="btn btn-outline-default">back to list</a>
+
+    <a href="{{ path('category_edit', {'id': category.id}) }}" class="btn btn-warning">edit</a> {{ include('category/_delete_form.html.twig') }}
+
+   
+{% endblock %}

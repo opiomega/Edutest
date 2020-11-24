@@ -1,0 +1,192 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Counseling{% endblock %}
+
+{% block body %}
+   
+{#</br></br>
+<section class="section section-lg">
+      <img src="{{asset('assetss/img/path4.png')}}" class="path">
+     
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+            <h1 class="text-center">Create new Counseling</h1>
+            <div class="row row-grid justify-content-center">
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="row justify-content-center"> 
+    <div class="col-8">
+    <div class="card card-plain" style="border:solid 1px ;">
+    <div class="card-body">
+   {# {{ include('counsling/_form.html.twig') }}#
+   {{form_start(form)}}
+  <div class="row">
+                            <div class="col">
+                            <div class="form-group">
+                                <label for="exampleTextarea">Starting hour </label>
+                                {{ form_widget(form.begintime,{'id':'timepicker1'}) }}
+                            </div></div>
+                            <div class="col">
+                            <div class="form-group">
+                                <input hidden value="{{ app.request.get('id') }} " name="group">
+                                <label for="exampleTextarea">Ending hour </label>
+                                {{ form_widget(form.endtime,{'id':'timepicker2'}) }}
+                            </div></div>
+                            {#<div class="col">
+                             <div class="form-group">
+                                <label for="exampleTextarea">Day </label>
+                                {{ form_widget(form.day,{'id':'form6'}) }}
+                            </div></div>#
+                            </div>
+                            <input class="form-control" name="date" palaceholder="Choose session date" type="date" >
+                            <br>
+                            <div class="row">
+                            <div class="col-6">
+                          
+                          <select class="form-control" name='g'>
+                          {% for gp in group%}
+                          <option value='{{gp.id}}'>{{gp.name}}</opiton>
+                          {% endfor %}
+                          </select>
+                            </div>
+
+                            </div>
+                            <br>
+                <button class="btn btn-primary" type="submit">New session</button>
+   {{form_end(form)}}
+   </div></div>
+    <a href="{{ path('counsling_index') }}">back to list</a>
+
+    
+         <script type="text/javascript">
+         $('#timepicker1').datetimepicker({
+             format: 'HH:mm'
+         });
+         $('#timepicker2').datetimepicker({
+             format: 'HH:mm'
+         });
+        </script>
+<script type="text/javascript">
+    $('.form_datetime').datetimepicker({
+        //language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        showMeridian: 1
+    });
+	$('.form_date').datetimepicker({
+        language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0
+    });
+	$('.form_time').datetimepicker({
+        language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 1,
+		minView: 0,
+		maxView: 1,
+		forceParse: 0
+    });
+</script>#}
+<style>
+    .bootstrap-datetimepicker-widget a:hover{
+            color: #ACACAC!important;
+        }
+        .bootstrap-datetimepicker-widget a:hover{
+            background: #DEDEDE!important;
+        }
+</style>
+    <section name='Title' style='margin-top:140px;'>
+        <div class="container">
+            <div class="row justify-content-center">
+             <h1 class="text-center"style="color:#B2273D;"> Schedule a new counseling session 
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+                </div>
+            </div>
+            </div>
+        </div>
+      </section>
+    <section name="new session" style="margin-top:50px;">
+        <div class="container">
+            {{form_start(form)}}
+            <div class="row">
+                <div class="col">
+                    <h5 class="text-bluee">Starting time</h5>
+                    {{ form_widget(form.begintime,{'id':'timepicker1','attr':{'class':'form-control bg-gris timepicker','style':'height:55px;'}}) }}
+                    <!--<input type="text" class="form-control bg-gris"style="height:55px;">-->
+                </div>
+                <div class="col">
+                    <h5 class="text-bluee"> Ending Time</h5>
+                    {{ form_widget(form.endtime,{'id':'timepicker2','attr':{'class':'form-control bg-gris timepicker','style':'height:55px;'}}) }}
+                    <!--<input type="text" class="form-control bg-gris"style="height:55px;">-->
+                </div>
+            </div>
+            <div class="row" style="margin-top:20px;">
+                <div class="col">
+                    <h5 class="text-bluee">Date</h5>
+                    <input class="form-control" name="date" palaceholder="Choose session date" type="date"  required>
+                    <!--<input type="date" class="form-control bg-gris"style="height:55px;">-->
+                </div>
+                <div class="col">
+                    <h5 class="text-bluee">Education group</h5>
+                    <select class="form-control bg-gris"style="height:55px;padding-bottom:15px;" name='g' required>
+                          {% for gp in group%}
+                          <option value='{{gp.id}}'>{{gp.name}}</opiton>
+                          {% endfor %}
+                    </select>
+                    <!--<select class="form-control bg-gris"style="height:55px;padding-bottom:15px;">
+                        <option>Group1</option>
+                        <option>Group2</option>
+                        <option>Group3</option>
+                    </select>-->
+                </div>
+            </div>
+            <div class="row" class="float-right" style="margin-top:20px; float:right;">
+                <div  style="width:180px;height:62px;background-image:url('{{asset('image/icones/20.png')}}');background-size:cover;">
+                   <button type="submit" class="float-right text-centred" style="background: none; border:none; width: 100%; height: 100%;" >
+               <span class="text-white">New session</span></button>
+                </div>
+            </div>
+            {{form_end(form)}}
+        </div>
+    </section>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+    $('.timepicker').datetimepicker({
+             format: 'HH:mm'
+         });
+         $('.timepicker').click(function(){
+             console.log($(".bootstrap-datetimepicker-widget").html());
+             $('.bootstrap-datetimepicker-widget a[title="Increment Minute"]').html('<i class="fa fa-arrow-up"></i>');
+         $('.bootstrap-datetimepicker-widget a[title="Increment Hour"]').html('<i class="fa fa-arrow-up"></i>');
+         $('.bootstrap-datetimepicker-widget a[title="Decrement Minute"]').html('<i class="fa fa-arrow-down"></i>');
+         $('.bootstrap-datetimepicker-widget a[title="Decrement Hour"]').html('<i class="fa fa-arrow-down"></i>');
+         });
+         $('#date').datepicker({
+                format: 'dd/mm/yyyy',
+      
+          });
+        </script>
+{% endblock %}

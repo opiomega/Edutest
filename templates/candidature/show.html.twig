@@ -1,0 +1,185 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Candidature{% endblock %}
+
+{% block body %}
+    {#<br>  <br>  <br>  <br>  <br>
+<div class="container">
+      <!-- Table -->
+      <div class="row">
+        <div class="col">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <h3 class="mb-0">{{ candidature.student.firstname}} {{ candidature.student.lastname}}'s application</h3>
+            </div>
+   </div></div></div></div>
+
+    <table class="table align-items-center table-flush">
+        <tbody>
+             <tr>
+                <th>Student name</th>
+                <td>{{ candidature.student.firstname}} {{ candidature.student.lastname}}</td>
+            </tr>
+            <tr>
+                <th>Test</th>
+                <td>{{ candidature.test }}</td>
+                {#<td><a href="{{ vich_uploader_asset(candidature, 'testFile') }}">Download</a></td> #
+                <td>{% if candidature.test!= null %}<a href="{{ asset('uploads/candidature/tests/'~candidature.test) }}">Download</a>{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Letter Of Recommendation English</th>
+                <td>{{ candidature.letterOfRecommendation }}</td>
+                {#<td><a href="{{ vich_uploader_asset(candidature, 'letterOfRecommendationFile') }}">Download</a></td> #
+                <td>{% if candidature.letterOfRecommendation!= null %}<a href="{{ asset('uploads/candidature/letterOfRecommendations/'~candidature.letterOfRecommendation) }}">Download</a>{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Letter Of Recommendation Math</th>
+                <td>{{ candidature.letterOfRecommendationMath }}</td>
+                {#<td><a href="{{ vich_uploader_asset(candidature, 'letterOfRecommendationFile') }}">Download</a></td> #
+                <td>{% if candidature.letterOfRecommendationMath!= null %}<a href="{{ asset('uploads/candidature/letterOfRecommendations/'~candidature.letterOfRecommendationMath) }}">Download</a>{% endif %}</td>
+            </tr>
+            <tr>
+                <th>TranscriptBac</th>
+                <td>{{ candidature.transcriptBac }}</td>
+                {#<td><a href="{{ vich_uploader_asset(candidature, 'transcriptBacFile') }}">Download</a></td>#
+                <td>{% if candidature.transcriptBac!= null %}<a href="{{ asset('uploads/candidature/transcriptsBac/'~candidature.transcriptBac) }}">Download</a>{% endif %}</td>
+            </tr>
+            <tr>
+                <th>TranscriptThird</th>
+                <td>{{ candidature.transcriptThird }}</td>
+                {#<td><a href="{{ vich_uploader_asset(candidature, 'transcriptThirdFile') }}">Download</a></td>#
+                <td>{% if candidature.transcriptThird!= null %}<a href="{{ asset('uploads/candidature/transcriptsThird/'~candidature.transcriptThird) }}">Download</a>{% endif %}</td>
+            </tr>
+            <tr>
+                <th>TranscriptSecond</th>
+                <td>{{ candidature.transcriptSecond }}</td>
+                {#<td><a href="{{ vich_uploader_asset(candidature, 'transcriptSecondFile') }}">Download</a></td>#
+                <td>{% if candidature.transcriptSecond!= null %}<a href="{{ asset('uploads/candidature/transcriptsSecond/'~candidature.transcriptSecond) }}">Download</a>{% endif %}</td>
+            </tr>
+            <tr>
+                <th>TranscriptFirst</th>
+                <td>{{ candidature.transcriptFirst }}</td>
+                {#<td><a href="{{ vich_uploader_asset(candidature, 'transcriptFirstFile') }}">Download</a></td>#
+                <td>{% if candidature.transcriptFirst!= null %}<a href="{{ asset('uploads/candidature/transcriptsFirst/'~candidature.transcriptFirst) }}">Download</a>{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Questionnaire</th>
+                <td>{{ candidature.survey }}</td>
+                {#<td><a href="{{ vich_uploader_asset(candidature, 'surveyFile') }}">Download</a></td>#
+                <td>{% if candidature.survey!= null %}<a href="{{ asset('uploads/candidature/surveys/'~candidature.survey) }}">Download</a>{% endif %}</td>
+            </tr>
+            <tr>
+                <th>BankStatement</th>
+                <td>{{ candidature.bankStatement }}</td>
+                {#<td><a href="{{ vich_uploader_asset(candidature, 'bankStatementFile') }}">Download</a></td>#
+                <td>{% if candidature.bankStatement!= null %}<a href="{{ asset('uploads/candidature/bankStatements/'~candidature.bankStatement) }}">Download</a>{% endif %}</td>
+            </tr>
+             <tr>
+                <th>Passport</th>
+                <td>{{ candidature.passport }}</td>
+                {#<td><a href="{{ vich_uploader_asset(candidature, 'bankStatementFile') }}">Download</a></td>#
+                <td>{% if candidature.passport!= null %}<a href="{{ asset('uploads/candidature/passport/'~candidature.passport) }}">Download</a>{% endif %}</td>
+            </tr>
+             <tr>
+                <th>CIN</th>
+                <td>{{ candidature.cin }}</td>
+                {#<td><a href="{{ vich_uploader_asset(candidature, 'bankStatementFile') }}">Download</a></td>#
+                <td>{% if candidature.cin!= null %}<a href="{{ asset('uploads/candidature/cin/'~candidature.cin) }}">Download</a>{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+    <a href="{{ path('candidature_index') }}"class="btn btn-outline-default float-right">back to list</a>
+
+    <a href="{{ path('candidature_edit', {'id': candidature.id}) }}"class="btn btn-outline-warning float-left">edit</a>
+
+    {{ include('candidature/_delete_form.html.twig') }}
+    #}
+    {% if candidature != null %} 
+    <div id="StudentsDashboard">
+    <section name='Title' style='margin-top:140px;'>
+        <div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;">   {{ candidature.student.firstname}} {{ candidature.student.lastname}}'s application
+            <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="container">
+        <div class="justify-content-center">
+            <div class="row">
+                <div class="col candidatureShowTable">                   
+                    
+
+                    <div class="row" style="margin-top:20px;">
+                        <div class="col-5 bg-gris candidatureShowCol" style="margin-right:10px; height:55px;">Student name</div>
+                        <div class="col-6 bg-gris" style="margin-right:10px;height:55px;">{{ candidature.student.firstname}} {{ candidature.student.lastname}}</div>
+                        
+                    </div>
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col-5 bg-gris candidatureShowCol" style="margin-right:10px;height:55px;">Test</div>
+                        <div class="col-6 bg-gris" style="margin-right:10px;height:55px; font-size:13px;">{{ candidature.test }} <a href="{{ asset('uploads/candidature/tests/'~candidature.test) }}"><i class="fa fa-download" aria-hidden="true"></i>
+</a></div>
+                    </div>
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col-5 bg-gris candidatureShowCol" style="margin-right:10px;height:55px;">Letter Of Recommendation English</div>
+                        <div class="col-6 bg-gris" style="margin-right:10px;height:55px; font-size:13px;">{{ candidature.letterOfRecommendation }} {% if candidature.letterOfRecommendation!= null %}<a href="{{ asset('uploads/candidature/letterOfRecommendations/'~candidature.letterOfRecommendation) }}"><i class="fa fa-download" aria-hidden="true"></i></a>{% endif %}
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col-5 bg-gris candidatureShowCol" style="margin-right:10px;height:55px;">Letter Of Recommendation Math</div>
+                        <div class="col-6 bg-gris" style="margin-right:10px;height:55px; font-size:13px;">{{ candidature.letterOfRecommendationMath }} {% if candidature.letterOfRecommendationMath!= null %}<a href="{{ asset('uploads/candidature/letterOfRecommendations/'~candidature.letterOfRecommendationMath) }}"><i class="fa fa-download" aria-hidden="true"></i></a>{% endif %}
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col-5 bg-gris candidatureShowCol" style="margin-right:10px;height:55px;">Transcript Bac</div>
+                        <div class="col-6 bg-gris" style="margin-right:10px;height:55px; font-size:13px;">{{ candidature.transcriptFirst }} {% if candidature.transcriptFirst!= null %}<a href="{{ asset('uploads/candidature/transcriptsFirst/'~candidature.transcriptFirst) }}"><i class="fa fa-download" aria-hidden="true"></i></a>{% endif %}</div>
+                    </div>
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col-5 bg-gris candidatureShowCol" style="margin-right:10px;height:55px;">Transcript Third</div>
+                        <div class="col-6 bg-gris" style="margin-right:10px;height:55px;">{{ candidature.transcriptThird }} {% if candidature.transcriptThird!= null %}<a href="{{ asset('uploads/candidature/transcriptsThird/'~candidature.transcriptThird) }}"><i class="fa fa-download" aria-hidden="true"></i></a>{% endif %}</div>
+                    </div>
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col-5 bg-gris candidatureShowCol" style="margin-right:10px;height:55px;">Transcript Second</div>
+                        <div class="col-6 bg-gris" style="margin-right:10px;height:55px; font-size: 13px;">{{ candidature.transcriptSecond }} {% if candidature.transcriptSecond!= null %}<a href="{{ asset('uploads/candidature/transcriptsSecond/'~candidature.transcriptSecond) }}"><i class="fa fa-download" aria-hidden="true"></i></a>{% endif %}</div>
+                    </div>
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col-5 bg-gris candidatureShowCol" style="margin-right:10px;height:55px;">Transcript First</div>
+                        <div class="col-6 bg-gris" style="margin-right:10px;height:55px; font-size:13px;">{{ candidature.transcriptFirst }}{% if candidature.transcriptFirst!= null %}<a href="{{ asset('uploads/candidature/transcriptsFirst/'~candidature.transcriptFirst) }}"><i class="fa fa-download" aria-hidden="true"></i></a>{% endif %}</div>
+                    </div>
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col-5 bg-gris candidatureShowCol" style="margin-right:10px;height:55px;">Survey</div>
+                        <div class="col-6 bg-gris" style="margin-right:10px;height:55px; font-size:13px;">{{ candidature.survey }}{% if candidature.survey!= null %}<a href="{{ asset('uploads/candidature/surveys/'~candidature.survey) }}"><i class="fa fa-download" aria-hidden="true"></i></a>{% endif %}</div>
+                    </div>
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col-5 bg-gris candidatureShowCol" style="margin-right:10px;height:55px;">Bank Statement</div>
+                        <div class="col-6 bg-gris" style="margin-right:10px;height:55px; font-size:13px;">{{ candidature.bankStatement }} {% if candidature.bankStatement!= null %}<a href="{{ asset('uploads/candidature/bankStatements/'~candidature.bankStatement) }}"><i class="fa fa-download" aria-hidden="true"></i></a>{% endif %}</div>
+                    </div>
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col-5 bg-gris candidatureShowCol" style="margin-right:10px;height:55px;">Passport</div>
+                        <div class="col-6 bg-gris" style="margin-right:10px;height:55px; font-size:13px;">{{ candidature.passport }} {% if candidature.passport!= null %}<a href="{{ asset('uploads/candidature/passport/'~candidature.passport) }}"><i class="fa fa-download" aria-hidden="true"></i></a>{% endif %}</div>
+                    </div>
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col-5 bg-gris candidatureShowCol" style="margin-right:10px;height:55px;">CIN</div>
+                        <div class="col-6 bg-gris" style="margin-right:10px;height:55px; font-size: 13px;">{{ candidature.cin }}
+                <td>{% if candidature.cin!= null %}<a href="{{ asset('uploads/candidature/cin/'~candidature.cin) }}"><i class="fa fa-download" aria-hidden="true"></i></a>{% endif %}</div>
+                    </div>
+                </div>
+            </div>
+            <div style="height:30px;"></div>
+            <div class="row justify-content-center">
+                
+                <div class="col">
+                <a href="{{ path('candidature_edit',{'id':candidature.id}) }}" style="padding-top: 12px;padding-left: 40px;height: 50px;width: 134px; color:#FFFFFF;" class="{#platformButoons#}redback over float-right">Edit</a>
+                <a href="{{ path('candidature_delete',{'id':candidature.id}) }}" style="    padding-top: 12px;padding-left: 40px;height: 50px;width: 134px; color:#FFFFFF;" class="{#platformButoons#} redback over float-right">Delete</a></div>
+            </div>
+            <div style="height:30px;"></div>
+        </div>
+      </div>
+</div>
+{% endif %}
+{% endblock %}

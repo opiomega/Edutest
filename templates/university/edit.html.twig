@@ -1,0 +1,149 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit University{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Edit University {{university.title}}</h1>
+                  {{ form_start(form)}}
+<div class="col-md-10 ml-auto col-xl-6 mr-auto">
+              
+              <!-- Nav tabs -->
+              <div class="card">
+                <div class="card-header">
+                  <ul class="nav nav-tabs nav-tabs-primary" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active show" data-toggle="tab" href="#link1" role="tablist">
+                        <i class="tim-icons icon-single-02"></i> About
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" data-toggle="tab" href="#link2" role="tablist">
+                        <i class="tim-icons icon-badge "></i> Admission
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" data-toggle="tab" href="#link3" role="tablist">
+                        <i class="tim-icons icon-paper"></i> After College.
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                  
+                   <div class="card-body">
+                  <!-- Tab panes -->
+                  <div class="tab-content tab-space">
+                    <div class="tab-pane active show" id="link1">
+ <div class="form-row">
+    <div class="form-group col-md-6">
+     <label class="form-control-label" >Title</label>
+                        {{ form_widget(form.title) }}
+    </div>
+    <div class="form-group col-md-6">
+      <label class="form-control-label" >Description</label>
+                        {{ form_widget(form.description) }}
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label class="form-control-label" >Students number</label>
+                        {{ form_widget(form.studentsnumber) }}
+    </div>
+    <div class="form-group col-md-6">
+       <label class="form-control-label" >Rank</label>
+                        {{ form_widget(form.rank) }}
+    </div>
+  </div>
+  {{ form_widget(form.photoFile) }}
+   <button class="btn btn-success float-right">{{ button_label|default('Save') }}</button>
+
+ </div>
+
+                    <div class="tab-pane" id="link2">
+                      <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Sat Range</label>
+        {{ form_widget(form.Satrange) }}
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Acceptance Rate</label>
+        {{ form_widget(form.acceptance) }}
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Application Deadline</label>
+        {{ form_widget(form.deadline) }}
+    </div>
+    
+  </div>
+  
+  
+  <br>
+     <button class="btn btn-success float-right">{{ button_label|default('Save') }}</button>
+
+                    </div>
+                    
+                    <div class="tab-pane" id="link3">
+                       <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Graduation Rate</label>
+        {{ form_widget(form.graduation) }}
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Employed 2 Years After Graduation</label>
+        {{ form_widget(form.employed) }}
+    </div>
+  </div>
+   <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Earnings 2 Years After Graduation</label>
+       {{ form_widget(form.earning) }}
+    </div></div>
+    
+         <br>
+      <button class="btn btn-success float-right">{{ button_label|default('Update') }}</button>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+                  
+                 {{form_end(form)}} 
+                  
+                  
+                 {# 
+                  <div class="row">
+                    <div class="col-lg-8">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-address">Title</label>
+                    {{ form_widget(form.title)}}   
+                      </div>
+                    </div>
+                  </div>
+                   <div class="row">
+                    <div class="col-lg-8">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-address">Description</label>
+                    {{ form_widget(form.description)}}  
+                      </div>
+                    </div>
+                  </div>
+
+ <div class="row">
+                    <div class="col-lg-8">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-address">Fiel</label>
+                    {{ form_widget(form.photoFile)}}     
+                      </div>
+                    </div>
+                  </div>
+
+
+    {{ include('university/_form.html.twig', {'button_label': 'Update'}) }}
+#}
+    <a href="{{ path('university_index') }}" class="btn btn-outline-default">back to list</a>
+
+    {{ include('university/_delete_form.html.twig') }}
+{% endblock %}

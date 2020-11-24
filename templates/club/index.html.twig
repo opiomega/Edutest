@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}clubs index{% endblock %}
+
+{% block body %}
+<section name='Title' style='margin-top:140px;'>
+<div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';">   Clubs management
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+
+
+<div style="margin-right:50px;margin-left:50px;margin-top:50px;">
+          
+                                  
+             
+             {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('delete') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('update') %}
+           
+          
+            <div class="alert alert-warning" role="alert">
+                {{ message }}
+                </div>   
+                {% endfor %} 
+                
+<table style="border:none;" id="example"  class="table align-items-center table-flush  display dataTable">
+            <thead >
+            <tr>
+                <th scope="col"><h5 class="text-bluee">name</h5></th>
+                <th><h5 class="text-bluee">Activity</h5></th>
+                <th><h5 class="text-bluee">Meeting Date</h5></th>
+                <th><h5 class="text-bluee">Logo</h5></th>
+               
+                <th><h5 class="text-bluee">actions</h5></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for club in clubs %}
+            <tr {% if app.user.status == "Student" and (app.user.student[0] in club.students) %} {% endif %}>
+                
+                <td>{{ club.name }}</td>
+                <td>{{ club.activity }}</td>
+                <td>{% if club.meatingDate is defined %}{% if club.meatingDate!= null %}{{ club.meatingDate ? club.meatingDate|date('Y-m-d') : '' }}{% else %} -no date available-{% endif %}{% else %} -no date available-{% endif %}</td>
+                <td><img src="{{ asset('uploads/clubs/logos/'~club.logo) }}" style="width:100px; height:100px;"/></td>                
+                <td>
+                 <div class="btn-group">
+                                        <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-bottom: 0px;margin-top: 0px">Actions</button>
+                                        <div class="dropdown-menu ">
+                                        {% if app.user.status=="Admin"%}
+                                            <a class="dropdown-item" href="{{ path('studentclub_show', {'id': club.id}) }}">
+                                            <i class="tim-icons text-blue icon-tv-2"></i>
+                                            Show</a>
+                                            {% endif %}
+                                        {% if app.user.status=="Teacher"%}
+                                        {% if app.user.teacher[0]==club.head%}
+                                         <a class="dropdown-item" href="{{ path('homeclub_show', {'id': club.id}) }}">
+                                            <i class="tim-icons text-blue icon-tv-2"></i>
+                                            Show</a>
+                                        {% else %}
+                                         <a class="dropdown-item" href="{{ path('studentclub_show', {'id': club.id}) }}">
+                                            <i class="tim-icons text-blue icon-tv-2"></i>
+                                            Show</a>
+                                        {% endif %}
+                                        {% endif %}
+                                        {% if app.user.status=="Student"%}
+                                        {% if app.user.student[0]==club.Students%}
+                                         <a class="dropdown-item" href="{{ path('homeclub_show', {'id': club.id}) }}">
+                                            <i class="tim-icons text-blue icon-tv-2"></i>
+                                            Show</a>
+                                        {% else %}
+                                         <a class="dropdown-item" href="{{ path('studentclub_show', {'id': club.id}) }}">
+                                            <i class="tim-icons text-blue icon-tv-2"></i>
+                                            Show</a>
+                                        {% endif %}
+                                        {% endif %}
+                                              {% if app.user.status == "Admin" or ( app.user.status == "Teacher" and club.head != null and club.head.id == app.user.teacher[0].id ) %}
+                                            <a class="dropdown-item" href="{{ path('club_edit', {'id': club.id}) }}">
+                                            <i class="tim-icons text-yellow icon-settings-gear-63"></i>
+                                            Edit</a>
+                                            {% endif %}
+                </div>
+                    
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% if app.user.status=="Admin"%}
+    <a style="border:none;background-color:transparent;"class="redback over text-white float-right" href="{{ path('club_new') }}">
+    <p style="margin-top: 10%; margin-left: 21%;">Create new</p></a>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block body %}
+<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8"></div>
+<div class="container-fluid mt--7">
+      <!-- Table -->
+      <div class="row">
+        <div class="col-xl-8 order-xl-1">
+          <div class="card shadow">
+            <div class="card-header border-0">
+    <h1>Edit User</h1>
+
+    {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
+<div></div></div></div>
+    <a href="{{ path('user_index') }}"class="btn btn-outline-default float-left">back to list</a>
+
+    {{ include('user/_delete_form.html.twig') }}
+{% endblock %}

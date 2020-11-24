@@ -1,0 +1,203 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sessions index{% endblock %}
+
+{% block body %}
+<section name='Title' style='margin-top:140px;'>
+<div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';">   Sessions Management
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+      <div class="container">
+    <div style="margin-bottom:30px;">
+       {% for type, flashMessages in app.session.flashbag.all() %}
+                    {% for flashMessage in flashMessages %}
+                        <div class="alert alert-{{ type }}">
+                            {{ flashMessage|raw }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+  <table style="border:none;" id="example"  class="table align-items-center table-flush  display dataTable">
+            <thead >
+                <th style="border-bottom:none;"><h5 class="text-bluee">Teacher</h5></th>
+                <th style="border-bottom:none;"><h5 class="text-bluee">Group</h5></th>
+                <th style="border-bottom:none;"><h5 class="text-bluee">Category</h5></th>
+                <th style="border-bottom:none;"><h5 class="text-bluee">Details</h5></th>
+                <th style="border-bottom:none;"><h5 class="text-bluee">Action</h5></th>
+            </thead>
+            <tbody style="border:none;">
+              {% for seance in seances %}  
+                <tr class="bg-gris"height="50px" onmouseover="show({{seance.id}})"onmouseout="hide({{seance.id}})" class="bg-gris">
+                     <!--name-->
+                <td id="td{{seance.id}}" class="bg-gris">{% if seance.teacher is defined %}
+                                    {% if seance.educationgroup != null and seance.educationgroup.teacher!= null %}
+                                        {{ seance.educationgroup.teacher.firstname }} {{ seance.educationgroup.teacher.lastname }}
+                                    {% else %}
+                                        --
+                                    {% endif %}
+                                    {% endif %}</td>
+                <!--Group-->
+                <td  class="bg-gris">{% if seance.educationgroup!= null %}
+                                        {{ seance.educationgroup.name }}
+                                    {% else %}
+                                        --
+                                    {% endif %}</td>
+               <!--Category-->
+                <td  class="bg-gris">{% if seance.category!= null %}
+                                        {{ seance.category.name }}
+                                    {% else %}
+                                        --
+                                    {% endif %}</td>
+                <!--Detail-->
+                <td class="bg-gris"> <!-- Trigger the modal with a button -->
+                                    <button type="button" class="btn btn-info btn-sm" onclick="showModal('detailModal1')">More information</button>
+                                    <!-- Modal -->
+                                    <div id="detailModal1" class="modal fade modal-bg" role="dialog">
+                                        <div class="modal-dialog">
+                                            <!-- Modal content-->
+                                            <div class="modal-content modal-bg" >
+                                                <div class="modal-header">
+                                                    <div class="modal-title"><p class="text-rede">More information <p></div>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="col-modal">
+                                                        <div class="row">
+                                                        <div class="col-6"><b class="text-dark"> Date  : </b></div>
+                                                        <div class="col-6  text-right text-blue">
+                                                          
+                                                               <p class="text-bluee">{% if seance.date!=null and seance.dateend!=null %}
+                                                                {{ seance.date }} => {{seance.dateend}}
+                                                            {% else %}
+                                                                no records
+                                                            {% endif %}<p>
+                                                           
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="col-modal">
+                                                    <div class="row">
+                                                        <div class="col-6"><b class="text-dark">Starting hour : </b></div>
+                                                        <div class="col-6  text-right text-blue"><p class="text-bluee">{% if seance.beginTime %}{{ seance.beginTime }}{% endif %}<p></div>
+                                                    </div>
+                                                        </div>
+                                                    <div class="col-modal">
+                                                    <div class="row">
+
+                                                        <div class="col-6 "><b class="text-dark">Ending hour : </b></div>
+                                                        <div class="col-6  text-right text-blue"><p class="text-bluee">{%- if seance.endTime %}{{ seance.endTime }}{% endif %}<p></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-info btn-sm" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div></td>
+                <!--action-->
+                <td class="bg-gris">
+                    <div  class="btn-group">
+                    <button id="act{{seance.id}}" style="display:none; " class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-bottom: 0px;margin-top: 0px">Actions</button>
+                      <div class="dropdown-menu ">
+                        
+                         {% if app.user.status=="Admin" or app.user.status=="Teacher" %}
+                         <a class="dropdown-item"href="{{ path('seance_edit', { 'id': seance.id }) }}" >Edit</a>
+                        <a class="dropdown-item" href="#" onclick="showModal('myModal{{ seance.id }}')" >Delete</a>
+                       {% endif %} 
+                      </div>
+                    </div>
+                    
+                </td>
+             </tr>
+                        <!--js function show and hide-->
+                        <script>
+                                function show(a){
+                                    document.getElementById('td'+a).style.backgroundColor='yellow';
+                                    document.getElementById('act'+a).style='display:inline;background:url({{ asset('image/icones/20.png') }}); background-size:cover; border:none; padding:15px; color:#FFFFFF;';
+                                }
+                                function hide(a){
+                                    document.getElementById('td'+a).style='';
+                                    document.getElementById('act'+a).style='display:none';
+                                }
+                            </script>
+
+                                
+                                
+                            <!-- Modal -->
+                            <div id="myModal{{ seance.id }}" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Delete confiramtion</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Do you really want to delete this session !</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+                                            <a href="{{ path('seance_delete', { 'id': seance.id }) }}" class="btn btn-danger btn-md">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+                 <a style="border:none;width: 128px;height: 45px;" href="{{path('seance_new')}}" class="redback over text-white float-right">
+        <p style="margin-left:13px;margin-top:10px;">New session</p></a>
+            </div>
+        </div>
+    </div>
+    <script>
+        function showModal(id) {
+            $("#"+id).modal();
+        }
+    </script>
+     <script>
+        function showModal(id) {
+            $("#"+id).modal();
+        }
+          $(document).ready(function() {
+        $('#example').DataTable();
+            } );
+            $(document).ready(function(){
+                document.getElementById('example_info').style="color:#B2273D";
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            $('#form5').bootstrapMaterialDatePicker
+            ({
+                time: false,
+                clearButton: true
+            });
+
+            $('#form6').bootstrapMaterialDatePicker
+            ({
+                time: false,
+                clearButton: true
+            });
+
+            $('#form6').bootstrapMaterialDatePicker({ weekStart : 0 });
+            $('#form5').bootstrapMaterialDatePicker({ weekStart : 0 }).on('change', function(e, date)
+            {
+                $('#form6').bootstrapMaterialDatePicker('setMinDate', date);
+            });
+
+        });
+    </script>
+{% endblock %}

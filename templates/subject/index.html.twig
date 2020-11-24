@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Subjects index{% endblock %}
+
+{% block body %}
+<section name='Title' style='margin-top:140px;'>
+<div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';"> Subjects
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+    <style>
+      .bg-grise{
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    border:none;
+    background-color: rgba(241,242,242,0.7);
+
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+    </style>
+<div class="container">
+      <!-- Table -->
+      <div class="row justify-content-center">
+        <div class="col-lg-12">
+        
+              
+            
+            {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('delete') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('update') %}
+            <div class="alert alert-warning" role="alert">
+                {{ message }}
+                </div>   
+                {% endfor %}  
+<div style="margin-right:50px;margin-left:50px;margin-top:50px;">
+  <table style="border:none;" id="example"  class="table align-items-center table-flush  display dataTable">
+        <thead>
+            <tr>
+            
+                <th>Title</th>
+                <th>Content</th>
+                {% if app.user.status== 'Admin'%}
+                <th>actions</th>
+                {% else %}
+                <th>Enter</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        {% set i=0 %}
+        {% for subject in subjects %}
+            <tr>
+          
+                <td class="bg-gris">{{ subject.title }}
+          
+                </td>
+                <td class="bg-gris">{{ subject.content }}</td>
+                
+                <td class="bg-gris">
+                    <a href="{{ path('messages_index', {'id': subject.id}) }}">show</a>
+                    {% if app.user.status== 'Admin'%}
+                    <a href="{{ path('subject_edit', {'id': subject.id}) }}">edit</a>
+                    {% endif %}
+                </td>
+                
+            </tr>
+            {% set i=i+1%}
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% if app.user.status== 'Admin'%}
+    <a style="padding-left: 4%;padding-top: 2%;" class="redback text-white over float-right" href="{{ path('subject_new') }}">Create new</a>
+{% endif %}
+{% endblock %}

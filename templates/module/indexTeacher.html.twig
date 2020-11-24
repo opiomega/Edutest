@@ -1,0 +1,268 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Module index{% endblock %}
+
+{% block body %}
+ {#<section class="section section-lg">
+      <img src="{{asset('assetss/img/path4.png')}}" class="path">
+      
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+            <h1 class="text-center inline-photo show-on-scroll">Test</h1>
+            <div class="row row-grid justify-content-center">
+            
+            </div>
+          </div>
+        </div>
+      </div>
+ </section>
+<div class="container-fluid mt--7">
+      <!-- Table -->
+      <div class="row justify-content-center">
+        <div class="col">
+          <div class="card shadow">
+            <div class="card-header border-0">
+              <h3 class="mb-0">Module list</h3>
+            </div>
+            <div class="table-responsive">
+
+
+              <table id="example" class="table align-items-center table-flush table-striped display dataTable">
+                <thead class="thead-light">
+            <tr>
+                
+                <th>Title</th>
+                <th>Description</th>
+                <th>SupportPdf</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for module in educationGroup.module %}
+            <tr>
+                
+                <td><span class="mb-0 text-dark text-sm">{{ module.title }}</span></td>
+                <td><span class="mb-0 text-dark text-sm">{{ module.description }}</sapn></td>
+                <td><span class="mb-0 text-dark text-sm">{{ module.supportPdf }}</span></td>
+              
+
+
+ <td class="actions">
+
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-bottom: 0px;margin-top: 0px">Actions</button>
+
+                                        <div class="dropdown-menu ">
+
+                                         <a class="dropdown-item" href="{{ path('module_show', { 'id': module.id }) }}">
+                                            <i class="tim-icons text-blue icon-tv-2"></i>
+                                            Show</a>
+                                              {#{% if app.user.status == "Admin" or app.user.status == "Teacher"  %}
+                                            <a class="dropdown-item" href="{{ path('module_edit', { 'id': module.id }) }}">
+                                            <i class="tim-icons text-yellow icon-settings-gear-63"></i>
+                                            Edit</a>
+                                            <a class="dropdown-item"  href="#" onclick="showModal('myModal{{ module.id }}')">
+                                            <i class="tim-icons text-red icon-simple-remove"></i>
+                                            Delete</a>
+                                            {% endif %}#
+
+                                            
+                                            
+                                    </div>
+                                </td>
+                            </tr>
+                              <!-- Modal -->
+                            {#<div id="myModal{{ module.id }}" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Delete Confirmation</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Do you really want to delete this module!</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                        <form method="post" action="{{ path('module_delete', {'id': module.id}) }}">
+                                            <button type="button" class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+                                             <input type="hidden" name="_method" value="DELETE">
+                                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ module.id) }}">
+                                             <button type="submit" class="btn btn-danger btn-md">Delete</button>
+                                             </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>#
+
+
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div></div></div></div>
+
+        
+    
+
+      <script>
+        function showModal(id) {
+            $("#"+id).modal();
+        }
+    </script>
+     <script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+  <script>
+$(document).ready( function () {
+    $("#exemple").DataTable();
+} );
+</script>
+<script type="text/javascript">
+				 $(document).ready(function() {
+    $('#example').DataTable( {
+        "order": [[ 3, "desc" ]]
+    } );
+} );
+	</script> #}
+<section name='Title' style='margin-top:140px;'>
+    <div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';"> Module Management
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+</section>
+<script>
+function change(){
+    if( document.getElementById('hable').innerHTML=="Enable"){
+  document.getElementById('hable').innerHTML='Disable';
+  document.getElementById('hable').style='color:red';
+    }
+    else{
+      document.getElementById('hable').innerHTML='Enable';
+  document.getElementById('hable').style='color:green';
+    }
+}
+function changee(){
+    if( document.getElementById('hablee').innerHTML=="Enable"){
+  document.getElementById('hablee').innerHTML='Disable';
+  document.getElementById('hablee').style='color:red';
+    }
+    else{
+      document.getElementById('hablee').innerHTML='Enable';
+  document.getElementById('hablee').style='color:green';
+    }
+}
+function show(index){
+    document.getElementById('td'+index).style.backgroundColor='yellow';
+    document.getElementById('act'+index).style='display:inline';
+}
+function hide(index){
+    document.getElementById('td'+index).style='';
+     document.getElementById('act'+index).style='display:none';
+}
+</script>
+
+<div style="margin-right:50px;margin-left:50px;margin-top:50px;">
+    <div>
+       <h4> {{ educationGroup.classe.category.name }} Course</h4>
+    </div>
+  <table style="border:none;" id="example"  class="table align-items-center table-flush  display dataTable">
+            <thead >
+                
+                <th style="border-bottom:none;"><h5 class="text-bluee">Title</h5></th>
+                <th style="border-bottom:none;"><h5 class="text-bluee">Description</h5></th>
+                <th style="border-bottom:none;"><h5 class="text-bluee">File(s)</h5></th>
+                <th style="border-bottom:none;"><h5 class="text-bluee">Action</h5></th>
+            </thead>
+            <tbody style="border:none;">
+             {% for module in educationGroup.classe.modules %}
+             <tr class="bg-gris"height="50px"  onmouseover="show({{ loop.index }})"onmouseout="hide({{ loop.index }})" class="bg-gris">
+              
+                <!--Title-->
+                <td id="td{{ loop.index }}" class="bg-gris">{{ module.title }}</td>
+                <!--Description-->
+                <td class="bg-gris">{{ module.description }}</td>
+                <!--File-->
+                <td  class="bg-gris">
+                    <table>
+                        {% for document in module.moduleDocuments %}
+                            <tr>
+                                <td>{{ document.supportDocument }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </td>
+                <!--action-->
+                <td class="bg-gris">
+                    <div id="act{{ loop.index }}" style="display:none;">
+                        <form action="{{ path('module_show',{'id':module.id}) }}">
+                            <button type="submit" data-toggle="modal" data-target="#exampleModal1"   class="btn btn-warning btn-simple btn-icon btn-sm">
+                                show
+                            </button>
+                        </form>
+                    </div>
+                </td>
+             </tr>
+             {% endfor %}
+             {#<tr class="bg-gris"height="50px"  onmouseover="document.getElementById('td1').style.backgroundColor='yellow'"onmouseout="document.getElementById('td1').style='';" class="bg-gris">
+                
+                <!--Title-->
+                <td id="td1" class="bg-gris">Course one</td>
+                <!--Description-->
+                <td class="bg-gris">sfdsdfsdfsdfsdfsdf</td>
+                <!--File-->
+                <td id="td1" class="bg-gris">Document1.pdf</td>
+                <!--action-->
+                <td class="bg-gris">
+                    <div id="act" style="display:none;">
+                     <button type="button" data-toggle="modal" data-target="#exampleModal1"   class="btn btn-warning btn-simple btn-icon btn-sm">
+                      show
+                </button >
+                    </div>
+                </td>
+             </tr>#}
+            </tbody>
+            <!-- Modal -->
+
+        </table>
+      
+  
+
+     <script>
+        function showModal(id) {
+            $("#"+id).modal();
+        }
+    </script>
+    </div>
+</div>
+     <script>
+  $(document).ready(function() {
+    $('#example').DataTable();
+} );
+    </script>
+</section>
+<script>
+$(document).ready(function(){
+    document.getElementById('example_info').style="color:#B2273D";
+})
+</script>   
+{% endblock %}

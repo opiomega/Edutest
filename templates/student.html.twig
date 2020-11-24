@@ -1,0 +1,111 @@
+{% block  student %}
+<style>
+
+</style>
+
+<div class="float-left">
+   <a  href="{{ path('apprentice') }}">
+        <img src="{{asset('image/logo-edutest-.png')}}"  style="position:fixed;width: 15%;top: 3%;left: 1%;">
+        </a>
+         <a class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">&#9776;</a>
+      </div>
+
+        <div style="height:100%; margin-right:5%;"></div>
+      
+
+  <div class="collapse navbar-collapse noSpacing" id="navigation">
+  <div class="navbar-collapse-header">
+          <div class="row">
+            <div class="col-6 collapse-brand">
+              <a>
+                
+              </a>
+            </div>
+            <div class="col-6 collapse-close text-right">
+              <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-times-circle"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <ul class='navbar-nav '  style="    margin-left: 12%;">
+<li class="nav-item p-0" style='margin-left:20px;padding:0;'>
+            <a class="nav-link nav-button" rel="tooltip" title="Dashboard" data-placement="bottom" href="{{ path('apprentice') }}" style='color:#384D77;font-weight: thin;font-family: serif;font-size: 17px;{% if app.request.attributes.get('_route')=="apprentice" %} background: url({{ asset('image/icones/19.png') }}) no-repeat; {#background-position:-30px 0px;#} background-size:cover;  color:#FFFFFF; top:-7px; left:13px; {#padding-left:50px; padding-bottom:25px;#}padding-left:30%;{% else %}padding-left:40%;{% endif %}width:170px; height:73px; position:relative;  text-align:center;'  >
+              Insights
+              
+            </a>
+          </li>
+          
+          <li class="dropdown nav-item p-0">
+            <a href="#" class="dropdown-toggle nav-link" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"style='color:#384D77;font-weight: thin;font-family: serif;    font-size: 17px;{% if app.request.attributes.get('_route') in ["candidature_new","candidature_edit","application_index","candidature_student_show"] %} text-align:center; background: url({{ asset('image/icones/20.png') }}) no-repeat; background-size:cover; width:147px; height:73px; color:#FFFFFF; position:relative; top:-7px; padding-right:0;{% endif %}'>
+               Application
+            </a>
+            
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a href="{{path('candidature_index')}}" class="dropdown-item" style="font-weight: thin;font-family: serif;">
+              Application
+              </a>
+              <a href="{{ path('application_index') }}" class="dropdown-item"style="font-weight: thin;font-family: serif;">
+               Universities applied to
+              </a>
+              <a href="{{ path('candidature_student_show') }}" class="dropdown-item"style="font-weight: thin;font-family: serif;">
+               View My Documents
+              </a>
+              </div>
+          </li>
+   
+          <li class="nav-item p-0">
+            <a  class="nav-link" rel="tooltip" title="Courses " data-placement="bottom" href="{{ path('module_selectCategory') }}" style='    font-size: 17px;color:#384D77;font-weight: thin;font-family: serif;{% if app.request.attributes.get('_route') in ["module_selectCategory","module_selectClasse"] %} text-align:center; background: url({{ asset('image/icones/20.png') }}) no-repeat; background-size:cover; width:115px; height:73px; color:#FFFFFF; position:relative; top:-7px; {% endif %}'>
+              Courses
+              
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a  class="nav-link" rel="tooltip" title="Tests " data-placement="bottom" href="{{ path('test_selectCategory') }}"style='    font-size: 17px;color:#384D77;font-weight: thin;font-family: serif;{% if app.request.attributes.get('_route') in ["test_select_category","test_selectClasse","test_index"] %} text-align:center; background: url({{ asset('image/icones/20.png') }}) no-repeat; background-size:cover; width:80px; height:73px; color:#FFFFFF; position:relative; top:-7px; {% endif %}' >
+              Practice tests
+              
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a  class="nav-link" rel="tooltip" title="Book a counsling session" data-placement="bottom" href="{{ path('student_sessions_index') }}" style='    font-size: 17px;color:#384D77;font-weight: thin;font-family: serif;{% if app.request.attributes.get('_route') in ["student_sessions_index","counsling_student"] %} text-align:center; background: url({{ asset('image/icones/20.png') }}) no-repeat; background-size:cover; width:127px; height:73px; color:#FFFFFF; position:relative; top:-7px; padding-right:0;{% endif %}'>
+              Counseling 
+              
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a  class="nav-link" rel="tooltip" title="Video list" data-placement="bottom" href="{{ path('list') }}" style='    font-size: 17px;color:#384D77;font-weight: thin;font-family: serif;{% if app.request.attributes.get('_route') == "list" %} text-align:center; background: url({{ asset('image/icones/20.png') }}) no-repeat; background-size:cover; width:90px; height:73px; color:#FFFFFF; position:relative; top:-7px; {% endif %}'>
+             Videos
+             
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a  class="nav-link" rel="tooltip" title="List of universities" data-placement="bottom" href="{{ path('univ_student_index') }}" style='    font-size: 17px;color:#384D77;font-weight: thin;font-family: serif; {% if app.request.attributes.get('_route') in ['univ_student_index','university_show'] %} text-align:center; background: url({{ asset('image/icones/20.png') }}) no-repeat; background-size:cover; width:135px; height:73px; color:#FFFFFF; position:relative; top:-7px; padding-right:0;{% endif %}'>
+              Universities
+              
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a  class="nav-link" href="{{ path('club_index') }}" rel="tooltip" title="Clubs management" data-placement="bottom" href="#"style='    font-size: 17px;color:#384D77;font-weight: thin;font-family: serif; {% if 'club' in app.request.attributes.get('_route') %} text-align:center; background: url({{ asset('image/icones/20.png') }}) no-repeat; background-size:cover; width:90px; height:73px; color:#FFFFFF; position:relative; top:-7px; padding-right:0;{% endif %}' >
+              Clubs
+              
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a  class="nav-link" href="{{ path('subject_index') }}" rel="tooltip" title="Clubs management" data-placement="bottom" href="#"style='    font-size: 17px;color:#384D77;font-weight: thin;font-family: serif; {% if 'subject' in app.request.attributes.get('_route') %} text-align:center; background: url({{ asset('image/icones/20.png') }}) no-repeat; background-size:cover; width:90px; height:73px; color:#FFFFFF; position:relative; top:-7px; padding-right:0;{% endif %}' >
+              Forums
+              
+            </a>
+          </li>
+          <li class="nav-item p-0">
+            <a  class="nav-link" rel="tooltip" title="Profile" data-placement="bottom" href="{{ path('profil_show') }}" style='    font-size: 17px;color:#384D77;font-weight: thin;font-family: serif;{% if app.request.attributes.get('_route') in ['profil_show'] %} text-align:center; background: url({{ asset('image/icones/20.png') }}) no-repeat; background-size:cover; width:90px; height:73px; color:#FFFFFF; position:relative; top:-7px; padding-right:0;{% endif %}'>
+              Profile
+              
+            </a>
+          </li>
+          <li class="nav-item">
+            <a  class="nav-link " href="{{ path('app_logout') }}" style='color:#B2273D;font-weight: thin;font-family: serif;    font-size: 17px;'>
+               Logout
+            </a>
+          </li>
+   
+{% endblock %}

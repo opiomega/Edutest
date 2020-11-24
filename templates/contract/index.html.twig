@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contract index{% endblock %}
+
+{% block body %}
+<section name='Title' style='margin-top:140px;'>
+<div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';">  Contract
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+
+<div style="margin-right:50px;margin-left:50px;margin-top:50px;">
+  <table style="border:none;" id="example"  class="table align-items-center table-flush  display dataTable">
+            <thead >
+                <th style="border-bottom:none;"><h5 class="text-bluee">Content</h5></th>
+                
+                <th style="border-bottom:none;"><h5 class="text-bluee">Action</h5></th>
+            </thead>
+            <tbody style="border:none;">
+            {% for contract in contracts %}
+             <tr class="bg-gris"height="50px" onmouseover="show({{contract.id}})"onmouseout="hide({{contract.id}})"class="bg-gris">
+                <!--content-->
+               <td id="td{{contract.id}}" class="bg-gris"><div  style='width:200px; overflow: hidden;'  >{{ contract.content }}</div></td>
+                <!--action-->
+                <td class="bg-gris">
+                     <div id="act{{contract.id}}" style="display:none;">
+                     <a href="{{ path('contract_edit', {'id': contract.id}) }}" class="btn btn-warning btn-simple btn-icon btn-sm">Edit</a >
+                <a  data-toggle="modal" data-target="#modal-notification{{contract.id}}" href="#"  rel="tooltip" class="btn btn-danger btn-simple btn-icon btn-sm">
+                    Delete
+                    </a>
+                    </div>
+                </td>
+             </tr>
+    <!--Modal delete -->
+
+    <div class="modal fade modal-bg" id="modal-notification{{contract.id}}" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
+    <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+        <div class="modal-content modal-bg">
+        	
+            <div class="modal-header">
+                <h6 class="modal-title" id="modal-title-notification">Delete Confirmation</h6>
+                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            	
+                <div class="py-3 text-center">
+                    <i class="ni ni-bell-55 ni-3x"></i>
+                                             <h4 class="heading mt-4">Do you really want to delete Ti !</h4>
+                                        </div>
+                                        <div class="modal-footer">
+                                         <form method="post" action="{{path('contract_delete',{'id':contract.id})}}" >
+                                            <button type="button" class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+                                           
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+<!--js function show and hide-->
+                        <script>
+                                function show(a){
+                                    document.getElementById('td'+a).style.backgroundColor='yellow';
+                                    document.getElementById('act'+a).style='display:inline;';
+                                }
+                                function hide(a){
+                                    document.getElementById('td'+a).style='';
+                                    document.getElementById('act'+a).style='display:none';
+                                }
+                            </script>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+<div style="margin-top:20px;">
+  <a class="redback over text-white float-right" href="{{ path('contract_new') }}"style="border:none;padding-top: 17px;padding-left: 40px;">Add new</a>
+    </div>
+    
+{% endblock %}

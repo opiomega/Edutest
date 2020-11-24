@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sessions index{% endblock %}
+{% block stylesheet %}
+    {{parent()}}
+    
+{% endblock %}
+{% block body %}
+<section name='Title' style='margin-top:140px;'>
+    <div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';">  New Sesssion
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+</section>
+<style>
+      .bg-grise{
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    border:none;
+    background-color: rgba(241,242,242,0.7);
+
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+    .bootstrap-datetimepicker-widget a:hover{
+            color: #ACACAC!important;
+        }
+        .bootstrap-datetimepicker-widget a:hover{
+            background: #DEDEDE!important;
+        }
+    </style>
+<section name="new session" style="margin-bottom:60px;margin-top:50px;">
+    <div class="container">
+    {% for type, flashMessages in app.session.flashbag.all() %}
+                            {% for flashMessage in flashMessages %}
+                                <div class="alert alert-{{ type }}">
+                                    {{ flashMessage|raw }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                        {{ form_start(form) }}
+        <div class="row justify-content-center"> 
+        
+            <div class="col-10">
+             <h5 class="heading-small text-rede  mb-2" >Date period</h5>
+                <div class="row">
+                    <div class="col">
+                        <label class="text-bluee">From</label>
+                        <input style="border:none;" name="date" type="date" class="bg-grise"/>
+                    </div>
+                    <div class="col">
+                        <label class="text-bluee">To</label>
+                        <input style="height:51px" name="dateend" type="date" class="bg-grise "/>
+                    </div>
+                </div>
+                 <h5 class="heading-small text-rede mb-2 mt-2" >Class Time</h5>
+                <div class="row">
+                    <div class="col">
+                        <label class="text-bluee">From</label>
+                        {{ form_widget(form.beginTime,{'id':'timepicker1'}) }}
+                    </div>
+                    <div class="col">
+                        <label class="text-bluee">To</label>
+                        {{ form_widget(form.endTime,{'id':'timepicker2'}) }}
+                    </div>
+                </div>
+                <h5 class="heading-small text-rede mb-2 mt-2" >Days & Groups</h5>
+                <div class="row">
+                    <div class="col">
+                        <label class="text-bluee">Days</label>
+                        
+                        {{ form_widget(form.day,{'id':'form6'}) }}
+                    </div>
+                    <div class="col">
+                        <label class="text-bluee">Groups</label>
+                   {{ form_widget(form.educationgroup,{'id':'form6'}) }}
+
+                    </div>
+                </div>
+                 <button type="submit" style="background-color:transparent;border:none;width: 128px;height: 45px;" class="redback over text-white float-right">
+                 New session</button>
+             {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+  {% block javascripts %}
+    {{parent()}}
+
+
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+     <script type="text/javascript">
+         $('#timepicker1').datetimepicker({
+             format: 'HH:mm'
+         });
+         $('#timepicker2').datetimepicker({
+             format: 'HH:mm'
+         });
+         $('#timepicker1').click(function(){
+             console.log($(".bootstrap-datetimepicker-widget").html());
+             $('.bootstrap-datetimepicker-widget a[title="Increment Minute"]').html('<i class="fa fa-arrow-up"></i>');
+         $('.bootstrap-datetimepicker-widget a[title="Increment Hour"]').html('<i class="fa fa-arrow-up"></i>');
+         $('.bootstrap-datetimepicker-widget a[title="Decrement Minute"]').html('<i class="fa fa-arrow-down"></i>');
+         $('.bootstrap-datetimepicker-widget a[title="Decrement Hour"]').html('<i class="fa fa-arrow-down"></i>');
+         });
+         $('#timepicker2').click(function(){
+             console.log($(".bootstrap-datetimepicker-widget").html());
+             $('.bootstrap-datetimepicker-widget a[title="Increment Minute"]').html('<i class="fa fa-arrow-up"></i>');
+         $('.bootstrap-datetimepicker-widget a[title="Increment Hour"]').html('<i class="fa fa-arrow-up"></i>');
+         $('.bootstrap-datetimepicker-widget a[title="Decrement Minute"]').html('<i class="fa fa-arrow-down"></i>');
+         $('.bootstrap-datetimepicker-widget a[title="Decrement Hour"]').html('<i class="fa fa-arrow-down"></i>');
+         });
+        </script>
+ {% endblock %}

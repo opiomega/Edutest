@@ -1,0 +1,53 @@
+{{ form_start(form) }}
+<div class="row">
+        <div class="col-md-8"> 
+            <label class="text-bluee">Name</label>
+            {{form_widget(form.name)}}
+        </div>
+</div>
+<div class="row">
+        <div class="col-md-8"> 
+            <label class="text-bluee">Logo</label>
+            {{form_widget(form.logoFile)}}
+        </div>
+</div>
+<div class="row">
+        <div class="col-md"> 
+            <label class="text-bluee">Students</label>
+            {{form_widget(form.students)}}
+        </div>
+        <div class="col-md"> 
+            <label class="text-bluee">Head</label>
+            {{form_widget(form.head)}}
+        </div>
+</div>
+<div class="row">
+        <div class="col-md-8"> 
+            <label class="text-bluee">Activity</label>
+            {{form_widget(form.activity)}}
+        </div>
+</div>
+<div class="row">
+        <div class="col-md-8"> 
+            <label class="text-bluee">Meeting date</label>
+                <div class='input-group date' >
+                {{ form_widget(form.meatingDate, {'id':'datetimepicker1','attr': {'class': 'form-control input-inline datetimepicker'}}) }}
+                              
+                </div>
+    </div></div>
+   {#} {{ form_row(form) }}#}
+     
+<script type="text/javascript">
+                    
+                        $('#datetimepicker1').click(function() {
+                     
+                         $('#datetimepicker1').datetimepicker({
+                           inline: true,
+                            sideBySide: true,
+                           format:'YYYY-MM-DD ',
+                           defaultDate: null
+                         });
+                        });
+    </script>
+    <button style="border:none;background-color:transparent;"class="redback over text-white float-right">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

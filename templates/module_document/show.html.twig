@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ModuleDocument{% endblock %}
+
+{% block body %}
+</br></br></br>
+<section class="section section-lg">
+      <img src="{{asset('assetss/img/path4.png')}}" class="path">
+     
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+            <h1 class="text-center">Module</h1>
+            <div class="row row-grid justify-content-center">
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+<div class="container-fluid mt--7">
+      <!-- Table -->
+      <div class="row">
+        <div class="col">
+          <div class="card shadow">
+            <div class="card-header border-0">
+    <h1>Module Document</h1>
+     </div>
+  <div class="table-responsive">
+  <table class="table align-items-center table-flush">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ module_document.id }}</td>
+            </tr>
+            <tr>
+                <th>SupportDocument</th>
+                <td><a href="{{ asset('uploads/module/supportsDocument/'~module_document.supportDocument) }}">Download pdf</a></td>
+            </tr>
+            {#<tr>
+                <th>DocumentUpdatedAt</th>
+                <td>{{ module_document.documentUpdatedAt ? module_document.documentUpdatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>#}
+        </tbody>
+    </table>
+
+    <a href="{{ path('module_document_index',{'moduleId': module_document.module.id}) }}" class="btn btn-outline-default ">back to list</a>
+
+    <a href="{{ path('module_document_edit', {'id': module_document.id}) }}" class="btn btn-warning float-right">edit</a>
+
+    {{ include('module_document/_delete_form.html.twig') }}
+{% endblock %}

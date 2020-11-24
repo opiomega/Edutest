@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add Question {% endblock %}
+
+{% block body %}
+<section name='Title' style='margin-top:140px;'>
+<div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';">Add questions
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+
+   <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-10">
+    {{ include('question/_form.html.twig') }}
+
+    <a href="{{ path('question_index',{'testId':question.test.id}) }}">back to list</a>
+</div>
+</div>
+</div>
+</div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+ {{ parent() }}
+<script>
+    $(document).ready(function () {
+    $('.add-another-collection-widget-question').click(function (e) {
+        alert("Hello");
+        var list = $($(this).attr('data-list-selector'));
+        // Try to find the counter of the list or use the length of the list
+        var counter = list.data('widget-counter') || list.children().length;
+
+        // grab the prototype template
+        var newWidget = list.attr('data-prototype');
+        // replace the "__name__" used in the id and name of the prototype
+        // with a number that's unique to your choiseAvailables
+        // end name attribute looks like name="contact[choiseAvailables][2]"
+        newWidget = newWidget.replace(/__name__/g, counter);
+        // Increase the counter
+        counter++;
+        // And store it, the length cannot be used if deleting widgets is allowed
+        list.data('widget-counter', counter);
+
+        // create a new list element and add it to the list
+        var newElem = $(list.attr('data-widget-tags')).html(newWidget);
+        newElem.attr('id','quetionChoisesLi'+counter);
+        newElem.append('<button id="removeChoise'+counter+'" type="button" onclick="removeChoiseElement('+counter+')" class="btn btn-danger text-white btn-sm "><i class="fa fa-close"></i></button>');
+        newElem.appendTo(list);
+    });
+});
+    {% set cpt = 0 %}
+{% for choiseAvailableChoise in form.choises %}
+        $("#removeChoise{{ cpt }}").click(function(){
+           removeChoiseElement({{ cpt }});
+        });
+        {% set cpt = cpt + 1 %}
+    {% endfor %}
+            function removeChoiseElement(counter) {
+                $("#quetionChoisesLi"+counter).remove();
+            }
+
+        /* 
+         * MCQ or simple question choice type
+         * */
+        var type="MCQ";
+        //$(".QAQuestion").hide();
+        $(".QAQuestion").prop('required',false);
+        $(".questionType").change(function(){
+            //alert(type);
+            if (type==="MCQ"){
+                type="QA";
+                $(".MCQquestionP").hide();
+                $("#quetionChoises-fields-list").hide();
+                $(".MCQquestion").hide();
+                $(".MCQquestion").prop('required',false);
+                $(".QAQuestionP").show();
+                $(".QAQuestion").show();
+                $(".QAQuestion").prop('required',true);
+            }
+            else {
+                type="MCQ";
+                $(".QAQuestionP").hide();
+                $(".QAQuestion").hide();
+                $(".QAQuestion").prop('required',false);
+                $(".MCQquestionP").show();
+                $("#quetionChoises-fields-list").show();
+                $(".MCQquestion").show();
+                $(".MCQquestion").prop('required',false);
+            }
+        });
+        /* 
+         * End of MCQ or simple question choice type
+         * */
+    </script>
+{% endblock %}

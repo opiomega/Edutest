@@ -1,0 +1,196 @@
+
+{% extends 'layout.html.twig' %}
+{% block body %}
+
+<section class="section section-lg" style="margin-top:30px;">
+ 
+     
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+            <p  style="font-size:40px;" class="text-white">Select your option</p>
+            <div class="row row-grid justify-content-center">
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+</br></br>
+{% for message in app.flashes('danger') %}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+{% endfor %}
+
+    
+<style>
+#parent #popup {
+  display: none;
+}
+
+#parent:hover #popup {
+  display: block;
+}
+</style>
+
+<div class="section section-examples" data-background-color="black">
+     
+        <div class="space-50"></div>
+<div class="container text-center">
+          <div class="row">
+          {% set i=0 %}
+          {% for category in catagories %}
+            <div class="col-sm-6">
+                
+              <a id="{{category.id}}" href="{{ path('add_level_test',{'id':category.id,'username':username,'key':key}) }}" >
+              {% if category.name=='Opportunity Class'%}
+                <img  src="{{asset('image/Category/op.png')}}" style='height:220px; width:400px;' alt="Image" class="img-raised">
+            
+              {% elseif category.name=='SAT'%}
+                <img src="{{asset('image/Category/sat-course.png')}}" style='height:220px;width:400px;' alt="Image" class="img-raised">
+            
+              {% elseif category.name=='TOEFL'%}
+                <img src="{{asset('image/Category/TOEFL-Logo.png')}}" style='height:220px;width:400px;' alt="Image" class="img-raised">
+                
+              
+              {% elseif category.name=='GRE'%}
+                <img src="{{asset('image/Category/GRE.png')}}" style='height:220px;width:400px;' alt="Image" class="img-raised">
+              {% else %}
+              <img src="{{asset('image/category/logooo.jpg')}}" style='height:220px;width:400px;' alt="Image" class="img-raised">
+              {% endif %}
+
+              </a>
+             
+                {#}<div id="popup{{category.id}}" style="display: none">Check {{category.name}}</div>
+              <a href="examples/landing-page.html" class="btn btn-simple btn-primary btn-round">View {{category.name}}</a>#}
+            </div>
+            {% set i=i+1 %}
+            {% if i==2 %}
+            </div>
+            <br>
+            <div class='row'>
+            {% set i=0%}
+            {% endif %}
+            <script>
+var e = document.getElementById('{{category.id}}');
+e.onmouseover = function() {
+  document.getElementById('popup{{category.id}}').style.display = 'block';
+}
+e.onmouseout = function() {
+  document.getElementById('popup{{category.id}}').style.display = 'none';
+}
+</script>
+
+            {% endfor %}
+            
+          </div>
+
+</div>
+</div>
+
+
+
+
+{#}
+ <div class="col-md-10 ml-auto col-xl-6 mr-auto">
+             
+              <!-- Nav tabs -->
+              <div class="card">
+                <div class="card-header">
+                  <ul class="nav nav-tabs nav-tabs-primary " role="tablist">
+                  {% set i=1%}
+                  {#{% set classes = [] %} #}
+                 {#}  {% for category in catagories %}
+                       {#{% set classes = classes|merge(category.classes) %}#}
+                  {#}  <li class="nav-item">
+                      <a class="nav-link  show" href="{{ path('add_level_test',{'id':category.id,'username':username,'key':key}) }}" role="tablist">
+                        <i class="tim-icons icon-email-85"></i> {{ category.name }}
+                      </a>
+                    </li>
+                     {% set i=i+1 %}
+                    {% endfor %}
+                  </ul>
+                 
+                </div>
+                <div class="card-body">
+                  <!-- Tab panes -->
+                  <div class="tab-content tab-space">
+                  
+                    </div>
+                  </div>
+                </div>#}
+                {#{% if app.user.status=="Admin" %}#}
+		{#{% if app.user.status=="Student" %}
+<a href="{{ path('module_new') }}" class="btn btn-lg btn-success">Create new</a>
+{% endif %}#}
+
+              </div>
+
+
+
+
+
+
+
+{#{% endif %}#}
+
+
+
+
+<br/><br/><br/>
+
+
+
+
+
+
+
+
+<script>
+var tabButtons=document.querySelectorAll(".tabContainer .buttonContainer button");
+var tabPanels=document.querySelectorAll(".tabContainer  .tabPanel");
+
+function showPanel(panelIndex,colorCode) {
+    tabButtons.forEach(function(node){
+        node.style.backgroundColor="";
+        node.style.color="";
+    });
+    tabButtons[panelIndex].style.backgroundColor=colorCode;
+    tabButtons[panelIndex].style.color="white";
+    tabPanels.forEach(function(node){
+        node.style.display="none";
+    });
+    tabPanels[panelIndex].style.display="block";
+    tabPanels[panelIndex].style.backgroundColor=colorCode;
+}
+showPanel(0,'#f44336');
+</script>
+
+<script>
+function openCity(evt, cityName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+
+
+{% endblock %}

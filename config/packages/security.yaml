@@ -1,0 +1,130 @@
+security:
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    encoders:
+        App\Entity\User: 
+            algorithm: auto
+    role_hierarchy:
+        ROLE_POWER_USER:  ROLE_STUDENT
+        ROLE_ADMIN:       ROLE_TEACHER
+        ROLE_SUPER_ADMIN: ROLE_SUPER_ADMIN
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: true
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+                    
+                entry_point: App\Security\LoginFormAuthenticator    
+            form_login:
+                login_path: app_login
+                check_path: login
+                csrf_token_generator: security.csrf.token_manager
+                
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                target: /login
+            
+            
+    
+  
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        # - { path: ^/admin, roles: ROLE_SUPER_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/connect, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/reg, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/profession/after/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/test/level/test/category/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/test/add/level/test/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/user/confirmation/registration, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/test/show/pdf/test/[0-9]*/pdf, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/module/new, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/teacher/new, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/student/new, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetPassword/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/forgot/password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/module/document/index/, roles: [ROLE_TEACHER,ROLE_SUPER_ADMIN]  }
+         #- { path: ^/module, roles: [ROLE_TEACHER,ROLE_STUDENT,ROLE_SUPER_ADMIN] }
+        - { path: ^/candidature/new, roles: [ROLE_STUDENT,ROLE_SUPER_ADMIN] }
+        #- { path: ^/test/exam/result/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/test/pass/level/test/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/test/level/exam/result, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/test/denied, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        #- { path: ^/education/group/, roles: [ROLE_SUPER_ADMIN,ROLE_TEACHER] }
+        - { path: ^/absent/teacher, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/absent/student, roles: [ROLE_TEACHER,ROLE_SUPER_ADMIN] }
+        - { path: ^/backoffice/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/apprentice, roles: [ROLE_STUDENT] }
+        - { path: ^/backoffice/, roles: [ROLE_SUPER_ADMIN] }
+        #- { path: ^/category/[0-9]*/edit, roles: [ROLE_STUDENT,ROLE_SUPER_ADMIN] }
+        - { path: ^/applications/candidature/deadline/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/category/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/city/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/classes/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/clubs/new, roles: [ROLE_TEACHER,ROLE_SUPER_ADMIN] }
+        - { path: ^/clubs/[0-9]*/edit, roles: [ROLE_TEACHER,ROLE_SUPER_ADMIN] }
+        - { path: ^/clubs/, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/configuration/email/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/counsling/new, roles: [ROLE_TEACHER] }
+        - { path: ^/counsling/[0-9]*/edit, roles: [ROLE_TEACHER] }
+        - { path: ^/counsling/, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/admin/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/education/group/teacher, roles: [ROLE_TEACHER] }
+        - { path: ^/education/group/index/teacher/, roles: [ROLE_TEACHER] }
+        - { path: ^/education/group/teacher, roles: [ROLE_TEACHER] }
+        - { path: ^/education/group/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/events/, roles: [ROLE_TEACHER,ROLE_SUPER_ADMIN] }
+        - { path: ^/hearaboutus/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/module/new, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/module/[0-9]*/complete, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/module/document/new, roles: [ROLE_TEACHER,ROLE_SUPER_ADMIN] }
+        - { path: ^/module/document/[0-9]*/edit, roles: [ROLE_TEACHER,ROLE_SUPER_ADMIN] }
+        - { path: ^/professor, roles: [ROLE_TEACHER] }
+        - { path: ^/question/index, roles : [ROLE_SUPER_ADMIN,ROLE_TEACHER] }
+        - { path: ^/question/show/, roles : [ROLE_SUPER_ADMIN,ROLE_TEACHER] }
+        - { path: ^/question/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/seance/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/student/application, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/student/profil, roles: [ROLE_STUDENT,ROLE_SUPER_ADMIN] }
+        - { path: ^/student/of/teacher/, roles: [ROLE_TEACHER,ROLE_SUPER_ADMIN] }
+        - { path: ^/student/scores, roles: [ROLE_TEACHER,ROLE_SUPER_ADMIN] }
+        - { path: ^/student/[0-9]*/edit, roles: [ROLE_SUPER_ADMIN,ROLE_STUDENT] }
+        - { path: ^/studentdelete/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/student/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/teacher/profile, roles: [ROLE_TEACHER,ROLE_SUPER_ADMIN] }
+        - { path: ^/teacher/send/email/, roles: [ROLE_TEACHER,ROLE_SUPER_ADMIN] }
+        - { path: ^/teacher/[0-9]*/edit, roles: [ROLE_TEACHER,ROLE_SUPER_ADMIN] }
+        #- { path: ^/teacher/[0-9]*, roles: [ROLE_TEACHER,ROLE_SUPER_ADMIN] }
+        - { path: ^/teacher/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/test/, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/test/new, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/test/edit, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/tests/, roles: [ROLE_SUPER_ADMIN] }
+        - { path: ^/type/course/, roles:[ROLE_SUPER_ADMIN] }
+        - { path: ^/university/student, roles:[ROLE_SUPER_ADMIN,ROLE_STUDENT]}
+        - { path: ^/university/[0-9]*, roles:[ROLE_SUPER_ADMIN,ROLE_STUDENT] }
+        - { path: ^/university/, roles:[ROLE_SUPER_ADMIN] }
+        - { path: ^/zipcode/, roles:[ROLE_SUPER_ADMIN] }
+        - { path: ^/user/, roles:[ROLE_SUPER_ADMIN] }
+        - { path: ^/affect/, roles:[ROLE_SUPER_ADMIN] }
+        - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
+

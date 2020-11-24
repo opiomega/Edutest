@@ -1,0 +1,119 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Counseling{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Edit Counseling Session</h1>
+    <div class="row justify-content-center"> 
+    <div class="col-8">
+    <div class="card card-plain" style="border:solid 1px ;">
+    <div class="card-body">
+    {#{{ include('counsling/_form.html.twig', {'button_label': 'Update'}) }}#}
+    <style>
+        .bootstrap-datetimepicker-widget a:hover{
+            color: #ACACAC!important;
+        }
+        .bootstrap-datetimepicker-widget a:hover{
+            background: #DEDEDE!important;
+        }
+    </style>
+    {{form_start(form)}}
+  <div class="row">
+                            <div class="col">
+                            <div class="form-group">
+                                <label for="exampleTextarea">Starting hour </label>
+                                {{ form_widget(form.begintime,{'id':'timepicker1'}) }}
+                            </div></div>
+                            <div class="col">
+                            <div class="form-group">
+                                <input hidden value="{{ app.request.get('id') }} " name="group">
+                                <label for="exampleTextarea">Ending hour </label>
+                                {{ form_widget(form.endtime,{'id':'timepicker2'}) }}
+                            </div></div>
+                           {#} <div class="col">
+                             <div class="form-group">
+                                <label for="exampleTextarea">Day </label>
+                                {{ form_widget(form.day,{'id':'form6'}) }}
+                            </div></div>#}
+                            </div>
+                            <div class="row">
+                            {#<div class="col-6">
+                            {{form_widget(form.educationgroup)}}
+                            </div>#}
+                            <div class="col">
+                            <input class="form-control" value='{{counsling.date|date('Y-m-d')}}' name="date" palaceholder="Choose session date" type="date" >
+                            </div>
+                            </div>
+                            <br>
+                <button class="btn btn-info float-right" type="submit">Edit session</button>
+   {{form_end(form)}}
+   {{ include('counsling/_delete_form.html.twig') }}
+   </div></div>
+    <a class="btn btn-default" href="{{ path('counsling_index') }}">back to list</a>
+
+    
+         <script type="text/javascript">
+         
+        </script>
+<script type="text/javascript">
+    $('.form_datetime').datetimepicker({
+        //language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        showMeridian: 1
+    });
+	$('.form_date').datetimepicker({
+        language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0
+    });
+	$('.form_time').datetimepicker({
+        language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 1,
+		minView: 0,
+		maxView: 1,
+		forceParse: 0
+    });
+</script>
+
+    
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $('#timepicker1').datetimepicker({
+             format: 'HH:mm'
+         });
+         $('#timepicker2').datetimepicker({
+             format: 'HH:mm'
+         });
+         $('#timepicker1').click(function(){
+             console.log($(".bootstrap-datetimepicker-widget").html());
+             $('.bootstrap-datetimepicker-widget a[title="Increment Minute"]').html('<i class="fa fa-arrow-up"></i>');
+         $('.bootstrap-datetimepicker-widget a[title="Increment Hour"]').html('<i class="fa fa-arrow-up"></i>');
+         $('.bootstrap-datetimepicker-widget a[title="Decrement Minute"]').html('<i class="fa fa-arrow-down"></i>');
+         $('.bootstrap-datetimepicker-widget a[title="Decrement Hour"]').html('<i class="fa fa-arrow-down"></i>');
+         });
+         $('#timepicker2').click(function(){
+             console.log($(".bootstrap-datetimepicker-widget").html());
+             $('.bootstrap-datetimepicker-widget a[title="Increment Minute"]').html('<i class="fa fa-arrow-up"></i>');
+         $('.bootstrap-datetimepicker-widget a[title="Increment Hour"]').html('<i class="fa fa-arrow-up"></i>');
+         $('.bootstrap-datetimepicker-widget a[title="Decrement Minute"]').html('<i class="fa fa-arrow-down"></i>');
+         $('.bootstrap-datetimepicker-widget a[title="Decrement Hour"]').html('<i class="fa fa-arrow-down"></i>');
+         });
+    </script>
+    
+{% endblock %}

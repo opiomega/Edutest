@@ -1,0 +1,188 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Counsling{% endblock %}
+
+{% block body %}
+    <section name='Title' style='margin-top:140px;'>
+<div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';"> Book a session
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+    <div class="row justify-content-center"> 
+    <div class="col-8">
+    <div class="card card-plain" style="background-color:transparent;">
+    <div class="card-header" style="color:#131313;">Book a session for <h2 class="text-red">{{days|date('Y-M-d')}}</h2></div>
+    <div class="card-body">
+   {#} {{ include('counsling/_form.html.twig') }}#}
+   <form action='{{path('counsling_student',{'id':counsling.id})}}' name='form-counsling'method='post'>
+   <div class="row">
+                            <div class="col">
+                            </div>
+                </div>
+   <div class="row">
+   <div class="col-6"> 
+   <label>Topic</label>
+   <input type="text" name="topic" class="form-control" placeholder="What do you need help with?">
+   </div>
+                            <div class="col-5">
+                            </div>
+                            
+                            </div>
+                            <div class="row">
+                            <div class="col-6">
+                            <label> Medium</label>
+                        
+                            <select name="mediumm" class="form-control">
+                            <option value="online">Online</option>
+                            <option value="in center">In center</option>
+                            </select>
+                            </div></div>
+  <div class="row">
+                            <div class="col">
+                            <div class="form-group">
+                                <label for="exampleTextarea">Starting hour </label>
+                               <select id="sel1" name='start'  class="form-control" onchange="giveSelection(this.value)">
+{% for b in begin %}
+{% if b not in studentconsbegin %}
+                                <option value="{{b}}" >{{b}}</option>
+                                
+             {% endif %}                 
+   {% endfor %}                        
+                                </select>
+                              <p style="color:red;" id="demo"></p>
+                            </div></div>
+                            <div class="col">
+                            <div class="form-group">
+                                <input hidden value="{{ app.request.get('id') }} " name="group">
+                                <label for="exampleTextarea">Ending hour </label>
+                                <select id="sel2" name="end" class="form-control" >
+                                {% for e in end %}
+                                <option data-option="{{e}}">{{e}}</option>
+                            
+                                {% endfor %}
+                                </select>
+                            </div></div>
+                            
+                            </div>
+                            <br>
+                            <div class="row">
+                            <div class="col-8">
+                            <label >Additional comments</label>
+                            <textarea name="comments"class="form-control"></textarea>
+                            </div>
+
+                            </div>
+                            <br>
+                <button class="btn btn-primary" name="new" value="add" type="submit">New session</button>
+  </form>
+   </div></div>
+    <a class="btn btn-default" href="{{ path('student_sessions_index') }}">back to list</a>
+
+<script>
+
+    var sel1 = document.querySelector('#sel1');
+    var sel2 = document.querySelector('#sel2');
+    var options2 = sel2.querySelectorAll('option');
+
+    function giveSelection(selValue) {
+      sel2.innerHTML = '';
+      for(var i = 0; i < options2.length; i++) {
+        if(options2[i].dataset.option === selValue) {
+          sel2.appendChild(options2[i-1]);
+        }
+      }
+    }
+
+    giveSelection(sel1.value);
+</script>
+
+
+    
+         <script type="text/javascript">
+         $('#timepicker1').datetimepicker({
+             format: 'HH:mm'
+         });
+         $('#timepicker2').datetimepicker({
+             format: 'HH:mm'
+         });
+        </script>
+<script type="text/javascript">
+    $('.form_datetime').datetimepicker({
+        //language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        showMeridian: 1
+    });
+	$('.form_date').datetimepicker({
+        language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0
+    });
+	$('.form_time').datetimepicker({
+        language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 1,
+		minView: 0,
+		maxView: 1,
+		forceParse: 0
+    });
+</script>
+
+<script>
+// Set the date we're counting down to
+var countDownDate = new Date();
+   countDownDate.setHours(countDownDate.getHours() + 1);
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+    
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+    
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+  // Output the result in an element with id="demo"
+  document.getElementById("demo").innerHTML =  hours + "h "
+  + minutes + "m " + seconds + "s ";
+for(var i=0,i<{{diff}},i++){
+    var opt = document.getElementById("select").createElement('option');
+    opt.innerHTML = countDownDate;
+    opt.value = countDownDate;
+    sel.appendChild(opt);
+}
+  // If the count down is over, write some text 
+  if (distance < 0) {
+    clearInterval(x);
+    score = total;
+    $(this).hide();
+            
+  }
+}, 1000);
+</script>
+{% endblock %}

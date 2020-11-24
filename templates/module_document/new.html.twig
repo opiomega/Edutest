@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New ModuleDocument{% endblock %}
+
+{% block body %}
+<section name='Title' style='margin-top:140px;'>
+<div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';">New Module 
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+   
+<div class="container">
+        <div class="row justify-content-center">
+        <div class="col-8">
+    {{ include('module_document/_form.html.twig') }}
+</div></div>
+    <a href="{{ path('module_document_index',{'moduleId':module_document.module.id}) }}" class="btn btn-outline-default">back to list</a>
+    
+    </div></div></div>
+{% endblock %}

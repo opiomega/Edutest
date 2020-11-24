@@ -1,0 +1,350 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Teacher's DASHBOARD!{% endblock %}
+
+
+{% block body %}
+    <div id="StudentsDashboard">
+    <section name='Title' style='margin-top:140px;'>
+        <div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;">   DASHBOARD
+            <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+
+            </div>
+          </div>
+        </div>
+      </section>
+<section name="header">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="row">
+
+        <div class="col-md-3">
+            <img src="{{ asset('image/icones/5.png') }}" class="iconsDashboardTop" />
+            <h5>UPCOMING DEADLINE </h5><p style="color:#999999">
+            {% if upcomingDeadline!= null%}
+              {% set upc=upcomingDeadline|split(' ')%}
+            <p class="grayHoverBlue">{{upc[2]}}
+            <span class="text-nowrap">Date: <span class="text-red"> {{upc[0]}} {{upc[1]}}</span></span></p>
+            {% else %}
+              --
+            {% endif %}
+            </p>
+
+        </div>
+
+        <div class="col-md-3"><img src="{{ asset('image/icones/15.png') }}" class="iconsDashboardTop" />
+            <h5>Next class</h5>
+            <p style="color:#999999">
+            {% if session!= null and session.category!=null %}{{session.category.name}}{% else %}--{% endif %}
+            <p  class="grayHoverBlue">start at :<span class="text-red">{% if session!= null %}{{session.date|date('Y-m-d')}} {{session.beginTime|date('H:i')}}{% else %} --{% endif %}</span></p></p>
+        </div>
+        <div class="col-md-3">
+            <img src="{{ asset('image/icones/4.png') }}" class="iconsDashboardTop" /><h5>NEXT COUNSELING SESSION</h5>
+            <p style="color:#999999"><p class="grayHoverBlue">{% if counsstudent!= null %}{{counsstudent.firstname}} {{counsstudent.lastname}}{% else %}--{% endif %}</p></p>
+        </div>
+
+         <div class="col-md-3">
+            <img src="{{ asset('image/icones/3.png') }}" class="iconsDashboardTop" />
+            <h5>COHORT PROGRESS</h5>
+           
+            <p style="color:#999999">
+              <p class="grayHoverBlue"> 
+             {{submit}}</p>
+             <p class="grayHoverBlue"> 
+             Total students:<span class="text-red">{{totlastudents}}</span>
+             </p>
+             </p>
+ 
+        </div>
+
+    </div>
+    </div></div>
+</section>
+{#}
+  <div class="container">
+        <div class="row justify-content-center">
+
+      <div class="container-fluid">
+        <div class="header-body">
+          <!-- Card stats -->
+          <div class="row">
+            <div class="col-xl-3 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0" style="background:white;">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-8">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Upcoming deadline</h5>
+                      {% if upcomingDeadline!= null%}
+                      {% set upc=upcomingDeadline|split(' ')%}
+                      <span class="h4 font-weight-bold  mb-0">{{upc[2]}}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                        <i class="fas fa-chart-bar"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-muted text-sm">
+                  
+                    <span class="text-nowrap">Date: <span class="text-red"> {{upc[0]}} {{upc[1]}}</span></span>
+                  </p>
+                  {% else %}
+                   <span class="h2 font-weight-bold  mb-0">--</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                        <i class="fas fa-chart-bar"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-muted text-sm">
+                 
+                    <span class="text-nowrap">Date: <span class="text-red"> --</span></span>
+                  </p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0"  style="background:white;">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Next class</h5>
+                      <span class="h2 font-weight-bold mb-0">{% if session!= null and session.category!=null %}{{session.category.name}}{% else %}--{% endif %}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                        <i class="fas fa-chart-pie"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-muted text-sm">
+                  
+                    <span class="text-nowrap">start at :<span class="text-red">{% if session!= null %}{{session.date|date('Y-m-d')}} {{session.beginTime|date('H:i')}}{% else %} --{% endif %}</span></span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0"  style="background:white;">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0">Next Counseling session</h5>
+                      <span class="h4 font-weight-bold mb-0">{% if counsstudent!= null %}{{counsstudent.firstname}} {{counsstudent.lastname}}{% else %}--{% endif %}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                        <i class="fas fa-users"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-muted text-sm">
+                    
+                    <span class="text-nowrap">Session for:<span class="text-red">{% if nextCounsolingSession != null  %}{{nextCounsolingSession[0]['date']}} {{nextCounsolingSession[0]['sbegin']}} {% else %} -- {% endif %}</span></span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-6">
+              <div class="card card-stats mb-4 mb-xl-0"  style="background:white;">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0" >Cohort progress</h5>
+                      <span class="h2 font-weight-bold mb-0">{{submit}}</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-info text-white rounded-circle shadow">
+                        <i class="fas fa-percent"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-muted text-sm">
+                 
+                    <span class="text-nowrap">Total students:{{totlastudents}} </span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>#}
+<br><br>
+<div class="container">
+        <div class="row justify-content-center">
+
+
+<div class="container-fluid">
+      <div class="row">
+        <div class="col-xl-8 mb-5 mb-xl-0">
+          <div class="card bg-gradient-default shadow">
+            <div class="card-header bg-transparent">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h6 class="text-uppercase text-light ls-1 mb-1">Total students:{{totlastudents}}</h6>
+                  <h2 class="text-black mb-0">Statics of counseling</h2>
+                </div>
+                
+              </div>
+            </div>
+            <div class="card-body">
+              <!-- Chart -->
+              <canvas id="myChart" class="chart-canvas"></canvas>
+              </div>
+            </div>
+          </div>
+        
+        <div class="col-xl-4">
+          <div class=" card card-plain" style="background-color:none; {#height:460px;#} ">
+    <div class="cadr-header">
+    <span class="text-black">Overdue students list<span>
+    </div>
+    <div class="card-body"> 
+    <table class="table">
+        <thead>
+            <tr>
+            <th>Student name</th>
+            <th>Last login</th>
+            {#<th>Group</th>#}
+            
+            </tr>
+            </thead>
+        <tbody>
+        
+       
+        {% for student in students %}
+       
+        {% for s in student %}
+      <tr>
+        <td>{{s.firstname}} {{s.lastname}}</td>
+        <td>
+            {% if s.user.lastlogin is defined %}
+                 {% if s.user.lastlogin!= null %}
+         {{s.user.lastlogin|date('Y-m-d H:m:s')}}
+         {% else %}
+                 -didnt connect-
+                 {% endif %}
+                  {% endif %}</td>
+       {#} <td>{{s.eductionGroup.name}}</td>#}
+       
+            </tr>
+           
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+            {% endfor %}
+            <tr></tr>
+        {% endfor %}
+     
+        
+        </tbody>
+    </table>
+    </div>
+    </div>
+        </div></div>
+      
+
+
+
+<div class="row">
+        <div class="col-xl-12 mb-5 mb-xl-0">
+<div id="calendar-holder"></div>
+    </div>
+    {#<div class="col">
+    <div class="card card-plain" style="border:solid 1px;">
+    <div class="card-header">Poll results</div>
+    <div class="card-body">
+      
+    </div>
+    </div>
+    </div>#}
+     <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@4.1.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.js"></script>
+
+   
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', () => {
+         var  draggableEl = document.getElementById('mydraggable');
+            var calendarEl = document.getElementById('calendar-holder');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                defaultView: 'dayGridMonth',
+                editable: false,
+                displayEventTime:false,
+                eventLimit: true,
+                views: {
+    timeGrid: {
+      eventLimit: 3 // adjust to 6 only for timeGridWeek/timeGridDay
+    }
+  },
+                eventSources: [
+                    {
+                        events:[
+                            {% set i=0%}
+                           {% for n in name %}
+                           {
+                             title:'{{seances[i].beginTime}} {{n}}',
+                             daysOfWeek: [ {% for d in day[i] %}'{{d.id}}',{% endfor %} ],
+                             startTime:'{{seances[i].beginTime}}',
+                             endTime:'{{seances[i].endTime}}',
+                             startRecur:'{{seances[i].date}}',
+                             endRecur:'{{seances[i].dateend}}',
+                            
+                           },
+                           {% set i=i+1%}
+                          
+                           {% endfor %}
+                        ],
+                        textColor: 'white'
+                    },
+                ],
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay',
+                },
+                plugins: [ 'interaction', 'dayGrid', 'timeGrid' ], // https://fullcalendar.io/docs/plugin-index
+                timeZone: 'UTC',
+            });
+            calendar.render();
+            new Draggable(draggableEl);
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script>
+  var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'pie',
+
+    // The data for our dataset
+    data: {
+        labels: ['No sessions ','1 session','2 sessions'],
+        datasets: [{
+            label: 'Students',
+            backgroundColor:[ '#DA002F','#E3DA10','#106CE3'],
+         
+           // borderColor: '#5e72e4',
+           
+            data: [{{result[0]}}, {{result[1]}}, {{result[2]}}],
+            
+            
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});
+    </script>
+{% endblock %}

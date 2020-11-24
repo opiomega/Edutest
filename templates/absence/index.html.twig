@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+{% block title %}Teacher Attendance{% endblock %}
+{% block body %}
+<div class="container-fluid mt--7">
+      <!-- Table -->
+      <div class="row">
+        <div class="col">
+          <div class="card card-plain" style="border:solid 1px;">
+            <div class="card-header border-0">
+        <h3 class="page-heading mb-4">Teachers Attendance Management <span class='text-red'>{{app.request.get('date')}}</span></h3>
+        <div class="col-lg-12 mb-12">
+            <div class="card">
+                {% for type, flashMessages in app.session.flashbag.all() %}
+                    {% for flashMessage in flashMessages %}
+                        <div class="alert alert-{{ type }}">
+                            {{ flashMessage|raw }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                <div class="card-body">
+                    <b><p style="float: right">Total sessions number : {{ nbrTotalSeance }}</p></b>
+                    <table class="table">
+                        <thead>
+
+                        <tr class="">
+
+                            <th>Teacher's name</th>
+                            <th>Email</th>
+                            <th>Presence</th>
+                            <th>Absent </th>
+                            <th>Absence percentage</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+ <td>{{ teacher.firstname }}</td>
+                                <td>{{ teacher.user.email }}</td>
+                                <td >
+                                {#}   <input type="checkbox" class="js-switch" {% if status==1 %}checked{% endif %} onchange="absent({{ teacher.id }})"/>#}
+                                      <link href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" rel="stylesheet" />
+<form name='myForm'>
+<div class="switch-toggle switch-3 switch-candy" style="min-width:255px;">
+  <input id="on" name="state-d{{teacher.id}}" type="radio" {% if status==1%}checked="checked" {% endif %}value='1'/>
+  <label for="on" onclick="">Present</label>
+
+  <input id="na" name="state-d{{teacher.id}}" type="radio" disabled  />
+  <label for="na" class="disabled" onclick="">&nbsp;</label>
+
+  <input id="off" name="state-d{{teacher.id}}" type="radio" value='0'  {% if status==0  %}checked{% endif %} />
+  <label for="off" onclick="">Absent</label>
+
+  <a></a>
+</div>
+</form>
+                                </td>
+                                <td>{{ absentTeachers[teacher.id]["nbrAb"] }}</td>
+                                <td>{{ 100-absentTeachers[teacher.id]["pourcentageAb"]|number_format(2, '.', ',') }} %</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+    $('input[type=radio][name=state-d{{teacher.id}}]').change(function() {
+     var stat=this.value;
+
+     $.ajax({url: "{{ path('agents_teachers_absent',{date:app.request.get('date')}) }}",
+              
+              data: "id="+{{teacher.id}}+"&seanceId="+{{ app.request.get('seanceId') }},
+      
+});
+});
+        function absent (id){
+            
+            $.ajax({
+               
+                url: "{{ path('agents_teachers_absent',{date:app.request.get('date')}) }}",
+                type: "POST",
+                data: "id="+id+"&seanceId="+{{ app.request.get('seanceId') }},
+               
+                              
+                });
+        }
+    </script>
+{% endblock %}

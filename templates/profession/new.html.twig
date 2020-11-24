@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New profession{% endblock %}
+
+{% block body %}
+<section name='Title' style='margin-top:140px;'>
+<div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';"> Add a new profession
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+    <style>
+      .bg-grise{
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    border:none;
+    background-color: rgba(241,242,242,0.7);
+
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+    </style>
+<div class="container">
+      <!-- Table -->
+      <div class="row justify-content-center">
+        <div class="col-lg-12">
+        
+              
+            
+            {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('delete') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('update') %}
+            <div class="alert alert-warning" role="alert">
+                {{ message }}
+                </div>   
+                {% endfor %}  
+              
+<div class="container">
+      <!-- Table -->
+      <div class="row justify-content-center">
+      <div class="col-md">
+
+    {{ include('profession/_form.html.twig') }}
+
+    <a href="{{ path('profession_index') }}">back to list</a>
+{% endblock %}

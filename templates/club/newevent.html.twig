@@ -1,0 +1,109 @@
+{% extends 'club.html.twig' %}
+
+{% block title %}
+Club information
+{% endblock %}
+
+
+{% block body %}
+ <!-- booking-area-start -->
+            <div class="booking-area grad-bg pos-rel pt-135 pb-135">
+                <div class="shape d-none d-xl-block">
+                    <div class="shape-item fa-01 rotateme"><img src="{{asset('club/img/shape/shape-1.png')}}" alt=""></div>
+                    <div class="shape-item fa-02 rotateme"><img src="{{asset('club/img/shape/shape-2.png')}}" alt=""></div>
+                </div>
+                <div class="booking-bg-img d-none d-md-block" style="background-image:url({{asset('club/img/event.jpg')}});"></div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xl-6 offset-xl-6 col-lg-6 offset-lg-6 col-md-6 offset-md-6">
+                            <div class="booking-wrapper">
+                                <div class="booking-text">
+                                    <h3>Create new event</h3>
+                                </div>
+                   
+                              {#  <form id="booking-form" action="#">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-box user-icon mb-30">
+                                                <input type="text" name="name" placeholder="Club name ">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-box email-icon mb-30">
+                                                <input type="text" name="email" placeholder="Club activity">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-box date-icon mb-30">
+                                                <input type="text" name="date" placeholder="Booking date">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-box person-icon mb-30">
+                                                <input type="text" name="person" placeholder="Person">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-box time-icon mb-30">
+                                                <input type="text" name="time" placeholder="Atten time">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-box message-icon mb-30">
+                                                <textarea name="message" id="message" cols="30" rows="10" placeholder="Club description"></textarea>
+                                            </div>
+                                            <div class="contact-btn">
+                                                <button class="btn" type="submit"><span class="btn-text">Edit</span> <span class="btn-border"></span></button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                   
+                                </form>#}
+{#{{ include('events/_form.html.twig') }}#}
+{{form_start(form, {'id': 'booking-form'})}}
+<div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-box mb-30">
+{{form_widget(form.name)}}
+</div>
+</div>
+<div class="form-group col-md-4">
+     
+                <div class='input-group date' id='datetimepicker1'>
+   
+        {{ form_errors(form.date) }}
+    
+     {{ form_widget(form.date, { 'attr': {'class': 'datepicker'} }) }}
+
+     <span class="input-group-addon">
+                        <span class="tim-icons icon-calendar-60"></span>
+                    </span>
+                </div>
+            </div>
+<script type="text/javascript">
+            $(function () {
+                $('#datetimepicker1').datetimepicker({
+                   format: 'mm/DD/YYYY'
+                });
+            });
+        </script>
+   <div class="col-lg-12">
+                                            <div class="form-box mb-30">
+{{form_widget(form.description)}}
+</div></div>
+<label>Event banner</label>
+{{form_widget(form.photoFile)}}
+<br><br>
+<button class="btn"><span class="btn-text">{{ button_label|default('Save') }}</span> <span class="btn-border"></button>
+{{form_end(form)}}
+
+                            </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- booking-area-end -->
+{% endblock %}

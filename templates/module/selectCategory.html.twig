@@ -1,0 +1,203 @@
+{# empty Twig template #}
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+{{parent()}}
+<link rel="stylesheet" href="{{asset('style.css')}}"/>
+{% endblock %}
+{% block body %}
+
+<section name='Title' style='margin-top:140px;'>
+        <div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;">   COURSES
+            <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+
+            </div>
+          </div>
+        </div>
+      </section>
+      {% for message in app.flashes('danger') %}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+{% endfor %}
+<style>
+#parent #popup {
+  display: none;
+}
+#parent:hover #popup {
+  display: block;
+}
+</style>
+{% if app.user.status=="Admin"%}
+<div class="section section-examples" style="margin-top:50px;" data-background-color="black">
+        
+        <div class="space-50"></div>
+<div class="container text-center">
+          
+          {% set i=0 %}
+          {% for category in catagories %}
+          <div class="row" style="margin-bottom:20px;">
+              <div class="col-md-2"></div>
+              <div class="col-md-4">
+         <a id="{{category.id}}"  {% if app.user.status != "Student" or category in categoriesUnlocked %}href="{{ path('module_selectClasse',{'id':category.id}) }}"{% else %} disabled style="opacity:0.5" {% endif %} >
+              {% if category.photo!= null %}
+              <img class="d-block"style='height:220px;width:400px;border:1px solid ;border-radius:6px;' src="{{asset('uploads/category/photos/'~category.photo)}}"style="margin-top:28px;"  />
+              {% else %}
+              <img src="{{asset('image/logo-edutest.png')}}" style='height:220px;width:400px;border:1px solid ;border-radius:6px;' alt="Image" class="img-raised">
+              {% endif %}
+              </a></div></div>
+             
+             {#<div id="popup{{category.id}}" style="display: none">Check {{category.name}}</div>#}
+           
+           
+            <script>
+var e = document.getElementById('{{category.id}}');
+e.onmouseover = function() {
+  document.getElementById('popup{{category.id}}').style.display = 'block';
+}
+e.onmouseout = function() {
+  document.getElementById('popup{{category.id}}').style.display = 'none';
+}
+</script>
+
+            {% endfor %}
+            
+          </div>
+
+</div>
+</div>
+
+		{% if app.user.status=="Admin" %}
+<a href="{{ path('module_new') }}" class="btn btn-lg btn-success">Create new</a>
+{% endif %}
+
+              </div>
+
+
+<script>
+var tabButtons=document.querySelectorAll(".tabContainer .buttonContainer button");
+var tabPanels=document.querySelectorAll(".tabContainer  .tabPanel");
+
+function showPanel(panelIndex,colorCode) {
+    tabButtons.forEach(function(node){
+        node.style.backgroundColor="";
+        node.style.color="";
+    });
+    tabButtons[panelIndex].style.backgroundColor=colorCode;
+    tabButtons[panelIndex].style.color="white";
+    tabPanels.forEach(function(node){
+        node.style.display="none";
+    });
+    tabPanels[panelIndex].style.display="block";
+    tabPanels[panelIndex].style.backgroundColor=colorCode;
+}
+showPanel(0,'#f44336');
+</script>
+
+<script>
+function openCity(evt, cityName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+{% endif %}
+{% if app.user.status=="Student"%}
+<!--QUIZZ-->
+        <section id="quizz-intro-section" class="quizz-intro-section learn-section" style="min-height: 175px;">
+        <div class="container">
+
+            <div class="title-ct">
+                
+            </div>
+
+            <div class="question-content-wrap">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="question-content">
+                        
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <aside class="question-sidebar" {#style="height: 700px;"#}>
+                            <div class="score-sb">
+                                <h4 class="title-sb sm bold">Category<span></span></h4>
+                                <div class="list-wrap ps-container ps-active-x ps-active-y" style="height: 100%; max-height: none;">
+                                <ul>
+                                 {% set i=0 %}
+                                   {% for category in catagories %}
+                                    <li class="{% if category in categoriesUnlocked %} active {% else %} val {% endif %}"><i class="icon"></i>
+                                    <a data-toggle="collapse" href="#multiCollapseExample{{category.id}}"aria-expanded="false" aria-controls="multiCollapseExample{{category.id}}" >{{category.name}}</a><span></span>
+                                      <div style="{% if category not in categoriesUnlocked %} display:none;{% endif %}" class="collapse multi-collapse" id="multiCollapseExample{{category.id}}">
+                                      <ul> 
+                                      {% for class in category.classes %}
+                                        <li>
+                                          <a href="{{path('module_weeks',{'idClass':class.id,'idWeek':1})}}" >{{class.name}} </a>
+                                          </li>
+                                        {% endfor %}
+                                      </ul>
+                                      </div>
+                                    </li>
+                                    {% endfor %}
+                                </ul><div class="ps-scrollbar-x-rail" style="width: 326px; display: inherit; left: 0px;"><div class="ps-scrollbar-x" style="left: 0px; width: 150px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; height: 520px; display: inherit; right: 0px;"><div class="ps-scrollbar-y" style="top: 0px; height: 150px;"></div></div></div>
+                            </div>
+                           
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<style>
+.btn {
+  background-color: var(--white);
+  border: 2px solid var(--gray);
+  border-bottom: 5px solid var(--gray);
+  border-radius: 9px;
+  font-size: 1rem;
+  padding: 0.25rem 0.35rem;
+  margin: 0.2rem;
+}
+
+.selected {
+  background-color: var(--blue-bkg);
+  border-color: var(--blue);
+  color: var(--blue-font);
+}
+
+.btn:focus,
+.btn:active {
+  animation: pick 0.15s ease-in;
+}
+
+@keyframes pick {
+  100% {
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+  }
+}
+
+</style>
+{% endif %}
+     
+{% endblock %}

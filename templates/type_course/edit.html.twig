@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit TypeCourse{% endblock %}
+
+{% block body %}
+<section class="section section-lg">
+      <img src="{{asset('assetss/img/path4.png')}}" class="path">
+     
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+            <h1 class="text-center">Module Management</h1>
+            <div class="row row-grid justify-content-center">
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+ <div class="container-fluid mt--7">
+      <!-- Table -->
+      <div class="row">
+        <div class="col-xl-10 order-xl-1">
+          <div class="card shadow">
+            <div class="card-header border-0">
+    <h1>Edit TypeCourse</h1>
+{{ form_start(form) }}
+     <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+            {{ form_errors(form.Name) }}
+            {{ form_widget(form.Name) }}
+</div></div></div>
+<div class="col-lg-8">
+                      <div class="form-group">
+    {# store the prototype on the data-prototype attribute #}
+    <ul id="fieldAvailable-fields-list"
+        data-prototype="{{ form_widget(form.fields_available.vars.prototype)|e }}"
+        data-widget-tags="{{ '<li></li>'|e }}"
+        data-widget-counter="{{ form.fields_available|length }}">
+        {% set cpt = 0 %}
+        
+                    
+    {% for fieldAvailableField in form.fields_available %}
+        <li id="fieldAvailableLi{{ cpt }}">
+            {{ form_errors(fieldAvailableField) }}
+            {{ form_widget(fieldAvailableField) }}
+            <button id="removeField{{ cpt }}" type="button" class="btn btn-outline-danger btn-sm ni ni-fat-remove text-dark"></button>
+        </li>
+        {% set cpt = cpt + 1 %}
+    {% endfor %}
+    
+    </ul>
+    </div></div></div>
+
+    <button type="button"
+        class="add-another-collection-widget btn btn-primary ni ni-fat-add text-white"
+        data-list-selector="#fieldAvailable-fields-list"> Add new field</button>
+    <button class="btn btn-warning">{{ button_label|default('Update') }}</button>
+{{ form_end(form) }}
+    
+
+    {{ include('type_course/_delete_form.html.twig') }}
+
+</div></div>
+    <a href="{{ path('type_course_index') }}" class=" btn btn-outline-default">back to list</a>
+{% endblock %}

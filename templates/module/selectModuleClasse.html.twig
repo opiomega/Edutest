@@ -1,0 +1,171 @@
+{# empty Twig template #}
+{% extends 'base.html.twig' %}
+{% block body %}
+</br></br>
+{% for message in app.flashes('danger') %}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+{% endfor %}
+<section name='Title' style='margin-top:140px;'>
+        <div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;">   COURSES
+            <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+
+            </div>
+          </div>
+        </div>
+      </section>
+      {% for message in app.flashes('danger') %}
+    <div class="alert alert-danger">
+        {{ message }}
+    </div>
+{% endfor %}
+<style>
+#parent #popup {
+  display: none;
+}
+#parent:hover #popup {
+  display: block;
+}
+</style>
+
+<div class="section section-examples" style="margin-top:50px;" data-background-color="black">
+        
+        <div class="space-50"></div>
+<div class="container text-center">
+          
+          {% set i=0 %}
+          {% for category in catagories %}
+          <div class="row" style="margin-bottom:20px;">
+              <div class="col-md-2"></div>
+              <div class="col-md-4">
+          <a id="{{category.id}}" {% if app.user.status != "Student" or category in categoriesUnlocked %}href="{{ path('module_selectClasse',{'id':category.id}) }}"{% else %} disabled style="opacity:0.5" {% endif %} >
+              <img class="d-block"style='height:220px;width:400px;border:1px solid ;border-radius:6px;' src="{{asset('uploads/category/photos/'~category.photo)}}"style="margin-top:28px;"  />
+              
+
+              </a></div>
+          </div>
+             
+             {#<div id="popup{{category.id}}" style="display: none">Check {{category.name}}</div>#}
+           
+           <div class="row ">
+            <div class="col-md-2"></div>
+            <div class="col-md-4">
+            {% set a=0 %}
+            {% for classe in classes %}
+               {% if app.request.get('id')==category.id and (app.user.status != "Student" or classe in classesUnlocked) %}
+            
+            
+              <label class="moduleClasses">
+                <input type="radio" name="classe" value="{{ loop.index-1 }}">
+                  <span class="subCategory subCategory{{ loop.index-1}}">{{classe.name}}</span>
+              </label>
+              <div id="hiddenModuleValues{{ loop.index-1 }}" style="display:none;">
+                 {% for type in typeCourses %}
+                       <p><a href="{{ path('module_index',{'idType':type.id,'idCategory':classe.category.id,'idClass':classe.id}) }}">{{ type.name }}</a></p>
+                 {% endfor %}
+              </div>
+                {#{% if a==0 %}#}
+                {% endif %}
+                {% if loop.index == ( classes|length ) and app.request.get('id')==category.id %}
+                    </div>
+              <div class="col-md-4">
+              <div id="{{classe.id}}" >
+                <div id="typeCoursesBefore"></div>
+                <div class="typeCourses" id="typeCoursesModal">
+                    <div style="float: left; display:inline" id="coursesTypesLinks">
+                    {#{% for type in typeCourses %}
+                        <p></p>
+                    {% endfor %}#}
+                    </div>
+                    <div class="points" style="float: right; top:-50px; right:-25px; position: relative; width:100px; height:100px;"></div>
+                    <div style="clear: both"></div>
+                </div>
+              </div>
+            {% set a=a+1%}
+            {% endif %}
+   
+            
+                
+                {% endfor %}
+            
+        </div></div>
+
+    <script>
+        $(document).ready(function(){
+            $("#coursesTypesLinks").html($("#hiddenModuleValues"+$(this).val()).html());
+        });
+        $(".moduleClasses input").click(function(){
+            
+            if($(this).prop("checked") == true){
+                $(".typeCourses").show();
+                $("#typeCoursesBefore").html('');
+                window.location.href= "#typeCoursesModal";
+                $("#coursesTypesLinks").html($("#hiddenModuleValues"+$(this).val()).html());
+                if($(window).width() >= 767) {
+                    for (var i=0;i<parseInt($(this).val());i++)
+                        $("#typeCoursesBefore").append('<div style="height:'+$(".subCategory"+i).height()+'px; padding-top:5%;"></div>');
+                }
+            }
+            else if($(this).prop("checked") == false){
+                $(".typeCourses").hide();
+            }
+        })
+    </script>
+{% endfor %}
+
+		{% if app.user.status=="Student" %}
+<a href="{{ path('module_new') }}" class="btn btn-lg btn-success">Create new</a>
+{% endif %}
+
+              </div>
+<script>
+var tabButtons=document.querySelectorAll(".tabContainer .buttonContainer button");
+var tabPanels=document.querySelectorAll(".tabContainer  .tabPanel");
+
+function showPanel(panelIndex,colorCode) {
+    tabButtons.forEach(function(node){
+        node.style.backgroundColor="";
+        node.style.color="";
+    });
+    tabButtons[panelIndex].style.backgroundColor=colorCode;
+    tabButtons[panelIndex].style.color="white";
+    tabPanels.forEach(function(node){
+        node.style.display="none";
+    });
+    tabPanels[panelIndex].style.display="block";
+    tabPanels[panelIndex].style.backgroundColor=colorCode;
+}
+showPanel(0,'#f44336');
+</script>
+
+<script>
+function openCity(evt, cityName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
+
+
+
+{% endblock %}

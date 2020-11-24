@@ -1,0 +1,30 @@
+{% extends 'layout.html.twig'%}
+
+{% block body %}
+  <div class="container-fluid mt--7">
+    
+      <!-- Table -->
+      <div class="row">
+        <div class="col">
+          <div class="card shadow">
+            <div class="card-header border-0">
+   {% if user.user is defined %}
+   <h3> Hello {{ user.user.email }}   </h3> 
+   {% else %}
+       <h3> Hello {{ user.email }}   </h3> 
+   {% endif %}
+    <div>
+
+    <div>
+      <p>Your account has been disactivated. </p></br></br>
+
+      <p>Please contact the administration to re-activate your account.</p></br>
+
+      
+  </div>
+      </div>
+        </div>
+         </div>
+
+
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Education groups index{% endblock %}
+
+{% block body %}
+{% for type, flashMessages in app.session.flashbag.all() %}
+                {% for flashMessage in flashMessages %}
+                    <div class="alert alert-{{ type }}">
+                        {{ flashMessage|raw }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+<section name='Title' style='margin-top:140px;'>
+<div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';">  Education Group management
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+<div class="container">
+  <table style="border:none;" id="example"  class="table align-items-center table-flush  display dataTable">
+            <thead >
+                <th style="border-bottom:none;"><h5 class="text-bluee">Name</h5></th>
+                
+                <th style="border-bottom:none;"><h5 class="text-bluee">Action</h5></th>
+            </thead>
+            <tbody style="border:none;">
+            {% for education_group in education_groups %}
+                    
+             <tr height="50px"  onmouseover="show({{education_group.id}})"onmouseout="hide({{education_group.id}})" class="bg-gris">
+                <!--name-->
+               <td id="td{{education_group.id}}" class="bg-gris">{{ education_group.name }}</td>
+                <!--action-->
+                <td class="bg-gris">
+                    <button id="act{{education_group.id}}" style="display:none; " class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-bottom: 0px;margin-top: 0px">Actions</button>
+                      <div class="dropdown-menu ">
+                        
+                        <a class="dropdown-item" href="{{ path('education_group_edit', { 'id': education_group.id }) }}">Edit</a>
+                        <a class="dropdown-item"  href="#" onclick="showModal('myModal{{ education_group.id }}')">Delete</a>
+                    </div>
+                </td>
+             </tr>
+            <!--js function show and hide-->
+                        <script>
+                                function show(a){
+                                    document.getElementById('td'+a).style.backgroundColor='yellow';
+                                    document.getElementById('act'+a).style='display:inline;background:url({{ asset('image/icones/20.png') }}); background-size:cover; border:none; padding:15px; color:#FFFFFF;';
+                                }
+                                function hide(a){
+                                    document.getElementById('td'+a).style='';
+                                    document.getElementById('act'+a).style='display:none';
+                                }
+                            </script>
+            <div id="myModal{{  education_group.id }}" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Delete Confirmation</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>All students of this group will be deleted if your proceed this process!</p>
+                                            <p> Change all students of this group to an other one to avoid this problem</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                        <form method="post" action="{{ path('education_group_delete', {'id':  education_group.id}) }}">
+                                            <button type="button" class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+                                             <input type="hidden" name="_method" value="DELETE">
+                                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~  education_group.id) }}">
+                                             <button type="submit" class="btn btn-danger btn-md">Delete</button>
+                                             </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    
+    {% if app.user.status == "Admin" %}
+    <a style="border:none;width: 128px;height: 45px;padding-left: 15px;padding-top: 10px;" class="redback text-white over float-right" href="{{ path('education_group_new') }}">Create new</a>
+    {% endif %}
+            </div></div></div></div></div>
+    
+    <script>
+        function showModal(id) {
+            $("#"+id).modal();
+        }
+    </script>
+     <script>
+        function showModal(id) {
+            $("#"+id).modal();
+        }
+          $(document).ready(function() {
+    $('#example').DataTable();
+} );
+$(document).ready(function(){
+    document.getElementById('example_info').style="color:#B2273D";
+});
+    </script>
+    
+{% endblock %}

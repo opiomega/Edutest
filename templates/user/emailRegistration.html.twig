@@ -1,0 +1,28 @@
+{# empty Twig template #}
+{#{% extends 'layout.html.twig'%}#}
+
+{% block body %}
+  <div class="container-fluid mt--7">
+    
+      <!-- Table -->
+      <div class="row">
+        <div class="col">
+          <div class="card shadow">
+            <div class="card-header border-0">
+   <h3> Hello {{ user.username }}   </h3>  
+
+    <div>
+      <p>Your account has been created. Welcome to Edutest Tunisia community .</p></br></br>
+
+      {#<p>You can login to your account using your email and your password 
+          after the paymenet procedure is done.</p></br>#}
+
+      <p>click to this <a href="{{url('confirmation_registration',{'userId':user.id,'key':key})}}" class="btn btn-primary">link</a> to confirm your registration :</p></br>
+      
+  </div>
+      </div>
+        </div>
+         </div>
+
+
+{% endblock %}

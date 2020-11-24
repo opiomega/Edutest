@@ -1,0 +1,68 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    app.path.product_images: /uploads/images/users
+    app.path.category_photos: /uploads/category/photos
+    app.path.candidature_tests: /uploads/candidature/tests
+    app.path.candidature_letterOfRecommendations: /uploads/candidature/letterOfRecommendations
+    app.path.candidature_letterOfRecommendationsMath: /uploads/candidature/letterOfRecommendationsMath
+    app.path.candidature_surveys: /uploads/candidature/surveys
+    app.path.candidature_transcriptsBac: /uploads/candidature/transcriptsBac
+    app.path.candidature_transcriptsThird: /uploads/candidature/transcriptsThird
+    app.path.candidature_transcriptsSecond: /uploads/candidature/transcriptsSecond
+    app.path.candidature_transcriptsFirst: /uploads/candidature/transcriptsFirst
+    app.path.candidature_bankStatements: /uploads/candidature/bankStatements
+    app.path.candidature_passport: /uploads/candidature/passport
+    app.path.candidature_cin: /uploads/candidature/cin
+    app.path.module_supportsPdf: /uploads/module/supportsPdf
+    app.path.test_supportsPdf: /uploads/test/supportsPdf
+    app.path.user_photos: /uploads/user/photos
+    app.path.universities_photos: /uploads/universities/photos
+    app.path.module_supportsDocument: /uploads/module/supportsDocument
+    app.path.logos: /uploads/clubs/logos
+    app.path.events: /uploads/clubs/events
+    app.path.photoc: /uploads/clubs/photoc
+    app.path.test_listening_audio: /uploads/test/listening
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+#redirect.after.login:
+       # class: App\Redirection\AfterLoginRedirection
+        #arguments: ['@router']
+    
+    
+    App\EventListener\LoginListener:
+        tags:
+            - { name: 'kernel.event_listener', event: 'security.interactive_login' }
+    
+    
+    
+    Emailing:
+        class: App\Service\Emailing
+        public: true
+       
+    App\EventListener\CalendarListener:
+        tags:
+            - { name: 'kernel.event_listener', event: 'calendar.set_data', method: load }
+    
+

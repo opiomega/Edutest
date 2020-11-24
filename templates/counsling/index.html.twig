@@ -1,0 +1,144 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Counseling index{% endblock %}
+
+{% block body %}
+{#
+</br></br>
+<section class="section section-lg">
+      <img src="{{asset('assetss/img/path4.png')}}" class="path">
+     
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+            <h1 class="text-center">Counseling Sessions</h1>
+            <div class="row row-grid justify-content-center">
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="row justify-content-center"> 
+    <div class="col-11">
+    <div class="card card-plain" style="border:solid 1px ;">
+    <div class="card_head">
+    <a class="btn btn-info btn-sm" href="{{ path('counsling_new') }}">Create new</a>
+            <a href="{{path('enseignant_session')}}" class='btn btn-neutral btn-sm text-red float-right' ><i class="tim-icons  icon-tv-2 "></i>Check Calendar</a>
+             <a href="{{path('booked_student_index',{'id':app.user.teacher[0].id})}}" class='btn btn-info btn-sm  float-right' >Students action</a>
+
+    </div>
+    <div class="card-body">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Start time</th>
+                <th>End time</th>
+                <th>Date</th>
+               
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for counsling in counslings %}
+            <tr>
+                <td>{{ counsling.id }}</td>
+                <td>{{ counsling.begintime }}</td>
+                <td>{{ counsling.endtime }}</td>
+                <td>{{ counsling.date ? counsling.date|date('Y-m-d') : '' }}</td>
+                
+                <td>
+                    
+                    <a href="{{ path('counsling_edit', {'id': counsling.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+#}
+<section name='Title' style='margin-top:140px;'>
+        <div class="container">
+            <div class="row justify-content-center">
+             <h1 class="text-center"style="color:#B2273D;">   Counseling Availability
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+                </div>
+            </div>
+            </div>
+        </div>
+      </section>
+        <style>
+         #new a {text-decoration: none;}   
+            
+        </style>
+      <section name="list session" style="margin-top:40px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                 <div  id="new"  class="float-left redback over" >
+                   <a href="{{path('counsling_new')}}" class="float-right text-centred" style="padding-right: 3px;padding-left: 15px;padding-top: 8px; font-size: 13px;" >
+               <span class="text-white">Schedule a new counseling session</span></a>
+                </div>
+                </div>
+                <div class="col-4"></div>
+                <div class="col-md-5">
+                    <div class="row">
+                        <div class="col-md">
+                             <div class="float-right redback over">
+                   <a href="{{path('booked_student_index',{'id':app.user.teacher[0].id})}}" class="float-right text-centred" style="padding-left:16px;  padding-top: 16px; width: 100%; height:100%;" >
+               <span class="text-white" style="font-size:15px;">Booked Sessions</span></a>
+                </div>
+                        </div>
+                        <div class="col-md">
+                             <div  class="float-right redback over">
+                   <a href="{{ path('enseignant_session') }}" class="float-right text-centred" style=" padding-right: 12px;padding-top: 17px;" >
+               <span class="text-white">Check calendar</span></a>
+                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+            function over(){
+                this.style="width:170px;height:60px;background-image:url('{{asset('image/icones/21.png')}}');background-size:cover;";
+             
+               
+            }
+                function out(){
+                    this.style="width:170px;height:60px;background-image:url('{{asset('image/icones/20.png')}}');background-size:cover;";
+               
+            }
+            </script>
+            <div class="row" style="margin-top:20px;">
+                <div class="col-md">
+               <h4 class="text-bluee text-center">start time</h4></div>
+               
+               <div class="col-md">
+               <h4 class="text-bluee text-center">end time</h4></div>
+               <div class="col-md"> <h4 class="text-bluee text-center">date</h4></div>
+               <div class="col-md"> <h4 class="text-bluee text-center">action</h4></div>
+            </div>
+            {% for counsling in counslings %}
+                <div class="row">
+                    <div class="col-md"style="height:58px;background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:10px;margin-right:10px;">
+                    <h5 class="text-center">{{ counsling.begintime }}</h5></div>
+               
+                    <div class="col-md"style="height:58px;background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:10px;margin-right:10px;">
+                    <h5 class="text-center">{{ counsling.endtime }}</h5></div>
+                    <div class="col-md"style="height:58px;background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:10px;margin-right:10px;">
+                    <h5 class="text-center">{{ counsling.date ? counsling.date|date('Y-m-d') : '' }}</h5></div>
+                    <div class="col-md"style="height:58px;background-color:rgba(241,242,242,0.7);padding-top:20px;padding-bottom:10px;margin-right:10px;">
+                        <h5 class="text-center" ><a href="{{ path('counsling_edit', {'id': counsling.id}) }}" style="color:#03A752!important;">edit</a></h5>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+      </section>
+{% endblock %}

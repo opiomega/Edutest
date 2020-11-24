@@ -1,0 +1,1192 @@
+
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+{{parent()}}
+<link rel="stylesheet" href="{{asset('style.css')}}"/>
+{% endblock %}
+{% block title %}{{ category.name  }}{% endblock %}{#~' '~typeCourse.name#}
+
+{% block body %}
+<section name='Title' style='margin-top:140px;'>
+<div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';"> Module Management
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+
+{% if app.user.status== "Admin"%}
+<div style="margin-right:50px;margin-left:50px;margin-top:50px;">
+    <div> <h3 class="text-rede">{{ category.name }} {{ typeCourse.name }}</h3></h1>
+
+            </div>
+            {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('delete') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('update') %}
+            <div class="alert alert-warning" role="alert">
+                {{ message }}
+                </div>   
+                {% endfor %}  
+       <table id="exemple" class="table align-items-center table-flush  dataTable sortable" >
+                <thead class="thead-light">
+            <tr>
+                
+                    <th scope="col">Position </th>
+                    <th>&nbsp;</th>
+                    {% if typeCourse.name=="Video" or typeCourse.name=="Live" %}
+                    <th scope="col">Title </th>
+                    <th scope="col">Description </th>
+                    {% else %}
+                    <th scope="col">Title </th>
+                    <th scope="col">Description </th>
+                    <th scope="col">File</th>
+                    {% endif %}
+                    <th scope="col">Action </th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for module in modules  %}
+                <tr draggable="true" rel="{{ module.id }}">
+            <td><i class="fa fa-arrows"></i></td>
+                    
+
+                     {% if module.position is defined %}
+                  {% if module.position != null %}
+                        <td><span class="mb-0 text-default text-sm">{{ module.position }} </span></td>
+                         {% else %}
+                      <td> - no data- </td>
+                    {% endif %}
+                    {% else %}
+                    <td> <button type="button" class="btn btn-info btn-sm" data-container="body" data-toggle="popover" data-color="danger" data-placement="top" >
+  Added by Admin
+</button> </td>
+                    {% endif %}
+                   
+
+                     {% if module.title is defined %}
+                    
+                      <td> {% if module.title != null %}<span class="mb-0 text-default text-sm"> {{ module.title }}</span>{% else %}<button type="button" class="btn btn-danger btn-sm" data-container="body" data-toggle="popover" data-color="danger" data-placement="top" >
+  No Title
+</button>
+                      {% endif %}</td>
+                      
+                    {% endif %}
+                    
+                    {% if module.description is defined %}
+                    
+                        <td>{% if module.description != null %}<span class="mb-0 text-default text-sm">{{ module.description }}</sapn>{% else %}<button type="button" class="btn btn-danger btn-sm" data-container="body" data-toggle="popover" data-color="danger" data-placement="top" >
+  No description
+</button>{% endif %}</td>
+                    {% endif %}
+                     
+                     {% if typeCourse.name=="Course"%}
+                   <td>
+                   <table class="table ">
+                    {% for modulefile in module.moduleDocuments %}
+                    <tr>
+                    {% if modulefile.supportDocument is not null %}
+              
+                        <td><span class="mb-0 text-info text-sm"> {{modulefile.supportDocument }} </span></td>
+                     {% else %}
+                     <button type="button" class="btn btn-danger btn-sm" data-container="body" data-toggle="popover" data-color="danger" data-placement="top" >
+  No document available
+</button>
+                    {% endif %}
+                    {% else %}
+                    <button type="button" class="btn btn-danger btn-sm" data-container="body" data-toggle="popover" data-color="danger" data-placement="top" >
+  No document available
+</button>
+                    </tr>
+                    {% endfor %}
+                    
+                    </table></td>{% endif %}
+                    {% if typeCourse.name=="Video" %}
+                    {% if module.video is not null %}
+                        <td>https://www.youtube.com/embed/{{ module.video }}</td>
+                    {% endif %}
+                    {% endif %}
+                    {% if typeCourse.name=="Live" %}
+                    {% if module.iframe is not null %}
+                        <td>{{ module.iframe }}</td>
+                    {% endif %}{% endif %} 
+                     <td >
+
+                                    <div class="btn-group">
+                                        <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-bottom: 0px;margin-top: 0px">Actions</button>
+
+                                        <div class="dropdown-menu ">
+                                      {#}  <a class="dropdown-item" href="{{ path('module_show', { 'idClass':module.classe.id,'id': module.id }) }}">
+                                            <i class="tim-icons text-blue icon-tv-2"></i>
+                                            show</a>#}
+
+                                         
+                                        {% if app.user.status!="Student" %}
+                                             <a class="dropdown-item" href="{{ path('module_edit', { 'id': module.id }) }}"  >
+                                        <i class="tim-icons text-yellow icon-settings-gear-63"></i>Edit
+                                                </a>
+                                         <a rel="tooltip" class="dropdown-item" onclick="showModal('myModal{{ module.id }}')" href="#" >
+                                            <i class="tim-icons text-red icon-simple-remove"></i>Delete</a>
+
+
+                                         {% endif %}
+                                        
+                                        </div>
+                                    </div>
+                                </td>
+         
+  <div id="myModal{{ module.id }}" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Delete Confirmation</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Do you really want to delete this xO !</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                         <form method="post" action="{{ path('module_delete', {'id': module.id}) }}" >
+                                            <button type="button" class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+                                           
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ module.id) }}">
+                                            <button type="submit" class="btn btn-danger btn-md">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                </tr>
+
+
+                             
+
+            {% else %}
+                <tr>
+                    <td colspan="7">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+        <script>
+        function showModal(id) {
+           
+            $("#"+id).appendTo("body").modal('show');
+        }
+    </script>
+<style>
+[draggable] {
+    user-select: none;
+    -webkit-user-drag: element;
+    cursor: move;
+}
+table.sortable {
+    i.fa.fa-arrows {
+        color: #999;
+    }
+    tr.over {
+        border: 1px dashed red;
+    }
+}
+
+</style>
+   <script>
+   var adminNs =
+{
+initDraggableEntityRows: function() {
+var dragSrcEl = null; // the object being drug
+var startPosition = null; // the index of the row element (0 through whatever)
+var endPosition = null; // the index of the row element being dropped on (0 through whatever)
+var parent; // the parent element of the dragged item
+var entityId; // the id (key) of the entity
+function handleDragStart(e) {
+dragSrcEl = this;
+entityId = $(this).attr('rel');
+dragSrcEl.style.opacity = '0.4';
+parent = dragSrcEl.parentNode;
+startPosition = Array.prototype.indexOf.call(parent.children, dragSrcEl);
+console.log("start: "+startPosition);
+e.dataTransfer.effectAllowed = 'move';
+e.dataTransfer.setData('text/html', this.innerHTML);
+console.log(entityId);
+}
+function handleDragOver(e) {
+//console.log('drag over: '+ e.target);
+if (e.preventDefault) {
+e.preventDefault(); // Necessary. Allows us to drop.
+}
+e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
+return false;
+}
+function handleDragEnter(e) {
+//console.log('drag enter: '+ e.target);
+this.classList.add('over');
+}
+function handleDragLeave(e) {
+//console.log('drag leave: '+ e.target);
+this.classList.remove('over');  // this / e.target is previous target element.
+}
+function handleDrop(e) {
+//console.log('drop: '+ e.target);
+//console.log(e.currentTarget);
+//console.log(dragSrcEl);
+if (e.stopPropagation) {
+e.stopPropagation(); // stops the browser from redirecting.
+}
+// Don't do anything if dropping the same column we're dragging.
+if (dragSrcEl != this) {
+endPosition = Array.prototype.indexOf.call(parent.children, this);
+console.log("end: "+endPosition);
+// Set the source column's HTML to the HTML of the column we dropped on.
+dragSrcEl.innerHTML = this.innerHTML;
+this.innerHTML = e.dataTransfer.getData('text/html');
+// do the ajax call to update the database
+$.ajax({
+url: '/admin/productcategory/sort/'+entityId+'/'+endPosition,
+})
+.done(function(res) {
+$("table.sortable tbody").replaceWith($(res).find("table.sortable tbody"));
+})
+.fail(function(err) {
+alert("An error occurred while sorting. Please refresh the page and try again.")
+})
+.always(function() {
+adminNs.initDraggableEntityRows();
+});
+}
+return false;
+}
+function handleDragEnd(e) {
+//console.log('drag end: '+ e.target);
+this.style.opacity = '1';  // this / e.target is the source node.
+[].forEach.call(rows, function (row) {
+row.classList.remove('over');
+});
+}
+var rows = document.querySelectorAll('table.sortable > tbody tr');
+[].forEach.call(rows, function(row) {
+row.addEventListener('dragstart', handleDragStart, false);
+row.addEventListener('dragenter', handleDragEnter, false);
+row.addEventListener('dragover', handleDragOver, false);
+row.addEventListener('dragleave', handleDragLeave, false);
+row.addEventListener('drop', handleDrop, false);
+row.addEventListener('dragend', handleDragEnd, false);
+});
+},
+/**
+* Primary Admin initialization method.
+* @returns {boolean}
+*/
+init: function() {
+...
+this.initDraggableEntityRows();
+return true;
+}
+};
+$(function() {
+adminNs.init();
+});
+   </script>
+
+  <script>
+    $(document).ready( function () {
+    $("#exemple").DataTable();
+    } );
+  </script>
+  <script type="text/javascript">
+				 $(document).ready(function() {
+    $('#example').DataTable( {
+        "order": [[ 3, "desc" ]]
+    } );
+    } );
+   </script>
+  
+    
+
+<div style="margin-top:20px;">
+               {% if app.user.status=="Admin" %}
+    <a href="{{ path('module_new',{'idType':typeCourse.id ,'idCategory':category.id,'idClass':class.id }) }}" class="redback over text-white float-right" >
+    <p style="margin-top: 10%;margin-left: 20%;">Create new</p></a>
+    
+   
+    {% endif %}
+
+     <a href="{{ path('module_selectCategory') }}">back to cateories list</a>
+</div></div>
+   
+{% endif %}
+{% if app.user.status=="Student"%}
+<!--QUIZZ-->
+        <section id="quizz-intro-section" class="quizz-intro-section learn-section" style="min-height: 175px;">
+        <div class="container">
+
+            <div class="title-ct">
+                <h3><strong>Quizz 1</strong>Duis vel ullamcorper mauris, eu pretium felis. Duis gravida laoreet velit.</h3>
+                <div class="tt-right">
+                    <a href="#" class="skip"><i class="icon md-arrow-right"></i>Skip quizz</a>
+                </div>
+            </div>
+
+            <div class="question-content-wrap">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="question-content">
+                               <!-- SECTION OUTLINE -->
+                                <div class="section-outline">
+                                {% set i=0 %}
+                                {% for module in modules  %}
+                               <h4 class="tit-section xsm"style="margin-bottom:50px;"><a  data-toggle="collapse" href="#multiCollapseExamplee{{module.id}}"aria-expanded="{% if i==0 %} true {% else %}flase {% endif %}" aria-controls="multiCollapseExamplee{{module.id}}" style="color:white;">Section {{loop.index}}: {{module.title}}</a></h4>
+                                    <div class="collapse multi-collapse {% if i==0 %}show {% endif  %}" id="multiCollapseExamplee{{module.id}}">
+                                    
+                                    <ul class="section-list">
+                                        <li class="o-view">
+                                            <div class="count"><span>1</span></div>
+                                            <div class="list-body">
+                                                <i class="fas fa-video"></i>
+                                                <p><a href="#">Lorem ipsum dolor sit amet, consectetuer adipiscing elita</a></p>
+                                                <div class="data-lessons">
+                                                    <span>36:56</span>
+                                                </div>
+    
+                                                <div class="download">
+                                                    <a href="#"><i class="icon md-download-1"></i></a>
+                                                    <div class="download-ct">
+                                                        <span>Reference 12 mb</span>
+                                                    </div>
+                                                </div>
+                                                <div class="div-x"><i class="fas fa-check"></i></div>
+                                                <div class="line"></div>
+                                            </div>
+                                        </li>
+    
+                                        <li class="o-view">
+                                            <div class="count"><span>2</span></div>
+                                            <div class="list-body">
+                                                <i class="fas fa-pencil-alt"></i>
+                                                <p><a href="#">Lorem ipsum dolor sit ameUt wisi enim ad minim veniam, quis nostrud Lorem ipsum dolor sit ame tation ullamcorper suscipit loborti</a></p>
+                                                <div class="data-lessons">
+                                                    <span>15 images</span>
+                                                </div>
+                                                <div class="download">
+                                                    <a href="#"><i class="icon md-download-1"></i></a>
+                                                    <div class="download-ct">
+                                                        <span>Reference 12 mb</span>
+                                                    </div>
+                                                </div>
+                                                <div class="div-x"><i class="fas fa-check"></i></div>
+                                                <div class="line"></div>
+                                            </div>
+                                        </li>
+    
+                                        <li>
+                                            <div class="count"><span>3</span></div>
+                                            <div class="list-body">
+                                                <i class="fas fa-sticky-note"></i>
+                                                <p><a href="#">Lorem ipsum dolor sit amet, consectetuer adipiscing elita</a></p>
+                                                <div class="data-lessons">
+                                                    <span>36:56</span>
+                                                </div>
+                                                <div class="download">
+                                                    <a href="#"><i class="icon md-download-1"></i></a>
+                                                    <div class="download-ct">
+                                                        <span>Reference 12 mb</span>
+                                                    </div>
+                                                </div>
+                                                <div class="div-x"><i class="icon md-check-2"></i></div>
+                                                <div class="line"></div>
+                                            </div>
+                                        </li>
+    
+                                        <li>
+                                            <div class="count"><span>4</span></div>
+                                            <div class="list-body">
+                                                <i class="fas fa-star"></i>
+                                                <p><a href="#">Lorem ipsum dolor sit amet, consectetuer adipiscing elita</a></p>
+                                                <div class="data-lessons">
+                                                    <span>45 slides</span>
+                                                </div>
+                                                <div class="download">
+                                                    <a href="#"><i class="icon md-download-1"></i></a>
+                                                    <div class="download-ct">
+                                                        <span>Reference 12 mb</span>
+                                                    </div>
+                                                </div>
+                                                <div class="div-x"><i class="icon md-check-2"></i></div>
+                                                <div class="line"></div>
+                                            </div>
+                                        </li>
+    
+                                        <li class="o-view">
+                                            <div class="count"><span><i class="icon md-search"></i></span></div>
+                                            <div class="list-body">
+                                                <i class="icon md-files"></i>
+                                                <p><a href="#"><span>Quizz 1 :</span> Lorem ipsum dolor sit ameUt wisi enim ad minim veniam</a></p>
+                                                <div class="data-lessons">
+                                                    <span>10 questions</span>
+                                                </div>
+                                                <div class="download">
+                                                    <a href="#"><i class="icon md-download-1"></i></a>
+                                                    <div class="download-ct">
+                                                        <span>Reference 12 mb</span>
+                                                    </div>
+                                                </div>
+                                                <div class="div-x"><i class="fas fa-check"></i></div>
+                                                <div class="line"></div>
+                                            </div>
+                                        </li>
+    
+                                        
+                                    </ul>
+                                    </div>
+                                    {% set i=i+1 %}
+                                    {% endfor %}
+                                    
+                                </div>
+                                  {{form_start(form)}}
+        {{form_row(form.content)}}
+    {{form_end(form)}}
+
+                                <!-- END / SECTION OUTLINE -->
+    
+                           <div style="display:none;" id="foo">This is foo</div>
+                           <div class="create-course-sidebar">
+                            <ul class="list-bar">
+                                <li class="active"><span class="count">1</span>Basic Information</li>
+                                <li><span class="count">2</span>Design Course</li>
+                                <li><span class="count">3</span>Publish Course</li>
+                            </ul>
+                            <div class="support">
+                                <a href="#"><i class="icon md-camera"></i>See how it work short tutorial</a>
+                                <a href="#"><i class="icon md-flash"></i>Instant Support</a>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <aside class="question-sidebar" {#style="height: 700px;"#}>
+                            <div class="score-sb">
+                                <h4 class="title-sb sm bold">Total score<span>100</span></h4>
+                                <div class="list-wrap ps-container ps-active-x ps-active-y" style="height: 100%; max-height: none;">
+                                <ul>
+                                 {% set i=0 %}
+                                   {% for category in catagories %}
+                                    <li class="{% if category in categoriesUnlocked %} active {% else %} val {% endif %}"><i class="icon"></i>
+                                    <a data-toggle="collapse" href="#multiCollapseExample{{category.id}}"aria-expanded="false" aria-controls="multiCollapseExample{{category.id}}" >{{category.name}}</a><span></span>
+                                      <div style="{% if category not in categoriesUnlocked %} display:none;{% endif %}" class="collapse multi-collapse" id="multiCollapseExample{{category.id}}">
+                                      <ul> 
+                                      {% for class in category.classes %}
+                                        <li>
+                                          {#<a href="{{path('module_index',{'idClass':class.id,'idCategory':category.id})}}" >{{class.name}} </a>#}
+                                          </li>
+                                        {% endfor %}
+                                      </ul>
+                                      </div>
+                                    </li>
+                                    {% endfor %}
+                                </ul><div class="ps-scrollbar-x-rail" style="width: 326px; display: inherit; left: 0px;"><div class="ps-scrollbar-x" style="left: 0px; width: 150px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; height: 520px; display: inherit; right: 0px;"><div class="ps-scrollbar-y" style="top: 0px; height: 150px;"></div></div></div>
+                            </div>
+                            <input type="submit" value="Submit all answer" class="submit mc-btn btn-style-1">
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section class="course-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="sidebar-course-intro">
+                        <div class="breadcrumb">
+                            <a href="">Home</a> / 
+                            <a href="">Course</a> / 
+                            Home Fitntess training
+                        </div>   
+                        <div class="video-course-intro">
+                            <div class="inner">
+                                <div class="video-place">
+                                    <div class="img-thumb">
+                                        <img src="images/thumb-intro.jpg" alt="">
+                                    </div>
+                                    <div class="awe-overlay"></div>
+                                    <a href="#" class="play-icon">
+                                        <i class="fa fa-play"></i>
+                                    </a>
+                                </div>
+                                <div class="video embed-responsive embed-responsive-16by9">
+                                    <iframe src="//player.vimeo.com/video/100872038" class="embed-responsive-item">
+                                    </iframe>
+                                </div>
+                            </div>
+                            <div class="price">
+                                 Free
+                             </div>
+                            <a href="#" class="take-this-course mc-btn btn-style-1">Take this course</a>
+                        </div>
+
+                        <div class="new-course">
+                            <div class="item course-code">
+                                <i class="icon md-barcode"></i>
+                                <h4><a href="#">Course Code</a></h4>
+                                <p class="detail-course"># A 15273</p>
+                            </div>
+                            <div class="item course-code">
+                                <i class="icon md-time"></i>
+                                <h4><a href="#">Duration</a></h4>
+                                <p class="detail-course">3 weeks</p>
+                            </div>
+                            <div class="item course-code">
+                                <i class="icon md-img-check"></i>
+                                <h4><a href="#">Open Date</a></h4>
+                                <p class="detail-course">25 May 2014</p>
+                            </div>
+                        </div>
+                        <hr class="line">
+                        <div class="about-instructor">
+                            <h4 class="xsm black bold">About Instructor</h4>
+                            <ul>
+                                <li>
+                                    <div class="image-instructor text-center">
+                                        <img src="images/team-13.jpg" alt="">
+                                    </div>
+                                    <div class="info-instructor">
+                                        <cite class="sm black"><a href="#">John Doe</a></cite>
+                                        <a href="#"><i class="fa fa-star"></i></a>
+                                        <a href="#"><i class="fa fa-envelope"></i></a>
+                                        <a href="#"><i class="fa fa-check-square"></i></a>
+                                        <p>Morbi nec nisi ante. Quisque lacus ligula, iaculis in elit et, interdum semper quam. Fusce in interdum tortor. Ut sollicitudin lectus dolor eget imperdiet libero</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="image-instructor">
+                                        <img src="images/team-13.jpg" alt="">
+                                    </div>
+                                    <div class="info-instructor">
+                                        <cite class="sm black"><a href="#">John Doe</a></cite>
+                                        <a href="#"><i class="fa fa-envelope"></i></a>
+                                        <a href="#"><i class="icon md-user-plus"></i></a>
+                                        <p>Morbi nec nisi ante. Quisque lacus ligula, iaculis in elit et, interdum semper quam. Fusce in interdum tortor. Ut sollicitudin lectus dolor eget imperdiet libero</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <hr class="line">
+                        <div class="widget widget_equipment">
+                            <i class="icon md-config"></i>
+                            <h4 class="xsm black bold">Equipment</h4>
+                            <div class="equipment-body">
+                                <a href="#">Photoshop CC</a>,
+                                <a href="#">Illustrator CC</a>
+                            </div>
+                        </div>
+                        <div class="widget widget_tags">
+                            <i class="icon md-download-2"></i>
+                            <h4 class="xsm black bold">Tag</h4>
+                            <div class="tagCould">
+                                <a href="#">Design</a>, 
+                                <a href="#">Photoshop</a>, 
+                                <a href="#">Illustrator</a>, 
+                                <a href="">Art</a>, 
+                                <a href="">Graphic Design</a>
+                            </div>
+                        </div>
+                        <div class="widget widget_share">
+                            <i class="icon md-forward"></i>
+                            <h4 class="xsm black bold">Share course</h4>
+                            <div class="share-body">
+                                <a href="#" class="twitter" title="twitter">
+                                    <i class="icon md-twitter"></i>
+                                </a>
+                                <a href="#" class="pinterest" title="pinterest">
+                                    <i class="icon md-pinterest-1"></i>
+                                </a>
+                                <a href="#" class="facebook" title="facebook">
+                                    <i class="icon md-facebook-1"></i>
+                                </a>
+                                <a href="#" class="google-plus" title="google plus">
+                                    <i class="icon md-google-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+                <div class="col-md-7">
+                    <div class="tabs-page">
+                        <div class="nav-tabs-wrap"><ul class="nav-tabs" role="tablist">
+                            <li class="active"><a href="#introduction" role="tab" data-toggle="tab">Introduction</a></li>
+                            <li><a href="#outline" role="tab" data-toggle="tab">Outline</a></li>
+                            <li><a href="#review" role="tab" data-toggle="tab">Review</a></li>
+                            <li><a href="#student" role="tab" data-toggle="tab">Student</a></li>
+                            <li><a href="#conment" role="tab" data-toggle="tab">Conment</a></li>
+                        <li class="tabs-hr" style="left: 0px; width: 84px;"></li></ul></div>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <!-- INTRODUCTION -->
+                            <div class="tab-pane fade in active" id="introduction">
+                                <h4 class="sm black bold">Introduction</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.</p>
+                                <h4 class="sm black bold">Goal of Course</h4>
+                                <ul class="list-disc">
+                                    <li><p>sed diam nonummy nibh euismod tincidunt ut laoreet</p></li>
+                                    <li><p>sed diam nonummy nibh euismod tincidunt utrlaoreet</p></li>
+                                </ul>
+                                
+                                <h4 class="sm black bold">About Judgement</h4>
+                                <p>Nunc quis vulputate metus, ac dapibus ligula. Etiam interdum ornare rutrum. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam elementum felis diam, non pellentesque est iaculis ac. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed ultricies hendrerit diam, eget molestie ipsum gravida vel. Mauris aliquam ante scelerisque odio tincidunt porttitor. Nulla vitae tellus dictum, vehicula elit eu, elementum arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nam sodales lacinia ligula sed egestas. Suspendisse purus metus, pharetra non convallis eget, aliquet ut nisi. Etiam malesuada porta posuere. Integer eget erat enim. Maecenas rhoncus tincidunt dui id tincidunt. Pellentesque quis dapibus erat.<br><br>Etiam dignissim tellus quis nulla accumsan, eget elementum ipsum blandit. Morbi sodales tellus id nisl porta cursus. Nam nisl mauris, convallis non accumsan ac, auctor sed lacus. Maecenas laoreet, nibh a facilisis sagittis, sem ante facilisis lectus, non porta mi odio sit amet ligula. Phasellus ac dolor nec odio dictum tristique. Donec convallis libero eros, nec imperdiet sem vulputate non. Vestibulum in lacus id nisi pulvinar elementum. Fusce lorem libero, tempus id elit vitae, ultrices tincidunt sapien. Nunc vestibulum libero vel ligula gravida, a convallis massa ultricies. Donec tristique ligula ut turpis auctor, ut ornare elit porta. Morbi sit amet velit laoreet, feugiat purus non, lobortis tellus. Maecenas eu eros sit amet erat condimentum auctor eu at diam. Phasellus id sem nis</p>
+                            </div>
+                            <!-- END / INTRODUCTION -->
+    
+                            <!-- OUTLINE -->
+                            <div class="tab-pane fade" id="outline">
+    
+                                <!-- SECTION OUTLINE -->
+                                <div class="section-outline">
+                                    <h4 class="tit-section xsm">Section 1: Introduction</h4>
+                                    <ul class="section-list">
+                                        <li>
+                                            <div class="count"><span>1</span></div>
+                                            <div class="list-body">
+                                                <i class="icon md-camera"></i>
+                                                <p><a href="#">Lorem ipsum dolor sit amet, consectetuer adipiscing elita</a></p>
+                                                <div class="data-lessons">
+                                                    <span>36:56</span>
+                                                </div>
+                                            </div>
+                                            <a href="#" class="mc-btn-2 btn-style-2">Preview</a>
+                                        </li>
+    
+                                        <li>
+                                            <div class="count"><span>2</span></div>
+                                            <div class="list-body">
+                                                <i class="icon md-gallery-1"></i>
+                                                <p><a href="#">Lorem ipsum dolor sit ameUt wisi enim ad minim veniam, quis nostrud Lorem ipsum dolor sit ame tation ullamcorper suscipit loborti</a></p>
+                                                <div class="data-lessons">
+                                                    <span>15 images</span>
+                                                </div>
+                                            </div>
+                                            <a href="#" class="mc-btn-2 btn-style-2">Preview</a>
+                                        </li>
+    
+                                        <li>
+                                            <div class="count"><span>3</span></div>
+                                            <div class="list-body">
+                                                <i class="icon md-volume-down"></i>
+                                                <p><a href="#">Lorem ipsum dolor sit amet, consectetuer adipiscing elita</a></p>
+                                                <div class="data-lessons">
+                                                    <span>36:56</span>
+                                                </div>
+                                            </div>
+                                            <a href="#" class="mc-btn-2 btn-style-2">Preview</a>
+                                        </li>
+    
+                                        <li>
+                                            <div class="count"><span>4</span></div>
+                                            <div class="list-body">
+                                                <i class="icon md-gallery-2"></i>
+                                                <p><a href="#">Lorem ipsum dolor sit amet, consectetuer adipiscing elita</a></p>
+                                                <div class="data-lessons">
+                                                    <span>45 slides</span>
+                                                </div>
+                                            </div>
+                                            <a href="#" class="mc-btn-2 btn-style-2">Preview</a>
+                                        </li>
+    
+                                        <li>
+                                            <div class="count"><span><i class="icon md-search"></i></span></div>
+                                            <div class="list-body">
+                                                <i class="icon md-files"></i>
+                                                <p><a href="#"><span>Quizz 1 :</span> Lorem ipsum dolor sit ameUt wisi enim ad minim veniam</a></p>
+                                                <div class="data-lessons">
+                                                    <span>10 questions</span>
+                                                </div>
+                                            </div>
+                                            <a href="#" class="mc-btn-2 btn-style-2">Preview</a>
+                                        </li>
+    
+                                        <li>
+                                            <div class="count"><span>a</span></div>
+                                            <div class="list-body">
+                                                <i class="icon md-files"></i>
+                                                <p><a href="#"><span>Assignment :</span> Lorem ipsum dolor sit ameUt wisi enim ad minim veniam</a></p>
+                                            </div>
+                                            <a href="#" class="mc-btn-2 btn-style-2">Preview</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- END / SECTION OUTLINE -->
+    
+                                <!-- SECTION OUTLINE -->
+                                <div class="section-outline">
+                                    <h4 class="tit-section xsm">Section 2 : Lorem ipsum dolor sit ame  wisi enim ad minim veniam, quis nostrud exerc</h4>
+                                    <ul class="section-list">
+                                        <li>
+                                            <div class="count"><span>5</span></div>
+                                            <div class="list-body">
+                                                <i class="icon md-camera"></i>
+                                                <p><a href="#">Lorem ipsum dolor sit amet, consectetuer adipiscing elita</a></p>
+                                                <div class="data-lessons">
+                                                    <span>36:56</span>
+                                                </div>
+                                            </div>
+                                            <a href="#" class="mc-btn-2 btn-style-2">Preview</a>
+                                        </li>
+    
+                                        <li>
+                                            <div class="count"><span>6</span></div>
+                                            <div class="list-body">
+                                                <i class="icon md-gallery-1"></i>
+                                                <p><a href="#">Lorem ipsum dolor sit ameUt wisi enim ad minim veniam, quis nostrud Lorem ipsum dolor sit ame tation ullamcorper suscipit loborti</a></p>
+                                                <div class="data-lessons">
+                                                    <span>15 images</span>
+                                                </div>
+                                            </div>
+                                            <a href="#" class="mc-btn-2 btn-style-2">Preview</a>
+                                        </li>
+    
+                                        <li>
+                                            <div class="count"><span>7</span></div>
+                                            <div class="list-body">
+                                                <i class="icon md-volume-down"></i>
+                                                <p><a href="#">Lorem ipsum dolor sit amet, consectetuer adipiscing elita</a></p>
+                                                <div class="data-lessons">
+                                                    <span>36:56</span>
+                                                </div>
+                                            </div>
+                                            <a href="#" class="mc-btn-2 btn-style-2">Preview</a>
+                                        </li>
+    
+                                        <li>
+                                            <div class="count"><span>8</span></div>
+                                            <div class="list-body">
+                                                <i class="icon md-gallery-2"></i>
+                                                <p><a href="#">Lorem ipsum dolor sit amet, consectetuer adipiscing elita</a></p>
+                                                <div class="data-lessons">
+                                                    <span>45 slides</span>
+                                                </div>
+                                            </div>
+                                            <a href="#" class="mc-btn-2 btn-style-2">Preview</a>
+                                        </li>
+    
+                                        <li>
+                                            <div class="count"><span><i class="icon md-search"></i></span></div>
+                                            <div class="list-body">
+                                                <i class="icon md-files"></i>
+                                                <p><a href="#"><span>Quizz 1 :</span> Lorem ipsum dolor sit ameUt wisi enim ad minim veniam</a></p>
+                                                <div class="data-lessons">
+                                                    <span>10 questions</span>
+                                                </div>
+                                            </div>
+                                            <a href="#" class="mc-btn-2 btn-style-2">Preview</a>
+                                        </li>
+    
+                                        <li>
+                                            <div class="count"><span>a</span></div>
+                                            <div class="list-body">
+                                                <i class="icon md-files"></i>
+                                                <p><a href="#"><span>Assignment :</span> Lorem ipsum dolor sit ameUt wisi enim ad minim veniam</a></p>
+                                            </div>
+                                            <a href="#" class="mc-btn-2 btn-style-2">Preview</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- END / SECTION OUTLINE -->
+                            </div>
+                            <!-- END / OUTLINE -->
+    
+                            <!-- REVIEW -->
+                            <div class="tab-pane fade" id="review">
+                                <div class="total-review">
+                                    <h3 class="md black">4 Reviews</h3>
+                                    <div class="rating">
+                                        <a href="#" class="active"></a>
+                                        <a href="#" class="active"></a>
+                                        <a href="#" class="active"></a>
+                                        <a href="#"></a>
+                                        <a href="#"></a>
+                                    </div>
+                                </div>  
+                                <ul class="list-review">
+                                    <li class="review">
+                                        <div class="body-review">
+                                            <div class="review-author">
+                                                <a href="#">
+                                                    <img src="images/team-13.jpg" alt="">
+                                                    <i class="icon md-email"></i>
+                                                    <i class="icon md-user-plus"></i>
+                                                </a>
+                                            </div>
+                                            <div class="content-review">
+                                                <h4 class="sm black">
+                                                    <a href="#">John Doe</a>
+                                                </h4>
+                                                <div class="rating">
+                                                    <a href="#" class="active"></a>
+                                                    <a href="#" class="active"></a>
+                                                    <a href="#" class="active"></a>
+                                                    <a href="#"></a>
+                                                    <a href="#"></a>
+                                                </div>
+                             
+                                                <em>5 days ago</em>
+                                                <p>Morbi nec nisi ante. Quisque lacus ligula, iaculis in elit et, interdum semper quam. Fusce in interdum tortor. Ut sollicitudin lectus dolor eget imperdiet libero pulvinar sit amet</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="review">
+                                        <div class="body-review">
+                                            <div class="review-author">
+                                                <a href="#">
+                                                    <img src="images/team-13.jpg" alt="">
+                                                    <i class="icon md-email"></i>
+                                                    <i class="icon md-user-plus"></i>
+                                                </a>
+                                                <i class="icon"></i>
+                                                <i class="icon"></i>
+                                            </div>
+                                            <div class="content-review">
+                                                <h4 class="sm black">
+                                                    <a href="#">John Doe</a>
+                                                </h4>
+                                                <div class="rating">
+                                                    <a href="#" class="active"></a>
+                                                    <a href="#" class="active"></a>
+                                                    <a href="#" class="active"></a>
+                                                    <a href="#"></a>
+                                                    <a href="#"></a>
+                                                </div>
+                                                <em>5 days ago</em>
+                                                <p>Morbi nec nisi ante. Quisque lacus ligula, iaculis in elit et, interdum semper quam. Fusce in interdum tortor. Ut sollicitudin lectus dolor eget imperdiet libero pulvinar sit amet</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="review">
+                                        <div class="body-review">
+                                            <div class="review-author">
+                                                <a href="#">
+                                                    <img src="images/team-13.jpg" alt="">
+                                                    <i class="icon md-email"></i>
+                                                    <i class="icon md-user-plus"></i>
+                                                </a>
+                                                <i class="icon"></i>
+                                                <i class="icon"></i>
+                                            </div>
+                                            <div class="content-review">
+                                                <h4 class="sm black">
+                                                    <a href="#">John Doe</a>
+                                                </h4>
+                                                <div class="rating">
+                                                    <a href="#" class="active"></a>
+                                                    <a href="#" class="active"></a>
+                                                    <a href="#" class="active"></a>
+                                                    <a href="#"></a>
+                                                    <a href="#"></a>
+                                                </div>
+                                                <em>5 days ago</em>
+                                                <p>Morbi nec nisi ante. Quisque lacus ligula, iaculis in elit et, interdum semper quam. Fusce in interdum tortor. Ut sollicitudin lectus dolor eget imperdiet libero pulvinar sit amet</p>
+                                            </div>
+                                        </div>
+                                    </li>                        
+                                </ul>
+                                <div class="load-more">
+                                    <a href="">
+                                    <i class="icon md-time"></i>
+                                    Load more previous update</a>
+                                </div>
+                            </div>
+                            <!-- END / REVIEW -->
+    
+                            <!-- STUDENT -->
+                            <div class="tab-pane fade" id="student">
+                                <h3 class="md black">53618 Students applied</h3>
+                                <div class="tab-list-student">
+                                    <ul class="list-student">
+                                        <!-- LIST STUDENT -->
+                                        <li>
+                                            <div class="image">
+                                                <img src="images/team-13.jpg" alt="">
+                                            </div>
+                                            <div class="list-body">
+                                                <cite class="xsm"><a href="#">Neo Khuat</a></cite>
+                                                <span class="address">Hanoi, Vietnam</span>
+                                                <div class="icon-wrap">
+                                                    <a href="#"><i class="icon md-email"></i></a>
+                                                    <a href="#"><i class="icon md-user-plus"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <!-- END / LIST STUDENT -->
+    
+                                        <!-- LIST STUDENT -->
+                                        <li>
+                                            <div class="image">
+                                                <img src="images/team-13.jpg" alt="">
+                                            </div>
+                                            <div class="list-body">
+                                                <cite class="xsm"><a href="#">Neo Khuat</a></cite>
+                                                <span class="address">Hanoi, Vietnam</span>
+                                                <div class="icon-wrap">
+                                                    <a href="#"><i class="icon md-email"></i></a>
+                                                    <a href="#"><i class="icon md-user-plus"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <!-- END / LIST STUDENT -->
+    
+                                        <!-- LIST STUDENT -->
+                                        <li>
+                                            <div class="image">
+                                                <img src="images/team-13.jpg" alt="">
+                                            </div>
+                                            <div class="list-body">
+                                                <cite class="xsm"><a href="#">Neo Khuat</a></cite>
+                                                <span class="address">Hanoi, Vietnam</span>
+                                                <div class="icon-wrap">
+                                                    <a href="#"><i class="icon md-email"></i></a>
+                                                    <a href="#"><i class="icon md-user-plus"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <!-- END / LIST STUDENT -->
+    
+                                        <!-- LIST STUDENT -->
+                                        <li>
+                                            <div class="image">
+                                                <img src="images/team-13.jpg" alt="">
+                                            </div>
+                                            <div class="list-body">
+                                                <cite class="xsm"><a href="#">Neo Khuat</a></cite>
+                                                <span class="address">Hanoi, Vietnam</span>
+                                                <div class="icon-wrap">
+                                                    <a href="#"><i class="icon md-email"></i></a>
+                                                    <a href="#"><i class="icon md-user-plus"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <!-- END / LIST STUDENT -->
+    
+                                        <!-- LIST STUDENT -->
+                                        <li>
+                                            <div class="image">
+                                                <img src="images/team-13.jpg" alt="">
+                                            </div>
+                                            <div class="list-body">
+                                                <cite class="xsm"><a href="#">Neo Khuat</a></cite>
+                                                <span class="address">Hanoi, Vietnam</span>
+                                                <div class="icon-wrap">
+                                                    <a href="#"><i class="icon md-email"></i></a>
+                                                    <a href="#"><i class="icon md-user-plus"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <!-- END / LIST STUDENT -->
+    
+                                        <!-- LIST STUDENT -->
+                                        <li>
+                                            <div class="image">
+                                                <img src="images/team-13.jpg" alt="">
+                                            </div>
+                                            <div class="list-body">
+                                                <cite class="xsm"><a href="#">Neo Khuat</a></cite>
+                                                <span class="address">Hanoi, Vietnam</span>
+                                                <div class="icon-wrap">
+                                                    <a href="#"><i class="icon md-email"></i></a>
+                                                    <a href="#"><i class="icon md-user-plus"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <!-- END / LIST STUDENT -->
+    
+                                    </ul>
+                                </div>
+                                <div class="load-more">
+                                    <a href="">
+                                    <i class="icon md-time"></i>
+                                    Load more previous update</a>
+                                </div>
+                            </div>
+                            <!-- END / STUDENT -->
+    
+                            <!-- COMMENT -->
+                            <div class="tab-pane fade" id="conment">
+                                <div id="respond">
+                                    <h3 class="md black">100 Comments</h3>
+                                    <form>
+                                        <div class="comment-form-comment">
+                                            <textarea placeholder="You have comment or question, write it here"></textarea>
+                                        </div>
+                                        <div class="form-submit">
+                                            <input type="submit" value="Post" class="mc-btn-2 btn-style-2">
+                                        </div>
+                                    </form>
+                                </div>
+                                <ul class="commentlist">
+                                    <li class="comment">
+                                        <div class="comment-body">
+                                            <div class="comment-author">
+                                                <a href="#">
+                                                    <img src="images/team-13.jpg" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="comment-content">
+                                                <cite class="fn sm black bold"><a href="">John Doe</a></cite>
+                                                <p>Morbi nec nisi ante. Quisque lacus ligula, iaculis in elit et, interdum semper quam. Fusce in interdum tortor. Ut sollicitudin lectus dolor eget imperdiet libero pulvinar sit amet</p>
+                                                
+                                                <div class="comment-meta">
+                                                   <a href="#">5 days ago</a>
+                                                   <a href="#">Hide 2 replies</a>
+                                                   <a href="#"><i class="icon md-arrow-up"></i>13</a>
+                                                   <a href="#"><i class="icon md-arrow-down"></i>25</a>
+                                                </div>
+    
+                                            </div>
+                                        </div>
+                                        <ul class="children">
+                                            <li class="comment">
+                                                <div class="comment-body">
+                                                    <div class="comment-author">
+                                                        <a href="#">
+                                                            <img src="images/team-13.jpg" alt="">
+                                                        </a>
+                                                    </div>
+                                                    <div class="comment-content">
+                                                        <cite class="fn sm black bold"><a href="">John Doe</a></cite>
+                                                        <p>Morbi nec nisi ante. Quisque lacus ligula, iaculis in elit et, interdum semper quam. Fusce in interdum tortor. Ut sollicitudin lectus dolor eget imperdiet libero pulvinar sit amet</p>
+                                                        
+                                                        <div class="comment-meta">
+                                                            <a href="#">5 days ago</a>
+                                                            <a href="#"><i class="icon md-arrow-up"></i>13</a>
+                                                            <a href="#"><i class="icon md-arrow-down"></i>25</a>
+                                                        </div>
+    
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="comment">
+                                                <div class="comment-body">
+                                                    <div class="comment-author">
+                                                        <a href="#">
+                                                            <img src="images/team-13.jpg" alt="">
+                                                        </a>
+                                                    </div>
+                                                    <div class="comment-content">
+                                                        <cite class="fn sm black bold"><a href="">John Doe</a></cite>
+                                                        <p>Morbi nec nisi ante. Quisque lacus ligula, iaculis in elit et, interdum semper quam. Fusce in interdum tortor. Ut sollicitudin lectus dolor eget imperdiet libero pulvinar sit amet</p>
+                                                        
+                                                        <div class="comment-meta">
+                                                           <a href="#">5 days ago</a>
+                                                            <a href="#"><i class="icon md-arrow-up"></i>13</a>
+                                                            <a href="#"><i class="icon md-arrow-down"></i>25</a>
+                                                        </div>
+    
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="comment">
+                                        <div class="comment-body">
+                                            <div class="comment-author">
+                                                <a href="#">
+                                                    <img src="images/team-13.jpg" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="comment-content">
+                                                <cite class="fn sm black bold"><a href="">John Doe</a></cite>
+                                                <p>Morbi nec nisi ante. Quisque lacus ligula, iaculis in elit et, interdum semper quam. Fusce in interdum tortor. Ut sollicitudin lectus dolor eget imperdiet libero pulvinar sit amet</p>
+                                                
+                                                <div class="comment-meta">
+                                                   <a href="#">5 days ago</a>
+                                                   <a href="#">Hide 2 replies</a>
+                                                    <a href="#"><i class="icon md-arrow-up"></i>13</a>
+                                                    <a href="#"><i class="icon md-arrow-down"></i>25</a>
+                                                </div>
+    
+                                            </div>
+                                        </div>
+                                    </li> 
+                                    <li class="comment">
+                                        <div class="comment-body">
+                                            <div class="comment-author">
+                                                <a href="#">
+                                                    <img src="images/team-13.jpg" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="comment-content">
+                                                <cite class="fn sm black bold"><a href="">John Doe</a></cite>
+                                                <p>Morbi nec nisi ante. Quisque lacus ligula, iaculis in elit et, interdum semper quam. Fusce in interdum tortor. Ut sollicitudin lectus dolor eget imperdiet libero pulvinar sit amet</p>
+                                                
+                                                <div class="comment-meta">
+                                                    <a href="#">5 days ago</a>
+                                                    <a href="#">Hide 2 replies</a>
+                                                    <a href="#"><i class="icon md-arrow-up"></i>13</a>
+                                                    <a href="#"><i class="icon md-arrow-down"></i>25</a>
+                                                </div>
+    
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="comment">
+                                        <div class="comment-body">
+                                            <div class="comment-author">
+                                                <a href="#">
+                                                    <img src="images/team-13.jpg" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="comment-content">
+                                                <cite class="fn sm black bold"><a href="">John Doe</a></cite>
+                                                <p>Morbi nec nisi ante. Quisque lacus ligula, iaculis in elit et, interdum semper quam. Fusce in interdum tortor. Ut sollicitudin lectus dolor eget imperdiet libero pulvinar sit amet</p>
+                                                
+                                                <div class="comment-meta">
+                                                   <a href="#">5 days ago</a>
+                                                   <a href="#">Hide 2 replies</a>
+                                                    <a href="#"><i class="icon md-arrow-up"></i>13</a>
+                                                    <a href="#"><i class="icon md-arrow-down"></i>25</a>
+                                                </div>
+    
+                                            </div>
+                                        </div>
+                                    </li>                           
+                                </ul>
+                                <div class="load-more">
+                                    <a href="">
+                                    <i class="icon md-time"></i>
+                                    Load more previous update</a>
+                                </div>
+                            </div>
+                            <!-- END / COMMENT -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    {% endif %}
+{% endblock %}
+{% block javascript%}
+{{parent()}}
+ <script src="{{asset('script.min.js')}}"></script>
+    {% endblock %}

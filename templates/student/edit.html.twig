@@ -1,0 +1,269 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Student{% endblock %}
+
+{% block body %}
+
+{{form_start(form )}}
+
+
+
+
+<div class="col-md-10 ml-auto col-xl-6 mr-auto">
+              
+              <!-- Nav tabs -->
+              <div class="card">
+                <div class="card-header">
+                  <ul class="nav nav-tabs nav-tabs-primary" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link {% if app.request.get('link') is not defined or app.request.get('link')!='link3' %} active show{% endif %}" data-toggle="tab" href="#link1" role="tablist">
+                        <i class="tim-icons icon-single-02"></i> Student
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" data-toggle="tab" href="#link2" role="tablist">
+                        <i class="tim-icons icon-badge "></i> Parents
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link {% if app.request.get('link') is defined and app.request.get('link')=='link3' %}active show{% endif %}" data-toggle="tab" href="#link3" role="tablist">
+                        <i class="tim-icons icon-paper"></i> Education.
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-body">
+                  <!-- Tab panes -->
+                  <div class="tab-content tab-space">
+                    <div class="tab-pane {% if app.request.get('link') is not defined or app.request.get('link')!='link3' %} active show{% endif %}" id="link1">
+                      <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">First name</label>
+       {{ form_widget(form.firstname) }}
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Last name</label>
+        {{ form_widget(form.lastname) }}
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Email</label>
+        {{ form_widget(form.email) }}
+         {% if form_errors(form.email) is not empty %}
+            <div class="alert alert-danger" >{{ form_errors(form.email) }}</div>
+        {% endif %}
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Phone number</label>
+        {{ form_widget(form.phone) }}
+    </div>
+  </div>
+  {{ form_row(form.school)}}
+<div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputCity">Adresse</label>
+      {{ form_widget(form.adress) }}
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputState">City</label>
+      {{ form_widget(form.city) }}
+    </div>
+    <div class="form-group col-md-2">
+      <label for="inputZip">Zipcode</label>
+      {{ form_widget(form.zipcode) }}
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="inputCity">Hobbies</label>
+  
+      {{ form_widget(form.hobbies) }}
+     {% if form_errors(form.hobbies) is not empty %}
+    <div class="alert alert-danger" >{{ form_errors(form.hobbies) }}</div>
+{% endif %}
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputState">Achievments</label>
+      {{ form_widget(form.achievement) }}
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputZip">Special skills</label>
+      {{ form_widget(form.specialskills) }}
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputCity">Comment</label>
+      {{ form_widget(form.comments) }}
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputState"> member talk</label>
+      {{ form_widget(form.membretalk) }}
+    </div>
+    <div class="form-group col-md-2">
+       
+    </div>
+  </div>
+  <br>
+  <button class="btn btn-success submit">{{ button_label|default('Update') }}</button>
+
+                    </div>
+
+                    <div class="tab-pane" id="link2">
+                      <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Father's name</label>
+        {{ form_widget(form.firstparentname) }}
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Mother's name</label>
+        {{ form_widget(form.secondparentname) }}
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Father's Email</label>
+        {{ form_widget(form.fristparentemail) }}
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Mother's Email</label>
+        {{ form_widget(form.secondparentemail) }}
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Father's phone number</label>
+        {{ form_widget(form.firstparentnumber) }}
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Mother's phone number</label>
+        {{ form_widget(form.secondparentnumbre) }}
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Father's job</label>
+        {{ form_widget(form.firstparentjob) }}
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Mother's job</label>
+        {{ form_widget(form.secondparentjob) }}
+    </div>
+  </div>
+  <br>
+    <button class="btn btn-success submit">{{ button_label|default('Update') }}</button>
+                    </div>
+                    
+                    <div class="tab-pane {% if app.request.get('link') is defined and app.request.get('link')=='link3' %}active show{% endif %}" id="link3">
+                       <div class="form-row">
+    {#<div class="form-group col-md-6">
+      <label for="inputEmail4">Class</label>
+        {{ form_widget(form.classes) }}
+    </div>#}
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Courses</label>
+        {{ form_widget(form.courses) }}
+    </div>
+  </div>
+   <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Education level</label>
+        {{ form_widget(form.educationlevel) }}
+    </div>
+    {% if app.user.status == "Admin" %}
+    <div class="form-group col-md-6">
+       <label for="inputEmail4">Level test type</label>
+         {{ form_widget(form.levelTestType) }}
+     </div>
+     {% endif %}
+    </div>
+    <div class="form-row">
+     <div class="form-group col-md-6">
+       <label for="inputPassword4"> hear about us</label>
+         {{ form_widget(form.hearaboutus) }}
+     </div>
+     <div class="form-group col-md-6">
+       {#<label for="inputPassword4"> Eduction group</label>
+        {{ form_widget(form.educationGroups) }} #}
+       {% if app.user.status == "Admin" %}
+        <label> On/Offline </label>
+        {{ form_widget(form.online) }}
+       {% endif %}
+     </div>
+    </div>
+     <div class="form-row">
+     {% if app.user.status == "Admin" %}
+        <div class="form-group col-md-6">
+            {{ form_row(form.teacher) }}
+          </div>
+     </div>
+     {% endif %}
+    {# {% if app.user.status == "Admin" %}
+          <div class="form-row">
+     <div class="form-group col-md-6">
+          {{ form_row(form.educationGroups) }}
+          </div>
+     </div> 
+     {% endif %} #}
+     <br>
+    <button  class="btn btn-success submit">{{ button_label|default('Update') }}</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <script>
+
+$('.submit').click(function(){
+  var hobbies=$("#student_hobbies").val(); 
+  var skills=$("#student_specialskills").val(); 
+  var firstname=$("#student_firstname").val();
+  console.log(" fn " +firstname);
+  var lastname=$("#student_lastname").val();
+  var email=$("#student_email").val();
+  var phone=$("#student_phone").val();
+  var achievments=$("#student_achievement").val();
+  var fathernme=$("#student_firstparentname").val();
+  var mothername=$("#student_secondparentname").val();
+  var fatherphone=$("#student_firstparentnumber").val();
+  var motherphone=$("#student_secondparentnumbre").val();
+  var fatheremail=$("#student_fristparentemail").val();
+  var motheremail=$("#student_secondparentemail").val();
+  var phone=$("#student_phone").val();
+  var jobf=$("#student_firstparentjob").val();
+  var jobm=$("#student_secondparentjob").val();
+  var shcool=$("#student_school").val();
+  var member=$("#student_membretalk").val();
+  var adress=$("#student_adress").val();
+  var zip=$("#student_zipcode").val();
+  
+  console.log('hobbies '+hobbies + ' skills '  +skills + ' firstname' +  firstname + ' lastname ' + lastname + ' email ' + email + ' achievments ' +  achievments + ' fathername '+
+   fathernme+ ' mothername ' + mothername+' fatherphone ' +fatherphone+' motherphone '+ motherphone+' fatheremail ' +fatheremail+' motheremail ' + motheremail+'phone' 
+  +phone+' zip ' + zip+' shcool ' +shcool + ' member ' + member + ' adress ' + adress+' jobf '+jobf+' jobm '+ jobm);
+
+  if(hobbies == '' || skills == '' || firstname == '' || lastname == '' || email == '' ||  achievments == ''
+  || fathernme== '' ||mothername=='' ||fatherphone=='' ||motherphone=='' |fatheremail=='' ||motheremail=='' 
+  ||phone=='' ||zip=='' ||shcool=='' ||member=='' ||adress==''||jobf=='' ||jobm==''){
+
+     alert('Flieds are missing');
+
+  }
+ 
+})
+</script>
+
+{{ form_end(form)}}
+
+{#    {{ include('student/_form.html.twig', {'button_label': 'Update'}) }}#}
+
+    
+
+    {{ include('student/_delete_form.html.twig') }}
+    </div></div></div></div>
+    
+    <a href="{{ path('student_index') }}"class="btn btn-outline-default float-left">back to list</a>
+{% endblock %}

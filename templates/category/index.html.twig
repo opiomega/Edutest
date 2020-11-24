@@ -1,0 +1,237 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Category index{% endblock %}
+
+{% block body %}
+<section name='Title' style='margin-top:140px;'>
+<div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';"> Categories
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+    <style>
+      .bg-grise{
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    border:none;
+    background-color: rgba(241,242,242,0.7);
+
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+    </style>
+<div class="container">
+      <!-- Table -->
+      <div class="row justify-content-center">
+        <div class="col-lg-12">
+        
+              
+            
+            {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('delete') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('update') %}
+            <div class="alert alert-warning" role="alert">
+                {{ message }}
+                </div>   
+                {% endfor %}  
+              
+<div style="margin-right:50px;margin-left:50px;margin-top:50px;">
+  <table style="border:none;" id="example"  class="table align-items-center table-flush  display dataTable">
+            <thead >
+                <th style="border-bottom:none;"><h5 class="text-bluee">Name</h5></th>
+                
+                <th style="border-bottom:none;"><h5 class="text-bluee">Description</h5></th>
+                <th style="border-bottom:none;"><h5 class="text-bluee">Action</h5></th>
+            </thead>
+            <tbody style="border:none;">
+                {% for category in categories %}
+                <tr class="bg-gris"height="50px"  onmouseover="show({{category.id}})"onmouseout="hide({{category.id}})">
+                    <!--name-->
+                <td id="td{{category.id}}" class="bg-gris">{% if category.name is defined %}
+                {% if category.name is not null %}{{ category.name }}
+                {% else %} --{% endif %}{% endif %}</td>
+                <!--Description-->
+                <td class="bg-gris">{% if category.description is defined %}
+                    {% if category.description is not null %}
+                    {{ category.description }}{% else %}--{% endif %}{% endif %}
+                    </td>
+                <!--action-->
+                <td class="bg-gris">
+                {% if app.user.status=="Admin" or app.user.status=="Teacher" %}
+                    <div id="act{{category.id}}" style="display:none;">
+                    <a href="{{path('category_edit',{'id':category.id})}}"   class="btn btn-success btn-simple btn-icon btn-sm">
+                    Edit
+                    </a >
+               <a  data-toggle="modal" data-target="#modal-notification{{ category.id }}" href="#" onclick="showModal('myModal{{ category.id }}')" rel="tooltip" class="btn btn-danger btn-simple btn-icon btn-sm">
+                    Delete
+                </a>
+                    </div>
+                    {% endif %}
+                </td>
+             </tr>
+    
+             <!--js function show and hide-->
+                        <script>
+                                function show(a){
+                                    document.getElementById('td'+a).style.backgroundColor='yellow';
+                                    document.getElementById('act'+a).style='display:inline;';
+                                }
+                                function hide(a){
+                                    document.getElementById('td'+a).style='';
+                                    document.getElementById('act'+a).style='display:none';
+                                }
+                            </script>
+                                <!-- Modal -->
+<div class="modal fade modal-bg" id="exampleModal{{ category.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog " role="document">
+   <form action="{{path('cat_edit',{'id':category.id})}}" method="post">
+    <div class="modal-content modal-bg">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit category</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+              <label class="text-bluee">Name</label>
+               <input type="text"name="name" class="form-control bg-gris"value="{{category.name}}">
+                <label class="text-bluee">Description</label>
+                <textarea name="description" class="bg-grise" style="height:140px;">{{category.description}}</textarea>
+                <label class="text-bluee">Image</label>
+                   <input type="file" name="photo">
+                                                     
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+         <button  style="max-height:40px;max-width:80px;"  class="redback text-white over">{{ button_label|default('Save') }}</button>
+            
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+<!--Modal delete -->
+
+    <div class="modal fade modal-bg" id="modal-notification{{category.id}}" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
+    <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+        <div class="modal-content modal-bg">
+        	
+            <div class="modal-header">
+                <h6 class="modal-title text-rede" id="modal-title-notification">Delete Confirmation</h6>
+                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+            	
+                <div class="py-3 text-center">
+                    <i class="ni ni-bell-55 ni-3x"></i>
+                                             <h4 class="heading mt-4">Do you really want to delete <span class="text-bluee"> {{category.name}}</span> !</h4>
+                                        </div>
+                                        <div class="modal-footer">
+                                         <form method="post" action="{{ path('category_delete', {'id': category.id}) }}" >
+                                            <button type="button" class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+   
+    
+    <script>
+        function showModal(id) {
+            $("#"+id).modal();
+        }
+    </script>
+     <script>
+        function showModal(id) {
+            $("#"+id).modal();
+        }
+          $(document).ready(function() {
+    $('#example').DataTable();
+} );
+$(document).ready(function(){
+    document.getElementById('example_info').style="color:#B2273D";
+});
+    </script>
+
+</div></div></div>
+    <a href="#"  style="border:none;width: 128px;height: 45px;padding-left: 16px;padding-top: 8px;" onclick="showModal('detailModal{{category.id}}')" class="redback text-white over float-right">Create new</a>
+
+                            
+                    
+                            <div id="detailModal{{ category.id }}" class="modal fade" role="dialog" >
+                                        <div class="modal-dialog" >
+
+                                            <!-- Modal content-->
+                                            <div class="modal-content modal-bg">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Add new category</h4>
+                                                </div>
+                                                {{ form_start(form)}}
+                                                <div class="modal-body">
+                                                    <div class="col-modal">
+                                                    <div class="row">
+                                                    
+                                                        <div class="col-8">
+                                                            <label class="text-bluee">Name</label>
+                                                        {{ form_widget(form.name) }}
+                                                        <label class="text-bluee">Description</label>
+                                                         {{ form_widget(form.description) }}
+                                                          <label class="text-bluee">Image</label>
+                                                         {{ form_widget(form.photoFile) }}
+                                                        
+                                                        </div>
+                                                       
+                                                    </div>
+                                                    </div> 
+                                                      
+                                         
+                                                </div>
+                                                <div class="modal-footer">
+                                                   <button style="max-height:40px;max-width:80px;" class="btn text-white btn-sm redback">Save</button>
+                                                    <button type="button" class="btn default" data-dismiss="modal">Close</button>
+                                                  {{ form_end(form)}}
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+
+                         
+{% endblock %}

@@ -1,0 +1,117 @@
+{% extends 'club.html.twig'%}
+
+{% block body %}
+<main>
+         
+{#}
+            <!-- upcoming-area-start -->
+            <div class="upcoming-area pt-130 pb-70" style="background-image:url(img/bg/bg-3.jpg)">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-6 col-md-6">
+                            <div class="upcoming-event-wrapper mb-60">
+                                <div class="upcoming-event-img">
+                                    <a href="#"><img src="{{asset('club/img/event/04.jpg')}}" alt=""></a>
+                                    <div class="up-tag">
+                                        <span>$49.99</span>
+                                    </div>
+                                </div>
+                                <div class="upcoming-text">
+                                    <h3><a href="#">Drinks Night With Joy</a></h3>
+                                    <div class="up-event-meta">
+                                        <span> <i class="far fa-calendar-alt"></i> 05 Dec 2019</span>
+                                        <span> <i class="far fa-clock"></i> 10 am - 01 pm</span>
+                                        <span> <i class="far fa-users"></i> 50</span>
+                                    </div>
+                                    <p>But I must explain to you how all this mistaken idea denouncing and praising </p>
+                                    <a class="btn" href="{{path('event_detail',{'id':club.id},{'event':event.id})}}"><span class="btn-text">Detail</span> <span class="btn-border"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-6 col-md-6">
+                            <div class="upcoming-event-wrapper mb-60">
+                                <div class="upcoming-event-img">
+                                    <a href="#"><img src="{{asset('club/img/event/04.jpg')}}" alt=""></a>
+                                    <div class="up-tag">
+                                        <span>$49.99</span>
+                                    </div>
+                                </div>
+                                <div class="upcoming-text">
+                                    <h3><a href="#">Music &amp; Dance Party</a></h3>
+                                    <div class="up-event-meta">
+                                        <span> <i class="far fa-calendar-alt"></i> 05 Dec 2019</span>
+                                        <span> <i class="far fa-clock"></i> 10 am - 01 pm</span>
+                                        <span> <i class="far fa-users"></i> 50</span>
+                                    </div>
+                                    <p>But I must explain to you how all this mistaken idea denouncing and praising </p>
+                                    <a class="btn" href="{{path('event_detail',{'id':club.id},{'event':event.id})}}"><span class="btn-text">Detail</span> <span class="btn-border"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-6 col-md-6">
+                            <div class="upcoming-event-wrapper mb-60">
+                                <div class="upcoming-event-img">
+                                    <a href="#"><img src="{{asset('club/img/event/04.jpg')}}" alt=""></a>
+                                    <div class="up-tag">
+                                        <span>$49.99</span>
+                                    </div>
+                                </div>
+                                <div class="upcoming-text">
+                                    <h3><a href="#">Annual Celebrity</a></h3>
+                                    <div class="up-event-meta">
+                                        <span> <i class="far fa-calendar-alt"></i> 05 Dec 2019</span>
+                                        <span> <i class="far fa-clock"></i> 10 am - 01 pm</span>
+                                        <span> <i class="far fa-users"></i> 50</span>
+                                    </div>
+                                    <p>But I must explain to you how all this mistaken idea denouncing and praising </p>
+                                    <a class="btn" href="{{path('event_detail',{'id':club.id},{'event':event.id})}}"><span class="btn-text">Detail</span> <span class="btn-border"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <!-- upcoming-area-end -->
+#}
+<div class="upcoming-area pt-130 pb-70" style="background-image:url(img/bg/bg-3.jpg)">
+                <div class="container">
+                    <div class="row">
+            {% for event in club.events %}
+            
+
+             <div class="col-xl-4 col-lg-6 col-md-6">
+                            <div class="upcoming-event-wrapper mb-60">
+                                <div class="upcoming-event-img">
+                                    <a href="#"><img src="{{ asset('uploads/clubs/events/'~event.photo) }}" alt=""></a>
+                                    <div class="up-tag">
+                                        <span>{{event.date}}</span>
+                                    </div>
+                                </div>
+                                <div class="upcoming-text">
+                                    <h3><a href="#">{{event.name}}</a></h3>
+                                    <div class="up-event-meta">
+                                        <span></span>
+                                        
+                                    </div>
+                                    <p style="height: 100px; overflow: hidden; ">{{event.description}} </p>
+                                    <a style="background:#384D77;border-radius:20px;" class="btn" href="{{path('event_detail',{'id':club.id,'event':event.id})}}"><span class="btn-text">Detail</span> <span class="btn-border"></span></a>
+                                    {% if app.user.status=="Admin" %}
+                                    <a style="background:#B2273D;border-radius:20px;text-color:white;" class="btn " href="{{path('clubevents_edit',{'id':club.id,'event':event.id})}}"><span class="btn-text">Edit</span> <span class="btn-border"></span></a>
+                                    {% endif %}
+                                    {% if app.user.status=="Teacher" %}
+                                    {% if app.user.teacher[0]== club.head%}
+                                    <a style="background:#B2273D;border-radius:20px;text-color:white;" class="btn " href="{{path('clubevents_edit',{'id':club.id,'event':event.id})}}"><span class="btn-text">Edit</span> <span class="btn-border"></span></a>
+                                    {% endif %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+            {% else %}
+            <h1> no event </h1>
+            {% endfor %}
+</div></div></div>
+         
+
+        </main>
+{% endblock %}

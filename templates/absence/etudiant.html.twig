@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+{% block stylesheet %}
+
+{% endblock %}
+{% block title %}Attendance{% endblock %}
+
+{% block body %}
+    <section name='Title' style='margin-top:140px;'>
+        <div class="container">
+            <div class="row justify-content-center"style="height:60px;">
+             <h1 class="text-center"style="color:#B2273D;">  Student attendance Management
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+           </div>
+            <div class="row row-grid justify-content-center"style="padding-bottom:20px;">
+                <h2 class="text-rede"> {{app.request.get('date')}}</h2>
+                </div>
+            </div>
+            </div>
+        </div>
+      </section>
+<section name="student list"style="margin-top:30px;margin-bottom:50px;">
+        <div class="container">
+            <div class="row">
+
+                <div class="col">
+                  <p style="font-size:20px;">Total sessions number :{{ nbrSeanceTot }} <span class="text-bluee"><span></p>
+                    <div class="row">
+                        <div class="col"><h6 class="text-bluee">Student name</h6></div>
+                        <div class="col"><h6 class="text-bluee">EMAIL</h6></div>
+                        <div class="col"><h6 class="text-bluee">presence</h6></div>
+                        <div class="col"><h6 class="text-bluee">attendance percentage</h6></div>
+                        <div class="col"><h6 class="text-bluee">absent</h6></div>
+                    </div>
+                        
+                        
+                        {% for student in students %}
+                           <div class="row" style="margin-top:20px;">
+                                
+                              <div class="col-md bg-gris" style="margin-right:10px; height:55px;"><h6>{{ student.firstname }} {{ student.lastname }}</h6></div>
+                              <div class="col-md bg-gris" style="margin-right:10px; height:55px;"><h6>{{ student.user.email }}</h6></div>
+                              <div class="col-md bg-gris" style="margin-right:10px; height:55px;">
+                                <link href="https://cdn.jsdelivr.net/css-toggle-switch/latest/toggle-switch.css" rel="stylesheet" />
+  <form name='myForm{{student.id}}'>
+  <div class="switch-toggle switch-3 switch-candy">
+        <input id="on{{student.id}}" name="state-d{{student.id}}" type="radio" {% if absents[student.id]=='1'%}checked="checked" {% endif %}value='1'/>
+        <label for="on{{student.id}}" onclick="">Present</label>
+
+        <input id="na{{student.id}}" name="state-d{{student.id}}" type="radio" disabled  />
+        <label for="na{{student.id}}" class="disabled" onclick="">&nbsp;</label>
+
+        <input id="off{{student.id}}" name="state-d{{student.id}}" type="radio" value='0'  {% if absents[student.id]=='0'  %}checked{% endif %} />
+        <label for="off{{student.id}}" onclick="">Absent</label>
+
+  </div>
+  </form>
+                                </div>
+                              <div class="col-md bg-gris" style="margin-right:10px; height:55px;"><h6>{{ (100-absences[student.id]["pourcentageAb"])|number_format(2, '.', ',') }} %</h6></div>
+                              <div class="col-md bg-gris" style="margin-right:10px; height:55px;"><h6>{{ absences[student.id]["nbrAb"] }}</h6></div>
+
+
+                 
+                            
+                         <script>
+$('input[type=radio][name=state-d{{student.id}}]').change(function() {
+     var stat=this.value;
+//alert(stat);
+     $.ajax({url: "{{ path('agents_students_absent',{date:app.request.get('date')}) }}",
+              
+              data: "studentId="+{{student.id}}+"&seanceId="+{{ app.request.attributes.get('seanceId')}}+"&status="+stat,  
+      
+});
+});
+        function absent (id){
+         
+              $.ajax({url: "{{ path('agents_students_absent',{date:app.request.get('date')}) }}",
+              
+              data: "studentId="+id+"&seanceId="+{{ app.request.attributes.get('seanceId')}}+"&status="+$("#checkbox"+id).is(':checked'),  
+   
+         
+               });
+        }
+    </script>
+    </div>
+                        {% endfor %}
+                   
+
+             
+        </div>
+    </div>
+  </section>
+    
+{% endblock %}

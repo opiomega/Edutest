@@ -1,0 +1,34 @@
+{{ form_start(form) }}
+<div class="row">
+      <div class="col-lg-6">
+         <div class="form-group">
+    {{ tinymce_init() }}
+    {{ form_widget(form) }}
+    
+    
+    <!--<div class="content">
+      <h1>Content</h1>
+      <div id="editor" class="pell"></div>
+    </div>-->
+    
+    <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+    
+   {#<script src="{{ asset('dist/pell.js') }}"></script>#}
+
+    <script>
+        function showModal(id) {
+            $("#"+id).modal();
+        }
+        
+        /*var editor = window.pell.init({
+        element: document.getElementById('editor'),
+        defaultParagraphSeparator: 'p',
+        onChange: function (html) {
+          /*document.getElementById('text-output').innerHTML = html
+          document.getElementById('html-output').textContent = html*
+          document.getElementById('module_content').value = html
+        }
+      });
+        $('.pell-content').html($('#module_content').val());*/
+    </script>
+{{ form_end(form) }}

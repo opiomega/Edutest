@@ -1,0 +1,164 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Test index{% endblock %}
+
+{% block body %}
+<section name='Title' style='margin-top:140px;'>
+<div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';"> Tests
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+    <style>
+      .bg-grise{
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    border:none;
+    background-color: rgba(241,242,242,0.7);
+
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+    </style>
+<div class="container">
+      <!-- Table -->
+      <div class="row justify-content-center">
+        <div class="col-lg-12">
+        
+              
+            
+            {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('delete') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
+          {% for message in app.flashes('update') %}
+            <div class="alert alert-warning" role="alert">
+                {{ message }}
+                </div>   
+                {% endfor %}  
+              
+<div style="margin-right:50px;margin-left:50px;margin-top:50px;">
+  <table style="border:none;" id="example"  class="table align-items-center table-flush  display dataTable">
+            <thead >
+                <th style="border-bottom:none;"><h5 class="text-bluee">Title</h5></th>
+          {#<th style="border-bottom:none;"><h5 class="text-bluee">Teacher</h5></th>#}
+          <th style="border-bottom:none;"><h5 class="text-bluee">Category</h5></th>
+          <th style="border-bottom:none;"><h5 class="text-bluee">actions</h5></th>
+            </tr>
+        </thead>
+        <tbody >
+
+         {% for test in tests %}
+            <tr>
+                
+                <td >{{ test.title }}</td>
+               {#} {% if test.teacher.firstname is defined and test.teacher.firstname != null %}
+                <td><h4 class="text-info">{{ test.teacher.firstname }}</td></td>
+                {% else %}
+     <td><button type="button" class="btn btn-danger btn-sm" data-container="body" data-toggle="popover" data-color="danger" data-placement="top" data-content="Accord a teacher to {{ test.title}}">
+  No teacher
+</button></td>
+                {% endif %}#}
+                <td><h4 class="text-dark">{{ test.category.name }}</h4></td>
+              
+
+
+                                <td class="actions">
+
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-bottom: 0px;margin-top: 0px">Actions</button>
+
+                                        <div class="dropdown-menu ">
+                                            <a class="dropdown-item" href="{{ path('test_show', { 'id': test.id }) }}">
+                                           <i class="fa fa-desktop"></i>
+                                            show</a>
+                                            {% if app.user.status=="Teacher" or app.user.status=="Admin" %}
+                                            <a class="dropdown-item" href="#" onclick="showModal('myModal{{ test.id }}')" >
+                                           <i class="fa fa-edit"></i>
+                                            Delete</a>
+                                            <a class="dropdown-item" href="{{ path('test_edit', { 'id': test.id }) }}">
+                                             <i class="fa fa-trash"></i>
+                                            Edit</a>
+                                             {% endif %}
+                                            
+                                    </div>
+                                </td>
+                            
+                              <!-- Modal -->
+                            <div id="myModal{{ test.id }}" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Delete Confirmation</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Do you really want to delete this test!</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                        <form method="post" action="{{ path('test_delete', {'id': test.id}) }}">
+                                            <button type="button" class="btn btn-default btn-md" data-dismiss="modal">Close</button>
+                                             <input type="hidden" name="_method" value="DELETE">
+                                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ test.id) }}">
+                                             <button type="submit" class="btn btn-danger btn-md">Delete</button>
+                                             </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+        </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+      {% endfor %}
+        </tbody>
+    </table>
+  {% if app.user.status=="Admin" %}
+      <a href="{{ path('test_new') }}"class="redback over float-right text-white ">
+      <p style="padding-left: 33px;padding-top: 16px;">Create new</p></a>
+      <form action="{{ path('test_selectCategory') }}">
+          <button type="submit" value="" class="btn btn-default" >Find by category</button>
+        </form>
+        {% endif %}
+    
+<script>
+	function showModal(id) {
+            $("#"+id).modal();
+        }
+</script>      
+<script>
+$(document).ready( function () {
+    $("#exemple").DataTable();
+} );
+</script>
+<script type="text/javascript">
+				 $(document).ready(function() {
+    $('#example').DataTable( {
+        "order": [[ 3, "desc" ]]
+    } );
+} );
+	</script>
+
+</div></div></div></div>
+{% endblock %}

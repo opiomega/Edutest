@@ -1,0 +1,38 @@
+{% extends 'club.html.twig'%}
+
+{% block body %}
+<main>
+          
+          
+
+            <!-- events-details-area-start -->
+            <div class="events-details-area grey-bg pb-130">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="events-details-wrapper">
+                                <div class="events-details-img">
+                                    <img style="max-height:500px;" src="{{ asset('uploads/clubs/events/'~event.photo) }}" alt="">
+                                </div>
+                                <div class="upcoming-text upcoming-2-text event-details-text">
+                                    <div class="up-tag">
+                                        <span>{{event.date}}</span>
+                                    </div>
+                                    <h3><a href="#">{{event.name}}</a></h3>
+                                    <div class="up-event-meta">
+                                       
+                                    </div>
+                                    <p>{{event.description}}</p>
+                                    <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magni dolores eos qui ratione luptatem sequi nesciunt. Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur</p>
+                                    <a class="btn" href="{{path('event_index',{'id':club.id})}}"><span class="btn-text">Back to list</span> <span class="btn-border"></span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- events-details-area-end -->
+
+           
+        </main>
+{% endblock %}

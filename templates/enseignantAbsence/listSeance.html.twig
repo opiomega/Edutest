@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+{% block title%}Sessions{% endblock %}
+{% block body %}
+<h1 class="text-center">Attendance Management</h1>
+<div class="container-fluid mt--7">
+ <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+
+    <div id="calendar-holder"></div>
+    </div></div></div>
+     <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.1.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@4.1.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.1.0/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@4.1.0/main.min.js"></script>
+
+   
+    <script type="text/javascript">
+    function convert(str) {
+  var date = new Date(str),
+    mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+    day = ("0" + date.getDate()).slice(-2);
+  return [date.getFullYear(), mnth, day].join("-");
+}
+      document.addEventListener('DOMContentLoaded', () => {
+         var  draggableEl = document.getElementById('mydraggable');
+            var calendarEl = document.getElementById('calendar-holder');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                defaultView: 'dayGridMonth',
+                editable: false,
+                displayEventTime:false,
+                eventLimit: true,
+                views: {
+    timeGrid: {
+      eventLimit: 3 // adjust to 6 only for timeGridWeek/timeGridDay
+    }
+  },
+                dateClick: function(info) {
+    
+    date=info.dateStr;
+  },
+  eventClick: function(info) {
+    info.jsEvent.preventDefault(); // don't let the browser navigate
+    // alert('Clicked on: ' + info.event.start);
+    if (info.event.url) {
+      var url=info.event.url;
+     dated=info.event.start;
+     dated=convert(dated);
+     url=url.replace('place',dated);
+     // alert(url);
+      window.open(url);
+    }
+  
+  },
+                eventSources: [
+                    {
+                        events:[
+                           {% set i=0%}
+                           {% for n in name %}
+                           {
+                             title:'{{seances[i].beginTime}}-{{seances[i].endTime}} {{n}}',
+                             daysOfWeek: [ {% for d in day[i] %}'{{d.id}}',{% endfor %} ],
+                             startTime:'{{seances[i].beginTime}}',
+                             endTime:'{{seances[i].endTime}}',
+                             startRecur:'{{seances[i].date}}',
+                             endRecur:'{{seances[i].dateend}}',
+                                url:'{{path('absence_index',{'classeId': app.request.get('id') ,'seanceId':event[i],'date':'place'})}}',
+                            
+                           },
+                           {% set i=i+1%}
+                          
+                           {% endfor %}
+                        ],
+                        textColor: 'white'
+                           
+                    },
+                ],
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay',
+                },
+                plugins: [ 'interaction', 'dayGrid', 'timeGrid' ], // https://fullcalendar.io/docs/plugin-index
+                timeZone: 'UTC',
+            });
+            calendar.render();
+            new Draggable(draggableEl);
+        });
+    </script>
+{% endblock %}
+
+
+
+
+   

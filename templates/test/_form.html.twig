@@ -1,0 +1,47 @@
+{{ form_start(form) }}
+
+    {#}{{ form_row(form) }}#}
+    {% for input in form %}
+        {% if 'token' not in form_label(input) %}
+    <div class="row"style="margin-bottom:20px;">
+        <div class="col">
+            {{form_errors(input)}}
+            <label class="text-bluee">{{form_label(input)}}</label>
+            {{form_widget(input)}}
+        </div>
+        {% if 'supportPdf' in form_label(input) and edit is defined and test.supportPdf != null  %}
+            <div class="col">
+                <button onclick="showModal('deleteDocument')" type="button" class="btn btn-danger">Remove</button>
+            </diV>
+        {% endif %}
+    </div>
+    {% else %}
+    <div style="display:none;">
+    {{form_row(input)}}
+    </div> 
+    {% endif %}
+    {% endfor %}
+  {#  <div class="row"style="margin-bottom:20px;">
+    <label class="text-bluee">Description</label>
+    {{form_widget(form.description)}}
+    </div>
+    <div class="row"style="margin-bottom:20px;">
+    <label class="text-bluee">Support file</label>
+    {{form_widget(form.supportPdfFile)}}
+    </div>#}
+     <hr class="my-3">
+    <button style="border:none; background-color:transparent;" class="redback over float-right text-white">{{ button_label|default('continue') }}</button>
+{{ form_end(form, {'render_rest': false}) }}
+<script>
+    var educationGroup = $(".educationGroup").html();
+    if ($('#test_type').val()=="level"){
+            $(".educationGroup").remove();
+        /*else 
+            $(".educationGroup").show();*/
+    $('#test_type').on('change', function() {
+        if ($('#test_type').val()=="level")
+            $(".educationGroup").hide();
+        else 
+            $(".educationGroup").show();
+    });
+</script>

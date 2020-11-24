@@ -1,0 +1,140 @@
+{% extends 'base.html.twig' %}
+{% block stylesheet %}
+
+{% endblock %}
+{% block title %}Add university{% endblock %}
+
+{% block body %}
+    <section name='Title' style='margin-top:140px;'>
+        <div class="container">
+            <div class="row justify-content-center">
+             <h1 class="text-center"style="color:#B2273D;"> Add new University 
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+                </div>
+            </div>
+            </div>
+        </div>
+      </section>
+{{form_start(form)}}
+
+<section name="new session" style="margin-top:50px;">
+        <div class="container">
+            <div class="row">
+            <div class="col-md-10 ">
+                 <!-- Nav tabs -->
+             <div class="card"style="background-color:transparent; border:none;">
+                <div class="card-header"style="background-color:transparent; border:none;">
+                  <ul class="nav nav-tabs nav-tabs-primary" role="tablist">
+                    <li class="nav-item">
+                      <a id="li1" class="nav-link active show text-rede" data-toggle="tab" href="#link1" role="tablist">
+                         About
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link text-rede" id="li2" data-toggle="tab" href="#link2" role="tablist">
+                         Admission
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link text-rede" id="li3" data-toggle="tab" href="#link3" role="tablist">
+                         After College.
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-body">
+                  <!-- Tab panes -->
+                  <div class="tab-content tab-space">
+                    <div class="tab-pane active show" id="link1">
+ <div class="form-row">
+    <div class="form-group col-md-6">
+     <label class="form-control-label" >Title</label>
+                        {{ form_widget(form.title) }}
+    </div>
+    <div class="form-group col-md-6">
+      <label class="form-control-label" >Description</label>
+                        {{ form_widget(form.description) }}
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label class="form-control-label" >Students number</label>
+                        {{ form_widget(form.studentsnumber) }}
+    </div>
+    <div class="form-group col-md-6">
+       <label class="form-control-label" >Rank</label>
+                        {{ form_widget(form.rank) }}
+    </div>
+  </div>
+  {{ form_widget(form.photoFile) }}
+  <ul class="nav nav-tabs nav-tabs-primary" role="tablist">
+                    <li class="nav-item">
+   <a id="sub2" href="#link2" onclick="document.getElementById('li2').className=' nav-link active show';document.getElementById('li1').className=' nav-link ';document.getElementById('sub2').className=' nav-link '" class="nav-link float-right" role="tablist" data-toggle="tab">Next</a>
+</li></ul>
+ </div>
+
+                    <div class="tab-pane" id="link2">
+                      <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Sat Range</label>
+        {{ form_widget(form.Satrange) }}
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Acceptance Rate</label>
+        {{ form_widget(form.acceptance) }}
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Application Deadline</label>
+        {{ form_widget(form.deadline) }}
+    </div>
+    
+  </div>
+  
+  
+  <br>
+   <ul class="nav nav-tabs nav-tabs-primary" role="tablist">
+                    <li class="nav-item">
+   <a id="sub3" onclick="document.getElementById('li3').className=' nav-link active show';document.getElementById('li2').className=' nav-link ';document.getElementById('sub3').className=' nav-link '"  href="#link3" class="nav-link float-right" role="tablist" data-toggle="tab">Next</a>
+</li></ul>
+
+                    </div>
+                    
+                    <div class="tab-pane" id="link3">
+                       <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Graduation Rate</label>
+        {{ form_widget(form.graduation) }}
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Employed 2 Years After Graduation</label>
+        {{ form_widget(form.employed) }}
+    </div>
+  </div>
+   <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Earnings 2 Years After Graduation</label>
+       {{ form_widget(form.earning) }}
+    </div></div>
+    
+         <br>
+      <button style="border:none;background-color:transparent;" class="redback over text-white float-right">{{ button_label|default('Save') }}</button>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+                
+{{ form_end(form)}}
+
+       </div> 
+         <a href="{{ path('university_index') }}"style="border:none;background-color:transparent;" class="redback over text-white float-left">
+         <span>back to list</span></a>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Counseling{% endblock %}
+
+{% block body %}
+    <h1>Counseling</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ counsling.id }}</td>
+            </tr>
+            <tr>
+                <th>Begintime</th>
+                <td>{{ counsling.begintime }}</td>
+            </tr>
+            <tr>
+                <th>Endtime</th>
+                <td>{{ counsling.endtime }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ counsling.date ? counsling.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Topic</th>
+                <td>{{ counsling.topic }}</td>
+            </tr>
+            <tr>
+                <th>Medium</th>
+                <td>{{ counsling.medium }}</td>
+            </tr>
+            <tr>
+                <th>Comment</th>
+                <td>{{ counsling.comment }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('counsling_index') }}">back to list</a>
+
+    <a href="{{ path('counsling_edit', {'id': counsling.id}) }}">edit</a>
+
+    {{ include('counsling/_delete_form.html.twig') }}
+{% endblock %}

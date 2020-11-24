@@ -1,0 +1,10 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    {% if candidature.isSubmited == false %}
+    <button class="float-right text-centred" style="border:none; padding-top:7px; text-align:center; color:white;background-image: url('{{asset('image/icones/20.png')}}'); background-color:rgba(0,0,0,0); background-position:top; background-size: cover; height:57px;width:150px;">{{ button_label|default('Save') }}</button>
+    {% if candidature.allFieldsFull and applications|length==20 %}
+       <input type="submit" name="submitCandiature" class="float-right text-centred" style="border:none; padding-top:7px; text-align:center; color:white;background-image: url('{{asset('image/icones/20.png')}}'); background-color:rgba(0,0,0,0); background-position:top; background-size: cover; height:57px;width:150px;" value="Submit candiature" />
+        {#{{ form_widget(form.submitCandiature,{'class':'btn btn-success'}) }}#}
+    {% endif %}
+    {% endif %}
+{{ form_end(form) }}

@@ -1,0 +1,236 @@
+{% extends 'base.html.twig'%}
+{% block title %}{% endblock %}
+
+{% block body %}
+{#<section class="section section-lg">
+      <img src="{{asset('assetss/img/path4.png')}}" class="path">
+      <div class="container">
+      <div class="row justify-content-center">
+          <div class="col-lg-12">
+            <h1 class="text-center">Students Scores</h1>
+            <div class="row row-grid justify-content-center">
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>#}
+    {#{% if app.user.status=="Teacher"%}
+    <div class="container-fluid mt--7">
+      <!-- Table -->
+      <div class="row">
+        <div class="col-4">
+         <div class="card ">
+            <div class="card-header">
+                  
+    <h1 class="card-title " style="font-size: 40px;color: white;padding-left:53px;">Placement test</h1>
+   
+            </div>
+            
+         <br><br><br>
+            <div class="table-responsive">
+              <table id="exemple" class="table align-items-center table-flush  dataTable" >
+                <thead class="thead-light">
+            <tr>
+            <th>Student name</th>
+            <th>Student score</th>
+            </tr>
+               </thead>
+                 <tbody>
+                 {% for student in students %}
+              {% if student.educationGroups.tests[0] is defined and  student.educationGroups.tests[0].type=="level"%}
+              <tr>
+                 <td><span class="text-sm text-dark">{{student.firstname}} {{student.lastname}}</span></td>
+                 <td><span class="text-sm text-dark">{{student.testScore[0].value}}</span></td>
+                 </tr>
+                 {% endif %}
+                 {% endfor %}
+                 </tbody>
+              </table>
+              </div>
+            </div></div>
+        <div class="col-8">
+        <div class="card ">
+            <div class="card-header">
+                
+   <h1 class="card-title " style="font-size: 40px;color: white;padding-left:53px;">Normal test</h1>
+            </div>
+<div class="card-body">
+             <div class="table-responsive">
+              <table id="exemple" class="table align-items-center table-flush  dataTable" >
+                <thead class="thead-light">
+            <tr>
+            <th>Student name</th>
+            <th>Test</th>
+            <th>Student score</th>
+            </tr>
+               </thead>
+                 <tbody>
+                 {% for student in students %}
+              {% if student.educationGroups.tests[0] is defined and  student.educationGroups.tests[0].type=="normal"%}
+              <tr>
+                 <td><span class="text-sm text-dark">{{student.firstname}} {{student.lastname}}</span></td>
+                 <td><span class="text-sm text-dark">{{student.testScore[0].test.title}}</span></td>
+                 <td><span class="text-sm text-dark">{{student.testScore[0].value}}</span></td>
+                 </tr>
+                 {% endif %}
+                 {% endfor %}
+                 </tbody>
+              </table>
+        </div></div>
+
+        </div></div>
+        {% endif %}#}
+        {#{% if app.user.status=="Admin"%}#}
+   {#<div class="container-fluid mt--7">
+      <!-- Table -->
+      <div class="row">
+        <div class="col-4">
+         <div class="card ">
+            <div class="card-header">
+                  
+    <h1 class="card-title " style="font-size: 40px;color: white;padding-left:53px;">Placement test</h1>
+   
+            </div>
+            
+         <br><br><br>
+            <div class="table-responsive">
+              <table id="exemple" class="table align-items-center table-flush  dataTable" >
+                <thead class="thead-light">
+            <tr>
+            <th>Student name</th>
+            <th>Student score</th>
+            </tr>
+               </thead>
+                 <tbody>
+                 {% for student in students %}
+            {% for score in student.testScore %}
+            
+              {% if score.test is defined and  score.test.type=="level"%}
+              {#{{dump(score.value)}}#}
+             {# <tr>
+                 <td><span class="text-sm text-dark">{{student.firstname}} {{student.lastname}}</span></td>
+                 <td><span class="text-sm text-dark">{{score.value}}</span></td>
+                 </tr>
+                 {% endif %}
+                 {% endfor %}
+                 {% endfor %}
+                 </tbody>
+              </table>
+              </div>
+            </div></div>
+        <div class="col-8">
+        <div class="card">
+            <div class="card-header">
+           <h1 class="card-title " style="font-size: 40px;color: white;padding-left:53px;">Normal test</h1>
+            </div>
+<div class="card-body">
+             <div class="table-responsive">
+              <table id="exemple" class="table align-items-center table-flush  dataTable" >
+                <thead class="thead-light">
+            <tr>
+            <th>Student name</th>
+            <th>Test</th>
+            <th>Student score</th>
+            </tr>
+               </thead>
+                 <tbody>
+                 {% for student in students %}
+                   {% for score in student.testScore %}
+                   {#{{dump(score.value)}}#}
+             {# {% if score.test is defined and  score.test.type=="normal"%}
+              
+              <tr>
+                 <td><span class="text-sm text-dark">{{student.firstname}} {{student.lastname}}</span></td>
+                 <td><span class="text-sm text-dark">{{score.test.title}}</span></td>
+                 <td><span class="text-sm text-dark">{{score.value}}</span></td>
+                 </tr>
+                 {% endif %}
+                 
+                 {% endfor %}
+                 {% endfor %}
+                 </tbody>
+              </table>
+        </div></div>
+
+        </div></div>
+        {#{% endif %}#}
+        <section name='Title' style='margin-top:140px;'>
+<div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';">  Students Scores
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+
+    <section name="score"style="margin-top:30px;">
+        <div class="container">
+          <div class="row" style="margin-bottom:50px;">
+            <div class="col-5" style="margin-right:20px;">
+                <h2 style="color:#2F5BA3;font-family:'Neou-bold';">PLACEMENT TEST<img src="{{asset('image/icones/6.png')}}" height="130px" class="path"style='padding-bottom:50px;'>
+              </h2>
+              <div class="row" style="padding-bottom:26px;">
+                <div class="col" >
+                    <h4 class="text-rede">STUDENT NAME</h4>
+
+                </div>
+                <div class="col" >
+                    <h4 class="text-rede">STUDENT SCORE</h4>
+                </div>
+            </div>
+              {% for student in students %}
+            <div class="row" style="margin-bottom:10px;">
+                <div class="col bg-gris" style="margin-right:5px;">
+                    <h6 class="">{{student.firstname}} {{student.lastname}}</h6>
+                    
+                </div>
+                <div class="col bg-gris">
+                    <h6> {{student.testScore[0] is defined?student.testScore[0].value:'--'}}</h6>
+                </div>
+            </div>
+            {% endfor %}
+            </div>
+            
+            <div class="col-6">
+            <h2 style="color:#2F5BA3;font-family:'Neou-bold';">NORMAL TEST<img src="{{asset('image/icones/6.png')}}" height="130px" class="path"style='padding-bottom:50px;'>
+              </h2>
+            <div class="row">
+                <div class="col">
+                    <h4 class="text-rede">Student name</h4>
+                </div>
+                <div class="col">
+                    <h4 class="text-rede">Test</h4>
+                </div>
+                <div class="col">
+                    <h4 class="text-rede"> Score</h4>
+                </div>
+            </div>
+            {% for student in students %}
+              {% for score in student.testScore %}            <div class="row" style="margin-bottom:10px;">
+                <div class="col bg-gris" style="margin-right:10px;">
+                    <h6 class="">{{student.firstname}} {{student.lastname}}</h6>
+                </div>
+                <div class="col bg-gris"style="margin-right:10px;">
+                    <h6> {{student.testScore[0].test.title}}</h6>
+                </div>
+                <div class="col bg-gris">
+                    <h6> {{student.testScore[0].value}}</h6>
+                </div>
+            </div>
+             {% endfor %}
+             {% endfor %}
+             
+             
+             
+            </div>
+          </div>
+        </div>
+    </section>
+{% endblock %}
+

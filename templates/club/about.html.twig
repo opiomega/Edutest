@@ -1,0 +1,107 @@
+{% extends 'club.html.twig'%}
+
+{% block body%}
+<main>
+
+            <!-- breadcrumb-area-start -->
+            <div class="breadcrumb-area breadcrumb-bg pt-260 pb-265" style="background-image:url(/club/img/bg/page-title-bg.jpg)">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="breadcrumb-text text-center">
+                                <h1>about us</h1>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- breadcrumb-area-end -->
+
+            <!-- about-area-start -->
+            <div class="about-area  pt-130 pb-100">
+                <div class="container">
+                <div class="col-xl-6 col-lg-6 col-md-6">
+                            <div class="counter-wrapper single-counter single-2-counter text-center mb-30">
+                                <div class="counter-icon">
+                                    <i class="tim-icons icon-single-02"></i>   
+                                </div>
+                                <div class="counter-text">
+                                    <h1><span class="counter">{{club.Students|length}}</span></h1>
+                                    <p>Members</p>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="row">
+                        <div class="col-xl-7 col-lg-6">
+                            <div class="single-about mb-30">
+                                <div class="about-2-img">
+                                    <img src="{{ asset('uploads/clubs/logos/'~club.logo) }}" alt="">
+                                </div>
+                                <div class="about-1-video">
+                                    <div class="about-video text-right"> 
+                                    {#    <a class="popup-video" href="https://www.youtube.com/watch?v=srKymyt4_dM"><i class="tim-icons icon-triangle-right-17" style="margin-top:30px; hieght:20px;width:20px"></i></a> #}
+                                       <span>Contact us for more informations ;)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-5 col-lg-6">
+                            <div class="about-2-wrapper mb-30">
+                                <div class="about-content">
+                                    <h1>Descrption  </h1>
+                                    <span>We are creative <br> {{club.activity}}</span>
+                                    <p>{{club.about}}.</p>
+                                    
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- about-area-end -->
+<!-- counter-area-start -->
+{#
+            <div class="counter-area pt-130 pb-150">
+                <div class="container">
+                    <div class="row justify-content-between">
+                        <div class="col-xl-6 col-lg-6 col-md-6">
+                            <div class="counter-wrapper single-counter single-2-counter text-center mb-30">
+                                <div class="counter-icon">
+                                    <i class="tim-icons icon-single-02"></i>   
+                                </div>
+                                <div class="counter-text">
+                                    <h1><span class="counter">{{club.Students|length}}</span></h1>
+                                    <p>Members</p>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="col-xl-6 col-lg-6 col-md-6">
+                            <div class="counter-wrapper single-counter single-2-counter text-center mb-30">
+                                <div class="counter-icon">
+                                    <i class="tim-icons icon-cloud-upload-94"></i>   
+                                </div>
+                                <div class="counter-text">
+                                    <h1><span class="counter">50</span></h1>
+                                    <p>Video Uploaded</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>#}
+            <!-- counter-area-end -->
+            <!-- features-area-start -->
+            <div class="features-01-area pt-180 pb-75" style="background-image:url(/club/img/bg/bg-11.jpg)">
+                <div class="container">
+                    
+                </div>
+            </div>
+            <!-- features-area-end -->
+            
+        </main>
+
+{% endblock %}

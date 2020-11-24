@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Courses{% endblock %}
+
+{% block body %}
+</div>
+ <div class="container-fluid mt--8">
+   <div class="row">
+
+     <div class="col-xl-10 order-xl-1">
+          <div class="card bg-secondary shadow">
+
+ <div class="card-body">
+    <h1>Edit Courses</h1>
+{{ form_start(form)}}
+    
+                 <div class="row">
+                    <div class="col-lg-8">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-address">Name</label>
+                        {{ form_widget(form.name) }}
+                      </div>
+                    </div>
+                  </div>
+                  <button class="btn btn-warning">{{ button_label|default('Update') }}</button>
+                  {{ include('courses/_delete_form.html.twig') }}
+{{ form_end(form)}}
+</div></div></div></div>
+
+    <a href="{{ path('courses_index') }}" class="btn btn-outline-default float-left">back to list</a>
+
+    
+{% endblock %}

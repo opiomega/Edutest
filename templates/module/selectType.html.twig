@@ -1,0 +1,37 @@
+{# empty Twig template #}
+{% extends 'base.html.twig' %}
+{% block body %}
+</div>
+<div class="container-fluid mt--7">
+<div class="col-xl-6 order-xl-3 mb-5 mb-xl-0">
+    <div class="card card-profile shadow">
+    
+        <div class="card-body pt-0 pt-md-4">
+            <div class="row">
+                <div class="col">
+                <span class="label label-success">Please select the type :</span> 
+{% for type in typeCourses %}
+ <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+    <a href="{{ path('module_index',{'idType':type.id,'idCategory':categoryId}) }}" class="btn btn-block  btn-icon ">
+                  <span class="btn-inner--icon ">
+                  <img src="{% if type.name=="Course"%}
+                  {{ asset('img/pdf.png')}}
+                  {% endif %}
+                  {% if type.name=="Video"%}
+                  {{ asset('img/coursevid.png')}}
+                  {% endif %}
+                  {% if type.name=="Live"%}
+                  {{ asset('img/courselive.png')}}
+                  {% endif %}">
+                  </span>
+                  <span class="btn-inner--text">{{ type.name }}</span>
+                </a> <br/>
+     </div>
+{% endfor %}
+<br/>
+<a href="{{ path('module_selectCategory') }}" class="btn btn-outline-success">back to cateories list</a>
+
+
+
+
+{% endblock %}

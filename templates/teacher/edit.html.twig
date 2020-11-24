@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Teacher{% endblock %}
+
+{% block body %}
+    {{ form_start(form)}}
+<div class="col-md-10 ml-auto col-xl-6 mr-auto">
+              
+              <!-- Nav tabs -->
+              <div class="card">
+                <div class="card-header">
+                  <ul class="nav nav-tabs nav-tabs-primary" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active show" data-toggle="tab" href="#link1" role="tablist">
+                        <i class="tim-icons icon-single-02"></i> Teacher
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" data-toggle="tab" href="#link2" role="tablist">
+                        <i class="tim-icons icon-paper"></i> Education
+                      </a>
+                    </li>
+                    
+                  </ul>
+                </div>
+                <div class="card-body">
+                  <!-- Tab panes -->
+                  <div class="tab-content tab-space">
+                    <div class="tab-pane active show" id="link1">
+                    
+                       <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">First name</label>
+       {{ form_widget(form.firstname) }}
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Last name</label>
+        {{ form_widget(form.lastname) }}
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Email</label>
+        {{ form_widget(form.email) }}
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Phone number</label>
+        {{ form_widget(form.phone) }}
+    </div>
+  </div>
+  {{ form_row(form.university)}}
+<div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputCity">Adresse</label>
+      {{ form_widget(form.adress) }}
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputState">City</label>
+      {{ form_widget(form.city) }}
+    </div>
+    <div class="form-group col-md-2">
+      <label for="inputZip">Zipcode</label>
+      {{ form_widget(form.zipcode) }}
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Score</label>
+        {{ form_widget(form.score) }}
+    </div>
+    
+  </div>
+<button class="btn btn-success ">{{ button_label|default('Update') }}</button>
+</div>
+     <div class="tab-pane" id="link2">
+     <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Test</label>
+        {{ form_widget(form.testsCategory) }}
+    </div>
+    </div>
+    <button class="btn btn-success ">{{ button_label|default('Update') }}</button>
+  </div>
+    
+
+    {{ form_end(form)}}
+
+   
+
+    {{ include('teacher/_delete_form.html.twig') }}
+    </div></div></div></div>
+     <a href="{{ path('professor') }}"class="btn btn-outline-default float-left">back to list</a>
+{% endblock %}

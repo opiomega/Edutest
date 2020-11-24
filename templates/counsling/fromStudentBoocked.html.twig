@@ -1,0 +1,373 @@
+{% extends 'base.html.twig'%}
+
+{% block body %}
+
+{#</br></br>
+<section class="section section-lg">
+      <img src="{{asset('assetss/img/path4.png')}}" class="path">
+     
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-12">
+            <h1 class="text-center">Student booked a session</h1>
+            <div class="row row-grid justify-content-center">
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+   {# <div class="row justify-content-center"> 
+    <div class="col-11">
+    <div class="card card-plain" style="border:solid 1px ;">
+    <div class="card_head">
+      </div>
+    <div class="card-body">
+    <a class="  text-dark" data-toggle="collapse" data-target="#filtersall" style="margin-bottom:16px;padding-top: 9px">
+                                <button type="button" class="btn btn-primary mr-2 btn-sm">All</button>
+                            </a>
+    <a class="  text-dark" data-toggle="collapse" data-target="#filtersprev" style="margin-bottom:16px;padding-top: 9px">
+                                <button type="button" class="btn btn-primary mr-2 btn-sm">Previous</button>
+                            </a>
+                            <a class="  text-dark" data-toggle="collapse" data-target="#filtersnext" style="margin-bottom:16px;padding-top: 9px">
+                                <button type="button" class="btn btn-primary mr-2 btn-sm">Next</button>
+                            </a>
+       <a class="  text-dark" data-toggle="collapse" data-target="#filterstoday" style="margin-bottom:16px;padding-top: 9px">
+                                <button type="button" class="btn btn-primary mr-2 btn-sm">Today</button>
+                            </a>
+    <div  id="filtersall" class="collapse" >                     
+   
+</div>
+
+    <div  id="filtersprev" class="collapse" >                     
+   
+</div>
+
+
+    <div  id="filtersnext" class="collapse" >                     
+    
+    </div>
+
+        <div  id="filterstoday" class="collapse" >   
+         
+    </div> </div> </div> </div> </div> </div> 
+
+
+
+    <div class="col">
+              <div class="mb-3">
+                <small class="text-uppercase font-weight-bold">With text</small>
+              </div>#
+              
+              <!-- Tabs with Background on Card -->
+              <div class="card card-plain">
+                <div class="card-header">
+                  <ul class="nav nav-tabs nav-tabs-primary" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link" data-toggle="tab" href="#link1" role="tablist">
+                        All
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" data-toggle="tab" href="#link2" role="tablist">
+                        Perivous
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active show" data-toggle="tab" href="#link3" role="tablist">
+                        Next
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link " data-toggle="tab" href="#link4" role="tablist">
+                        Today
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-body">
+                  <!-- Tab panes -->
+                  <div class="tab-content tab-space">
+                    <div class="tab-pane" id="link1">
+                       <table class="table">
+        <thead>
+            <tr>
+            <th>Student name</th>
+            <th>Topic</th>
+            <th>Medium</th>
+            <th>Date</th>
+            <th>From</th>
+            <th>To</th>
+            </th>
+            </thead>
+        <tbody>
+        {% for s in teachers %}
+      <tr>
+        <td>{{s.teacher.firstname}} {{s.teacher.lastname}}</td>
+        <td>{{s.topic}}</td>
+        <td>{{s.medium}}</td>
+        <td ><p class=" text-red">{{s.date|date('Y-m-d')}}</p></td>
+        <td ><p class=" text-info">{{s.sbegin}}</p></td>
+        <td ><p class=" text-info">{{s.send}}</p></td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+                    </div>
+                    <div class="tab-pane" id="link2">
+                       <table class="table">
+        <thead>
+            <tr>
+            <th>Student name</th>
+            <th>Topic</th>
+            <th>Medium</th>
+            <th>Date</th>
+            <th>From</th>
+            <th>To</th>
+            </th>
+            </thead>
+        <tbody>
+        {% for p in prev %}
+      <tr>
+        <td>{{p.teacher.firstname}} {{p.teacher.lastname}}</td>
+        <td>{{p.topic}}</td>
+        <td>{{p.medium}}</td>
+        <td ><p class=" text-red">{{p.date|date('Y-m-d')}}</p></td>
+        <td ><p class=" text-info">{{p.sbegin}}</p></td>
+        <td ><p class=" text-info">{{p.send}}</p></td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+                    </div>
+                    <div class="tab-pane active show" id="link3">
+                     <table class="table">
+        <thead>
+            <tr>
+            <th>Student name</th>
+            <th>Topic</th>
+            <th>Medium</th>
+            <th>Date</th>
+            <th>From</th>
+            <th>To</th>
+            </th>
+            </thead>
+        <tbody>
+        {% for n in next %}
+      <tr>
+        <td>{{n.teacher.firstname}} {{n.teacher.lastname}}</td>
+        <td>{{n.topic}}</td>
+        <td>{{n.medium}}</td>
+        <td ><p class=" text-red">{{n.date|date('Y-m-d')}}</p></td>
+        <td ><p class=" text-info">{{n.sbegin}}</p></td>
+        <td ><p class=" text-info">{{n.send}}</p></td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+                    </div>
+
+                    <div class="tab-pane " id="link4">
+                      <table class="table">
+        <thead>
+            <tr>
+            <th>Student name</th>
+            <th>Topic</th>
+            <th>Medium</th>
+            <th>Date</th>
+            <th>From</th>
+            <th>To</th>
+            </th>
+            </thead>
+        <tbody>
+        {% for t in today %}
+      <tr>
+        <td>{{t.teacher.firstname}} {{t.teacher.lastname}}</td>
+        <td>{{t.topic}}</td>
+        <td>{{t.medium}}</td>
+        <td ><p class=" text-red">{{t.date|date('Y-m-d')}}</p></td>
+        <td ><p class=" text-info">{{t.sbegin}}</p></td>
+        <td ><p class=" text-info">{{t.send}}</p></td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- End Tabs on plain Card -->
+            </div>#}
+<section name='Title' style='margin-top:140px;'>
+        <div class="container">
+            <div class="row justify-content-center">
+             <h1 class="text-center"style="color:#B2273D;">  Booked Sessions
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+                </div>
+            </div>
+            </div>
+        </div>
+      </section>
+        <style>
+             .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+        background-color:transparent!important;
+        border:none;
+    }
+            .bg-blue{
+                background-image:url("{{asset('image/icones/21.png')}}");
+                background-size:cover;
+            }
+            .bg-red{
+                background-image:url("{{asset('image/icones/20.png')}}");
+                background-size:cover;
+            }
+        </style>
+        <script>
+  function myFunction(img) {
+    
+
+  var img = document.getElementById(img);
+
+  
+  if(img==all){
+     
+    document.getElementById('all1').className="nav-item bg-blue";
+   
+  }else{
+     
+    document.getElementById('all1').className="nav-item bg-red";
+  }
+  if(img==perivous){
+    document.getElementById('perivous').className="nav-item bg-blue";
+   
+  }else{
+    document.getElementById('perivous').className="nav-ite bg-red";
+  }
+  if(img==next){
+    document.getElementById('next').className="nav-item bg-blue";
+   
+  }else{
+    document.getElementById('next').className="nav-item bg-red";
+  }
+  if(img==today){
+    document.getElementById('today').className="nav-item bg-blue";
+   
+  }else{
+    document.getElementById('today').className="nav-item bg-red";
+  }
+ 
+}
+</script>
+      <section name="table"style="margin-top:30px;">
+        <div class="container">
+        <div class="row">
+            <ul class="nav nav-tabs nav-tabs-primary" role="tablist">
+                    <li id="all1" class="nav-item bg-red">
+                      <a onclick="myFunction('all')" class="nav-link text-white" id="all" data-toggle="tab" href="#link1" >
+                        All
+                      </a>
+                    </li>
+                    <li id="perivous" class="nav-item bg-red" >
+                      <a onclick="myFunction('perivous')" class="nav-link text-white" data-toggle="tab" href="#link2" role="tablist">
+                        Perivous
+                      </a>
+                    </li>
+                    <li id="next" class="nav-item active show bg-blue">
+                      <a onclick="myFunction('next')" class="nav-link text-white " data-toggle="tab" href="#link3" role="tablist">
+                        Next
+                      </a>
+                    </li>
+                    <li id="today" class="nav-item bg-red">
+                      <a onclick="myFunction('today')" class="nav-link text-white" data-toggle="tab" href="#link4" role="tablist">
+                        Today
+                      </a>
+                    </li>
+                  </ul>
+                 
+        </div>
+            
+            <div class="row" style="margin-top:30px;">
+                <div class="col " style="margin-right:10px;"><h4 class="text-bluee">teacher name<h4></div>
+                <div class="col "style="margin-right:10px;"><h4 class="text-bluee">topic</h4></div>
+                <div class="col "style="margin-right:10px;"><h4 class="text-bluee">medium</h4></div>
+                <div class="col "style="margin-right:10px;"><h4 class="text-bluee">date</h4></div>
+                <div class="col "><h4 class="text-bluee">time</h4></div>
+                <div class="col "><h4 class="text-bluee"></h4></div>
+            </div>
+            <!-- Tab panes -->
+                  <div class="tab-content tab-space">
+                    <div class="tab-pane" id="link1">
+            {% for s in teachers %}
+            <div class="row" style="margin-top:10px;">
+                <div class="col bg-gris" style="margin-right:10px;"><h4 >{{ s.teacher.firstname }} {{ s.teacher.lastname }}<h4></div>
+                <div class="col bg-gris"style="margin-right:10px;"><h4 >{{ s.topic }}</h4></div>
+                <div class="col bg-gris"style="margin-right:10px;"><h4>{{s.medium}}</h4></div>
+                <div class="col bg-gris"style="margin-right:10px;"><h4>{{s.date|date('Y-m-d')}}</h4></div>
+                <div class="col bg-gris"style="margin-right:10px;"><h4 >{{s.sbegin}}</h4></div>
+                <div class="col bg-gris"><h4>{{s.send}}</h4></div>
+                {#<td>{{s.topic}}</td>
+        <td>{{s.medium}}</td>
+        <td ><p class=" text-red">{{s.date|date('Y-m-d')}}</p></td>
+        <td ><p class=" text-info">{{s.sbegin}}</p></td>
+        <td ><p class=" text-info">{{s.send}}</p></td>#}
+            </div>
+            {% endfor %}
+            </div>
+            
+            <div class="tab-pane" id="link2">
+            {% for p in prev %}
+            <div class="row" style="margin-top:10px;">
+                <div class="col bg-gris" style="margin-right:10px;"><h4 >{{ p.teacher.firstname }} {{ p.teacher.lastname }}<h4></div>
+                <div class="col bg-gris"style="margin-right:10px;"><h4 >{{ p.topic }}</h4></div>
+                <div class="col bg-gris"style="margin-right:10px;"><h4>{{p.medium }}</h4></div>
+                <div class="col bg-gris"style="margin-right:10px;"><h4>{{p.date|date('Y-m-d') }}</h4></div>
+                <div class="col bg-gris"style="margin-right:10px;"><h4 >{{p.sbegin}}</h4></div>
+                <div class="col bg-gris"><h4>{{p.send}}</h4></div>
+            </div>
+            {% endfor %}
+            </div>
+                <div class="tab-pane active show" id="link3">
+                    {% for n in next %}
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col bg-gris" style="margin-right:10px;"><h4>{{ n.teacher.firstname }} {{ n.teacher.lastname }}<h4></div>
+                        <div class="col bg-gris"style="margin-right:10px;"><h4>{{ n.topic }}</h4></div>
+                        <div class="col bg-gris"style="margin-right:10px;"><h4 >{{n.date|date('Y-m-d') }}</h4></div>
+                        <div class="col bg-gris"style="margin-right:10px;"><h4 >{{n.sbegin}}</h4></div>
+                        <div class="col bg-gris"><h4 >{{n.send}}</h4></div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="tab-pane " id="link4">
+                    {% for t in today %}
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col bg-gris" style="margin-right:10px;"><h4 >{{ t.teacher.firstname }} {{ t.teacher.lastname }}<h4></div>
+                        <div class="col bg-gris"style="margin-right:10px;"><h4 >{{ t.topic }}</h4></div>
+                        <div class="col bg-gris"style="margin-right:10px;"><h4 >{{ t.date|date('Y-m-d') }}</h4></div>
+                        <div class="col bg-gris"style="margin-right:10px;"><h4 >{{ t.sbegin }}</h4></div>
+                        <div class="col bg-gris"><h4 >{{n.send}}</h4></div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+        </div>
+      </section>
+{% endblock %}

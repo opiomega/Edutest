@@ -1,0 +1,320 @@
+
+
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+  {{parent()}}
+{% endblock %}
+{% block title %}Admin!{% endblock %}
+
+
+
+{% block body %}
+
+    <section name='Title' style='margin-top:140px;'>
+        <div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;">   DASHBOARD
+            <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+
+            </div>
+          </div>
+        </div>
+      </section>
+     <!--Header-->
+<section name="header">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="row">
+        <div class="col-md-3">
+            <img src="{{ asset('image/icones/3.png') }}" class="iconsDashboardTop" />
+            <h5>COHORT PROGRESS</h5>
+            {% if candida!= null %}
+            <p style="color:#999999">
+                <p class="grayHoverBlue">{{candida}}%</p></p>
+            {% else %}
+            <p style="color:#999999">
+                <p  class="grayHoverBlue">0.00 %</p></p>
+            {% endif %}
+                
+        </div>
+        <div class="col-md-3">
+            <img src="{{ asset('image/icones/5.png') }}" class="iconsDashboardTop" />
+            <h5>UPCOMING DEADLINE </h5><p style="color:#999999">
+            {% if upcomingDeadline!= null %}
+            <p class="grayHoverBlue">{{upcomingDeadline}} </p>
+            {% else %}
+              --
+            {% endif %}
+            </p>
+
+        </div>
+        <div class="col-md-3"><img src="{{ asset('image/icones/15.png') }}" class="iconsDashboardTop" />
+            <h5>STUDENTS APPLIED THIS TERM</h5>
+            <p style="color:#999999"><p  class="grayHoverBlue">{{term}}</p></p>
+        </div>
+        <div class="col-md-3">
+            <img src="{{ asset('image/icones/34.png') }}" class="iconsDashboardTop" />
+            <h5>Currently Enrolled Students</h5>
+            <p style="color:#999999"><p  class="grayHoverBlue">{{enrolled}}</p></p>
+        </div>
+    </div>
+    </div></div>
+</section>
+
+      <script>
+          $(document).ready(function(){
+             document.getElementById('example_length').style="display:none";
+          });
+      </script>
+      <style>
+        select{
+          display:none;
+        }
+        .dataTables_info{
+          color:blue !important;
+        }
+        .dataTables_length{
+          display:none !important;
+        }
+        .example_filter ,label{
+          color:black !important;
+        }
+      </style>
+  <!--Calendar & Student list-->
+    <section name="calendar&studentlist" style="margin-top:45px;">
+        <div class="container">
+               <div class="row justify-content-center">
+               <!--Calendar-->
+                    <div class="col-md-7">
+              <!--calendar-->
+             <div id="calendar-holder"></div>
+
+             <!--stick cart-->
+    </div>   
+       
+    <div class="col-md-5">
+
+    <h4 class="text-bluee">Student list (overdue fees)</h4>
+
+    <table id="example" class="table dataTable">
+        <thead>
+            <tr>
+            <th><p class="text-rede">Student name</p></th>
+            <th><p class="text-rede">Deadline</p></th>
+            <th><p class="text-rede">Mail</p></th>
+            
+            </tr>
+            </thead>
+        <tbody>
+        {% for s in students %}
+      <tr>
+        <td>{{s.firstname}} {{s.lastname}}</td>
+        <td><p class="text-red"> {{s.nextpaymentday|date('Y-M-d')}}</p></td>
+        <td><a class="nav-link text-white" href='{{ path('admin_send_email_only_one_student',{'id':s.id}) }}'><i class="fa fa-envelope" style='color:#131313; height:30px;'></i><a></td>
+       
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+ 
+    </div>
+    </div>
+
+ </section>
+    <!--Growth chart & Student Score-->
+  <section name="growth&score"style="margin-bottom:50px;margin-top:40px;">
+        <div class="container">
+               <div class="row justify-content-center">
+        <div class="col-md-7">
+          <div class="card bg-gradient-default shadow">
+            <div class="card-header bg-transparent">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h6 class="text-uppercase text-bluee ls-1 mb-1">Overview</h6>
+                  <h2 class="text-rede mb-0">Growth chart</h2>
+                </div>
+                <div class="col">
+                  <ul class="nav nav-pills justify-content-end">
+                    <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#myChar" data-update='{"data":{"datasets":[{"data":[{% set i=0%}{% for r in result %} parseInt({{result[i]|length}}),{% set i=i+1%} {% endfor %}]}]}}' >
+                      
+                    </li>
+                   
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <!-- Chart -->
+              
+<canvas id="myChart" class="chart-canvas"></canvas>
+              </div>
+            </div>
+          </div>
+        
+        <div class="col-md-5">
+          <div class="card shadow" style="height: 424px">
+            <div class="card-header bg-transparent">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h6 class="text-uppercase text-bluee ls-1 mb-1">Stats:</h6>
+                  <h2 class="text-rede">Students score</h2>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <!-- Chart -->
+             
+                <canvas id="myChartscore" class="chart-canvas" style="height:369px;"> </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script>
+  var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
+
+    // The data for our dataset
+    data: {
+        labels: [
+        {% set i=0%}{% for r in result %} {% if  (result[i][ "m"])==1%} 'Jan'{% endif %}
+        
+        {% if  (result[i][ "m"])==2%} 'Feb'{% endif %}
+        {% if  (result[i][ "m"])==3%} 'Mar'{% endif %}
+        {% if  (result[i][ "m"])==4%} 'Apr'{% endif %}
+        {% if  (result[i][ "m"])==5%} 'May'{% endif %}
+        {% if  (result[i][ "m"])==6%} 'Jun'{% endif %}
+        {% if  (result[i][ "m"])==7%} 'Jul'{% endif %}
+        {% if  (result[i][ "m"])==8%} 'Aug'{% endif %}
+        {% if  (result[i][ "m"])==9%} 'Sep'{% endif %}
+        {% if  (result[i][ "m"])==10%} 'Oct'{% endif %}
+        {% if  (result[i][ "m"])==11%} 'Nov'{% endif %}
+        {% if  (result[i][ "m"])==12%} 'Dec'{% endif %}
+
+        {% set i=i+1%}, {% endfor %}{{year}}],
+        datasets: [{
+            label: 'Students',
+            //backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: '#5e72e4',
+            data: [{% set i=0%}{% for r in result %} parseInt({{result[i][ "count( id )"]}}){% set i=i+1%}, {% endfor %}]
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});
+    </script>
+    
+
+       <script>
+  var ctx = document.getElementById('myChartscore').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'bar',
+
+    // The data for our dataset
+    data: {
+        labels: ['1500-1600','1300-1499','1100-1299'],
+        datasets: [{
+            label: 'Students SAT score',
+            backgroundColor: '#fb6340',
+            borderColor: '#fb6340',
+            data: [{{firstsc}},{{secsc}},{{thsc}}]
+        }]
+    },
+
+    // Configuration options go here
+    options: {}
+});
+    </script>
+
+
+   
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', () => {
+            var calendarEl = document.getElementById('calendar-holder');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                defaultView: 'dayGridMonth',
+                editable: false,
+                displayEventTime:false,
+                eventLimit: true,
+                firstDay:1,
+                views: {
+    timeGrid: {
+      eventLimit: 3 // adjust to 6 only for timeGridWeek/timeGridDay
+    }
+  },
+                eventSources: [
+                    {
+                        events:[
+                           {% set i=0%}
+                           {% for n in name %}
+                           {
+                             title:'{{seances[i].beginTime}} {{n}}',
+                             daysOfWeek: [ {% for d in day[i] %}'{{d.id}}',{% endfor %} ],
+                             startTime:'{{seances[i].beginTime}}',
+                             endTime:'{{seances[i].endTime}}',
+                             startRecur:'{{seances[i].date}}',
+                             endRecur:'{{seances[i].dateend}}',
+                            
+                           },
+                           {% set i=i+1%}
+                          
+                           {% endfor %}
+                        ],
+                        textColor: 'white'
+                        
+                    },
+                ],
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay',
+                },
+                plugins: [ 'interaction', 'dayGrid', 'timeGrid' ], // https://fullcalendar.io/docs/plugin-index
+                timeZone: 'UTC',
+            });
+            calendar.render();
+        });
+    </script>
+    <script>
+    function load(){
+    var dates = dead;
+var min = dates[0];
+for(var i = 1; i < dates.length; i++) {
+  if (fDate(dates[i]) < fDate(min))
+    min = dates[i];
+    document.getElementById('deadline').value=min;
+}
+alert(min);}
+    </script>
+     <script>
+  $(document).ready(function() {
+    $('#example').DataTable();
+} );
+    </script>
+ {% endblock %}
+{% block javascript %}
+{{ parent() }}
+<!--Calendar-->
+
+<!--Growth-->
+
+          
+
+
+{% endblock %}
+{% block javascripts %}
+  {{parent()}}
+{% endblock %}

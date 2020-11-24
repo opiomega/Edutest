@@ -1,0 +1,71 @@
+
+{{ form_start(form) }}
+     <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-8">
+                      <div class="form-group">
+                          <p>Content</p>
+            {{ form_errors(form.Content) }}
+            {{ form_widget(form.Content) }}
+            <p class="MCQquestionP">Correct choice</p>
+	    {{ form_errors(form.correctChoise) }}
+            {{ form_widget(form.correctChoise) }}
+            <p>Score</p>
+	    {{ form_errors(form.score) }}
+            {{ form_widget(form.score) }}
+            {#<p class="QAQuestionP" style="display: none;">Answer</p>
+	    {{ form_errors(form.answer) }}
+            {{ form_widget(form.answer) }}#}
+            <p class="QAQuestionP" style="display: none;">Correct answer</p>
+	    {{ form_errors(form.correctAnswer) }}
+            {{ form_widget(form.correctAnswer) }}
+            
+</div></div></div>
+<div class="col-lg-8">
+                      <div class="form-group">
+    {# store the prototype on the data-prototype attribute #}
+    <p class="MCQquestionP">Question Choice</p>
+    <ul id="quetionChoises-fields-list"
+        data-prototype="{{ form_widget(form.choises.vars.prototype)|e }}"
+        data-widget-tags="{{ '<li></li>'|e }}"
+        data-widget-counter="{{ form.choises|length }}">
+        {% set cpt = 0 %}
+        
+                    
+    {% for quetionChoisesField in form.choises %}
+        <li id="quetionChoisesLi{{ cpt }}">
+            {{ form_errors(quetionChoisesField) }}
+            {{ form_widget(quetionChoisesField) }}
+           {#} <button id="removeChoise{{ cpt }}" type="button" class="btn btn-outline-danger btn-sm ni ni-fat-remove text-dark"></button>#}
+            <button id="removeChoise{{ cpt }}" type="button" class="btn btn-danger text-white btn-sm "><i class="fa fa-close"></i></button>
+        </li>
+        
+        {% set cpt = cpt + 1 %}
+    {% endfor %}
+    
+    </ul>
+    </div></div></div>
+    
+    <style>
+.btnn {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Darker background on mouse-over */
+.btnn:hover {
+  background-color: RoyalBlue;
+}
+</style>
+<button type="button" class="btnn add-another-collection-widget"data-list-selector="#quetionChoises-fields-list"><i class="fa fa-plus"></i></button>
+    {#<button type="button"
+        class="add-another-collection-widget btn btn-primary ni ni-fat-add text-white"
+        data-list-selector="#quetionChoises-fields-list"> Add new field</button>#}
+    <button style="border:none;background-color:transparent;" class="redback over text-white float-right">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+
+

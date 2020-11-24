@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Classes{% endblock %}
+
+{% block body %}
+<section name='Title' style='margin-top:140px;'>
+    <div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';">  Edit class
+           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+         
+            </div>
+          </div>
+        </div>
+      </div>
+</section>
+
+    <div style="margin-right:50px;margin-left:50px;margin-top:50px;">
+
+    {{ include('classes/_form.html.twig', {'button_label': 'Update'}) }}
+   {{ include('classes/_delete_form.html.twig') }}
+</div>
+    <a href="{{ path('classes_index') }}" class="btn btn-outline-default float-left">back to list</a>
+
+    
+{% endblock %}

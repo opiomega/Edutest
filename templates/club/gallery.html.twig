@@ -1,0 +1,96 @@
+{% extends 'club.html.twig'%}
+{% block title%}
+{% endblock %}
+
+{% block body%}
+<main>
+
+            <!-- breadcrumb-area-start -->
+            <div class="breadcrumb-area breadcrumb-bg pt-260 pb-265" style="background-image:url({{asset('club/img/bg/video.jpg')}})">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="breadcrumb-text text-center">
+                                <h1>Gallery</h1>
+                                <ul class="breadcrumb-menu">
+                                {% if app.user.status=="Student"%}
+                                {% if app.user.student[0] in club.Students%}
+                                    <li><a href="index.html">home</a></li>
+                                    {% else %}
+                                    <li><a href="index.html">home</a></li>
+                                
+                                    <li><span>Our Gallery</span></li>
+                                    <li><a href="index.html">Add pictures</a></li>
+{% endif %}
+                                {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- breadcrumb-area-end -->
+            <!-- latest-gallery-area -->
+            <div class="gallery-area pt-130 pb-100 fix">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-8  offset-xl-2">
+                            <div class="portfolio-menu portfolio-2-menu text-center mb-55">
+                                <button class="active" data-filter="*">All pictures</button>
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <div id="portfolio-grid" class="row row-portfolio" style="position: relative; height: 800px;">
+                        <div class="grid-sizer"></div>
+                         {% for photo in club.clubphotos %}
+                        <div class="col-xl-4 col-lg-4 col-md-6 grid-item cat1 mb-30" style="position: absolute; left: 33.3333%; top: 0px;">
+                            <div class="portfolio-wrapper">
+                           
+                                <div class="portfolio-img">
+                                    <a href="#"><img src="{{ asset('uploads/clubs/photoc/'~photo.photoc) }}" alt="">
+                                    </a>
+                                    <div class="portfolio-text text-center">
+                                        <p>Club. {{club.name}}</p>
+                                        <h2 style="color:blue;">{{photo.eventname}}</h2>
+                                        <span></span>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                         {% endfor %}
+                        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- gallery-area-end -->
+
+            <!-- cta-area-start -->
+            <div class="cta-area mb-130">
+                <div class="container">
+                    <div class="cta-bg pt-85 pb-55" style="background-image:url({{asset('club/img/bg/bg-12.jpg')}})">
+                        <div class="row">
+                            <div class="col-xl-8 col-lg-8">
+                                <div class="single-cta mb-30">
+                                    <div class="cta-content">
+                                        <h2>Join Our Next Event </h2>
+                                        <span> </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4">
+                                <div class="cta-button mb-30 text-left text-lg-right">
+                                  {#  <a class="btn" href="#"><span class="btn-text">Book Noow</span> <span class="btn-border"></span></a>#}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- cta-area-end -->
+
+        </main>
+{% endblock %}

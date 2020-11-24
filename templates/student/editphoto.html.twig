@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Student{% endblock %}
+
+{% block body %}
+</div>
+<div class="container-fluid mt--7">
+   <div class="row">
+
+     <div class="col-xl-8 order-xl-1">
+          <div class="card bg-secondary shadow">
+
+ <div class="card-body">
+    <h1>Edit Student</h1>
+
+    {{form_start(form)}}
+
+    {{ form_widget(form.photoFile)}}
+
+     <button class="btn btn-success float-right">{{ button_label|default('Save') }}</button>
+  
+                   {{ form_end(form)}}
+    </div></div></div></div>
+    
+    <a href="{{ path('apprentice') }}"class="btn btn-outline-default float-left">back to list</a>
+{% endblock %}

@@ -1,0 +1,151 @@
+{% extends "layoutregister.html.twig" %}
+
+{% block title %}New Student{% endblock %}
+{% block body%}
+
+    {{ form_start(form)}}
+          <div class="row" style="margin-top:115px;margin-bottom:100px;">
+               <div class="col-1"></div>
+                <div class="col-10">
+                    <p  style="font-size:40px;" class="text-white">Register a Student</p>
+                    <!-- Student's information -->
+                    <h6 class="heading-small text-rede mb-4" style="font-size:20px;">Student information</h6>
+                     <div class="row">
+                        <div class="col"  >
+      
+       <p class="text-white" style="font-size:15px;">First name</p>
+                            {{ form_widget(form.firstname) }}
+                        </div>
+                        <div class="col">
+                            <p class="text-white" style="font-size:15px;">last name</p>
+                            {{ form_widget(form.lastname) }}
+                        </div>
+                        <div class="col"  >
+                            <p class="text-white" style="font-size:15px;">School</p>
+                            {{ form_widget(form.school) }}
+                        </div>
+                        
+                    </div> 
+                     <!-- Student's skills -->
+                    <div class="row" style="margin-top:20px;">
+                       <div class="col"  >
+                            <p class="text-white" style="font-size:15px;">Achievements</p>
+                            {{ form_widget(form.achievement) }}
+                        </div>
+                        <div class="col">
+                            <p class="text-white" style="font-size:15px;">Special skills</p>
+                            {{ form_widget(form.specialskills) }}
+                        </div>
+                        <div class="col"  >
+                            <p class="text-white" style="font-size:15px;">Hobbies</p>
+                            {{ form_widget(form.hobbies) }}
+                        </div>
+                    </div>
+                    <h6 class="heading-small text-rede mb-4" style="margin-top:20px;font-size:20px;">Parents information</h6>
+                    <!-- father's information -->
+                    <div class="row" style="margin-top:20px;">
+                      <div class="col"  >
+                            <p class="text-white" style="font-size:15px;">Father's name</p>
+                            {{ form_widget(form.firstparentname) }}
+                        </div>
+                        <div class="col">
+                            <p class="text-white" style="font-size:15px;">Father's email</p>
+                            {{ form_widget(form.fristparentemail) }}
+                        </div>
+                        <div class="col"  >
+                            <p class="text-white" style="font-size:15px;">Father's job</p>
+                            {{ form_widget(form.firstparentjob) }}
+                        </div>
+                    </div>
+                     <div class="row" style="margin-top:20px;">
+                      <div class="col"  >
+                            <p class="text-white" style="font-size:15px;">Father's phoe number</p>
+                            {{ form_widget(form.firstparentnumber) }}
+                        </div>
+                      </div>
+
+                    <div class="row" style="margin-top:20px;">
+                      <div class="col"  >
+                            <p class="text-white" style="font-size:15px;">Mother's name</p>
+                            {{ form_widget(form.secondparentname) }}
+                        </div>
+                        <div class="col">
+                            <p class="text-white" style="font-size:15px;">Mother's email</p>
+                            {{ form_widget(form.secondparentemail) }}
+                        </div>
+                        <div class="col"  >
+                            <p class="text-white" style="font-size:15px;">Mother's job</p>
+                            {{ form_widget(form.secondparentjob) }}
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:20px;">
+                      <div class="col"  >
+                            <p class="text-white" style="font-size:15px;">Mother's phoe number</p>
+                            {{ form_widget(form.secondparentnumbre) }}
+                        </div>
+                      </div>
+
+                      <hr class="my-4" />
+
+                    <div class="row" style="margin-top:20px;">
+                      <div class="col"  >
+                            <p class="text-white" style="font-size:15px;">Which course would you like to take</p>
+                            {{ form_widget(form.courses) }}
+                        </div>
+                        <div class="col">
+                            <p class="text-white" style="font-size:15px;">Education level</p>
+                            {{ form_widget(form.educationlevel) }}
+                        </div>
+                        <div class="col"  >
+                            <p class="text-white" style="font-size:15px;">Hear about us from</p>
+                            {{ form_widget(form.hearaboutus) }}
+                        </div>
+                    </div>
+
+                     <div class="row" style="margin-top:20px;">
+                      <div class="col"  >
+                            <p class="text-white" style="font-size:15px;">About me</p>
+                            {{ form_widget(form.comments) }}
+                        </div>
+                        <div class="col">
+                            <p class="text-white" style="font-size:15px;">Which representative did you talk to</p>
+                            {{ form_widget(form.membretalk) }}
+                        </div>
+                        <div class="col"  >
+                            <p class="text-white" style="font-size:15px;">Do you want to apply this year ?</p>
+                            <select name="apply" class="form-control" required placeholder='select'>
+                              <option value="yes">Yes</option>
+                              <option value="no">No</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-8">
+                      <p class="text-white" style="font-size:15px;">What Course(s) Would You Like to Take:</p>
+                        {{form_widget(form.online)}}
+                      </div>
+                    </div>
+                    <div class="row" style="margin-top:41px;">
+                        <div class="col-11">
+                            <button style="border:none; background-color:transparent;" href="#" class=" text-white float-right" style="font-size:30px;">Register</button>
+                           {#} <button class="btn btn-success">{{ button_label|default('Save') }}</button>#}
+                        </div>
+                    </div>
+                </div>
+ 
+                 
+          </div>
+              
+              </div>
+            </div>
+             
+          </div>
+        
+      
+      </div>
+    </div>
+    {{ form_end(form)}}
+  </div>
+</div>
+
+{% endblock %}
