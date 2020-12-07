@@ -19,17 +19,17 @@ class Student
      * @ORM\Column(type="integer")
      */
     private $id;
-    
+
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $firstname;
-    
+
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $lastname;
-    
+
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -89,7 +89,7 @@ class Student
     * @ORM\Column(type="boolean")
     */
     private $levelTest = false;
-   
+
     public function getId(): ?int
     {
         return $this->id;
@@ -242,22 +242,8 @@ class Student
 
         return $this;
     }
-     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Courses", inversedBy="students")
-     */
-    private $courses;
 
-    public function getCourses(): ?Courses
-    {
-        return $this->courses;
-    }
 
-    public function setCourses(?Courses $courses): self
-    {
-        $this->courses = $courses;
-
-        return $this;
-    }
      /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Educationlevel", inversedBy="students")
      */
@@ -319,7 +305,7 @@ class Student
     */
    private $candidatures;
 
-  
+
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Notification", mappedBy="transmitter")
@@ -350,12 +336,12 @@ class Student
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="students")
      */
     private $levelTestType;
-    
+
     /**
     * @ORM\ManyToMany(targetEntity="App\Entity\Club", mappedBy="Students")
     */
    private $clubsEngaged;
-   
+
    /**
     * @ORM\OneToMany(targetEntity="App\Entity\ClubMessages", mappedBy="student")
     */
@@ -390,7 +376,7 @@ class Student
     * @ORM\ManyToMany(targetEntity="App\Entity\EducationGroup", mappedBy="students")
     */
    private $educationGroups;
-   
+
    /**
     * @ORM\OneToMany(targetEntity="App\Entity\Counsling", mappedBy="Student")
     */
@@ -401,7 +387,7 @@ class Student
     */
    private $studentConslings;
 
-   
+
    /**
     * @ORM\Column(type="datetime", nullable=true)
     */
@@ -417,6 +403,57 @@ class Student
     */
    private $online;
 
+   /**
+    * @ORM\Column(type="string", length=255)
+    */
+   private $schoollocation;
+
+   /**
+    * @ORM\Column(type="string", length=255)
+    */
+   private $travelabroad;
+
+   /**
+    * @ORM\Column(type="string", length=255 , nullable=true)
+    */
+   private $travelreason;
+
+   /**
+    * @ORM\ManyToMany(targetEntity="App\Entity\Courses", inversedBy="students")
+    */
+   private $courses;
+
+   /**
+    * @ORM\Column(type="string", length=255)
+    */
+   private $parentspayeducation;
+
+   /**
+    * @ORM\Column(type="string", length=255)
+    */
+   private $payeducation;
+
+
+   /**
+    * @ORM\Column(type="string", length=255)
+    */
+   private $membership;
+
+   /**
+    * @ORM\Column(type="string", length=255)
+    */
+   private $enrollededutest;
+
+   /**
+    * @ORM\Column(type="string", length=255 )
+    */
+   private $preferredlanguage;
+
+   /**
+    * @ORM\Column(type="string", length=255, nullable=true)
+    */
+   private $organisationmembership;
+
     public function __construct()
     {
      $this->candidatures = new ArrayCollection();
@@ -429,8 +466,9 @@ class Student
      $this->educationGroups = new ArrayCollection();
      $this->counslings = new ArrayCollection();
      $this->studentConslings = new ArrayCollection();
+     $this->courses = new ArrayCollection();
     }
- 
+
 
    public function getTeacher(): ?Teacher
    {
@@ -523,9 +561,9 @@ class Student
        return $this;
    }
 
-   
- 
- 
+
+
+
     /**
      * @return Collection|Notification[]
      */
@@ -533,17 +571,17 @@ class Student
     {
         return $this->notifications;
     }
- 
+
     public function addNotification(Notification $notification): self
     {
         if (!$this->notifications->contains($notification)) {
             $this->notifications[] = $notification;
             $notification->setTransmitter($this);
         }
- 
+
         return $this;
     }
- 
+
     public function removeNotification(Notification $notification): self
     {
         if ($this->notifications->contains($notification)) {
@@ -553,10 +591,10 @@ class Student
                 $notification->setTransmitter(null);
             }
         }
- 
+
         return $this;
     }
-     
+
 
     /**
      * @return mixed
@@ -607,7 +645,7 @@ class Student
     {
         return $this->levelTest;
     }
-    
+
     public function setLevelTest($levelTest): self
     {
         $this->levelTest = $levelTest;
@@ -654,7 +692,7 @@ class Student
 
         return $this;
     }
-    
+
     /**
      * @return Collection|ClubMessages[]
      */
@@ -804,11 +842,11 @@ class Student
 
         return $this;
     }
-    
+
     public function getFirstAndLstname() {
         return $this->firstname.' '.$this->lastname;
     }
-    
+
     public function getCreatedat(): ?\DateTimeInterface
     {
         return $this->createdat;
@@ -832,7 +870,7 @@ class Student
 
         return $this;
     }
-    
+
     /**
      * @return Collection|Counsling[]
      */
@@ -903,6 +941,141 @@ class Student
     public function setOnline(?bool $online): self
     {
         $this->online = $online;
+
+        return $this;
+    }
+
+    public function getSchoollocation(): ?string
+    {
+        return $this->schoollocation;
+    }
+
+    public function setSchoollocation(string $schoollocation): self
+    {
+        $this->schoollocation = $schoollocation;
+
+        return $this;
+    }
+
+    public function getTravelabroad(): ?string
+    {
+        return $this->travelabroad;
+    }
+
+    public function setTravelabroad(string $travelabroad): self
+    {
+        $this->travelabroad = $travelabroad;
+
+        return $this;
+    }
+
+    public function getTravelReason(): ?string
+    {
+        return $this->travelreason;
+    }
+
+    public function setTravelReason(string $travelreason): self
+    {
+        $this->Travelreason = $travelreason;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Courses[]
+     */
+    public function getCourses(): Collection
+    {
+        return $this->courses;
+    }
+
+    public function addCourses(Courses $course): self
+    {
+        if (!$this->courses->contains($course)) {
+            $this->courses[] = $course;
+        }
+
+        return $this;
+    }
+
+    public function removeCourses(Courses $course): self
+    {
+        if ($this->courses->contains($course)) {
+            $this->courses->removeElement($course);
+        }
+
+        return $this;
+    }
+
+    public function getParentspayeducation(): ?string
+    {
+        return $this->parentspayeducation;
+    }
+
+    public function setParentspayeducation(string $parentspayeducation): self
+    {
+        $this->parentspayeducation = $parentspayeducation;
+
+        return $this;
+    }
+
+    public function getPayeducation(): ?string
+    {
+        return $this->payeducation;
+    }
+
+    public function setPayeducation(string $payeducation): self
+    {
+        $this->payeducation = $payeducation;
+
+        return $this;
+    }
+
+
+    public function getMembership(): ?string
+    {
+        return $this->membership;
+    }
+
+    public function setMembership(string $membership): self
+    {
+        $this->membership = $membership;
+
+        return $this;
+    }
+
+    public function getEnrollededutest(): ?string
+    {
+        return $this->enrollededutest;
+    }
+
+    public function setEnrollededutest(string $enrollededutest): self
+    {
+        $this->enrollededutest = $enrollededutest;
+
+        return $this;
+    }
+
+    public function getPreferredlanguage(): ?string
+    {
+        return $this->preferredlanguage;
+    }
+
+    public function setPreferredlanguage(string $preferredlanguage): self
+    {
+        $this->preferredlanguage = $preferredlanguage;
+
+        return $this;
+    }
+
+    public function getOrganisationmembership(): ?string
+    {
+        return $this->organisationmembership;
+    }
+
+    public function setOrganisationmembership(string $organisationmembership): self
+    {
+        $this->organisationmembership = $organisationmembership;
 
         return $this;
     }

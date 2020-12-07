@@ -1,8 +1,12 @@
 <?php
+
 namespace App\Form;
 
 use App\Entity\User;
+use Doctrine\DBAL\Types\IntegerType;
+use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -25,83 +29,86 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('email', EmailType::class, ['attr' => ['placeholder' => "Email" ,'class' => "form-control "]])
-        ->add('phone', TextType::class, ['attr' => ['placeholder' => "Phone number" ,'class' => "form-control "]])
-        ->add('adress', TextType::class, ['attr' => ['placeholder' => "Address" ,'class' => "form-control "]])
-        ->add('datebirth', TextType::class, ['attr' => ['placeholder' => "Select birth date" ,'class' => "form-control datepicker"]])
-        ->add('city', EntityType::class, [
-            // looks for choices from this entity
-            'class' => City::class,
-        
-            // uses the User.username property as the visible option string
-            'choice_label' => 'name',
-        
-            'attr' => ['class' => "text-red"]
-        ])
-        ->add('zipcode', TextType::class, [
-            'attr' => ['class' => "form-control text-red"]
-            
-            ])
-       
-        ->add('Status', ChoiceType::class, [
-            'choices'  => [		
-                'Student' => 'Student',
-                'Teacher' => 'Teacher',
-                
-                ], 'attr' => ['class' => "form-control text-red"]])
-    ;
-    if (!$options["edit"]){
-        $builder
-        ->add('Password', RepeatedType::class, array(
-            'type' => PasswordType::class,
-            'first_options'  => array('label' => 'Password' ,'attr' => ['placeholder' => "Password" ,'class' => "form-control "]),
-            'second_options' => array('label' => 'Repeat Password', 'attr' => ['placeholder' => "Confirm Password" ,'class' => "form-control "]),
-            'constraints' => [
-                    new Length([
-                        'min' => 8,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                    new Regex([
-                        "pattern"=>"/^(?=.*[!@#$%^&*])/m",
-                        "message"=>'Your password must contain a special character like (!,@,#,$,%,^,&)',
-                        ]
-                    ),
+            ->add('email', EmailType::class)
+            ->add('phone', TextType::class)
+            ->add('adress', TextType::class)
+            ->add('datebirth', DateType::class ,array(  'widget' => 'single_text'))
+            ->add('citybirth', TextType::class)
+            ->add('sexe',ChoiceType::class,array(
+                'choices'  => array(
+                    'Female' => 'F',
+                    'Male' => 'M',
+
+                ),'expanded'=>true
+
+            ))
+
+            ->add('zipcode', TextType::class)
+
+
+
+
+
+
+
+            ->add('Status', ChoiceType::class,
+
+                array(
+                    'choices'  => array(
+                        'Student' => 'Student',
+                        'Teacher' => 'Teacher',
+
+                    ),'expanded'=>true)
+            );
+
+
+
+
+
+
+
+
+        if (!$options["edit"]) {
+            $builder
+                ->add('Password', RepeatedType::class, array(
+                    'type' => PasswordType::class,
+                    'first_options'  => array('label' => 'Password'),
+                    'second_options' => array('label' => 'Repeat Password'),
+                    'constraints' => [
+                        new Length([
+                            'min' => 8,
+                            'minMessage' => 'Your password should be at least {{ limit }} characters',
+                            // max length allowed by Symfony for security reasons
+                            'max' => 4096,
+                        ]),
+                        new Regex([
+                            "pattern" => "/^(?=.*[!@#$%^&*])/m",
+                            "message" => 'Your password must contain a special character like (!,@,#,$,%,^,&)',
+                        ]),
+                    ]
+                ))
+                //->add('photoFile',FileType::class,['attr' => ['class' => "form-control" ],"required"=>true])
+            ;
+        } else {
+            $builder->add('photoFile', FileType::class, ['attr' => ['class' => "form-control"], "required" => false]);
+        }
+        if (in_array('ROLE_SUPER_ADMIN', $options['roles'])) {
+            $builder->add('Active', ChoiceType::class, [
+                'choices'  => [
+                    'Oui' => '1',
+                    'Non' => '0',
+
                 ]
-        ))
-        //->add('photoFile',FileType::class,['attr' => ['class' => "form-control" ],"required"=>true])
-                ;
+            ]);
+        }
     }
-    else {
-        $builder->add('photoFile',FileType::class,['attr' => ['class' => "form-control"],"required"=>false]);
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => User::class,
+            'edit' => array(),
+            'roles' => array(),
+        ));
     }
-     if (in_array('ROLE_SUPER_ADMIN',$options['roles'])){
-        $builder->add('Active', ChoiceType::class, [
-            'choices'  => [
-                'Oui' => '1',
-                'Non' => '0',
-                
-            ]]);
-     }
 }
-
-public function configureOptions(OptionsResolver $resolver)
-{
-    $resolver->setDefaults(array(
-        'data_class' => User::class,
-        'edit' => array(),
-        'roles' => array(),
-    ));
-}
-}
-
-
-
-
-
-
-
-
-
-

@@ -60,17 +60,125 @@ class StudentController extends AbstractController
         $queryBuilder = $em->getRepository('App:Student')->createQueryBuilder('e');
 
 
-        //list($filterForm, $queryBuilder) = $this->filter($queryBuilder, $request);
+        list($filterForm, $queryBuilder) = $this->filter($queryBuilder, $request);
        # list($studentRepository, $pagerHtml) = $this->paginator($queryBuilder, $request);
         return $this->render('student/index.html.twig',  array(
             'students' => $studentRepository->findby([],['firstname'=>'ASC']),
             #'pagerHtml' => $pagerHtml,
-            //'filterForm' => $filterForm->createView(),
+            'filterForm' => $filterForm->createView(),
         ));
     }
-    
+    /*public function testFilterAction(Request $request)
+    {
+        $form = $this->get('form.factory')->create(ItemFilterType::class);
+
+        if ($request->query->has($form->getName())) {
+            // manually bind values from the request
+            $form->submit($request->query->get($form->getName()));
+
+            // initialize a query builder
+            $filterBuilder = $this->get('doctrine.orm.entity_manager')
+                ->getRepository('ProjectSuperBundle:MyEntity')
+                ->createQueryBuilder('e');
+
+            // build the query from the given form object
+            $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $filterBuilder);
+
+            // now look at the DQL =)
+            var_dump($filterBuilder->getDql());
+        }
+
+        return $this->render('ProjectSuperBundle:Default:testFilter.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }*/
  
+    /**
+    * Create filter form and process filter request.
+    *
+    */
+  protected function filter($queryBuilder, Request $request)
+    {
+        $session = $request->getSession();
+        $filterForm = $this->createForm('App\Form\StudentFilterType');
+       
+        // Reset filter
+        if ($request->get('filter_action') == 'reset') {
+            $session->remove('StudentControllerFilter');
+        }
+
+        // Filter action
+        if ($request->get('filter_action') == 'filter') {
+            // Bind values from the request
+            $filterForm->handleRequest($request);
+
+            if ($filterForm->isValid()) {
+                // Build the query from the given form object
+                $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filterForm, $queryBuilder);
+                // Save filter to session
+                $filterData = $filterForm->getData();
+                $session->set('StudentControllerFilter', $filterData);
+            }
+        } else {
+            // Get filter from session
+            if ($session->has('StudentControllerFilter')) {
+                $filterData = $session->get('StudentControllerFilter');
+                
+                foreach ($filterData as $key => $filter) { //fix for entityFilterType that is loaded from session
+                    if (is_object($filter)) {
+                        $filterData[$key] = $queryBuilder->getEntityManager()->merge($filter);
+                    }
+                }
+                
+                $filterForm = $this->createForm('App\Form\StudentFilterType', $filterData);
+                $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($filterForm, $queryBuilder);
+            }
+        }
+
+        return array($filterForm, $queryBuilder);
+    }
+
+  
+/*
+    protected function paginator($queryBuilder, Request $request)
+    {
+        //sorting
+        $sortCol = $queryBuilder->getRootAlias().'.'.$request->get('pcg_sort_col', 'id');
+        $queryBuilder->orderBy($sortCol, $request->get('pcg_sort_order', 'desc'));
+        // Paginator
+        $adapter = new DoctrineORMAdapter($queryBuilder);
+        $pagerfanta = new Pagerfanta($adapter);
+        $pagerfanta->setMaxPerPage($request->get('pcg_show' , 10));
+
+        try {
+            $pagerfanta->setCurrentPage($request->get('pcg_page', 1));
+        } catch (\Pagerfanta\Exception\OutOfRangeCurrentPageException $ex) {
+            $pagerfanta->setCurrentPage(1);
+        }
+        
+        $entities = $pagerfanta->getCurrentPageResults();
+
+        // Paginator - route generator
+        $me = $this;
+        $routeGenerator = function($page) use ($me, $request)
+        {
+            $requestParams = $request->query->all();
+            $requestParams['pcg_page'] = $page;
+            return $me->generateUrl('semester', $requestParams);
+        };
+
+        // Paginator - view
+        $view = new TwitterBootstrap3View();
+        $pagerHtml = $view->render($pagerfanta, $routeGenerator, array(
+            'proximity' => 3,
+            'prev_message' => 'previous',
+            'next_message' => 'next',
+        ));
+
+        return array($entities, $pagerHtml);
+    }
     
+*/
       /**
      * @Route("/of/teacher/{id}", name="students_of_teacher_index", methods={"GET"})
      */
@@ -159,6 +267,7 @@ class StudentController extends AbstractController
         $user = $this->getDoctrine()->getRepository(User::class)->find($userid);
         $new = [true];
         $student = new Student();
+       // $travel= $request->get('student[travelreason]')->;
         $student->setUser($user) ; 
         $user->setActive(0);
         //$student->setAccess(0); 
@@ -669,15 +778,5 @@ else{
         }
 
         return $this->redirectToRoute('application_index');
-    }
-
-     /**
-     * @Route("/profil/inbox", name="student_inbox", methods={"GET"})
-     */
-    public function inbox(Request $request,StudentRepository $studentRepository): Response
-    {
-        return $this->render('student/inbox.html.twig',  array(
-           
-        ));
     }
 }
