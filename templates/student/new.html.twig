@@ -1,151 +1,953 @@
-{% extends "layoutregister.html.twig" %}
-
-{% block title %}New Student{% endblock %}
 {% block body%}
 
-    {{ form_start(form)}}
-          <div class="row" style="margin-top:115px;margin-bottom:100px;">
-               <div class="col-1"></div>
-                <div class="col-10">
-                    <p  style="font-size:40px;" class="text-white">Register a Student</p>
-                    <!-- Student's information -->
-                    <h6 class="heading-small text-rede mb-4" style="font-size:20px;">Student information</h6>
-                     <div class="row">
-                        <div class="col"  >
-      
-       <p class="text-white" style="font-size:15px;">First name</p>
-                            {{ form_widget(form.firstname) }}
-                        </div>
-                        <div class="col">
-                            <p class="text-white" style="font-size:15px;">last name</p>
-                            {{ form_widget(form.lastname) }}
-                        </div>
-                        <div class="col"  >
-                            <p class="text-white" style="font-size:15px;">School</p>
-                            {{ form_widget(form.school) }}
-                        </div>
-                        
-                    </div> 
-                     <!-- Student's skills -->
-                    <div class="row" style="margin-top:20px;">
-                       <div class="col"  >
-                            <p class="text-white" style="font-size:15px;">Achievements</p>
-                            {{ form_widget(form.achievement) }}
-                        </div>
-                        <div class="col">
-                            <p class="text-white" style="font-size:15px;">Special skills</p>
-                            {{ form_widget(form.specialskills) }}
-                        </div>
-                        <div class="col"  >
-                            <p class="text-white" style="font-size:15px;">Hobbies</p>
-                            {{ form_widget(form.hobbies) }}
-                        </div>
-                    </div>
-                    <h6 class="heading-small text-rede mb-4" style="margin-top:20px;font-size:20px;">Parents information</h6>
-                    <!-- father's information -->
-                    <div class="row" style="margin-top:20px;">
-                      <div class="col"  >
-                            <p class="text-white" style="font-size:15px;">Father's name</p>
-                            {{ form_widget(form.firstparentname) }}
-                        </div>
-                        <div class="col">
-                            <p class="text-white" style="font-size:15px;">Father's email</p>
-                            {{ form_widget(form.fristparentemail) }}
-                        </div>
-                        <div class="col"  >
-                            <p class="text-white" style="font-size:15px;">Father's job</p>
-                            {{ form_widget(form.firstparentjob) }}
-                        </div>
-                    </div>
-                     <div class="row" style="margin-top:20px;">
-                      <div class="col"  >
-                            <p class="text-white" style="font-size:15px;">Father's phoe number</p>
-                            {{ form_widget(form.firstparentnumber) }}
-                        </div>
-                      </div>
 
-                    <div class="row" style="margin-top:20px;">
-                      <div class="col"  >
-                            <p class="text-white" style="font-size:15px;">Mother's name</p>
-                            {{ form_widget(form.secondparentname) }}
-                        </div>
-                        <div class="col">
-                            <p class="text-white" style="font-size:15px;">Mother's email</p>
-                            {{ form_widget(form.secondparentemail) }}
-                        </div>
-                        <div class="col"  >
-                            <p class="text-white" style="font-size:15px;">Mother's job</p>
-                            {{ form_widget(form.secondparentjob) }}
-                        </div>
-                    </div>
-                    <div class="row" style="margin-top:20px;">
-                      <div class="col"  >
-                            <p class="text-white" style="font-size:15px;">Mother's phoe number</p>
-                            {{ form_widget(form.secondparentnumbre) }}
-                        </div>
-                      </div>
+    <style>
 
-                      <hr class="my-4" />
+        .checkmark__circle {
+            stroke-dasharray: 166;
+            stroke-dashoffset: 166;
+            stroke-width: 2;
+            stroke-miterlimit: 10;
+            stroke: #7ac142;
+            fill: none;
 
-                    <div class="row" style="margin-top:20px;">
-                      <div class="col"  >
-                            <p class="text-white" style="font-size:15px;">Which course would you like to take</p>
-                            {{ form_widget(form.courses) }}
+            animation: stroke 0.6s cubic-bezier(0.65, 0, 0.70, 1) forwards;
+            animation-duration: 7s;
+
+        }
+
+        .checkmark {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: block;
+            stroke-width: 2;
+            stroke: #fff;
+            stroke-miterlimit: 10;
+            margin: 10% auto;
+            box-shadow: inset 0px 0px 0px #7ac142;
+            animation: fill .4s ease-in-out .6s forwards, scale .3s ease-in-out .9s both;
+
+        }
+        @keyframes stroke {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+        @keyframes scale {
+            0%, 100% {
+                transform: none;
+            }
+            50% {
+                transform: scale3d(1.1, 1.1, 1);
+            }
+        }
+        @keyframes fill {
+            100% {
+                box-shadow: inset 0px 0px 0px 30px #7ac142;
+            }}
+
+
+    </style>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <!-- jQuery and JS bundle w/ Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <br> <br>
+    <center>
+        <a class="test" href="{{ path('app_login') }}"> <img src="{{ asset('image/logo-edutest-.png')}}" style="width:30%;hight:auto;">
+        </a>
+    </center>
+    <div class="container">
+
+        <div class="row" style="  margin-top: 40px;
+  ">
+
+            <div class="col-xs-12"  id="nav">
+                <!-- design process steps-->
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs process-model more-icon-preocess" role="tablist">
+
+                <li role="presentation" id="a"  class=" ache active"><a href="#discover"  onclick="change1();" aria-controls="discover" role="tab" data-toggle="tab" ><i class="fa fa-address-book"></i>
+    <p>Personal information</p>
+                       </a></li>
+                    <li  role="presentation" class="ache1"><a  onclick="change1();" href="#strategy" aria-controls="strategy"  role="tab" data-toggle="tab"><i   class="fa fa-trophy" aria-hidden="true"></i>
+                            <p>Achievements</p>
+
+                        </a></li>
+
+                    <li role="presentation" class="ache2"><a  onclick="change1();"href="#content" aria-controls="content" role="tab" data-toggle="tab"><i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                            <p>Education</p>
+                        </a></li>
+                    <li role="presentation" class="ache3"><a href="#reporting"  onclick="change();"aria-controls="reporting" role="tab" data-toggle="tab"> <i id="c" class="fa fa-check"></i>
+
+                            <svg  style="margin-top: -63px" id="d" class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                                <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                                <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                            </svg>                     </a></li>
+                </ul>
+                <!-- end design process steps-->
+                <!-- Tab panes -->
+                {{ form_start(form)}}
+                <div class="tab-content " >
+                    <div role="tabpanel" class="tab-pane active shadow-lg p-3 mb-5 bg-white rounded" id="discover">
+                        <div class="design-process-content">
+                            <fieldset class="custom-border">
+                                <legend class="custom-border">Personal information</legend>
+                                <div class="form-group" id="custom-text-field-container">
+
+                                    <div class="row">
+                                        <div class=" form-group col-3" >
+                                            <label>
+                                            <p class="label-txt">First Name *</p>
+                                            {{ form_widget(form.firstname, {'attr': {class: 'input'} }) }}
+
+                                        <div class="line-box">
+                                            <div class="line"></div>
+                                        </div>
+                                        </label>
+                                        </div>
+                                        <div class="form-group col-3">
+                                            <label>
+                                            <p class="label-txt">Last Name *</p>
+
+                                            {{ form_widget(form.lastname, {'attr': {class: 'input '} }) }}
+                                                <div class="line-box">
+                                                    <div class="line"></div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div class="form-group col-3">
+                                            <label>
+                                                <p class="label-txt">School's Name * </p>
+                                                {{ form_widget(form.school, {'attr': {class: 'input'} }) }}
+                                                <div class="line-box">
+                                                    <div class="line"></div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div class="form-group col-3">
+                                            <label>
+                                                <p class="label-txt">School location * </p>
+                                                {{ form_widget(form.schoollocation, {'attr': {class: 'input'} }) }}
+                                                <div class="line-box">
+                                                    <div class="line"></div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class=" form-group col-3">
+                                            <label>
+                                                <p class="label-txt">Father's Name </p>
+                                            {{ form_widget(form.firstparentname, {'attr': {class: 'input'} }) }}
+                                                <div class="line-box">
+                                                    <div class="line"></div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div class="form-group col-3 ">
+                                            <label>
+                                                <p class="label-txt">Father's Email</p>
+                                            {{ form_widget(form.fristparentemail, {'attr': {class: 'input'} }) }}
+                                                <div class="line-box">
+                                                    <div class="line"></div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div class="form-group col-3">
+                                            <label>
+                                                <p class="label-txt">Father's job </p>
+                                            {{ form_widget(form.firstparentjob, {'attr': {class: 'input'} }) }}
+                                            <div class="line-box">
+                                                <div class="line"></div>
+                                            </div>
+                                            </label>
+                                        </div>
+
+                                        <div class="form-group col-3">
+                                            <label>
+                                                <p class="label-txt">Father's  Phone number </p>
+                                            {{ form_widget(form.firstparentnumber, {'attr': {class: 'input'} }) }}
+                                            <div class="line-box">
+                                                <div class="line"></div>
+                                            </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                    <div class="row">
+                                        <div class="form-group col-3">
+
+                                            <label>
+                                                <p class="label-txt">Mother's Name  </p>
+                                            {{ form_widget(form.secondparentname, {'attr': {class: 'input'} }) }}
+                                            <div class="line-box">
+                                                <div class="line"></div>
+                                            </div>
+                                            </label>
+                                        </div>
+                                        <div class="form-group col-3">
+                                            <label>
+                                                <p class="label-txt">Mother's Email </p>
+                                            {{ form_widget(form.secondparentemail, {'attr': {class: 'input'} }) }}
+                                            <div class="line-box">
+                                                <div class="line"></div>
+                                            </div>
+                                            </label>
+                                        </div>
+                                        <div class="form-group col-3">
+                                            <label>
+                                                <p class="label-txt">Mother's job  </p>
+                                            {{ form_widget(form.secondparentjob, {'attr': {class: 'input'} }) }}
+                                            <div class="line-box">
+                                                <div class="line"></div>
+                                            </div>
+                                            </label>
+                                        </div>
+
+                                        <div class="form-group col-3">
+                                            <label>
+                                                <p class="label-txt">Mother's Phone Number </p>
+                                            {{ form_widget(form.secondparentnumbre, {'attr': {class: 'input'} }) }}
+                                            <div class="line-box">
+                                                <div class="line"></div>
+                                            </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="form-group col-6">
+
+                                        <table style="width:70%">
+                                            <tr>
+
+                                                <td style="color: #b3253d;padding: 10px;font-weight: bold;font-family: sans-serif;font-size: .8em;"><br><br>Did you travel abroad * </td>
+                                                <td style="color: #3d4c7b"><strong>{{ form_widget(form.travelabroad[0])}}</strong></td>
+                                                <td style="color: #3d4c7b"><strong>{{ form_widget(form.travelabroad[1])}}</strong></td>
+
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                    <br/>
+                                    <div class="form-group col-6">
+                                        <table style="width:100%">
+                                            <tr>
+
+                                                <td style="color: #b3253d;padding: 10px;font-weight: bold;font-family: sans-serif;font-size: .8em;"><br><br>The reason for travelling</td>
+                                                <td style="color: #3d4c7b"><strong>{{ form_widget(form.travelreason[0])}}</strong></td>
+                                                <td style="color: #3d4c7b"><strong>{{ form_widget(form.travelreason[1])}}</strong></td>
+                                                <td style="color: #3d4c7b"><strong>{{ form_widget(form.travelreason[2])}}</strong></td>
+                                                <td style="color: #3d4c7b"><strong>{{ form_widget(form.travelreason[3])}}</strong></td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    {{ form_widget(form.comments, { 'attr': {'cols': '30' ,'rows':'4'}}) }}
+                                </div>
+
+                        <a style=" float: right; color: white; background-color: #3d4c7b;"  class=" btn Next" id="nextpersonalinformation"  >Next&nbsp;<i class="fa fa-hand-o-right" aria-hidden="true"></i>
+                        </a>
+
+
+                        </fieldset>
+
                         </div>
-                        <div class="col">
-                            <p class="text-white" style="font-size:15px;">Education level</p>
-                            {{ form_widget(form.educationlevel) }}
-                        </div>
-                        <div class="col"  >
-                            <p class="text-white" style="font-size:15px;">Hear about us from</p>
-                            {{ form_widget(form.hearaboutus) }}
+                    </div>
+                    <div role="tabpanel" class="tab-pane shadow-lg p-3 mb-5 bg-white rounded" id="strategy">
+                        <div class="design-process-content">
+                            <fieldset class="custom-border">
+                                <legend class="custom-border">Achievements</legend>
+                                <div class="row">
+
+                                    &nbsp; &nbsp; &nbsp;
+                                    <div class="form-group  col-5">
+                                        {{ form_widget(form.hobbies, { 'attr': {'cols': '50' ,'rows':'4'}}) }}
+                                    </div>
+                                    &nbsp; &nbsp; &nbsp;
+                                    <div class="form-group col-6 ">
+                                        {{ form_widget(form.specialskills, { 'attr': {'cols': '50' ,'rows':'4'}}) }}
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row">
+
+
+
+                                    <div class="form-group col-5">
+                                        <table style="width:100%">
+                                            <tr>
+
+                                                <td style="color: #b3253d;padding: 10px;font-weight: bold;font-family: sans-serif;font-size: .8em;"><br><br> Are you a member in oraganisation</td>
+
+                                                <td style="color: #3d4c7b"><strong>{{ form_widget(form.organisationmembership[0])}}</strong></td>
+                                                <td style="color: #3d4c7b"><strong>{{ form_widget(form.organisationmembership[1])}}</strong></td>
+
+
+
+
+                                            </tr>
+
+                                        </table>
+                                    </div>
+
+
+
+                                    <div class="form-group col-5 ">
+                                        {{ form_widget(form.achievement, { 'attr': {'cols': '60' ,'rows':'5'}}) }}
+                                    </div>
+                                </div>
+
+                                <a class=" btn btnPrevious" style="background-color: #3d4c7b;color:white  ; float: left;"  ><i class="fa fa-hand-o-left" aria-hidden="true"></i>
+                                    &nbsp;Previous</a>
+                                <a class="btn Next" style="color: white; background-color: #3d4c7b; float: right;" > Next&nbsp;<i class="fa fa-hand-o-right" aria-hidden="true"></i>
+                                </a>
+                            </fieldset>
+
+
                         </div>
                     </div>
 
-                     <div class="row" style="margin-top:20px;">
-                      <div class="col"  >
-                            <p class="text-white" style="font-size:15px;">About me</p>
-                            {{ form_widget(form.comments) }}
-                        </div>
-                        <div class="col">
-                            <p class="text-white" style="font-size:15px;">Which representative did you talk to</p>
-                            {{ form_widget(form.membretalk) }}
-                        </div>
-                        <div class="col"  >
-                            <p class="text-white" style="font-size:15px;">Do you want to apply this year ?</p>
-                            <select name="apply" class="form-control" required placeholder='select'>
-                              <option value="yes">Yes</option>
-                              <option value="no">No</option>
-                            </select>
+                    <div role="tabpanel" class="tab-pane shadow-lg p-3 mb-5 bg-white rounded" id="content">
+                        <div class="design-process-content">
+                            <fieldset class="custom-border">
+                                <legend class="custom-border">Education</legend>
+                                <br/>
+
+                                <div class="row">
+                                    <div class="form-group col-5">
+
+                                        {{ form_widget(form.educationlevel, {label_attr: {class: 'form-control'  ,'placeholder': 'Choose your educational level'} }) }}
+                                    </div>
+                                    <div class="form-group  col-5">
+                                        <table style="width:100%">
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td style="color: #b3253d;padding: 10px;font-weight: bold;font-family: sans-serif;font-size: .8em;">Do you want to apply this year *</td>
+                                                <td>  <p style="color: #3d4c7b" >
+                                                        <input  type="radio"  value="yes" name="apply">Yes
+                                                    </p></td>
+                                                <td>  <p  style="color: #3d4c7b">
+                                                        <input type="radio" value="no" name="apply">No
+                                                    </p></td>
+
+
+                                            </tr>
+
+                                        </table>
+
+
+
+
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+
+                                    <div class="form-group col-5">
+
+                                        <table style="width:100%">
+                                            <tr>
+
+                                                <td style="color: #b3253d;padding: 10px;font-weight: bold;font-family: sans-serif;font-size: .8em;"><br><br>Do you enrolled in Edutest  *</td>
+                                                <td style="color: #3d4c7b"><strong>{{ form_widget(form.enrollededutest[0])}}</strong></td>
+                                                <td style="color: #3d4c7b"><strong>{{ form_widget(form.enrollededutest[1])}}</strong></td>
+
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                        <div class="form-group col-7">
+
+                                            <table style="width:100%">
+                                                <tr>
+                                                    <td style="color: #b3253d;padding: 10px;font-weight: bold;font-family: sans-serif;font-size: .8em;"><br><br>The course would you like to take *</td>
+                                                    <td style="color: #3d4c7b"><strong>{{ form_widget(form.courses[1])}}</strong></td>
+                                                    <td style="color: #3d4c7b"><strong>{{ form_widget(form.courses[2])}}</strong></td>
+                                                    <td style="color: #3d4c7b"><strong>{{ form_widget(form.courses[3])}}</strong></td>
+                                                    <td style="color: #3d4c7b"><strong>{{ form_widget(form.courses[4])}}</strong></td>
+
+
+                                                </tr>
+
+                                            </table>
+                                        </div>
+
+
+                                </div>
+
+
+
+
+
+
+
+
+
+                                <div class="row">
+                                    <div class="form-group col-5">
+                                        <table style="width:100%">
+                                            <tr>
+
+                                                <td style="color: #b3253d;padding: 10px;font-weight: bold;font-family: sans-serif;font-size: .8em;"><br><br>Would you like to take courses</td>
+
+                                                <td style="color: #3d4c7b"><strong>{{ form_widget(form.online[0])}}</strong></td>
+                                                <td style="color: #3d4c7b"><strong>{{ form_widget(form.online[1])}}</strong></td>
+
+
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <table style="width:100%">
+                                            <tr>
+
+                                                <td style="color: #b3253d;padding: 10px;font-weight: bold;font-family: sans-serif;font-size: .8em;"><br><br>What's your favourite language</td>
+
+                                                <td style="color: #3d4c7b"><strong>{{ form_widget(form.preferredlanguage[0])}}</strong></td>
+                                                <td style="color: #3d4c7b"><strong>{{ form_widget(form.preferredlanguage[1])}}</strong></td>
+
+
+                                            </tr>
+
+                                        </table>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="form-group col-5">
+                                        <table style="width:100%">
+                                            <tr>
+
+                                                <td style="color: #b3253d;padding: 10px;font-weight: bold;font-family: sans-serif;font-size: .8em;"><br><br>Can you pay your education </td>
+
+                                                <td style="color: #3d4c7b"><strong>{{ form_widget(form.payeducation[0])}}</strong></td>
+                                                <td style="color: #3d4c7b"><strong>{{ form_widget(form.payeducation[1])}}</strong></td>
+                                                <td style="color: #3d4c7b"><strong>{{ form_widget(form.payeducation[2])}}</strong></td>
+
+
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <table style="width:100%">
+                                            <tr>
+
+                                                <td style="color: #b3253d;padding: 10px;font-weight: bold;font-family: sans-serif;font-size: .8em;"><br><br>can your parents pay your education</td>
+
+                                                <td style="color: #3d4c7b"><strong>{{ form_widget(form.parentspayeducation[0])}}</strong></td>
+                                                <td style="color: #3d4c7b"><strong>{{ form_widget(form.parentspayeducation[1])}}</strong></td>
+                                                <td style="color: #3d4c7b"><strong>{{ form_widget(form.parentspayeducation[2])}}</strong></td>
+
+
+                                            </tr>
+
+                                        </table>
+                                    </div>
+
+                                </div>
+
+                                <a class=" btn btnPrevious"  style="background-color: #3d4c7b;color:white ; float: left;" ><i class="fa fa-hand-o-left" aria-hidden="true"></i>
+                                    &nbsp;Previous</a>
+                                <a class="btn Next" style=" background-color: #3d4c7b;float: right;color: white;" onclick="change1();" >Next&nbsp;<i class="fa fa-hand-o-right" aria-hidden="true"></i>
+                                </a>
+
+
+                            </fieldset>
                         </div>
                     </div>
-                    <div class="row">
-                      <div class="col-md-8">
-                      <p class="text-white" style="font-size:15px;">What Course(s) Would You Like to Take:</p>
-                        {{form_widget(form.online)}}
-                      </div>
-                    </div>
-                    <div class="row" style="margin-top:41px;">
-                        <div class="col-11">
-                            <button style="border:none; background-color:transparent;" href="#" class=" text-white float-right" style="font-size:30px;">Register</button>
-                           {#} <button class="btn btn-success">{{ button_label|default('Save') }}</button>#}
+                    <div role="tabpanel" class="tab-pane shadow-lg p-3 mb-5 bg-white rounded" id="reporting">
+
+                        <div class="design-process-content">
+                            <fieldset class="custom-border">
+                                <br/> <br/> <br/>
+                                <form>
+                                    <div class="form-group">
+                                        <strong style="color: #b3253d; ">     <input style=" background-color:#3d4c7b  ;color: white" type="checkbox" id="accept" name="accept"   />&nbsp;I accept to receive emails from Edutest</strong>
+                                    </div>
+
+                                </form>
+                                <br/>
+
+                                <!-- Button trigger modal -->
+                                <button type="button" class=" btn  " style=" background-color:#3d4c7b  ;float: right;color: white"data-toggle="modal" data-target="#exampleModal">
+                                    <i class="fa fa-check-square-o" aria-hidden="true">&nbsp;</i>Finish
+
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <br/>
+                                                <center>
+                                                    <div class="form-group col-7">
+
+                                                        {{ form_widget(form.hearaboutus, {label_attr: {class: 'form-control'} }) }}
+                                                    </div>
+                                                    <br/>
+                                                    <div class="form-group col-7">
+                                                        {{ form_widget(form.membretalk, {label_attr: {class: 'form-control'} }) }}
+
+                                                    </div>
+                                                </center>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class=" btn  "  type="submit" style=" background-color:#3d4c7b  ;float: right;color: white" >
+                                                    <i class="fa fa-save" aria-hidden="true"></i>&nbsp;  Register
+                                                </button>
+
+                                                {{ form_end(form)}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a  href="#" id="link" class="btn btnPrevious" style="background-color: #3d4c7b;color:white ; float: left;" ><i class="fa fa-hand-o-left" aria-hidden="true"></i>
+                                    &nbsp;              Previous</a>
+                            </fieldset>
+
+
                         </div>
                     </div>
                 </div>
- 
-                 
-          </div>
-              
-              </div>
             </div>
-             
-          </div>
-        
-      
-      </div>
+        </div>
     </div>
-    {{ form_end(form)}}
-  </div>
-</div>
+    <style>
+
+        .nav>li>a:focus, .nav>li>a:hover{background: transparent!important;}
+        .design-process-section .text-align-center {
+            line-height: 25px;
+            margin-bottom: 12px;
+        }
+        .design-process-content {
+            position: relative;
+            padding: 16px 34% 30px 30px;
+        }
+        .design-process-content img {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+            max-height: 100%;
+        }
+        .design-process-content h3 {
+            margin-bottom: 16px;
+        }
+        .design-process-content p {
+            line-height: 26px;
+            margin-bottom: 12px;
+        }
+        .process-model {
+            list-style: none;
+            padding: 0;
+            position: relative;
+            max-width: 600px;
+            margin: 20px auto 26px;
+            border: none;
+            z-index: 0;
+        }
+  /* body{
+            background:url('{{asset('image/web background2.jpg')}}') no-repeat center center;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            height: 1000px;
+            width: 1400px;
+
+
+
+        }
+*/
+        /*body {
+            background: url('{{asset('image/web background.jpg')}}') no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+
+
+        }*/
+        .process-model li::after {
+            background: #e5e5e5 none repeat scroll 0 0;
+            bottom: 0;
+            content: "";
+            display: block;
+            height: 4px;
+            margin: 0 auto;
+            position: absolute;
+            right: -30px;
+            top: 33px;
+            width: 85%;
+            z-index: -1;
+        }
+        .process-model li.visited::after {
+            background: #7ac142;
+        }
+        .process-model li:last-child::after {
+            width: 0;
+        }
+        li:focus {
+            color: red;
+        }
+        .process-model li {
+            display: inline-block;
+            width: 22%;
+            text-align: center;
+            float: none;
+        }
+        .nav-tabs.process-model > li.active > a, .nav-tabs.process-model > li.active > a:hover, .nav-tabs.process-model > li.active > a:focus, .process-model li a:hover, .process-model li a:focus {
+            border: none;
+            background: transparent;
+
+        }
+        .process-model li a {
+            padding: 0;
+            border: none;
+            color: #606060
+        }
+        .process-model li.visited::before  svg {
+
+        }
+
+        .process-model li.active,
+        .process-model li.visited {
+            color: #b3253d;
+        }
+        .process-model li.active a,
+        .process-model li.active a:hover,
+        .process-model li.active a:focus,
+        .process-model li.visited a,
+        .process-model li.visited a:hover,
+        .process-model li.visited a:focus {
+            color: #3d4c7b;
+        }
+        .process-model li.active p,
+        .process-model li.visited p {
+            font-weight: 600;
+            color: #3d4c7b;
+        }
+        .process-model li i {
+            display: block;
+            height: 68px;
+            width: 68px;
+            text-align: center;
+            margin: 0 auto;
+            background: #f5f6f7;
+            border: 2px solid #e5e5e5;
+            line-height: 65px;
+            font-size: 30px;
+            border-radius: 50%;
+        }
+        .process-model li.active i, .process-model li.visited i  {
+            background: #fff;
+            border-color: #3d4c7b;
+        }
+        .process-model li p {
+            font-size: 14px;
+            margin-top: 11px;
+        }
+        .process-model.contact-us-tab li.visited a, .process-model.contact-us-tab li.visited p {
+            color: #606060!important;
+            font-weight: normal
+        }
+        .process-model.contact-us-tab li::after  {
+            display: none;
+        }
+        .process-model.contact-us-tab li.visited i {
+            border-color: #e5e5e5;
+        }
+
+
+
+        @media screen and (max-width: 560px) {
+            .more-icon-preocess.process-model li span {
+                font-size: 23px;
+                height: 50px;
+                line-height: 46px;
+                width: 50px;
+            }
+            .more-icon-preocess.process-model li::after {
+                top: 24px;
+            }
+        }
+        @media screen and (max-width: 380px) {
+            .process-model.more-icon-preocess li {
+                width: 16%;
+            }
+            .more-icon-preocess.process-model li span {
+                font-size: 16px;
+                height: 35px;
+                line-height: 32px;
+                width: 35px;
+            }
+            .more-icon-preocess.process-model li p {
+                font-size: 8px;
+            }
+            .more-icon-preocess.process-model li::after {
+                top: 18px;
+            }
+            .process-model.more-icon-preocess {
+                text-align: center;
+            }
+        }
+
+        fieldset.custom-border {
+            border: 1px groove !important;
+            padding: 0 1.4em 1.4em 1.4em !important;
+            margin: 0 0 1.5em 0 !important;
+            -webkit-box-shadow: 0px 0px 0px 0px #000;
+            box-shadow: 0px 0px 0px 0px #000;
+            border-color: #b3253d;
+            width: 150%;
+        }
+
+        legend.custom-border {
+            width: auto;
+            padding: 0 10px;
+            border-bottom: none;
+            color:#b3253d;
+        }
+        #d {
+
+        visibility: hidden;
+        }
+        .registerbutton {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            margin-left: 310px;
+
+        }
+
+        .item {
+            width: 20em;
+            color: #b3253d;
+            font-weight: bold;
+            font-size: 170%;
+            text-decoration: underline;
+        }
+        .item:hover {
+            width: 20em;
+            color: #b3253d;
+            font-weight: bolder;
+            font-size: 172%;
+            text-decoration: underline;
+        }
+        .textarea {
+            width: 300px;
+            height: 300px;
+        }
+
+
+        svg:visited .hidden {
+            visibility: visible;
+        }
+
+    </style>
+    <script>
+
+        // script for tab steps
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+
+            var href = $(e.target).attr('href');
+            var $curr = $(".process-model  a[href='" + href + "']").parent();
+
+            $('.process-model li').removeClass();
+
+            $curr.addClass("active");
+            $curr.prevAll().addClass("visited");
+        });
+        // end  script for tab steps
+
+            function change()
+            {
+                document.getElementById("d").style.visibility="visible";
+                document.getElementById("c").style.visibility="hidden";
+            }
+        function change1()
+        {
+            document.getElementById("c").style.visibility="visible";
+            document.getElementById("d").style.visibility="hidden";
+        }
+        function changenextacheivment()
+        {
+            document.getElementById("a").style.visibility="visible";
+
+        }
+
+    </script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script>
+
+    <style>
+
+
+
+
+        label {
+            display: block;
+            position: relative;
+            margin: 40px 0px;
+        }
+        .label-txt {
+            position: absolute;
+            top: -1.6em;
+            padding: 10px;
+            font-family: sans-serif;
+            font-size: .8em;
+            letter-spacing: 1px;
+            color: #b3253d;
+            transition: ease .3s;
+        }
+        .input {
+            width: 100%;
+            padding: 10px;
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+
+        .line-box {
+            position: relative;
+            width: 100%;
+            height: 2px;
+            background: #BCBCBC;
+        }
+
+        .line {
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            top: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            background:#3d4c7b;
+            transition: ease .6s;
+        }
+
+        .input:focus + .line-box .line {
+            width: 100%;
+        }
+
+        .label-active {
+            top: -3em;
+        }
+
+        button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: rgb(220,220,220);
+            font-weight: bold;
+            color: rgb(120,120,120);
+            border: none;
+            outline: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: ease .3s;
+        }
+
+        button:hover {
+            background: #b3253d;
+            color: #ffffff;
+        }
+
+        .main {
+
+            color: red;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+
+            $('.input').focus(function(){
+                $(this).parent().find(".label-txt").addClass('label-active');
+            });
+
+            $(".input").focusout(function(){
+                if ($(this).val() == '') {
+                    $(this).parent().find(".label-txt").removeClass('label-active');
+                };
+            });
+
+        });
+        $("#custom-text-field-container .form-control").removeClass("form-control");
+        $('.Next1').click(function(){
+            $('.nav-tabs > .active').next('li').find('a').trigger('click');
+
+            $(".ache").removeClass("active");
+            $(".ache").toggleClass("visited");
+
+        });
+        $('.Next2').click(function(){
+            $('.nav-tabs > .active').next('li').find('a').addClass("active");
+            $(".ache1").toggleClass("visited");
+
+        });
+        $('.Next').click(function(){
+            $('.nav-tabs > .active').next('li').find('a').trigger('click');
+
+            $('.nav-tabs > .active').prev('li').addClass("visited");
+
+        });
+        $('.btnPrevious').click(function(){
+            $('.nav-tabs > .active').prev('li').removeClass();
+
+            $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+        });
+        $('.Next3').click(function(){
+
+            $('.nav-tabs > .active').next('li').find('a').trigger('click');
+
+            $(".ache3").toggleClass("visited");
+            $(".ache2").addClass("active");
+            $(".ache2").toggleClass("visited");
+
+        });
+
+        $('.btnPrevious1').click(function(){
+            $(".ache").removeClass("visited");
+            $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+        });
+        $('.btnPrevious2').click(function(){
+            $(".ache1").removeClass("visited");
+            $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+        });
+
+        $('.btnPrevious3').click(function(){
+            $(".ache3").removeClass("visited");
+            $(".ache2").removeClass("visited");
+            $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+
+        });
+
+
+    </script>
 
 {% endblock %}
