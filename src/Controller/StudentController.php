@@ -38,7 +38,7 @@ use App\Entity\Teacher;
 use App\Entity\EducationGroup;
 use App\Entity\TestScore;
 use Symfony\Component\Form\FormError;
-
+use Curl\Curl;
 /**
  * @Route("/student")
  */
@@ -50,9 +50,81 @@ class StudentController extends AbstractController
     public function index(Request $request,StudentRepository $studentRepository): Response
     {
 
-      #  $searsh=new Student();
-       # $filterForm=$this->createForm(StudentFilterType::class,$searsh);
-        #$filterForm->handleRequest($request);
+      
+        $curl = curl_init();
+
+                curl_setopt_array($curl, array(
+                  CURLOPT_URL => 'http://5.189.159.53:8069/get_clients',
+                  CURLOPT_RETURNTRANSFER => true,
+                  CURLOPT_ENCODING => '',
+                  CURLOPT_MAXREDIRS => 10,
+                  CURLOPT_TIMEOUT => 0,
+                  CURLOPT_FOLLOWLOCATION => true,
+                  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                  CURLOPT_CUSTOMREQUEST => 'GET',
+                  CURLOPT_POSTFIELDS =>'{
+                    "params":{
+                        
+                    }
+                }',
+                  CURLOPT_HTTPHEADER => array(
+                    'session_id: 4c61aba7cfed5814f565774e67077009a630c73b',
+                    'Content-Type: application/json',
+                    'Cookie: session_id=4c61aba7cfed5814f565774e67077009a630c73b'
+                  ),
+                ));
+                $entityManager = $this->getDoctrine()->getManager();
+                $response = curl_exec($curl);
+               // 
+              //$reponse=json_encode($response);
+              $data = json_decode($response, true);
+                $res=$data['result']['response'];
+              // die(json_encode($res));
+              // die(json_encode($res));
+                curl_close($curl);
+               $students= $studentRepository->findAll();
+               foreach($students as $s ){
+                   foreach($res as $r){
+                    $client_id=json_encode($r['student_id']);
+                   // die($client_id);
+                   $user=$s->getUser();
+                       if($s->getId() == $r['student_id']){
+                           $name=$r['name'];
+                           $name = explode(" ", $name);
+                           $first=$name[0];
+                          
+                           $last=$name[1];
+                          // die($first);
+                           $adress=$r['street'];
+                           $email=$r['email'];
+                           $phone=$r['phone'];
+                           $zip=$r['zip'];
+                           $city=$r['city'];
+                           //$country=$r['country'];
+                           $odoo=$r['partner_id'];
+
+                            
+
+                           $s->setFirstname($first);
+                           $s->setLastname($last);
+                           $s->setOdooId($odoo);
+                           $user->setAdress($adress);
+                           $user->setCity($city);
+                           //$user->setCountry();
+                           $user->setEmail($email);
+                           $user->setPhone($phone);
+                           $user->setZipcode($zip);
+
+                           $entityManager->persist($s);
+                           $entityManager->flush();
+                           $entityManager->persist($user);
+                           $entityManager->flush();
+                          
+                          
+                       }
+                   }
+               }
+
 	if ($request->get('error'))
             $this->addFlash('delete',$request->get('error'));
 
@@ -177,7 +249,130 @@ class StudentController extends AbstractController
             $student->setCreatedat($date);
             $entityManager->persist($student);
             $entityManager->flush();
+            //Get all clients
+            $curl = curl_init();
 
+            curl_setopt_array($curl, array(
+              CURLOPT_URL => 'http://5.189.159.53:8069/get_clients',
+              CURLOPT_RETURNTRANSFER => true,
+              CURLOPT_ENCODING => '',
+              CURLOPT_MAXREDIRS => 10,
+              CURLOPT_TIMEOUT => 0,
+              CURLOPT_FOLLOWLOCATION => true,
+              CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+              CURLOPT_CUSTOMREQUEST => 'GET',
+              CURLOPT_POSTFIELDS =>'{
+                "params":{
+                    
+                }
+            }',
+              CURLOPT_HTTPHEADER => array(
+                'session_id: 4c61aba7cfed5814f565774e67077009a630c73b',
+                'Content-Type: application/json',
+                'Cookie: session_id=4c61aba7cfed5814f565774e67077009a630c73b'
+              ),
+            ));
+            
+            $response = curl_exec($curl);
+           // 
+          //$reponse=json_encode($response);
+          $data = json_decode($response, true);
+            $res=$data['result']['response'];
+           
+          // die(json_encode($res));
+            curl_close($curl);
+            //check by student id
+            foreach($res as $r){
+                if ($r['student_id']== $student->getId()){
+                    die('student already exist in odoo');
+                }
+                else{
+                    //create new client 
+                    $curll = curl_init();
+
+                curl_setopt_array($curll, array(
+                CURLOPT_URL => 'http://5.189.159.53:8069/create_client',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS =>'{
+                    "params":{
+                
+                "name":"'.$student->getFirstname().''." ".''.$student->getLastname().'",
+                "satutpaiement":"Not Paid",
+                "email":"'.$student->getUser()->getEmail().'",
+                "phone":"'.$student->getUser()->getPhone().'",
+                "occupation":"student",
+                "street":"'.$student->getUser()->getAdress().'",
+                "student_id":"'.$student->getId().'",
+                "zip":"'.$student->getUser()->getZipcode().'",
+                "city":"'.$student->getUser()->getCity().'",
+                "country":"'.$student->getUser()->getCountry().'"
+                
+            }
+        }',
+        CURLOPT_HTTPHEADER => array(
+            'session_id: 4c61aba7cfed5814f565774e67077009a630c73b',
+            'Content-Type: application/json',
+            'Cookie: session_id=4c61aba7cfed5814f565774e67077009a630c73b'
+        ),
+        ));
+
+            $responsenew = curl_exec($curll);
+
+
+            $datanew = json_decode($responsenew, true);
+           // var_dump($datanew);
+          // die($responsenew);
+         // $datanew=json_encode($datanew);
+           $client_id=json_encode($datanew['result']['id']);
+          //die($client_id);
+          $client_id=(int)$client_id;
+            curl_close($curll);
+
+            //create new lead
+            $curllead = curl_init();
+
+                curl_setopt_array($curllead, array(
+                CURLOPT_URL => 'http://5.189.159.53:8069/create_leads',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS =>'{
+                    "params":{
+                
+                "name":"'.$student->getLevelTestType()->getName().'",
+                "partner_id":'.$client_id.',
+                "student_id":"'.$student->getId().'"
+                
+                
+            }
+        }',
+        CURLOPT_HTTPHEADER => array(
+            'session_id: 4c61aba7cfed5814f565774e67077009a630c73b',
+            'Content-Type: application/json',
+            'Cookie: session_id=4c61aba7cfed5814f565774e67077009a630c73b'
+        ),
+        ));
+
+            $responselead = curl_exec($curllead);
+
+
+            $datanew = json_decode($responselead, true);
+           // var_dump($datanew);
+           die($responselead);
+            curl_close($curllead);
+            
+                }
+            }
             return $this->redirectToRoute('app_login');
         }
 
@@ -334,15 +529,18 @@ else{
     {
         $userId = $student->getUser()->getId();
         $userStatus =  $this->getUser()->getStatus();
-         $user = $this->getDoctrine()->getManager()->getRepository(User::class)->find($userId);
-         $userRole = $this->getUser()?$this->getUser()->getRoles():[null];
+        $user = $this->getDoctrine()->getManager()->getRepository(User::class)->find($userId);
+        $userRole = $this->getUser()?$this->getUser()->getRoles():[null];
         $form = $this->createForm(StudentType::class, $student, ['roles'=>$userRole]);
         $form->handleRequest($request);
+
+
         if( $userStatus =="Student")
         $stud=$this->getUser()->getStudent();
         else
         $stud[0]=$student;
-      
+        
+        
         
         if ($form->isSubmitted() && $form->isValid()) {
             $userEmail = $userRepository->findBy(["email" => $form->get('email')->getData()]);
@@ -353,19 +551,181 @@ else{
                     'form' => $form->createView(),
                 ]);
             }else {
-                $this->getDoctrine()->getManager()->flush();
+                $firstname=$student->getFirstname();
+        $lastname=$student->getLastname();
+        $email=$student->getUser()->getEmail();
+        $phone=$student->getUser()->getPhone();
+        $adress=$student->getUser()->getAdress();
+        $city=$student->getUser()->getCity();
+        $zipcode=$student->getUser()->getZipcode();
+        $country=$student->getUser()->getCountry();
+                $curl = curl_init();
+
+                curl_setopt_array($curl, array(
+                  CURLOPT_URL => 'http://5.189.159.53:8069/get_clients',
+                  CURLOPT_RETURNTRANSFER => true,
+                  CURLOPT_ENCODING => '',
+                  CURLOPT_MAXREDIRS => 10,
+                  CURLOPT_TIMEOUT => 0,
+                  CURLOPT_FOLLOWLOCATION => true,
+                  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                  CURLOPT_CUSTOMREQUEST => 'GET',
+                  CURLOPT_POSTFIELDS =>'{
+                    "params":{
+                        
+                    }
+                }',
+                  CURLOPT_HTTPHEADER => array(
+                    'session_id: 4c61aba7cfed5814f565774e67077009a630c73b',
+                    'Content-Type: application/json',
+                    'Cookie: session_id=4c61aba7cfed5814f565774e67077009a630c73b'
+                  ),
+                ));
+                
+                $response = curl_exec($curl);
+               // 
+              //$reponse=json_encode($response);
+              $data = json_decode($response, true);
+              //die(json_encode($data));
+                $res=$data['result']['response'];
+              
+              
+                curl_close($curl);
+                //check by student id
+                $i=0;
+                foreach($res as $r){
+                  //  var_dump($r['student_id']);
+                    $client_id=(int)($r['student_id']);
+                   // die($client_id);
+                   //var_dump($user->getId());
+                   //die(var_dump($r['id']));
+                   
+                    if($student->getId() == $r['student_id']){
+                        //die('student already exist in odoo');
+                       // die($r['id']);
+                    
+
+                        $id=$client_id;
+                       
+                        $curledit = curl_init();
+    
+                    curl_setopt_array($curledit, array(
+                    CURLOPT_URL => 'http://5.189.159.53:8069/update_client',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS =>'{
+                        "params":{
+                            "id":'.$r['partner_id'].',
+                    "name":"'.$student->getFirstname().''." ".''.$student->getLastname().'",
+                    
+                    "email":"'.$student->getUser()->getEmail().'",
+                    "phone":"'.$student->getUser()->getPhone().'",
+                   
+                    "street":"'.$student->getUser()->getAdress().'",
+                    "student_id":"'.$student->getId().'",
+                    "zip":"'.$student->getUser()->getZipcode().'",
+                    "city":"'.$student->getUser()->getCity().'",
+                    "country_id":221
+                    
+                            }
+                        }',
+                        CURLOPT_HTTPHEADER => array(
+                            'session_id: 4c61aba7cfed5814f565774e67077009a630c73b',
+                            'Content-Type: application/json',
+                            'Cookie: session_id=4c61aba7cfed5814f565774e67077009a630c73b'
+                        ),
+                        ));
+                        
+                            $responsedit = curl_exec($curledit);
+                            die(var_dump($responsedit));
+                           // die(json_encode($responseedit));
+                            $dataedit = json_decode($responsedit, true);
+                        // var_dump($datanew);
+                        // die($responsenew);
+                        // $datanew=json_encode($datanew);
+                       //$client_id=json_encode($dataedit['result']['id']);
+                        //die($client_id);
+                       // $client_id=(int)$client_id;
+                            curl_close($curledit);
+
+                    }
+                   
+                  /* else{
+                        //create new client 
+                       // die('2');
+                        $curlnew = curl_init();
+    
+                    curl_setopt_array($curlnew, array(
+                    CURLOPT_URL => 'http://5.189.159.53:8069/create_client',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS =>'{
+                        "params":{
+                    
+                    "name":"'.$student->getFirstname().''." ".''.$student->getLastname().'",
+                    
+                    "email":"'.$student->getUser()->getEmail().'",
+                    "phone":"'.$student->getUser()->getPhone().'",
+                    
+                    "street":"'.$student->getUser()->getAdress().'",
+                    "student_id":"'.$student->getId().'",
+                    "zip":"'.$student->getUser()->getZipcode().'",
+                    "city":"'.$student->getUser()->getCity().'",
+                    "country":"'.$student->getUser()->getCountry().'"
+                    
+                }
+            }',
+            CURLOPT_HTTPHEADER => array(
+                'session_id: 4c61aba7cfed5814f565774e67077009a630c73b',
+                'Content-Type: application/json',
+                'Cookie: session_id=4c61aba7cfed5814f565774e67077009a630c73b'
+            ),
+            ));
+    
+                $responsenew = curl_exec($curlnew);
+    
+    
+               // $curlnew = json_decode($responsenew, true);
+               // var_dump($datanew);
+              // die($responsenew);
+              $datanew=json_encode($curlnew);
+              // $client_id=json_encode($dataedit['result']['id']);
+              //die($client_id);
+             // $client_id=(int)$client_id;
+             
+                curl_close($curlnew);
+    
+
+                
+            }*/
+            $i=$i+1;
             }
+           
+            $this->getDoctrine()->getManager()->flush();
+            //die("$i");
             if($userStatus =="Admin" || $userStatus =="Student"){
                 $this->addFlash("update", "Informations updated ");
                 return $this->redirectToRoute("student_show",["id"=>$stud[0]->getId()]);
             }
-         }
-
+         
+        }
+    }
         return $this->render('student/edit.html.twig', [
             'student' => $student,
             'form' => $form->createView(),
         ]);
-  
+        
+    
 }
 
     /**
@@ -392,11 +752,11 @@ else{
      * 
      * 
      */
-    public function changeAction($id,\Swift_Mailer $mailer)
+    public function changeAction($id,\Swift_Mailer $mailer,StudentRepository $studentRepository)
     {
         $em=$this->getDoctrine()->getManager();
         $user=$em->getRepository("App:User")->find($id);
-#var_dump($user);
+        #var_dump($user);
         if($user!=null){
             if ($user->getActive()==1){
                 $user->setActive(0);
@@ -441,6 +801,174 @@ else{
             $em->persist($user);
             $em->flush();
         }
+       // die();
+        $student=$studentRepository->findoneby(['user'=>$user]);
+
+        /*
+        //get odoo client by id
+
+            $curll = curl_init();
+
+            curl_setopt_array($curll, array(
+            CURLOPT_URL => 'http://5.189.159.53:8069/get_client_id',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_POSTFIELDS =>'{
+                "params":{
+                    "id":"17"
+                }
+            }',
+            CURLOPT_HTTPHEADER => array(
+                'session_id: 4c61aba7cfed5814f565774e67077009a630c73b',
+                'Content-Type: application/json',
+                'Cookie: session_id=4c61aba7cfed5814f565774e67077009a630c73b'
+            ),
+            ));
+
+            $response = curl_exec($curll);
+            $data = json_decode($response, true);
+            var_dump($data);
+            curl_close($curll);
+            if($data != null ){
+            $res=$data['result']['response'];
+            $i=0;
+        //Update lead status
+            if ($res['id']== $student->getOdooId() or $res['email']==$user->getEmail()){
+                $stat=$user->getStatus();
+                if($status== 0 ){
+                    $curl = curl_init();
+
+                    curl_setopt_array($curl, array(
+                    CURLOPT_URL => 'http://5.189.159.53:8069/update_client',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS =>'{
+                        "params":{
+                            "id":'.$id.',
+                            "status":"Not paid"
+                            
+                        }
+                    }',
+                    CURLOPT_HTTPHEADER => array(
+                        'session_id: 4c61aba7cfed5814f565774e67077009a630c73b',
+                        'Content-Type: application/json',
+                        'Cookie: session_id=4c61aba7cfed5814f565774e67077009a630c73b'
+                    ),
+                    ));
+
+                    $response = curl_exec($curl);
+
+
+                    $data = json_decode($response, true);
+                    var_dump($data);
+                    curl_close($curl);
+                }
+                else{
+                    $curl = curl_init();
+
+                    curl_setopt_array($curl, array(
+                    CURLOPT_URL => 'http://5.189.159.53:8069/update_client',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS =>'{
+                        "params":{
+                            "id":'.$id.',
+                            "status":"Paid"
+                            
+                        }
+                    }',
+                    CURLOPT_HTTPHEADER => array(
+                        'session_id: 4c61aba7cfed5814f565774e67077009a630c73b',
+                        'Content-Type: application/json',
+                        'Cookie: session_id=4c61aba7cfed5814f565774e67077009a630c73b'
+                    ),
+                    ));
+
+                    $response = curl_exec($curl);
+
+
+                    $data = json_decode($response, true);
+                    var_dump($data);
+                    curl_close($curl);
+                }
+                
+            }
+            // if Student doesn't exist in odoo Create new odoo user
+            else{
+
+                $name=$student->getFirstname()." ".$student->getLastname();
+                $email=$user->getEmail();
+                $phone=$user->getPhone();
+                $adress=$user->getAdress();
+                $city=$user->getState();
+                $zipcode=$user->getZipcode();
+                $country=$user->getCountry();
+                $id=$student->getId();
+               
+              
+                
+        
+               //Create a new client(student) in odoo
+                $curl = curl_init();
+        
+                curl_setopt_array($curl, array(
+                CURLOPT_URL => 'http://5.189.159.53:8069/create_client',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS =>'{
+                    "params":{
+                        "student_id:'.$id.'
+                        "name":"'.$name.'",
+                        "email":"'.$email.'",
+                        "phone":"'.$phone.'",
+                       
+                        "street":"'.$adress.'",
+                        
+                        "zip":"'.$zipcode.'",
+                        "city":"'.$city.'",
+                        "country":"'.$country.'"
+                        
+                    }
+                }',
+                CURLOPT_HTTPHEADER => array(
+                    'session_id: 4c61aba7cfed5814f565774e67077009a630c73b',
+                    'Content-Type: application/json',
+                    'Cookie: session_id=4c61aba7cfed5814f565774e67077009a630c73b'
+                ),
+                ));
+        
+                $response = curl_exec($curl);
+                
+                
+                $data = json_decode($response, true);
+                
+                curl_close($curl);
+            }
+            
+        }
+
+       
+die($response);*/
         return $this->redirectToRoute('student_index');
     }
 
@@ -461,7 +989,7 @@ else{
 
         $em=$this->getDoctrine()->getManager();
         $user=$em->getRepository("App:Student")->find($id);
-#var_dump($user);
+        #var_dump($user);
         if($user!=null){
             $user->setPaymentday($time);
             $em->persist($user);
