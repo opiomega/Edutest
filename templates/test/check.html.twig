@@ -1,0 +1,332 @@
+
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+{{parent()}}
+<style>
+    .score-sb ul .active .icon, .score-criteria ul .active .icon-true {
+        border-color: green /*#37abf2*/;
+        background-color: green/*#37abf2*/;
+    }
+    .score-sb ul .active .icon, .score-criteria ul .active .icon-false {
+        border-color: red /*#37abf2*/;
+        background-color: red/*#37abf2*/;
+    }
+    .fas {
+    font-size: 13pt;
+    padding-bottom: 0px;
+    color: black;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+    </STYLE>
+<link rel="stylesheet" href="{{asset('style.css')}}"/>
+{% endblock %}
+{% block body %}
+
+ <div id="StudentsDashboard">
+    <section name='Title' style='margin-top:140px;'>
+        <div class="container">
+        <div class="row justify-content-center">
+          <h1 class="text-center"style="color:#B2273D;">   Test's answer
+            <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
+           </h1>
+            <div class="row row-grid justify-content-center">
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+{#<section id="quizz-intro-section" class="quizz-intro-section learn-section" style="min-height: 357px;">
+        <div class="container">
+
+            <div class="title-ct">
+                <h3><strong>Title:</strong> {{test.title}}</h3>
+                <div class="tt-right">
+                    <a href="{{path('teststudent_index',{'idCategory':test.category.id,'idClass':test.classe.id})}}" class="skip"><i class="icon md-arrow-right"></i>Back</a>
+                </div>
+            </div>#}
+
+<section id="quizz-intro-section" class="quizz-intro-section learn-section" style="min-height: 304px;">
+        <div class="container">
+           {#} {% for question in questions %}
+            <div id="title-ct-{{cpt}}" class="title-ct-{{cpt}}" {% if cpt != 1 %} style="display:none;" {% endif %}>
+                <h3><strong>Question {{loop.index}}</strong>{{question.content|raw}}.</h3>
+                <div class="tt-right">
+                    <a href="#" class="skip"><i class="icon md-arrow-right"></i>Skip quizz</a>
+                </div>#
+                {% endfor %}#}
+            </div>
+            
+            <div class="question-content-wrap">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="question-content">
+                            <h4 class="sm">You got {{score}}/{{questions|length }} Questions right</h4>
+                            
+                            <table class="table-question">
+                                <thead>
+                                
+                                    <tr>
+                                        <th colspan="2">Correction</th>
+                                        <th class="right-answer">% Right Answer</th>
+                                    </tr>
+                                </thead>
+                                {% set cpt = 1 %}
+                                {% for question in questions %}
+                                    
+                                <tbody id="card-question-{{ cpt }}" {% if cpt != 1 %} style="display:none;" {% endif %} class="paragraph perseus-paragraph-centered" data-perseus-paragraph-index="0">
+                                        {% if question.type=="Reading" or question.type=="Writing"%}
+                                        {% for choice in question.choises %}
+                                        
+                                            <tr >
+                                                
+                                                <td>
+                                                    {% if question.correctChoise == loop.index %}
+                                                        <i class="fas fa-check-circle " style="color:green;">
+                                                    {% else %}
+                                                        <i class="fas fa-times-circle"style="color:red;"></i>
+                                                    {% endif %}
+                                                   {#} {% for reponse in reponses %}                       
+                                                     {% if question.id== reponse.question.id %}
+                                                        {% if question.correctChoise == reponse.response %}
+                                                            <i class="fas fa-check-circle " style="color:green;">
+                                                        {% else %}
+                                                            <i class="fas fa-times-circle"style="color:red;"></i>
+                                                        {% endif %}
+                                                     {% endif %}
+                                                    {% endfor %}#}
+                                                </td>
+                                                <td class="td-quest">{{loop.index}}.{{choice}}</td>
+                                                <td class="td-right-answer">{% if question.accur is defined and question.accur != null %}{{question.accur[(loop.index)-1]}}% {% else %} 0 {% endif %}</td>
+                                            </tr>
+                                        
+                                        
+                                        {% endfor %}
+                                        {% else %}
+                                            <tr>
+                                                <td></td>
+                                                <td class="td-quest">{{question.correctAnswer}}</td>
+                                                <td></td>
+                                            </tr>
+                                        {% endif %}             
+                                  
+                                </tbody>
+                                {% set cpt = cpt + 1 %}   
+                                {% endfor %}
+                            </table>
+                                
+                            <div class="form-action">
+                                <input id='previousButton' type="submit" value="Previous" class="mc-btn btn-style-6">
+                                <input id='nextButton' type="submit" value="Next " class="mc-btn btn-style-6">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <aside class="question-sidebar" style="height: 700px;">
+                            <div class="score-sb">
+                                <h4 class="title-sb sm bold">Total score<span></span></h4>
+                                <div class="list-wrap ps-container ps-active-x" style="height: 520px; max-height: none;">
+                                <ul>
+                                {% for question in questions %}
+                                    
+                                        {% for reponse in reponses %}
+                                                 {% if question.type=="Reading" or question.type== "Writing" %}
+                                                     {% if question.id== reponse.question.id %}
+                                                        {% if question.correctChoise == reponse.response %}
+                                                            <li class="active"><i class="icon"></i>
+                                                        {% else %}
+                                                            <li class="err"><i class="icon"></i>
+                                                        {% endif %}
+                                                     {% endif %}
+                                                 {% else %}
+                                                    {% if question.id== reponse.question.id %}
+                                                        {% if question.correctAnswer == reponse.reponsemath %}
+                                                            <li class="active"><i class="icon"></i>
+                                                        {% else %}
+                                                            <li class="err"><i class="icon"></i>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                 {% endif %}
+                                            {% endfor %}
+                                        
+                                        Question {{loop.index}}<span></span>
+                                    
+                                {% endfor %}
+                                    {#<li class="err"><i class="icon"></i>Question 2<span>20</span></li>
+                                    <li class="active"><i class="icon"></i>Question 3<span>20</span></li>
+                                    <li class="active"><i class="icon"></i>Question 4<span>20</span></li>
+                                    <li class="active"><i class="icon"></i>Question 5<span>20</span></li>#}
+                                </ul>
+                                    <div class="ps-scrollbar-x-rail" style="width: 326px; display: inherit; left: 0px;">
+                                        <div class="ps-scrollbar-x" style="left: 0px; width: 150px;"></div>
+                                    </div>
+                                    <div class="ps-scrollbar-y-rail" style="top: 0px; height: 520px; display: none; right: 0px;">
+                                        <div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                             {% if 'reading' in app.request.attributes.get('_route') %}
+                            <a href="{{path('test_check_writing',{id:test.id})}}" style="color:white;margin-left: 130px;" class=" mc-btn btn-style-1">Check Writing</a>
+                                {% endif %}
+                            {% if 'writing' in app.request.attributes.get('_route') %}
+                            <a href="{{path('test_check_math',{id:test.id})}}" style="color:white;margin-left: 130px;" class="float-right mc-btn btn-style-1">Check Math</a>
+                                {% endif %}
+                            {% if 'math' in app.request.attributes.get('_route') %}
+                            <a href="{{path('test_check_reading',{id:test.id})}}" style="color:white;margin-left: 130px;" class="float-right mc-btn btn-style-1">Check Reading</a>
+                                {% endif %}
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+                            {#}
+                            <table class="table-question">
+                                <thead>
+                                    <tr> 
+                                        <th style="width:30%;">Question</th>
+                                        <th style="width:30%;">Correct Answer</th>
+                                        <th style="width:30%;">Your answer</th>
+                                        <th style="width:10%;">Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    {% for question in questions %}
+                                    <tr>
+                                        <td><i class="icon icon-val md-check-2"></i>{{loop.index}}. {{question.content|raw}}</td>
+                                        <td >
+                                            {% for reponse in reponses %}
+                                                 {% if question.type=="Reading" or question.type== "Writing" %}
+                                                     {% if question.id== reponse.question.id %}
+                                                        {{ range('A','Z')[question.correctChoise] }}<i class="fas fa-check-circle " style="color:green;"></i>{{question.choises[(question.correctChoise)-1]}}
+                                                     {% endif %}
+                                                 {% else %}
+                                                    {% if question.id== reponse.question.id %}
+                                                        <i class="fas fa-check-circle " style="color:green;"></i>{{question.correctAnswer}}
+                                                    {% endif %}
+                                                 {% endif %}
+                                            {% endfor %}
+                                            
+                                        <td>
+                                            {% for reponse in reponses %}
+                                                 {% if question.type=="Reading" or question.type== "Writing"%}
+                                                     {% if question.id== reponse.question.id %}
+                                                        {% if question.correctChoise == reponse.response %}
+                                                        {{ range('A','Z')[reponse.response] }}<i class="fas fa-check-circle " style="color:green;"></i>{{question.choises[(reponse.response)-1]}}
+                                                        {% else %}
+                                                        {{ range('A','Z')[reponse.response] }}<i class="fas fa-times-circle"style="color:red;"></i>{{question.choises[(question.correctChoise)-1]}}
+                                                        {% endif %}
+                                                     
+                                                     {% endif %}
+                                                 {% else %}
+                                                    {% if question.id== reponse.question.id %}
+                                                        {% if question.correctAnswer == reponse.reponsemath %}
+                                                            <i class="fas fa-check-circle " style="color:green;"></i>{{question.correctAnswer }}
+                                                        {% else %}
+                                                            <i class="fas fa-times-circle"style="color:red;"></i>{{reponse.reponsemath}}
+                                                        {% endif %}
+                                                    {% endif %}
+                                                 {% endif %}
+                                            {% endfor %}
+                                        </td>
+                                        <td >{{question.score}} point(s)</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                                
+                            <div class="form-action">
+                                <a href="{{path('teststudent_index',{'idCategory':test.category.id,'idClass':test.classe.id})}}" class="mc-btn btn-style-6">Back</a>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <aside class="question-sidebar" style="height: 700px;">
+                            <div class="score-sb">
+                                <h4 class="title-sb sm bold">Questions<span>socre </span></h4>
+                                <div class="list-wrap ps-container ps-active-x" style="height: 520px; max-height: none;"><ul>
+                                    {% for question in questions %}
+                                    {% for reponse in reponses %}
+                                    <li class="active">
+                                        
+                                            {% if question.type=="Reading" or question.type== "Writing"%}
+                                                {% if question.id== reponse.question.id %}
+                                                    <i class="icon-true"></i>Question {{loop.index}}<span>{{question.score}}</span>
+                                                {% else %}
+                                                    <i class="icon-false"></i>Question {{loop.index}}<span>{{question.score}}</span>
+                                                {% endif %}
+                                            {% else %}
+                                                {% if question.correctAnswer == reponse.reponsemath %}
+                                                    <i class="icon-true"></i>Question {{loop.index}}<span>{{question.score}}</span>
+                                                {% else %}
+                                                    <i class="icon-false"></i>Question {{loop.index}}<span>{{question.score}}</span>
+                                                {% endif %}
+                                            {% endif %}
+                                        
+                                    </li>
+                                    {% endfor %}
+                                    {% endfor %}
+                                </ul><div class="ps-scrollbar-x-rail" style="width: 326px; display: inherit; left: 0px;"><div class="ps-scrollbar-x" style="left: 0px; width: 150px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; height: 520px; display: none; right: 0px;"><div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div></div></div>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>#}
+    <script>
+       var cpt  = 1;
+        var appCpt = parseInt("{{ app.session.get('cpt') }}");
+    $("#nextButton").click(function(){
+        //alert(cpt);
+        //alert(appCpt);
+       // markingSchemeTotal+=parseFloat($("#markingScheme"+cpt).val());
+        //numberOfQuestion++;
+        //cp++;
+        var answer ;
+        $("#card-question-"+cpt).hide();
+        if (cpt<appCpt-1){
+            cpt++; 
+            //alert(cpt);
+            $("#card-question-"+cpt).show();
+            
+        }
+        $("#title-ct-"+cpt).hide();
+         if (cpt<appCpt-1){
+            cpt++; 
+            //alert(cpt);
+            $("#title-ct-"+cpt).show();
+            
+        }
+ 
+    });
+     $("#previousButton").click(function(){
+        
+        if (cpt>1){
+            $("#card-question-"+cpt).hide();
+            $("#title-ct-"+cpt).hide();
+            cpt--; 
+            //markingSchemeTotal-=parseFloat($("#markingScheme"+cpt).val());
+            //total -=parseFloat($("#markingScheme"+cpt).val());
+            $("#card-question-"+cpt).show();
+            
+             $("#title-ct-"+cpt).show();
+            
+        }
+        
+         
+    });
+
+    </script>
+
+    {{ app.session.set('cpt',cpt) }}
+{% endblock %}

@@ -3,6 +3,9 @@
 {% block title %}Add new Test {% endblock %}
 
 {% block body %}
+
+
+
     {% for message in app.flashes('danger') %}
     <div class="alert alert-danger">
         {{ message }}

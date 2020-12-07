@@ -25,166 +25,6 @@
           </div>
         </div>
       </section>
-     {#} {% if app.user.status=="Student"%}
-           <div class="row">
-               <div class="col-md-12" style="height:50px;" ></div>
-           </div>
-    <div class="row">
-        <div class="col-md-2"></div>
-        {% set cpt = 1 %}
-        {% for category in categories %}
-            <div class="col-md-2"><form action="{{ path('test_selectClasse',{'id': category.id }) }}" ><button type="submit" class="categoryButton" {% if category.name | length > 7 %} style="font-size:13px" {% endif %} >{{ category.name }}</button></form></div>
-            
-            {% if cpt == 4 %}
-                </div>
-                <div style="height:15px;"></div>
-                <div class="row">
-                <div class="col-md-2"></div>
-                {% set cpt = 0 %}
-            {% endif %}
-            {% set cpt = cpt +1 %}
-        {% endfor %}
-    </div>
-    
-    </div>
-    <div style="height:25px;"></div>
-    <div class="row">
-        <div class="col-md-2"></div>
-        <div class="col-md-3">
-            
-            {% for classe in classes %}
-            <form id="testClassesForm{{ classe.id }}" action="{{ path('teststudent_index',{'idCategory':classe.category.id,'idClass':classe.id}) }}">
-                <label class="moduleClasses"><input type="radio" name="classe" {% if classe.id == idClass %}checked{% endif %} value="{{ loop.index-1 }}"><span class="subCategory">{{classe.name }}</span></label>
-              </form>
-           {% endfor %}
-        </div>
-    </div>
-    
-    <div class="row" style="margin-top:11%; margin-bottom: 11%;">
-        <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <h2 class="titleDashboardMidle" id="testTable" style="background:url({{ asset('image/icones/12.png') }}); padding-top:70px;">
-            {% for category in categories %}
-              {% if category.id==app.request.get('idCategory')%}{{category.name}}{% endif %}{% endfor %}
-              {% for class in classes %}
-              {% if class.id==app.request.get('idClass')%}{{class.name}}{% endif %}{% endfor %}</h2>
-            <table class="table ">
-                
-                <tbody>
-                    {% for test in tests %}
-                    <tr class="table-active">
-                        <th scope="row"><h3>Title</h3></th>
-                        <td>{{ test.title }}</td>
-                    </tr>
-                    <tr class="table-active">
-                        <th scope="row"><h3>Description</h3></th>
-                        <td>{{ test.description }}</td>
-                    </tr>
-                    <tr >
-                        <td></td>
-                        <td><a href="{{path('test',{'id':test.id})}}" class="float-right text-centred" style="border:none; padding-top:7px; text-align:center; color:white;background-image: url('{{asset('image/icones/20.png')}}'); background-color:rgba(0,0,0,0); background-position:top; background-size: cover; height:57px;width:150px;" >Pass test</a></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-{% endif %}
-{% if app.user.status=="Admin"%}
-<div class="container-fluid mt--7">
-      <!-- Table -->
-      <div class="row justify-content-center">
-        <div class="col">
-          <div class="card shadow">
-            <div class="card-header border-0">
-              <h3 class="mb-0">Test list</h3>
-            </div>
-            <div class="table-responsive">
-
-
-              <table id="example" class="table align-items-center table-flush table-striped display dataTable">
-                <thead class="thead-light">
-            <tr>
-                
-                <th>Title</th>
-                <th>Description</th>
-                <th>SupportPdf</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for test in tests %}
-            <tr>
-                
-                <td><span class="mb-0 text-dark text-sm">{{ test.title }}</span></td>
-                <td><span class="mb-0 text-dark text-sm">{{ test.description }}</sapn></td>
-                <td><span class="mb-0 text-dark text-sm">{{ test.supportPdf }}</span></td>
-              
-
-
- <td class="actions">
-
-                                    <div class="btn-group">
-                                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-bottom: 0px;margin-top: 0px">Actions</button>
-
-                                        <div class="dropdown-menu ">
-
-                                         <a class="dropdown-item" href="{{ path('test_show', { 'id': test.id }) }}">
-                                            <i class="tim-icons text-blue icon-tv-2"></i>
-                                            Show</a>
-                                              {% if app.user.status == "Admin" %}
-                                            <a class="dropdown-item" href="{{ path('test_edit', { 'id': test.id }) }}">
-                                            <i class="tim-icons text-yellow icon-settings-gear-63"></i>
-                                            Edit</a>
-                                            <a class="dropdown-item"  href="#" onclick="showModal('myModal{{ test.id }}')">
-                                            <i class="tim-icons text-red icon-simple-remove"></i>
-                                            Delete</a>
-                                            {% endif %}
-
-                                            
-                                            
-                                    </div>
-                                </td>
-                            </tr>
-                              <!-- Modal -->
-                            <div id="myModal{{ test.id }}" class="modal fade" role="dialog">
-                                <div class="modal-dialog">
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Delete Confirmation</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>Do you really want to delete this test!</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                        <form method="post" action="{{ path('test_delete', {'id': test.id}) }}">
-                                            <button type="button" class="btn btn-default btn-md" data-dismiss="modal">Close</button>
-                                             <input type="hidden" name="_method" value="DELETE">
-                                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ test.id) }}">
-                                             <button type="submit" class="btn btn-danger btn-md">Delete</button>
-                                             </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div></div></div></div>
-        
-     
-    
-{% endif %}#}
       <script>
         function showModal(id) {
             $("#"+id).modal();
@@ -229,35 +69,49 @@ $(document).ready( function () {
         {% endif %}
     </script>
 
-<section id="quizz-intro-section" class="quizz-intro-section learn-section" style="min-height: 175px;">
-        <div class="container">
+<section id="quizz-intro-section" class="quizz-intro-section learn-section" style="min-height: 175px;background-color:transparent; padding-top:25px;">
+        <div class="container"style="max-width: 1230px;">
 
             <div class="title-ct">
-            {#{% set i=0%}
-                <h3><strong>Quizz</strong>You have passed {% for test in tests %}
-                    {% for score in scores %}
-                        {% if  test.id == score.test.id %}
-                        {% set i=i+1%}
-                        hello
-                        {% endif %}
-                    {% endfor %}
-                    {% endfor %}
-                    {{scores|length}} / {{tests|length}}
-
-
-                </h3>#}
+           
                 <div class="tt-right">
                     <a href="#" class="skip"><i class="icon md-arrow-right"></i></a>
                 </div>
             </div>
 
-            <div class="question-content-wrap">
+            <div class="question-content-wrap"style="border-radius: 20px;">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-3">
+                        <aside class="question-sidebar" style="height: 100%;border-radius: 20px;">
+                            <div class="score-sb">
+                                <h4 class="title-sb sm bold">Total score<span>{{categoriesUnlocked|length}}</span></h4>
+                                <div class="list-wrap ps-container ps-active-x ps-active-y" style="height: 100%; max-height: none;">
+                                <ul>
+                                 {% set i=0 %}
+                                    {% for category in categories %}
+                                    <li class="{% if category in categoriesUnlocked %} active {% else %} val {% endif %}"><i class="icon"></i>
+                                    <a data-toggle="collapse" href="#multiCollapseExample{{category.id}}"aria-expanded="false" aria-controls="multiCollapseExample{{category.id}}" >{{category.name}}</a><span></span>
+                                      <div style="{% if category not in categoriesUnlocked %} display:none;{% endif %}" class="collapse multi-collapse {% if category.id== idCategory %}show{% endif %}" id="multiCollapseExample{{category.id}}">
+                                      <ul> 
+                                      {% for class in category.classes %}
+                                        <li>
+                                          <a style="padding-left:20px;{% if class.id== idClass %}color:red;{% endif %}" href="{% if app.user.status == "Student" %}{{ path('teststudent_index',{'idCategory':category.id,'idClass':class.id}) }}{% else %}{{ path('test_index',{'idCategory':category.id,'idClass':class.id}) }}{% endif %}" >{{class.name}} </a>
+                                          </li>
+                                        {% endfor %}
+                                      </ul>
+                                      </div>
+                                    </li>
+                                    {% endfor %}
+                                </ul><div class="ps-scrollbar-x-rail" style="width: 326px; display: inherit; left: 0px;"><div class="ps-scrollbar-x" style="left: 0px; width: 150px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; height: 520px; display: inherit; right: 0px;"><div class="ps-scrollbar-y" style="top: 0px; height: 150px;"></div></div></div>
+                            </div>
+                            <input type="submit" value="Submit all answer" class="submit mc-btn btn-style-1">
+                        </aside>
+                    </div>
+                    <div class="col-md-9">
                     <div style="margin-top:10px;margin-left:20px;">
                     <p class="skip">{{catname}} / {{classname}}</p>
                     </div>
-                        <div class="question-content">
+                        <div class="question-content" style="padding: 19px 20px 20px 20px;">
                                <!-- SECTION OUTLINE -->
                                 <div class="section-outline">
                     
@@ -306,7 +160,7 @@ $(document).ready( function () {
                                                 <div class="line"></div>
                                                     <a href="{{path('test_check',{'id':test.id})}}" class="mc-btn-2 btn-style-2">Check Correct</a>
                                                 {% else %}
-                                                 <a href="{{path('test',{'id':test.id})}}" class="mc-btn-2 btn-style-2">Pass Test</a>
+                                                 <a href="{#{{path('test',{'id':test.id})}}#}{{path('test_reading',{'id':test.id})}}" class="mc-btn-2 btn-style-2">Pass Test</a>
                                                 <div class="div-x"><i class="icon md-check-2"></i></div>
                                                 <div class="line"></div>
                                                 {% endif %}
@@ -322,32 +176,7 @@ $(document).ready( function () {
                     </div>
 
 
-                    <div class="col-md-4">
-                        <aside class="question-sidebar" {#style="height: 700px;"#}>
-                            <div class="score-sb">
-                                <h4 class="title-sb sm bold">Categories<span>{{categoriesUnlocked|length}}</span></h4>
-                                <div class="list-wrap ps-container ps-active-x ps-active-y" style="height: 100%; max-height: none;">
-                                <ul>
-                                 {% set i=0 %}
-                                    {% for category in categories %}
-                                    <li class="{% if category in categoriesUnlocked %} active {% else %} val {% endif %}"><i class="icon"></i>
-                                    <a data-toggle="collapse" href="#multiCollapseExample{{category.id}}"aria-expanded="false" aria-controls="multiCollapseExample{{category.id}}" >{{category.name}}</a><span></span>
-                                      <div style="{% if category not in categoriesUnlocked %} display:none;{% endif %}" class="collapse multi-collapse {% if category.id== idCategory %}show{% endif %}" id="multiCollapseExample{{category.id}}">
-                                      <ul> 
-                                      {% for class in category.classes %}
-                                        <li>
-                                          <a style="padding-left:20px;{% if class.id== idClass %}color:red;{% endif %}" href="{% if app.user.status == "Student" %}{{ path('teststudent_index',{'idCategory':category.id,'idClass':class.id}) }}{% else %}{{ path('test_index',{'idCategory':category.id,'idClass':class.id}) }}{% endif %}" >{{class.name}} </a>
-                                          </li>
-                                        {% endfor %}
-                                      </ul>
-                                      </div>
-                                    </li>
-                                    {% endfor %}
-                                </ul><div class="ps-scrollbar-x-rail" style="width: 326px; display: inherit; left: 0px;"><div class="ps-scrollbar-x" style="left: 0px; width: 150px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; height: 520px; display: inherit; right: 0px;"><div class="ps-scrollbar-y" style="top: 0px; height: 150px;"></div></div></div>
-                            </div>
-                            
-                        </aside>
-                    </div>
+                    
                 </div>
             </div>
         </div>

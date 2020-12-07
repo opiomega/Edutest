@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Question;
 use App\Entity\Test;
 use App\Form\QuestionType;
+use App\Entity\Reponse;
 use App\Repository\QuestionRepository;
+use App\Repository\ReponseRepository;
 use App\Repository\TestRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,6 +46,7 @@ class QuestionController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+           
             $entityManager->persist($question);
             $entityManager->flush();
 
@@ -85,7 +88,13 @@ class QuestionController extends AbstractController
                    $choises[]=$choise;
                }
             }
+            $accurencies=[];
+            foreach($question->getAccur() as $accur)
+            {
+                $accurencies[]=$accur;
+            }
             $question->setChoises($choises);
+            $question->setAccur($accurencies);
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('question_index',["testId" => $question->getTest()->getId()]);
         }
@@ -115,4 +124,10 @@ class QuestionController extends AbstractController
 
         return $this->redirectToRoute('question_index',["testId" => $question->getTest()->getId()]);
     }
+
+
+    
+
+
+
 }

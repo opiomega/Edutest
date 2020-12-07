@@ -3,7 +3,7 @@
 {% block stylesheets %}
 {{parent()}}
 <link rel="stylesheet" href="{{asset('style.css')}}"/>
-{#<link rel="stylesheet" href="{{asset('style4.css')}}"/>#}
+
 <style>
 .navbar-default {
     border-color: transparent;
@@ -145,8 +145,8 @@
 {% endif %}
 #}
 
-<section id="quizz-intro-section" class="quizz-intro-section learn-section" style="min-height: 175px;">
-        <div class="container">
+<section id="quizz-intro-section" class="quizz-intro-section learn-section" style="min-height: 175px; background-color:transparent; padding-top:25px;">
+        <div class="container"style="max-width: 1230px;">
 
             <div class="title-ct">
                 <h3><strong></strong></h3>
@@ -155,20 +155,10 @@
                 </div>
             </div>
 
-            <div class="question-content-wrap">
+            <div class="question-content-wrap" style="border-radius: 20px;">
                 <div class="row">
-                    <div class="col-md-8">
-                        <div class="question-content">
-                               <!-- SECTION OUTLINE -->
-                                
-                                <!-- END / SECTION OUTLINE -->
-    
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-4">
-                        <aside class="question-sidebar" {#style="height: 700px;"#}>
+                    <div class="col-md-3">
+                        <aside class="question-sidebar" style="height: 100%;border-radius: 20px;">
                             <div class="score-sb">
                                 <h4 class="title-sb sm bold">Categories<span>{{categoriesUnlocked|length}}</span></h4>
                                 <div class="list-wrap ps-container ps-active-x ps-active-y" style="height: 100%; max-height: none;">
@@ -193,6 +183,17 @@
                             
                         </aside>
                     </div>
+                    <div class="col-md-9">
+                        <div class="question-content">
+                               <!-- SECTION OUTLINE -->
+                                
+                                <!-- END / SECTION OUTLINE -->
+    
+                        </div>
+                    </div>
+
+
+                    
                 </div>
             </div>
         </div>

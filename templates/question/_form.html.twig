@@ -34,14 +34,20 @@
                     
     {% for quetionChoisesField in form.choises %}
         <li id="quetionChoisesLi{{ cpt }}">
+            <label>Answer</label>
             {{ form_errors(quetionChoisesField) }}
             {{ form_widget(quetionChoisesField) }}
            {#} <button id="removeChoise{{ cpt }}" type="button" class="btn btn-outline-danger btn-sm ni ni-fat-remove text-dark"></button>#}
+           <label>Accurency</label>
+           {{ form_errors(form.accur[cpt]) }}
+            {{ form_widget(form.accur[cpt]) }}
+             <small>{{ form_help(form.accur[cpt]) }}</small>
             <button id="removeChoise{{ cpt }}" type="button" class="btn btn-danger text-white btn-sm "><i class="fa fa-close"></i></button>
         </li>
         
         {% set cpt = cpt + 1 %}
     {% endfor %}
+  
     
     </ul>
     </div></div></div>

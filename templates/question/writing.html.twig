@@ -1,0 +1,282 @@
+{% extends 'palcement.html.twig' %}
+
+{% block title %}Questions index{% endblock %}
+{% block stylesheet %}{{parent()}}
+ <link href="{{asset('style.css')}}" rel="stylesheet" />
+ <script type="text/javascript" async="" src="https://cl.qualaroo.com/ki.js/53782/bH0qoo.js"></script>
+ <script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-WSX5PBP"></script>
+ <link rel="stylesheet" type="text/css" href="{{asset('asset/stylesat.css')}}">
+ <link rel="stylesheet" type="text/css" href="{{asset('asset/styledash.css')}}">
+ <script>window.__HEADERS__ = {"X-KA-has-any-permissions":"false","X-KA-is-phantom":"false","X-KA-Published-Content-Version":"533d4800eac3f45165eadc5249cb37d92fb7f869","X-KA-Lang":"en","X-KA-is-e2e":"false","X-KA-is-ios":"false","X-KA-may-be-under13":"false","X-KA-Static-Version":"201107-1652-6038eb63ea73","X-KA-is-tablet":"false","X-KA-is-phone":"false","X-Fastly-Country":"TN","X-KA-Locale-Status":null,"X-KA-is-unsupported-browser":"false","X-KA-Curriculum":"","X-KA-Locale":"en"};</script>
+ <script>
+    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+</script>
+{% endblock %}
+{% block body %}
+<style>
+
+ul li{
+  color: #AAAAAA;
+  display: block;
+  position: relative;
+  float: left;
+  width: 100%;
+  height: 60px;
+	border-bottom: 1px solid #AAA;
+}
+
+ul li input[type=radio]{
+  position: absolute;
+  visibility: hidden;
+}
+
+ul li label{
+  display: block;
+  position: relative;
+  font-weight: 200;
+  font-size: 15px;
+  padding: 13px 25px 25px 55px;
+  margin: 10px auto;
+  height: 30px;
+  z-index: 9;
+  cursor: pointer;
+  -webkit-transition: all 0.25s linear;
+}
+
+ul li:hover label{
+	/*color: #FFFFFF;*/
+}
+
+ul li .check{
+  display: block;
+  position: absolute;
+  border: 2px solid #B2273D;
+  border-radius: 100%;
+  height: 20px;
+  width: 20px;
+  top: 20px;
+  left: 20px;
+	z-index: 5;
+	transition: border .25s linear;
+	-webkit-transition: border .25s linear;
+}
+
+ul li:hover .check {
+  border: 5px solid #FFFFFF;
+}
+
+ul li .check::before {
+  display: block;
+  position: absolute;
+	content: '';
+  border-radius: 100%;
+  height: 10px;
+  width: 10px;
+  top: 3px;
+	left: 3px;
+  margin: auto;
+	transition: background 0.25s linear;
+	-webkit-transition: background 0.25s linear;
+}
+
+input[type=radio]:checked ~ .check {
+  border: 2px solid rgb(0, 132, 206);
+}
+
+input[type=radio]:checked ~ .check::before{
+  background: #B2273D;
+}
+
+input[type=radio]:checked ~ label{
+  color: #394f79 !important;
+  font-weight:bold;
+}
+
+</style>
+
+
+    <div id="page-container" class="full-bleed" role="main">
+        <div id="page-container-inner">
+         <h1 class="sr-only">SAT Dashboard</h1>
+            <article id="sat-mission">
+                <div id="sat-route-task" class="_12lh8ljf">
+                    <div class="task-view-container">
+                        <div class="" style="height: calc(100vh - -1px);">
+                            <div class="_164ljfc">
+                                <div class="_1463cwjs">
+                                    <div class="_6cq58gu">
+                                        {#<div class="_oek5qn9">
+                                            <button type="button" data-test-id="exit-button" role="button" tabindex="0" class="_1id8z8a2">
+                                            <span class="_1vrbscga">Exit this Diagnostic</span>
+                                            </button>
+                                        </div>#}
+                                    </div>
+                                </div>
+                                <div class="content-area-container showing-passage" style="z-index: 0;">
+                                    <div class="sat-perseus-renderer content-area framework-perseus invalid-answer has-passage-header">
+                                        <div class="perseus-renderer perseus-renderer-responsive perseus-renderer-two-columns"style="width: 1200px;">
+                                            <div class="paragraph" data-perseus-paragraph-index="0">
+                                                <div class="perseus-two-columns">
+                                                    <div class="perseus-column">
+                                                        <div class="perseus-column-content">
+                                                            <blockquote>
+                                                                <div class="paragraph">{{test.title}}. </div>
+                                                            </blockquote>
+                                                            <blockquote>
+                                                            <div class="paragraph"><strong>{{test.description}} </strong></div>
+                                                            </blockquote>
+                                                            <div class="paragraph">
+                                                                <div class="perseus-widget-container widget-nohighlight widget-block">
+                                                                    <div>
+                                                                        <div class="perseus-widget-passage-container">
+                                                                            <div class="perseus-widget-passage-instructions">
+                                                                            </div>
+                                                                            <div class="perseus-widget-passage">
+                                                                                <h3 class="passage-title">
+                                                                                    <div class="perseus-renderer perseus-renderer-responsive">
+                                                                                        <div class="paragraph" data-perseus-paragraph-index="0">
+                                                                                            <div class="paragraph">Passage 1</div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </h3>
+                                                                                <div class="passage-text" style="overflow:scroll;height:600px;">
+                                                                                    <div class="_6htn2u">
+                                                                                        <div class="_gor68n">
+                                                                                            <div class="_1ugaxv">
+                                                                                                <div class="paragraph"></div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="paragraph">
+                                                                                        <span>{{test.content|raw}}</span><span>.</span>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="perseus-sr-only">End of reading passage.</div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="perseus-column">
+                                                        <div class="sat-header-grafting-area">
+                                                            <div class="_13tno4p" data-passage-header="true" style="width: 495px !important;">
+                                                                <div class="_1d0ggaap">
+                                                                    <div class="_jkqb4n">
+                                                                        <div class="_13nea2v">
+                                                                            <div class="_85a4jk">Writing Section</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="_1o4t8vr"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="perseus-column-content" style="overflow:scroll;height:600px;">
+                                                            <div class="sat-skill-subscore-grafting-area"></div>
+                                                            {% for question in questions %}
+                                                                
+                                                                    <div id="{{loop.index}}" class="paragraph">
+                                                                        <div class="perseus-widget-container widget-nohighlight widget-block">
+                                                                            <div class="perseus-group perseus-group-invalid-answer">
+                                                                                <div class="_1uciwtc">
+                                                                                    <div class="_90rrp3">
+                                                                                        <div class="_jkqb4n">
+                                                                                            <div class="_13nea2v">
+                                                                                                <div class="_85a4jk">
+                                                                                                    <h4 class="_128q13g"><span style="color:#394f79;font-size:15px">Question {{loop.index}} of {{questions|length}}</span></h4>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="_1o4t8vr"></div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="perseus-renderer perseus-renderer-responsive" >
+                                                                                <div class="paragraph" data-perseus-paragraph-index="0">
+                                                                                    <div class="paragraph"></div>
+                                                                                </div>
+                                                                                <div class="paragraph" data-perseus-paragraph-index="1">{{question.content|raw}}
+                                                                                    <div class="paragraph">
+                                                                                        <div class="perseus-widget-container widget-nohighlight widget-block">
+                                                                                            <div class="">
+                                                                                                <fieldset class="perseus-widget-radio-fieldset _c0l5kf" ><legend class="perseus-sr-only">Choose 1 answer:</legend>
+                                                                                                    <ul {#class="perseus-widget-radio perseus-rendered-radio _1ey9osv0"#}>
+                                                                                                        <!--reponses-->
+                                                                                                        {% for choices in question.choises %}
+                                                                                                        <li>
+                                                                                                            <input onclick="insetanwser({{question.id}},{{loop.index -1}})" type="radio" id="f-option{{question.id}}{{choices}}" name="selector{{question.id}}">
+                                                                                                            <label style="color:black;" for="f-option{{question.id}}{{choices}}">{{choices}}</label>
+                                                                                                            <div class="check"></div>
+                                                                                                        </li>
+                                                                                                        {% endfor %}
+                                                                                                    </ul>
+                                                                                                </fieldset>
+                                                                                                {% if loop.index < questions|length %}
+                                                                                                    <div id="button{{loop.index}}" {% if loop.index != 1 %}style="display:none;margin-left: 120px;"{% else %} style="margin-left: 120px;"{% endif %}>Skip question {{loop.index}} of {{questions|length }}</div>
+                                                                                                {% else %}
+                                                                                                {% endif %}
+                                                                                                
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <script>
+                                                                    $("#button{{loop.index}}").click(function() {
+                                                                    var i= {{loop.index}}+1;
+                                                                    document.getElementById('button{{loop.index}}').style.display="none";
+                                                                    document.getElementById('button'+i).style.display="block";
+                                                                        $('html, body').animate({
+                                                                            scrollTop: $("#"+i).offset().top
+                                                                        }, 2000);
+                                                                    });
+                                                                    </script>
+                                                                
+                                                            {% endfor %}
+                                                            <a class="_h7acyoo" type="button" href="{{path('test_math',{id:test.id})}}" >Next</a >
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$("#button").click(function() {
+    $('html, body').animate({
+        scrollTop: $("#myDiv").offset().top
+    }, 2000);
+});
+
+  function fun(id){
+      
+       document.getElementById('doura'+id).style="background-color:rgb(0, 132, 206);"
+    document.getElementById('ktiba'+id).style="color:white;"
+  }
+function insetanwser(id,anwser)
+      {
+         
+              $.ajax({url: "{{path('question_response')}}",
+              
+              data: "questionId="+id+"&anwserNum="+anwser,  
+   
+         
+               });
+        }
+
+</script>
+
+{% endblock %}
