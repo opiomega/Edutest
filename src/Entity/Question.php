@@ -61,8 +61,16 @@ class Question
      */
     private $correctAnswer;
 
+    
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $accur = [];
+
+
     public function __construct()
     {
+        $this->notes = new ArrayCollection();
         
     }
 
@@ -168,4 +176,16 @@ class Question
 
         return $this;
     }
+    public function getAccur(): ?array
+    {
+        return $this->accur;
+    }
+
+    public function setAccur(array $accur): self
+    {
+        $this->accur = $accur;
+
+        return $this;
+    }
+    
 }

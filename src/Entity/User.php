@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @Vich\Uploadable
@@ -69,17 +70,7 @@ class User implements UserInterface
     private $photoUpdatedAt;
 
 
-    /**
-     * @ORM\Column(type="string", length=255 , nullable=true)
-     * 
-     */
-    private $googleID;
-
-    /**
-     * @ORM\Column(type="string", length=255 , nullable=true)
-     * 
-     */
-    private $googleAccessToken;
+    
 
     
     
@@ -231,26 +222,25 @@ class User implements UserInterface
         $this->datebirth = $datebirth;
     }
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\City")
-     * @ORM\JoinColumn(name="city_id", referencedColumnName="id",onDelete="SET NULL")
+     * @ORM\Column(type="string", length=255)
+     */
+    private $country;
+
+    /**
+     * @ORM\Column(type="string", length=255)
      */
     private $city;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $state;
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $zipcode;
 
-    public function getCity(): ?City
-    {
-        return $this->city;
-    }
-
-    public function setCity(?City $city): self
-    {
-        $this->city = $city;
-
-        return $this;
-    }
+    
 
     public function getZipcode(): ?string
     {
@@ -293,6 +283,15 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Messages", mappedBy="user")
      */
     private $messages;
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $sexe;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $citybirth;
 
     public function __construct()
     {
@@ -417,36 +416,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getGoogleID()
-    {
-        return $this->googleID;
-    }
-    /**
-     * @param mixed $googleID
-     */
-    public function setGoogleID(string $googleid)
-    {
-        $this->googleID = $googleid;
-
-        return $this;
-    }
     
-    /**
-     * @return mixed
-     */
-    public function getGoogleAcccessToken()
-    {
-        return $this->phone;
-    }
-    /**
-     * @param mixed $googleAccessToken
-     */
-    public function setGoogleAcccessToke(string $googleaccesstoken): self
-    {
-        $this->googleAccessToken = $googleaccesstoken;
-
-        return $this;
-    }
 
     public function getLastlogin(): ?\DateTimeInterface
     {
@@ -502,5 +472,62 @@ class User implements UserInterface
 
         return $this;
     }
-  
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
+    public function setState(string $state): self
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+    public function getSexe(): ?string
+    {
+        return $this->sexe;
+    }
+
+    public function setSexe(string $sexe): self
+    {
+        $this->sexe = $sexe;
+
+        return $this;
+    }
+
+    public function getCitybirth(): ?string
+    {
+        return $this->citybirth;
+    }
+
+    public function setCitybirth(string $citybirth): self
+    {
+        $this->citybirth = $citybirth;
+
+        return $this;
+    }
 }

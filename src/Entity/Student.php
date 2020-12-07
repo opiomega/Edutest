@@ -417,6 +417,57 @@ class Student
     */
    private $online;
 
+   /**
+    * @ORM\OneToMany(targetEntity="App\Entity\Reponse", mappedBy="student")
+    */
+   private $reponses;
+   /**
+    * @ORM\Column(type="string", length=255)
+    */
+    private $schoollocation;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $travelabroad;
+ 
+    /**
+     * @ORM\Column(type="string", length=255 , nullable=true)
+     */
+    private $travelreason;
+ 
+    
+ 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $parentspayeducation;
+ 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $payeducation;
+ 
+ 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $membership;
+ 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $enrollededutest;
+ 
+    /**
+     * @ORM\Column(type="string", length=255 )
+     */
+    private $preferredlanguage;
+     /**
+    * @ORM\Column(type="string", length=255, nullable=true)
+    */
+   private $organisationmembership;
+
     public function __construct()
     {
      $this->candidatures = new ArrayCollection();
@@ -429,6 +480,7 @@ class Student
      $this->educationGroups = new ArrayCollection();
      $this->counslings = new ArrayCollection();
      $this->studentConslings = new ArrayCollection();
+     $this->reponses = new ArrayCollection();
     }
  
 
@@ -903,6 +955,145 @@ class Student
     public function setOnline(?bool $online): self
     {
         $this->online = $online;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reponse[]
+     */
+    public function getReponses(): Collection
+    {
+        return $this->reponses;
+    }
+
+    public function addReponse(Reponse $reponse): self
+    {
+        if (!$this->reponses->contains($reponse)) {
+            $this->reponses[] = $reponse;
+            $reponse->setStudent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReponse(Reponse $reponse): self
+    {
+        if ($this->reponses->contains($reponse)) {
+            $this->reponses->removeElement($reponse);
+            // set the owning side to null (unless already changed)
+            if ($reponse->getStudent() === $this) {
+                $reponse->setStudent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getParentspayeducation(): ?string
+    {
+        return $this->parentspayeducation;
+    }
+
+    public function setParentspayeducation(string $parentspayeducation): self
+    {
+        $this->parentspayeducation = $parentspayeducation;
+
+        return $this;
+    }
+
+    public function getPayeducation(): ?string
+    {
+        return $this->payeducation;
+    }
+
+    public function setPayeducation(string $payeducation): self
+    {
+        $this->payeducation = $payeducation;
+
+        return $this;
+    }
+
+
+    public function getMembership(): ?string
+    {
+        return $this->membership;
+    }
+
+    public function setMembership(string $membership): self
+    {
+        $this->membership = $membership;
+
+        return $this;
+    }
+
+    public function getEnrollededutest(): ?string
+    {
+        return $this->enrollededutest;
+    }
+
+    public function setEnrollededutest(string $enrollededutest): self
+    {
+        $this->enrollededutest = $enrollededutest;
+
+        return $this;
+    }
+
+    public function getPreferredlanguage(): ?string
+    {
+        return $this->preferredlanguage;
+    }
+
+    public function setPreferredlanguage(string $preferredlanguage): self
+    {
+        $this->preferredlanguage = $preferredlanguage;
+
+        return $this;
+    }
+
+    public function getOrganisationmembership(): ?string
+    {
+        return $this->organisationmembership;
+    }
+
+    public function setOrganisationmembership(string $organisationmembership): self
+    {
+        $this->organisationmembership = $organisationmembership;
+
+        return $this;
+    }
+    public function getSchoollocation(): ?string
+    {
+        return $this->schoollocation;
+    }
+
+    public function setSchoollocation(string $schoollocation): self
+    {
+        $this->schoollocation = $schoollocation;
+
+        return $this;
+    }
+
+    public function getTravelabroad(): ?string
+    {
+        return $this->travelabroad;
+    }
+
+    public function setTravelabroad(string $travelabroad): self
+    {
+        $this->travelabroad = $travelabroad;
+
+        return $this;
+    }
+
+    public function getTravelReason(): ?string
+    {
+        return $this->travelreason;
+    }
+
+    public function setTravelReason(string $travelreason): self
+    {
+        $this->Travelreason = $travelreason;
 
         return $this;
     }

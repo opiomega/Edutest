@@ -56,11 +56,7 @@ class Test
      * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $category;
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Teacher", inversedBy="tests")
-     * @ORM\JoinColumn(onDelete="CASCADE")
-     */
-    private $teacher;
+    
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Question", mappedBy="test")
      */
@@ -116,10 +112,31 @@ class Test
      * @ORM\ManyToOne(targetEntity="App\Entity\Topic", inversedBy="tests")
      */
     private $topic;
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $content;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Reponse::class, mappedBy="test")
+     */
+    private $responses;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $writing;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $math;
+
 
     public function __construct()
     {
         $this->testScores = new ArrayCollection();
+        $this->responses = new ArrayCollection();
     }
 
 
@@ -190,17 +207,7 @@ class Test
 
         return $this;
     }
-    public function getTeacher(): ?Teacher
-    {
-        return $this->teacher;
-    }
-
-    public function setTeacher(?Teacher $teacher): self
-    {
-        $this->teacher = $teacher;
-
-        return $this;
-    }
+    
 
     public function getPdfUpdatedAt(): ?\DateTimeInterface
     {
@@ -346,6 +353,72 @@ class Test
     public function setTopic(?Topic $topic): self
     {
         $this->topic = $topic;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reponse[]
+     */
+    public function getResponses(): Collection
+    {
+        return $this->responses;
+    }
+
+    public function addResponse(Reponse $response): self
+    {
+        if (!$this->responses->contains($response)) {
+            $this->responses[] = $response;
+            $response->setTest($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResponse(Reponse $response): self
+    {
+        if ($this->responses->removeElement($response)) {
+            // set the owning side to null (unless already changed)
+            if ($response->getTest() === $this) {
+                $response->setTest(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getContent(): ?string
+    {
+        return $this->content;
+    }
+
+    public function setContent(string $content): self
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    public function getWriting(): ?string
+    {
+        return $this->writing;
+    }
+
+    public function setWriting(string $writing): self
+    {
+        $this->writing = $writing;
+
+        return $this;
+    }
+
+    public function getMath(): ?string
+    {
+        return $this->math;
+    }
+
+    public function setMath(string $math): self
+    {
+        $this->math = $math;
 
         return $this;
     }
