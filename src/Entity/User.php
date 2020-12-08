@@ -5,12 +5,12 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use DoctrineExtensions\Query\Mysql\Date;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-
-
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -70,7 +70,17 @@ class User implements UserInterface
     private $photoUpdatedAt;
 
 
-    
+    /**
+     * @ORM\Column(type="string", length=255 , nullable=true)
+     * 
+     */
+    private $googleID;
+
+    /**
+     * @ORM\Column(type="string", length=255 , nullable=true)
+     * 
+     */
+    private $googleAccessToken;
 
     
     
@@ -162,10 +172,21 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $adress;
-      /**
-    * @ORM\Column(name="datebirth", type="string")
-    */
-    private $datebirth;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $country;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $state;
 
 
    
@@ -206,41 +227,47 @@ class User implements UserInterface
         return $this;
     }
 
-     /**
-     * @return string
-     */
-    public function getDatebirth()
-    {
-        return $this->datebirth;
-    }
 
-    /**
-     * @param string $datebirth
-     */
-    public function setDatebirth($datebirth)
-    {
-        $this->datebirth = $datebirth;
-    }
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $country;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $city;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $state;
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $zipcode;
 
-    
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
+    public function setState(string $state): self
+    {
+        $this->state = $state;
+
+        return $this;
+    }
 
     public function getZipcode(): ?string
     {
@@ -283,6 +310,17 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Messages", mappedBy="user")
      */
     private $messages;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $age;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $datebirth;
+
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -416,7 +454,36 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getGoogleID()
+    {
+        return $this->googleID;
+    }
+    /**
+     * @param mixed $googleID
+     */
+    public function setGoogleID(string $googleid)
+    {
+        $this->googleID = $googleid;
+
+        return $this;
+    }
     
+    /**
+     * @return mixed
+     */
+    public function getGoogleAcccessToken()
+    {
+        return $this->phone;
+    }
+    /**
+     * @param mixed $googleAccessToken
+     */
+    public function setGoogleAcccessToke(string $googleaccesstoken): self
+    {
+        $this->googleAccessToken = $googleaccesstoken;
+
+        return $this;
+    }
 
     public function getLastlogin(): ?\DateTimeInterface
     {
@@ -472,41 +539,33 @@ class User implements UserInterface
 
         return $this;
     }
-    public function getCountry(): ?string
+
+    public function getAge(): ?int
     {
-        return $this->country;
+
+        return $age = $this->age;
+
     }
 
-    public function setCountry(string $country): self
+    public function setAge(int $age): self
     {
-        $this->country = $country;
+        $this->age = $age;
 
         return $this;
     }
 
-    public function getCity(): ?string
+    public function getDatebirth(): ?\DateTimeInterface
     {
-        return $this->city;
+        return $this->datebirth;
     }
 
-    public function setCity(string $city): self
+    public function setDatebirth(\DateTimeInterface $datebirth): self
     {
-        $this->city = $city;
+        $this->datebirth = $datebirth;
 
         return $this;
     }
 
-    public function getState(): ?string
-    {
-        return $this->state;
-    }
-
-    public function setState(string $state): self
-    {
-        $this->state = $state;
-
-        return $this;
-    }
     public function getSexe(): ?string
     {
         return $this->sexe;
@@ -530,4 +589,5 @@ class User implements UserInterface
 
         return $this;
     }
+  
 }

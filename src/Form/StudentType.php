@@ -11,6 +11,7 @@ use App\Entity\Courses;
 use App\Entity\Hearaboutus;
 use App\Entity\EducationGroup;
 use App\Entity\Category;
+use PhpParser\Parser\Multiple;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,6 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType ;
 
 class StudentType extends AbstractType
 {
@@ -27,83 +29,150 @@ class StudentType extends AbstractType
     {
         if (!$options['new']){
             $builder
-                ->add("email", EmailType::class, ['attr' => ['placeholder' => "Email" ,'class' => "form-control"],'property_path' => 'user.email'])
-                ->add("phone", TextType::class, ['attr' => ['placeholder' => "Phone" ,'class' => "form-control"],'property_path' => 'user.phone'])
-                ->add("adress", TextType::class, ['attr' => ['placeholder' => "Adress" ,'class' => "form-control"],'property_path' => 'user.adress'])
-                ->add("zipcode", TextType::class,['attr' => ['placeholder' => "Zipcode" ,'class' => "form-control text-red"],'property_path' => 'user.zipcode'])
-                ->add("city", EntityType::class,['attr' => ['placeholder' => "City" ,'class' => "form-control text-red"],'class'=> City::class,'choice_label' => 'name','property_path' => 'user.city'])
-                
+                ->add("email", EmailType::class, ['property_path' => 'user.email'])
+                ->add("phone", TextType::class)
+                ->add("adress", TextType::class, [ 'property_path' => 'user.adress'])
+                ->add("zipcode", TextType::class)
+                ->add("city", EntityType::class,['class'=> City::class,'choice_label' => 'name','property_path' => 'user.city'])
+
             ;
         }
         $builder
+
+            ->add('firstname', TextType::class )
+
+            ->add('lastname', TextType::class)
+            ->add('school', TextType::class)
+
+
+            ->add('travelabroad',ChoiceType::class,array(
+                'choices'  => array(
+                    'Yes' => 'Y',
+                    'No' => 'N',
+
+                ),'expanded'=>true))
+
+
+
+
+
+            ->add('parentspayeducation',ChoiceType::class,array(
+                'choices'  => array(
+                    'Yes'=>'yes',
+                    'No'=>'no',
+                    'Maybe'=>'maybe'
+
+                ),'expanded'=>true))
+
+            ->add('payeducation',ChoiceType::class,array(
+                'choices'  => array(
+                    'Yes'=>'yes',
+                    'No'=>'no',
+                    'Maybe'=>'maybe'
+
+                ),'expanded'=>true))
+
+            ->add('preferredlanguage',ChoiceType::class,array(
+                'choices'  => array(
+                    'English'=>'english',
+                    'Frensh'=>'frensh',
+
+
+                ),'expanded'=>true))
+            ->add('enrollededutest',ChoiceType::class,array(
+                'choices'  => array(
+                    'Yes'=>'yes',
+                    'No'=>'no',
+
+
+                ),'expanded'=>true))
+            ->add('organisationmembership',ChoiceType::class,array(
+                'choices'  => array(
+                    'Yes'=>'yes',
+                    'No'=>'no',
+
+
+                ),'expanded'=>true))
             
-            ->add('firstname', TextType::class, ['attr' => ['placeholder' => "First name" ,'class' => "form-control"]])
-            ->add('lastname', TextType::class, ['attr' => ['placeholder' => "Last name" ,'class' => "form-control"]])
-            ->add('school', TextType::class, ['attr' => ['placeholder' => "School" ,'class' => "form-control"]])
-            ->add('firstparentname', TextType::class, ['attr' => ['placeholder' => "father's name" ,'class' => "form-control"]])
-            ->add('firstparentjob', TextType::class, ['attr' => ['placeholder' => "Father's job" ,'class' => "form-control"]])
-            ->add('secondparentname', TextType::class, ['attr' => ['placeholder' => "Mother's name" ,'class' => "form-control"]])
-            ->add('secondparentjob', TextType::class, ['attr' => ['placeholder' => "Mother's job" ,'class' => "form-control"]])
-            ->add('fristparentemail', EmailType::class,['attr' => ['placeholder' => "Email" ,'class' => "form-control"]])
-            ->add('firstparentnumber', TextType::class, ['attr' => ['placeholder' => "Father's number" ,'class' => "form-control"]])
-            ->add('secondparentemail', EmailType::class,['attr' => ['placeholder' => "Email" ,'class' => "form-control"]])
-            ->add('secondparentnumbre', TextType::class, ['attr' => ['placeholder' => "mother's number" ,'class' => "form-control"]])
-            ->add('comments', TextType::class, ['attr' => ['placeholder' => "Comment" ,'class' => "form-control"]])
-            ->add('membretalk', TextType::class, ['attr' => ['placeholder' => "membre talk" ,'class' => "form-control"]])
-          //  ->add('classes', EntityType::class, [
-              //  'class' => Classes::class,
-        
+                ->add('travelreason',ChoiceType::class,[
+                'choices'  => [
+                    'Tourism' => 'tourism',
+                    'Education' => 'education',
+                    'Culture' => 'culture',
+                    'Job' => 'job',
+                ],
+                'preferred_choices' => ['muppets', 'arr'],
+                ])
+
+            ->add('schoollocation', TextType::class)
+            ->add('firstparentname', TextType::class)
+            ->add('firstparentjob', TextType::class)
+            ->add('secondparentname', TextType::class)
+            ->add('secondparentjob', TextType::class)
+            ->add('fristparentemail', EmailType::class)
+            ->add('firstparentnumber', TextType::class)
+            ->add('secondparentemail', EmailType::class)
+            ->add('secondparentnumbre', TextType::class)
+
+            ->add('comments', TextareaType::class, ['attr' => ['placeholder' => "Tell me about yourself" ,'class' => "form-control"]])
+            ->add('membretalk', TextType::class, ['attr' => ['placeholder' => "who did you speack to?" ,'class' => "form-control"]])
+            //  ->add('classes', EntityType::class, [
+            //  'class' => Classes::class,
+
             // uses the User.username property as the visible option string
-         //   'choice_label' => 'name',
-          //      'attr' => ['placeholder' => "Choose..." ,'class' => "form-control text-red"]])
+            //   'choice_label' => 'name',
+            //      'attr' => ['placeholder' => "Choose..." ,'class' => "form-control text-red"]])
             ->add('courses', EntityType::class, [
-                'class' => Courses::class,
-        
-            // uses the User.username property as the visible option string
-            'choice_label' => 'name',
+                'class' => Courses::class,'placeholder' => '-- Select the course would you like to take -- ',
+
+                'choice_label' => 'name',
+                'multiple' => true,'expanded'=>true,
                 'attr' => ['placeholder' => "Choose..." ,'class' => "form-control text-red"]])
             ->add('educationlevel', EntityType::class, [
-                'class' => Educationlevel::class,
-        
-            // uses the User.username property as the visible option string
-            'choice_label' => 'name',
+                'class' => Educationlevel::class,'placeholder' => '-- Select your educational level --',
+
+                // uses the User.username property as the visible option string
+                'choice_label' => 'name',
                 'attr' => ['placeholder' => "Choose..." ,'class' => "form-control text-red"]])
             ->add('hearaboutus', EntityType::class, [
-                'class' => Hearaboutus::class,
-        
-            // uses the User.username property as the visible option string 
-            'choice_label' => 'name',
+                'class' => Hearaboutus::class,'placeholder' => 'How did you here about us',
+
+                // uses the User.username property as the visible option string
+                'choice_label' => 'name',
                 'attr' => ['placeholder' => "Choose..." ,'class' => "form-control"]])
-            ->add("specialskills", TextType::class, ['attr' => ['placeholder' => "Your skills" ,'class' => "form-control"]])
-            ->add("achievement", TextType::class, ['attr' => ['placeholder' => "Your achievment" ,'class' => "form-control"]])
-            ->add("hobbies", TextType::class, ['attr' => ['placeholder' => "Your hobbies" ,'class' => "form-control"]])
-            ->add('online',ChoiceType::class,['choices' => [
-                'Online'=>1,
-                'Offline'=>0,
-            ]])
+            ->add("specialskills", TextareaType::class, ['attr' => ['placeholder' => "Your skills" ,'class' => "form-control"]])
+            ->add("achievement", TextareaType::class, ['attr' => ['placeholder' => "Your achievment" ,'class' => "form-control" ]])
+            ->add("hobbies", TextareaType::class, ['attr' => ['placeholder' => "Your hobbies" ,'class' => "form-control"]])
+            ->add('online',ChoiceType::class,array(
+        'choices'  => array(
+            'Online'=>1,
+            'Offline'=>0,
+
+        ),'expanded'=>true))
         ;
+
         if (in_array('ROLE_SUPER_ADMIN',$options['roles'])){
             $builder->add('teacher', EntityType::class, [
                 // looks for choices from this entity
                 'class' => Teacher::class,
-            
+
                 // uses the User.username property as the visible option string
                 'choice_label' => 'lastname',
-            
+
                 'attr' => ['placeholder' => "Choose..." ,'class' => "form-control text-red"]
             ])->add('levelTestType', EntityType::class, [
-                        //'class' => Hearaboutus::class,
-                        'class' => Category::class,
-                        // uses the User.username property as the visible option string
-                        'choice_label' => 'name',
-                        'attr' => ['placeholder' => "Choose..." ,'class' => "form-control text-red"]])
-            /*->add('eductionGroup', EntityType::class, [
-                         //'class' => Hearaboutus::class,
-        
-                        'class' => EducationGroup::class,
-                         // uses the User.username property as the visible option string
-                         'choice_label' => 'name',
-                         'attr' => ['placeholder' => "Choose..." ,'class' => "form-control text-red"]])*/;
+                //'class' => Hearaboutus::class,
+                'class' => Category::class,'placeholder' => '-- Select your level test --',
+                // uses the User.username property as the visible option string
+                'choice_label' => 'name',
+                'attr' => ['placeholder' => "select your level test" ,'class' => "form-control "]])
+                /*->add('eductionGroup', EntityType::class, [
+                             //'class' => Hearaboutus::class,
+
+                            'class' => EducationGroup::class,
+                             // uses the User.username property as the visible option string
+                             'choice_label' => 'name',
+                             'attr' => ['placeholder' => "Choose..." ,'class' => "form-control text-red"]])*/;
         }
     }
 
@@ -116,4 +185,3 @@ class StudentType extends AbstractType
         ]);
     }
 }
-

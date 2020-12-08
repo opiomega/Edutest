@@ -25,6 +25,9 @@ $(document).ready(function() {
   });         
 });
 </script>
+
+
+
 <style>
   #headerPopup{
   width:75%;
@@ -35,10 +38,7 @@ $(document).ready(function() {
   width:100%;
   margin:0 auto;
 }
-</style>
-<!-- Listing Modal -->
 
-  <style>
       #bottom a{
   position: fixed;
   right: 10%;
@@ -52,63 +52,53 @@ $(document).ready(function() {
   text-align: center;
   text-decoration: none;
 }
-      </style>
-      <div id="bottom">
-    <a href="#headerPopup" id="headerVideoLink" target="_blank" class="btn btn-outline-info popup-modal">Tutorial</a>
-  </div>
-      <div id="headerPopup" class="mfp-hide embed-responsive embed-responsive-21by9">
-        <iframe class="embed-responsive-item" width="854" height="480" src="https://www.youtube.com/embed/eQBTasMrpEc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-      </div>
+ </style>
+
+      
 
     <!-- Modal -->
-{#<div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered " role="document">
-    <div class="modal-content modal-bg" style="width:1100px;">
-      <div class="modal-header">
-        <h5 class="modal-title " id="exampleModalLabel"style="color:#B2273D;">Guiding Tutorial </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" style="width:100%;">
-      <iframe width="727" height="409" src="https://www.youtube.com/embed/LPAYWvlryTw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-     
-      </div>
-    </div>
-  </div>
-</div>
-#}
+<
+
   
-</div>
 
 
      <div id="StudentsDashboard">
-    <section name='Title' style='margin-top:140px;'>
+        <section name='Title' style='margin-top:140px;'>
         <div class="container">
-        <div class="row justify-content-center">
+           <div class="row justify-content-center">
           <h1 class="text-center"style="color:#B2273D;">   DASHBOARD
             <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
            </h1>
-            <div class="row row-grid justify-content-center">
-
-            </div>
+            
           </div>
         </div>
       </section>
-    
-           <div class="container">
-               <div class="justify-content-center">
-    <div class="row">
-        <div class="col-md-3"><img src="{{ asset('image/icones/2.png') }}" class="iconsDashboardTop" /><h5>COURSES YOU'RE TAKING</h5><p style="color:#999999">{% for group in app.user.student[0].educationGroups %}
-                          {#{% for module in group.module %}
-                      {% for category in categories %}#}
-                            <a href="{{ path('module_test_index_student',{'id':group.id}) }}" class="grayHoverBlue">{{ group.name }}</a><br/>
-                       {% endfor %}</p></div>
-        <div class="col-md-3"><img src="{{ asset('image/icones/3.png') }}" class="iconsDashboardTop" /><h5>APPLICATION PROGRESS</h5><p style="color:#999999">{% set applicationAverrage = ((app.user.student[0].applications | length) | number_format) %}
-                      {% if app.user.student[0].candidatures[0] is defined %}
+    </div>
+
+
+
+    <div class="container">
+          <div class="justify-content-center">
+              <div class="row">
+        
+                <div class="col-md-3">
+                <img src="{{ asset('image/icones/2.png') }}" class="iconsDashboardTop"/>
+                <h5>COURSES YOU'RE TAKING</h5>
+                <p style="color:#999999">
+                {% for group in app.user.student[0].educationGroups %}
+                                  {#{% for module in group.module %}{% for category in categories %}#}                   
+                  <a href="{{ path('module_test_index_student',{'id':group.id}) }}" class="grayHoverBlue">{{ group.name }}</a><br/>
+                {% endfor %}</p>
+                </div>
+
+
+
+                <div class="col-md-3">
+                <img src="{{ asset('image/icones/3.png') }}" class="iconsDashboardTop" />
+                <h5>APPLICATION PROGRESS</h5>
+                <p style="color:#999999">
+                {% set applicationAverrage = ((app.user.student[0].applications | length) | number_format) %}
+                        {% if app.user.student[0].candidatures[0] is defined %}
                       {% if app.user.student[0].candidatures[0].test is not null %}
                           {% set applicationAverrage = applicationAverrage +1 %}
                       {% endif %}
@@ -143,23 +133,39 @@ $(document).ready(function() {
                           {% set applicationAverrage = applicationAverrage +1 %}
                       {% endif %}
                       {% endif %}
-                      {#<a href="#" class="grayHoverBlue">#}{{ ((applicationAverrage/31)*100)|number_format(2)}} %{#</a>#}</p></div>
-        <div class="col-md-3"><img src="{{ asset('image/icones/4.png') }}" class="iconsDashboardTop" /><h5>NEXT COUNSELING SESSION</h5><p style="color:#999999"><p class="grayHoverBlue">{{ nextCounsolingSession }}</p></p></div>
-        <div class="col-md-3"><img src="{{ asset('image/icones/5.png') }}" class="iconsDashboardTop" /><h5>UPCOMING DEADLINE</h5><p style="color:#999999">{#<a href="#" class="grayHoverBlue">#}{{ upcomingDeadline }}
-{#transcriptBac</a>#}</p></div>
-    </div>
+                      {#<a href="#" class="grayHoverBlue">#}{{ ((applicationAverrage/31)*100)|number_format(2)}} %{#</a>#}</p>
+                      </div>
+        <div class="col-md-3">
+        <img src="{{ asset('image/icones/4.png') }}" class="iconsDashboardTop" />
+        <h5>NEXT COUNSELING SESSION</h5>
+        <p style="color:#999999">
+        <p class="grayHoverBlue">{{ nextCounsolingSession }}
+        </p>
+        </p>
+        </div>
+
+        <div class="col-md-3">
+        <img src="{{ asset('image/icones/5.png') }}" class="iconsDashboardTop" />
+        <h5>UPCOMING DEADLINE</h5>
+        <p style="color:#999999">
+        {#<a href="#" class="grayHoverBlue">#}
+        {{ upcomingDeadline }}
+{#transcriptBac</a>#}</p>
+        </div>
+    </div> {#end row#}
+
     <div class="row" style="margin-top:11%; margin-bottom: 11%;">
         
         <div class="col-md-6">
-            <h2 class="titleDashboardMidle noPaddingLeft" style="background:url({{ asset('image/icones/6.png') }})">SCORE</h2>{#<img src="{{ asset('image/icones/6.png') }}" class="iconsDashboardMidle" />#}
-            <div style="clear:both;"></div>
+            <h2 class="titleDashboardMidle noPaddingLeft" style="background:url({{ asset('image/icones/6.png') }})">SCORE</h2>
+            
             <div class="row textDashboardMidle" style="margin-top: 15px;">
                 <div class="col-lg-2 noPaddingLeft" style=" font-weight:bold!important;">
                     <h5 class="blackInputLabel">Current</h5>
                 </div>
                 <div class="col-lg-3">
                     
-                        <input class="form-control blackInput centretTextInput" type="text" disabled="" value="{% if app.user.student[0].candidatures[0] is defined %}{{ app.user.student[0].candidatures[0].satScore?app.user.student[0].candidatures[0].satScore:'--' }}{% endif %}"/>
+                 <input class="form-control blackInput centretTextInput" type="text" disabled="" value="{% if app.user.student[0].candidatures[0] is defined %}{{ app.user.student[0].candidatures[0].satScore?app.user.student[0].candidatures[0].satScore:'--' }}{% endif %}"/>
                     
                  </div> 
                 <div class="col-lg-2">
@@ -171,6 +177,8 @@ $(document).ready(function() {
             
             </div>
         </div>
+
+
         <div class="col-md-6">
             <h2 class="titleDashboardMidle" style="background:url({{ asset('image/icones/6.png') }});">Chances of university</h2>{#<img src="{{ asset('image/icones/6.png') }}" class="iconsDashboardMidle" />#}
             <div style="clear:both;"></div>
@@ -180,11 +188,11 @@ $(document).ready(function() {
                 </div>
                 <div class="col-lg-9 noPaddingRight">
                     <select class="blackInput form-control" style="width:100%;">
-                        {% set loop_index = 0 %}
-                        {% for university in universities if loop_index<5 %}
-                            {% set loop_index = loop.index %} 
-                            <option>{{ university.title }} {{ university.chance }}%</option>
-                        {% endfor %}
+                        {# {% set loop_index = 0 %}
+                          {% for university in universities if loop_index < 5 %}
+                              {% set loop_index = loop.index %} 
+                              <option>{{ university.title }} {{ university.chance }}%</option>
+                          {% endfor %} #}
                     </select> 
                 </div>
             </div>

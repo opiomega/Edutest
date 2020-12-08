@@ -19,17 +19,17 @@ class Student
      * @ORM\Column(type="integer")
      */
     private $id;
-    
+
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $firstname;
-    
+
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $lastname;
-    
+
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -86,10 +86,10 @@ class Student
     private $membretalk;
 
     /**
-    * @ORM\Column(type="boolean")
-    */
+     * @ORM\Column(type="boolean")
+     */
     private $levelTest = false;
-   
+
     public function getId(): ?int
     {
         return $this->id;
@@ -242,23 +242,9 @@ class Student
 
         return $this;
     }
-     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Courses", inversedBy="students")
-     */
-    private $courses;
 
-    public function getCourses(): ?Courses
-    {
-        return $this->courses;
-    }
 
-    public function setCourses(?Courses $courses): self
-    {
-        $this->courses = $courses;
-
-        return $this;
-    }
-     /**
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Educationlevel", inversedBy="students")
      */
     private $educationlevel;
@@ -291,293 +277,293 @@ class Student
         return $this;
     }
     /**
-    * @ORM\ManyToOne(targetEntity="App\Entity\User")
-    *@ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
-    */
-   private $user;
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     *@ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $user;
 
-   public function getUser(): ?User
-   {
-       return $this->user;
-   }
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
 
-   public function setUser(?User $user): self
-   {
-       $this->user = $user;
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
-       return $this;
-   }
+        return $this;
+    }
 
-     /**
-    * @ORM\ManyToOne(targetEntity="App\Entity\Teacher")
-    *@ORM\JoinColumn(name="teacher_id", referencedColumnName="id")
-    */
-   private $teacher;
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Teacher")
+     *@ORM\JoinColumn(name="teacher_id", referencedColumnName="id")
+     */
+    private $teacher;
 
-   /**
-    * @ORM\OneToMany(targetEntity="App\Entity\Candidature", mappedBy="student")
-    */
-   private $candidatures;
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Candidature", mappedBy="student")
+     */
+    private $candidatures;
 
-  
+
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Notification", mappedBy="transmitter")
      */
     private $notifications;
 
-   /**
-    * @ORM\Column(type="date", nullable=true)
-    */
-   private $paymentday;
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $paymentday;
 
-   /**
-    * @ORM\Column(type="date", nullable=true)
-    */
-   private $nextpaymentday;
-   /**
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $nextpaymentday;
+    /**
      * @ORM\ManyToOne(targetEntity="Classes")
      * @ORM\JoinColumn(onDelete="SET NULL")
      *
      */
     private $classe;
-/**
-    * @ORM\OneToMany(targetEntity="App\Entity\TestScore", mappedBy="student")
-    */
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\TestScore", mappedBy="student")
+     */
     private $testScore;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="students")
      */
     private $levelTestType;
-    
+
     /**
-    * @ORM\ManyToMany(targetEntity="App\Entity\Club", mappedBy="Students")
-    */
-   private $clubsEngaged;
-   
-   /**
-    * @ORM\OneToMany(targetEntity="App\Entity\ClubMessages", mappedBy="student")
-    */
-   private $clubMessages;
+     * @ORM\ManyToMany(targetEntity="App\Entity\Club", mappedBy="Students")
+     */
+    private $clubsEngaged;
 
-   /**
-    * @ORM\Column(type="string", length=255, nullable=true)
-    */
-   private $hobbies;
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ClubMessages", mappedBy="student")
+     */
+    private $clubMessages;
 
-   /**
-    * @ORM\Column(type="string", length=255, nullable=true)
-    */
-   private $achievement;
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $hobbies;
 
-   /**
-    * @ORM\Column(type="string", length=255, nullable=true)
-    */
-   private $specialskills;
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $achievement;
 
-   /**
-    * @ORM\ManyToMany(targetEntity="App\Entity\University", inversedBy="students")
-    */
-   private $universities;
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $specialskills;
 
-   /**
-    * @ORM\OneToMany(targetEntity="App\Entity\Application", mappedBy="student")
-    */
-   private $applications;
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\University", inversedBy="students")
+     */
+    private $universities;
 
-   /**
-    * @ORM\ManyToMany(targetEntity="App\Entity\EducationGroup", mappedBy="students")
-    */
-   private $educationGroups;
-   
-   /**
-    * @ORM\OneToMany(targetEntity="App\Entity\Counsling", mappedBy="Student")
-    */
-   private $counslings;
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Application", mappedBy="student")
+     */
+    private $applications;
 
-   /**
-    * @ORM\OneToMany(targetEntity="App\Entity\StudentConsling", mappedBy="student")
-    */
-   private $studentConslings;
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\EducationGroup", mappedBy="students")
+     */
+    private $educationGroups;
 
-   
-   /**
-    * @ORM\Column(type="datetime", nullable=true)
-    */
-   private $createdat;
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Counsling", mappedBy="Student")
+     */
+    private $counslings;
 
-   /**
-    * @ORM\Column(type="boolean")
-    */
-   private $term;
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\StudentConsling", mappedBy="student")
+     */
+    private $studentConslings;
 
-   /**
-    * @ORM\Column(type="boolean", nullable=true)
-    */
-   private $online;
 
-   /**
-    * @ORM\OneToMany(targetEntity="App\Entity\Reponse", mappedBy="student")
-    */
-   private $reponses;
-   /**
-    * @ORM\Column(type="string", length=255)
-    */
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $createdat;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $term;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $online;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $schoollocation;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $travelabroad;
- 
+
     /**
-     * @ORM\Column(type="string", length=255 , nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $travelreason;
- 
-    
- 
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Courses", inversedBy="students")
+     */
+    private $courses;
+
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $parentspayeducation;
- 
+
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $payeducation;
- 
- 
+
+
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $membership;
- 
+
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $enrollededutest;
- 
+
     /**
-     * @ORM\Column(type="string", length=255 )
+     * @ORM\Column(type="string", length=255)
      */
     private $preferredlanguage;
-     /**
-    * @ORM\Column(type="string", length=255, nullable=true)
-    */
-   private $organisationmembership;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $organisationmembership;
 
     public function __construct()
     {
-     $this->candidatures = new ArrayCollection();
-     $this->notes = new ArrayCollection();
-     $this->notifications = new ArrayCollection();
-     $this->testScore = new ArrayCollection();
-     $this->clubsEngaged = new ArrayCollection();
-     $this->universities = new ArrayCollection();
-     $this->applications = new ArrayCollection();
-     $this->educationGroups = new ArrayCollection();
-     $this->counslings = new ArrayCollection();
-     $this->studentConslings = new ArrayCollection();
-     $this->reponses = new ArrayCollection();
+        $this->candidatures = new ArrayCollection();
+        $this->notes = new ArrayCollection();
+        $this->notifications = new ArrayCollection();
+        $this->testScore = new ArrayCollection();
+        $this->clubsEngaged = new ArrayCollection();
+        $this->universities = new ArrayCollection();
+        $this->applications = new ArrayCollection();
+        $this->educationGroups = new ArrayCollection();
+        $this->counslings = new ArrayCollection();
+        $this->studentConslings = new ArrayCollection();
+        $this->courses = new ArrayCollection();
     }
- 
 
-   public function getTeacher(): ?Teacher
-   {
-       return $this->teacher;
-   }
 
-   public function setTeacher(?Teacher $teacher): self
-   {
-       $this->teacher = $teacher;
+    public function getTeacher(): ?Teacher
+    {
+        return $this->teacher;
+    }
 
-       return $this;
-   }
+    public function setTeacher(?Teacher $teacher): self
+    {
+        $this->teacher = $teacher;
 
-   public function getFirstname(): ?string
-   {
-       return $this->firstname;
-   }
+        return $this;
+    }
 
-   public function setFirstname(string $firstname): self
-   {
-       $this->firstname = $firstname;
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
 
-       return $this;
-   }
+    public function setFirstname(string $firstname): self
+    {
+        $this->firstname = $firstname;
 
-   public function getLastname(): ?string
-   {
-       return $this->lastname;
-   }
+        return $this;
+    }
 
-   public function setLastname(string $lastname): self
-   {
-       $this->lastname = $lastname;
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
 
-       return $this;
-   }
+    public function setLastname(string $lastname): self
+    {
+        $this->lastname = $lastname;
 
-   /**
-    * @return Collection|Candidature[]
-    */
-   public function getCandidatures(): Collection
-   {
-       return $this->candidatures;
-   }
+        return $this;
+    }
 
-   public function addCandidature(Candidature $candidature): self
-   {
-       if (!$this->candidatures->contains($candidature)) {
-           $this->candidatures[] = $candidature;
-           $candidature->setStudent($this);
-       }
+    /**
+     * @return Collection|Candidature[]
+     */
+    public function getCandidatures(): Collection
+    {
+        return $this->candidatures;
+    }
 
-       return $this;
-   }
+    public function addCandidature(Candidature $candidature): self
+    {
+        if (!$this->candidatures->contains($candidature)) {
+            $this->candidatures[] = $candidature;
+            $candidature->setStudent($this);
+        }
 
-   public function removeCandidature(Candidature $candidature): self
-   {
-       if ($this->candidatures->contains($candidature)) {
-           $this->candidatures->removeElement($candidature);
-           // set the owning side to null (unless already changed)
-           if ($candidature->getStudent() === $this) {
-               $candidature->setStudent(null);
-           }
-       }
+        return $this;
+    }
 
-       return $this;
-   }
+    public function removeCandidature(Candidature $candidature): self
+    {
+        if ($this->candidatures->contains($candidature)) {
+            $this->candidatures->removeElement($candidature);
+            // set the owning side to null (unless already changed)
+            if ($candidature->getStudent() === $this) {
+                $candidature->setStudent(null);
+            }
+        }
 
-   public function getPaymentday(): ?\DateTimeInterface
-   {
-       return $this->paymentday;
-   }
+        return $this;
+    }
 
-   public function setPaymentday(?\DateTimeInterface $paymentday): self
-   {
-       $this->paymentday = $paymentday;
+    public function getPaymentday(): ?\DateTimeInterface
+    {
+        return $this->paymentday;
+    }
 
-       return $this;
-   }
+    public function setPaymentday(?\DateTimeInterface $paymentday): self
+    {
+        $this->paymentday = $paymentday;
 
-   public function getNextpaymentday(): ?\DateTimeInterface
-   {
-       return $this->nextpaymentday;
-   }
+        return $this;
+    }
 
-   public function setNextpaymentday(?\DateTimeInterface $nextpaymentday): self
-   {
-       $this->nextpaymentday = $nextpaymentday;
+    public function getNextpaymentday(): ?\DateTimeInterface
+    {
+        return $this->nextpaymentday;
+    }
 
-       return $this;
-   }
+    public function setNextpaymentday(?\DateTimeInterface $nextpaymentday): self
+    {
+        $this->nextpaymentday = $nextpaymentday;
 
-   
- 
- 
+        return $this;
+    }
+
+
+
+
     /**
      * @return Collection|Notification[]
      */
@@ -585,17 +571,17 @@ class Student
     {
         return $this->notifications;
     }
- 
+
     public function addNotification(Notification $notification): self
     {
         if (!$this->notifications->contains($notification)) {
             $this->notifications[] = $notification;
             $notification->setTransmitter($this);
         }
- 
+
         return $this;
     }
- 
+
     public function removeNotification(Notification $notification): self
     {
         if ($this->notifications->contains($notification)) {
@@ -605,10 +591,10 @@ class Student
                 $notification->setTransmitter(null);
             }
         }
- 
+
         return $this;
     }
-     
+
 
     /**
      * @return mixed
@@ -625,7 +611,7 @@ class Student
     {
         $this->classe = $classe;
     }
-   /**
+    /**
      * @return Collection|TestScore[]
      */
     public function getTestScore(): Collection
@@ -659,7 +645,7 @@ class Student
     {
         return $this->levelTest;
     }
-    
+
     public function setLevelTest($levelTest): self
     {
         $this->levelTest = $levelTest;
@@ -706,7 +692,7 @@ class Student
 
         return $this;
     }
-    
+
     /**
      * @return Collection|ClubMessages[]
      */
@@ -856,11 +842,12 @@ class Student
 
         return $this;
     }
-    
-    public function getFirstAndLstname() {
-        return $this->firstname.' '.$this->lastname;
+
+    public function getFirstAndLstname()
+    {
+        return $this->firstname . ' ' . $this->lastname;
     }
-    
+
     public function getCreatedat(): ?\DateTimeInterface
     {
         return $this->createdat;
@@ -884,7 +871,7 @@ class Student
 
         return $this;
     }
-    
+
     /**
      * @return Collection|Counsling[]
      */
@@ -959,32 +946,63 @@ class Student
         return $this;
     }
 
-    /**
-     * @return Collection|Reponse[]
-     */
-    public function getReponses(): Collection
+    public function getSchoollocation(): ?string
     {
-        return $this->reponses;
+        return $this->schoollocation;
     }
 
-    public function addReponse(Reponse $reponse): self
+    public function setSchoollocation(string $schoollocation): self
     {
-        if (!$this->reponses->contains($reponse)) {
-            $this->reponses[] = $reponse;
-            $reponse->setStudent($this);
+        $this->schoollocation = $schoollocation;
+
+        return $this;
+    }
+
+    public function getTravelabroad(): ?string
+    {
+        return $this->travelabroad;
+    }
+
+    public function setTravelabroad(string $travelabroad): self
+    {
+        $this->travelabroad = $travelabroad;
+
+        return $this;
+    }
+
+    public function getTravelReason(): ?string
+    {
+        return $this->travelreason;
+    }
+
+    public function setTravelReason(string $travelreason): self
+    {
+        $this->Travelreason = $travelreason;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Courses[]
+     */
+    public function getCourses(): Collection
+    {
+        return $this->courses;
+    }
+
+    public function addCourses(Courses $course): self
+    {
+        if (!$this->courses->contains($course)) {
+            $this->courses[] = $course;
         }
 
         return $this;
     }
 
-    public function removeReponse(Reponse $reponse): self
+    public function removeCourses(Courses $course): self
     {
-        if ($this->reponses->contains($reponse)) {
-            $this->reponses->removeElement($reponse);
-            // set the owning side to null (unless already changed)
-            if ($reponse->getStudent() === $this) {
-                $reponse->setStudent(null);
-            }
+        if ($this->courses->contains($course)) {
+            $this->courses->removeElement($course);
         }
 
         return $this;
@@ -1059,41 +1077,6 @@ class Student
     public function setOrganisationmembership(string $organisationmembership): self
     {
         $this->organisationmembership = $organisationmembership;
-
-        return $this;
-    }
-    public function getSchoollocation(): ?string
-    {
-        return $this->schoollocation;
-    }
-
-    public function setSchoollocation(string $schoollocation): self
-    {
-        $this->schoollocation = $schoollocation;
-
-        return $this;
-    }
-
-    public function getTravelabroad(): ?string
-    {
-        return $this->travelabroad;
-    }
-
-    public function setTravelabroad(string $travelabroad): self
-    {
-        $this->travelabroad = $travelabroad;
-
-        return $this;
-    }
-
-    public function getTravelReason(): ?string
-    {
-        return $this->travelreason;
-    }
-
-    public function setTravelReason(string $travelreason): self
-    {
-        $this->Travelreason = $travelreason;
 
         return $this;
     }
