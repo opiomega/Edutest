@@ -52,6 +52,7 @@ font-family: 'Strait', sans-serif;
 }
 
 .main {
+  position: relative;
   margin: 80px;
   margin-right: 20px;
   margin-bottom: 20px;
@@ -147,6 +148,8 @@ transition:width .2s linear;
 transform:translateZ(0) scale(1,1);
 box-shadow: 1px 0 15px rgba(0, 0, 0, 0.07);
   opacity:1;
+  z-index: 4 ;
+
 }
 
 .main-menu>ul {
@@ -322,3 +325,149 @@ height: 100%;
   font-weight: 300;
   src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format('woff');
 }
+
+
+
+/*       css for progress        */
+
+
+.design-process-section .text-align-center {
+  line-height: 25px;
+  margin-bottom: 12px;
+}
+.design-process-section{
+  margin: 20px;
+  border: 1px solid green;
+  position: relative;
+width: 700px;
+height: 150px;
+border-radius: 25px;
+}
+.process-model {
+  list-style: none;
+  padding: 0;
+  position: relative;
+  max-width: 700px;
+  margin: 20px auto 26px;
+  border: none;
+  z-index: 0;
+}
+.process-model li::after {
+  background: #e5e5e5 none repeat scroll 0 0;
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 4px;
+  margin: 0 auto;
+  position: absolute;
+  right: 30px;
+  left:-45px ;
+  top: 45px;
+  width: 83%;
+  z-index: -1;
+}
+.process-model li.visited::after {
+  background: #57b87b;
+}
+.process-model li:last-child::after {
+  width: 0;
+}
+.process-model li {
+  display: inline-block;
+  width: 18%;
+  text-align: center;
+  float: none;
+}
+.nav-tabs.process-model > li.active > a, .nav-tabs.process-model > li.active > a:hover, .nav-tabs.process-model > li.active > a:focus, .process-model li a:hover, .process-model li a:focus {
+  border: none;
+  background: transparent;
+
+}
+.process-model li a {
+  padding: 0;
+  border: none;
+  color: #606060;
+}
+.process-model li.active,
+.process-model li.visited {
+  color: #57b87b;
+}
+.process-model li.active a,
+.process-model li.active a:hover,
+.process-model li.active a:focus,
+.process-model li.visited a,
+.process-model li.visited a:hover,
+.process-model li.visited a:focus {
+  color: #57b87b;
+}
+.process-model li.active p,
+.process-model li.visited p {
+  font-weight: 600;
+}
+.process-model li i {
+  display: block;
+  height: 68px;
+  width: 68px;
+  text-align: center;
+  margin: 0 auto;
+  background: #f5f6f7;
+  border: 2px solid #e5e5e5;
+  line-height: 65px;
+  font-size: 30px;
+  border-radius: 50%;
+}
+.process-model li.active i, .process-model li.visited i  {
+  background: #fff;
+  border-color: #57b87b;
+}
+.process-model li p {
+  font-size: 14px;
+  margin-top: 11px;
+}
+.process-model.contact-us-tab li.visited a, .process-model.contact-us-tab li.visited p {
+  color: #606060!important;
+  font-weight: normal
+}
+.process-model.contact-us-tab li::after  {
+  display: none; 
+}
+.process-model.contact-us-tab li.visited i {
+  border-color: #e5e5e5; 
+}
+
+
+
+@media screen and (max-width: 560px) {
+.more-icon-preocess.process-model li span {
+      font-size: 23px;
+      height: 50px;
+      line-height: 46px;
+      width: 50px;
+  }
+  .more-icon-preocess.process-model li::after {
+      top: 24px;
+  }
+}
+@media screen and (max-width: 380px) { 
+  .process-model.more-icon-preocess li {
+      width: 16%;
+  }
+  .more-icon-preocess.process-model li span {
+      font-size: 16px;
+      height: 35px;
+      line-height: 32px;
+      width: 35px;
+  }
+  .more-icon-preocess.process-model li p {
+      font-size: 8px;
+  }
+  .more-icon-preocess.process-model li::after {
+      top: 18px;
+  }
+  .process-model.more-icon-preocess {
+      text-align: center;
+  }
+}
+
+
+/*        end css for progress       */ 
