@@ -1,210 +1,54 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="Cache-control" content="no-cache">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        
-      
-        {% block stylesheets %}
-            <link rel="icon" type="image/png" href="{{asset('image/aerogami.png')}}"/>
-           
-    
-   <link href="{{asset('bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" />
-   <link href="{{asset('asset/css/style.css')}}" rel="stylesheet" />
-    <!--Icons-->
-        <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-        <link href="{{asset('asset/css/nucleo-icons.css')}}" rel="stylesheet" />
-        <link href="{{asset('asset/css/icons.css')}}" rel="stylesheet" />
-     <!--Calendar-->
-        <link rel="stylesheet" href="{{asset('asset/css/calander/core@4.1.0/main.min.css')}}">
-        <link rel="stylesheet" href="{{asset('asset/css/calander/daygrid@4.1.0/main.min.css')}}">
-        <link rel="stylesheet" href="{{asset('asset/css/calander/timegrid@4.1.0/main.min.css')}}">
-    <!--Toggle switch-->
-        <link href="{{asset('asset/css/toggle-switch.css')}}" rel="stylesheet" >
-    <!--Datatable-->
-        <script src="{{asset('asset/js/jquery.min.js')}}" type="text/javascript"></script>
-        <link href="{{asset('asset/css/jquery.dataTables.min.css')}}" rel="stylesheet" />
-    <!-- Select -->
-        <link rel="stylesheet" href="{{asset('asset/css/bootstrap-select.min.css')}}">
-    <!--PopUp-->
+<html lang="en">
 
-        <link rel="stylesheet" href="{{asset('club/css/magnific-popup.css')}}">
-    <!--DateTimePicker-->
-     {#<link href="{{ asset('bootstrap-datetimepicker-master/build/css/cssbootstrap.min.css') }}" rel="stylesheet">#}
-    <link href="{{ asset('bootstrap-datetimepicker-master/build/css/bootstrap-datetimepicker.css') }}" rel="stylesheet">
-    <link href="{{ asset('bootstrap-datetimepicker-master/build/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet">
-    {#<link href="{{ asset('bootstrap-datetimepicker-master/build/css/bootstrap-datetimepicker-standalone.css') }}" rel="stylesheet">#}
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!--FancyBoxGallery-->  
-    <link rel="stylesheet" href="{{asset('asset/css/jquery.fancybox.min.css')}}" />
-      
-         <style>
-            @font-face {
-                font-family: 'Neou-thin';
-                src:    url({{asset('bootstrap/neou/Neou-Thin.otf')}}) format('opentype');
-                font-family: 'Neou-bold';
-                    src:    url({{asset('bootstrap/neou/Neou-Bold.otf')}}) format('opentype');
-                }
-                .paginate_button {
-                    background:#2F5BA3;
 
-                }
-                  input{
-                            text-transform: inherit; /* font-size: 3em; */
-                            /* font-weight: bold; */
-                            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                        }
-                select{
-                        text-transform: inherit; /* font-size: 3em; */
-                        /* font-weight: bold; */
-                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                    }
-        </style>
-<style>
-.navbar-toggler {
-    padding: .25rem .75rem;
-    font-size: 1.25rem;
-    line-height: 3;
-    background-color: transparent;
-    border: 1px solid transparent;
-    border-radius: .25rem;
-}
-</style>
-        {% endblock %}
-         
-    </head>
-   <body style='
-    background-image: url({{asset('image/icones/background.png')}});
-    background-size: cover;
-    font-family: Neou-bold;
-'>
+		<link rel="stylesheet" type="text/css" href="{{ asset('asset/css/main.css') }}"/>
 
- <nav class="navbar navbar-expand-lg fixed-top navbar-transparent "  style='
-    background-image: url({{asset('image/icones/18.png')}});
-    margin-top:20px;
-    padding-top:0;
-    background-repeat: no-repeat;
-    
-    
-'>
 
-    <div class="container " >
-    
- 
-    {% if app.user.status == 'Teacher' %}
-        {% include 'teacher.html.twig'%}
-        {% block teacher %}
-          
-        {% endblock %}
-         {% endif %}
-    {% if  app.user.status == 'Student' %}
-        {% include 'student.html.twig'%}
-        {% block student %}
-          
-        {% endblock %}
-         {% endif %}
-        {% if  app.user.status == 'Admin' %}
-        {% include 'admin.html.twig'%}
-        {% block admin %}
-          
-        {% endblock %}
-    {% endif %}
-         </ul>
-         <div style="clear:both;"></div>
-         </div>
-    </div>
-</nav>
-    <div style="margin-top: 7%;">
-        {% block body %}{% endblock %}
-    </div>
-        {% block javascripts %}
-        {#<script src="{{ asset('asset/js/jquery/dist/jquery.min.js') }}"></script>#}
-          <script src="{{asset('asset/js/jquery3.4.1.min.js')}}" type="text/javascript"></script>
-            <script src="{{asset('asset/js/core/popper.min.js')}}" type="text/javascript"></script>
-  <script src="{{asset('asset/js/core/bootstrap.min.js')}}" type="text/javascript"></script>
-  {#<script src="{{asset('asset/js/plugins/perfect-scrollbar.jquery.min.js')}}"></script>#}
- 
-  <script src="{{asset('asset/js/plugins/bootstrap-switch.js')}}"></script>
-  
-  {#<script src="{{asset('asset/js/plugins/chartjs.min.js')}}"></script>#}
-  <script src="{{asset('asset/js/plugins/utils.js')}}"></script>
-  
-  <script src="{{asset('asset/js/plugins/nouislider.min.js')}}" type="text/javascript"></script>
-   <!--Calendar-->
-    <script src="{{asset('asset/js/calendar/core@4.1.0/main.min.js')}}"></script>
-    <script src="{{asset('asset/js/calendar/interaction@4.1.0/main.min.js')}}"></script>
-    <script src="{{asset('asset/js/calendar/daygrid@4.1.0/main.min.js')}}"></script>
-    <script src="{{asset('asset/js/calendar/timegrid@4.1.0/main.min.js')}}"></script>
-    <!-- Chart JS -->
-  <script src="{{asset('asset/js/plugins/chartjs.min.js')}}"></script>
-  <script src="{{asset('asset/js/chartjs.js')}}"></script>
-    <!--DataTable-->
-    <script src="{{asset('asset/js/jquery.dataTables.min.js')}}" type="text/javascript"></script>
-    <!--DatePicker-->
-     <script src="{{asset('asset/js/plugins/moment.min.js')}}"></script> 
-    <script src="{{asset('asset/js/plugins/bootstrap-datetimepicker.js')}}" type="text/javascript"></script>
-    <script src="{{asset('asset/js/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js')}}" type="text/javascript"></script>
-    <script src="{{ asset('asset/js/datepicker.js') }}"></script>
-    <!-- Select box -->
-     <script src="{{asset('asset/js/bootstrap-select.min.js')}}"></script> 
-    <!--PopUp-->
-            <script src="{{asset('asset/js/plugins/perfect-scrollbar.jquery.min.js')}}"></script>
-        <script data-cfasync="false" src="{{asset('club/js/email-decode.min.js')}}"></script>
-        <script src="{{asset('club/js/vendor/modernizr-3.5.0.min.js')}}"></script>
-        
-        <script src="{{asset('club/js/popper.min.js')}}"></script>
-        {#<script src="{{asset('club/js/bootstrap.min.js')}}"></script>#}
-        <script src="{{asset('club/js/jquery.counterup.min.js')}}"></script>
-        <script src="{{asset('club/js/waypoints.min.js')}}"></script>
-        <script src="{{asset('club/js/owl.carousel.min.js')}}"></script>
-        
-        <script src="{{asset('club/js/slick.min.js')}}"></script>
-        <script src="{{asset('club/js/jquery.meanmenu.min.js')}}"></script>
-        
-        <script src="{{asset('club/js/wow.min.js')}}"></script>
-        
-        
-        <script src="{{asset('club/js/jquery.magnific-popup.min.js')}}"></script>
-        <script src="{{asset('club/js/plugins.js')}}"></script>
-       <script src="{{asset('club/js/main.js')}}"></script>
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
 
-    <!--DateTimePicker-->
- 
-    <script src="{{asset('bootstrap-datetimepicker-master/build/js/bootstrap-datetimepicker.min.js') }}"></script>
+		<title>Welcome</title>
+	</head>
 
-    <!--FancyBoxGallery-->
-    <script src="{{asset('asset/js/jquery.fancybox.min.js') }}"></script>
-    <script>
-    $(document).ready(function () {
-    $('.add-another-collection-widget').click(function (e) {
-        var list = $($(this).attr('data-list-selector'));
-        // Try to find the counter of the list or use the length of the list
-        var counter = list.data('widget-counter') || list.children().length;
+	<body>
+		<div class="top-bar">
 
-        // grab the prototype template
-        var newWidget = list.attr('data-prototype');
-        // replace the "__name__" used in the id and name of the prototype
-        // with a number that's unique to your fieldAvailables
-        // end name attribute looks like name="contact[fieldAvailables][2]"
-        newWidget = newWidget.replace(/__name__/g, counter);
-        // Increase the counter
-        counter++;
-        // And store it, the length cannot be used if deleting widgets is allowed
-        list.data('widget-counter', counter);
 
-        // create a new list element and add it to the list
-        var newElem = $(list.attr('data-widget-tags')).html(newWidget);
-        newElem.attr('id','fieldAvailableLi'+counter);
-        newElem.append('<button id="removeField'+counter+'" type="button" onclick="removeElement('+counter+')" class="btn text-white btn-danger  "><i class="fa fa-close"></i></button>');
-        newElem.appendTo(list);
-    });
-});
-function removeElement(counter) {
-                $("#fieldAvailableLi"+counter).remove();
-            }
-</script>
-        {% endblock %}
-    </body>
+			<div class="logo">
+				<img src="{{asset('image/logo-edutest-.png')}}">
+			</div>
+
+            
+
+		</div>
+
+
+		<nav class="main-menu">
+
+
+			<div class="settings"></div>
+			{% if app.user.status == 'Teacher' %}
+				{% include 'teacher.html.twig'%}
+				{% block teacher %}{% endblock %}
+			{% endif %}
+			{% if  app.user.status == 'Student' %}
+				{% include 'student.html.twig'%}
+				{% block student %}{% endblock %}
+			{% endif %}
+			{% if  app.user.status == 'Admin' %}
+				{% include 'admin.html.twig'%}
+				{% block admin %}{% endblock %}
+			{% endif %}
+		</nav>
+
+
+		{% block body %}{% endblock %}
+
+
+	</body>
+
 </html>
