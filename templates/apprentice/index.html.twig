@@ -34,73 +34,61 @@
       
     <section class="design-process-section" id="process-tab">
   <div class="container">
+  <div class="row">
+  <div class="col">
+  <h3 class="design-process-title" >Application Progress </h3>
+  </div>
+                 
+  </div>
     <div class="row">
-      <div class="col-xs-12"> 
+      <div class="col-xl-12"> 
         <!-- design process steps--> 
         <!-- Nav tabs -->
         <ul class="nav nav-tabs process-model more-icon-preocess" role="tablist">
           <li role="presentation" class="active"><a href="#discover" aria-controls="discover" role="tab" data-toggle="tab"><i class="fa fa-search" aria-hidden="true"></i>
-            <p>Discover</p>
+            <p>Recommendation Letter</p>
             </a></li>
           <li role="presentation"><a href="#strategy" aria-controls="strategy" role="tab" data-toggle="tab"><i class="fa fa-qrcode" aria-hidden="true"></i>
-            <p>Strategy</p>
+            <p>Counselor Questionnaire</p>
             </a></li>
           <li role="presentation"><a href="#optimization" aria-controls="optimization" role="tab" data-toggle="tab"><i class="fa fa-qrcode" aria-hidden="true"></i>
-            <p>Optimization</p>
+            <p>progress</p>
             </a></li>
           <li role="presentation"><a href="#content" aria-controls="content" role="tab" data-toggle="tab"><i class="fa fa-qrcode" aria-hidden="true"></i>
-            <p>Content</p>
+            <p>progress</p>
             </a></li>
           <li role="presentation"><a href="#reporting" aria-controls="reporting" role="tab" data-toggle="tab"><i class="fa fa-clipboard" aria-hidden="true"></i>
-            <p>Reporting</p>
+            <p>progress</p>
             </a></li>
         </ul>
-        <!-- end design process steps--> 
-        <!-- Tab panes -->
-        <div class="tab-content">
-          <div role="tabpanel" class="tab-pane active" id="discover">
-            <div class="design-process-content">
-              <h3 class="semi-bold">Discovery</h3>
-             <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincid unt ut laoreet dolore magna aliquam erat volutpat</p>
-             </div>
-          </div>
-          <div role="tabpanel" class="tab-pane" id="strategy">
-            <div class="design-process-content">
-              <h3 class="semi-bold">Strategy</h3>
-              <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincid unt ut laoreet dolore magna aliquam erat volutpat</p>
-              </div>
-          </div>
-          <div role="tabpanel" class="tab-pane" id="optimization">
-            <div class="design-process-content">
-              <h3 class="semi-bold">Optimization</h3>
-              <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincid unt ut laoreet dolore magna aliquam erat volutpat</p>
-               </div>
-          </div>
-          <div role="tabpanel" class="tab-pane" id="content">
-            <div class="design-process-content">
-              <h3 class="semi-bold">Content</h3>
-              <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincid unt ut laoreet dolore magna aliquam erat volutpat</p>              
-              </div>
-          </div>
-          <div role="tabpanel" class="tab-pane" id="reporting">
-            <div class="design-process-content">
-              <h3>Reporting</h3>
-              <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincid unt ut laoreet dolore magna aliquam erat volutpat. </p>
-          </div>
-        </div>
-      </div>
+     
     </div>
   </div>
 </section>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+			<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 
+        <script>    
 
+         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 
-      
-      
+        var href = $(e.target).attr('href');
+        var $curr = $(".process-model  a[href='" + href + "']").parent();
+
+        $('.process-model li').removeClass();
+
+        $curr.addClass("active");
+        $curr.prevAll().addClass("visited");
+    });
+
+                    console.log("aa");
+
+</script>
+      			
+
     
 {% endblock %}
 {% block javascripts %}
-    {{ parent() }}
     <script>
         {#{% for category in categories %}
             $("#categoryButton{{ category.id }}").click(function(){
@@ -112,17 +100,10 @@
 
         // script for tab steps
 
-        
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-
-        var href = $(e.target).attr('href');
-        var $curr = $(".process-model  a[href='" + href + "']").parent();
-
-        $('.process-model li').removeClass();
-
-        $curr.addClass("active");
-        $curr.prevAll().addClass("visited");
-    });
+   // script for tab steps
+   
+// end  script for tab steps
 // end  script for tab steps
     </script>
 {% endblock %}
+

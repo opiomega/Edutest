@@ -17,7 +17,7 @@ body
 
 .top-bar{
 position: absolute;
-width: 100%;
+width: 100% !important;
 height: 50px;
 text-align: center !important;
 top: 0px;
@@ -334,36 +334,57 @@ height: 100%;
 .design-process-section .text-align-center {
   line-height: 25px;
   margin-bottom: 12px;
+  
 }
 .design-process-section{
   margin: 20px;
   border: 1px solid green;
   position: relative;
 width: 700px;
-height: 150px;
-border-radius: 25px;
+height: 250px;
+border-radius: 20px;
+box-shadow: -8px 8px 50px rgba(0, 0, 0, 0.25); 
+background: #F8F8F8;
+
 }
 .process-model {
   list-style: none;
-  padding: 0;
+  margin:15px;
   position: relative;
   max-width: 700px;
-  margin: 20px auto 26px;
-  border: none;
+  justify-content: center;
   z-index: 0;
+  border: 1px solid green;
+  padding-top: 10px;
+  border-radius: 20px;
 }
+
+.design-process-title {
+margin-top: 10px;
+margin-left: 20px;
+font-family: Space Grotesk;
+font-style: normal;
+font-weight: bold;
+font-size: 30px;
+
+color: #515B70;
+
+
+
+}
+
 .process-model li::after {
-  background: #e5e5e5 none repeat scroll 0 0;
+  background: #B22640 none repeat scroll 0 0;
   bottom: 0;
   content: "";
   display: block;
   height: 4px;
   margin: 0 auto;
   position: absolute;
+  left:-30px ;
+  top: 55px;
   right: 30px;
-  left:-45px ;
-  top: 45px;
-  width: 83%;
+  width: 72%;
   z-index: -1;
 }
 .process-model li.visited::after {
@@ -386,7 +407,7 @@ border-radius: 25px;
 .process-model li a {
   padding: 0;
   border: none;
-  color: #606060;
+  color: #B22640;
 }
 .process-model li.active,
 .process-model li.visited {
@@ -422,52 +443,14 @@ border-radius: 25px;
 }
 .process-model li p {
   font-size: 14px;
+  
   margin-top: 11px;
 }
-.process-model.contact-us-tab li.visited a, .process-model.contact-us-tab li.visited p {
-  color: #606060!important;
-  font-weight: normal
-}
-.process-model.contact-us-tab li::after  {
-  display: none; 
-}
-.process-model.contact-us-tab li.visited i {
-  border-color: #e5e5e5; 
-}
 
 
 
-@media screen and (max-width: 560px) {
-.more-icon-preocess.process-model li span {
-      font-size: 23px;
-      height: 50px;
-      line-height: 46px;
-      width: 50px;
-  }
-  .more-icon-preocess.process-model li::after {
-      top: 24px;
-  }
-}
-@media screen and (max-width: 380px) { 
-  .process-model.more-icon-preocess li {
-      width: 16%;
-  }
-  .more-icon-preocess.process-model li span {
-      font-size: 16px;
-      height: 35px;
-      line-height: 32px;
-      width: 35px;
-  }
-  .more-icon-preocess.process-model li p {
-      font-size: 8px;
-  }
-  .more-icon-preocess.process-model li::after {
-      top: 18px;
-  }
-  .process-model.more-icon-preocess {
-      text-align: center;
-  }
-}
+
+
 
 
 /*        end css for progress       */ 
