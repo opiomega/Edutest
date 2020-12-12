@@ -1,109 +1,107 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Dashboard!{% endblock %}
+{% block title %}Dashboard!
+{% endblock %}
 
 {% block stylesheets %}
-    {{ parent() }} 
-     {#<style>
-        #StudentsDashboard { text-transform: uppercase; }
-        .iconsDashboardTop { margin:25%; width:110px; height:110px; }
-        .iconsDashboardMidle { margin:auto; width:110px; height:110px; }
-        .titleDashboardMidle { display:inline; color:#1310EE; background-size:80px!important; padding-top:40px; padding-right: 70px; padding-bottom: 10px; background-repeat:no-repeat !important; background-position: top right!important; }
-        .blackInput{ background: #131313!important; color:#999999!important; }
-        .centretTextInput { text-align: center;}
-        .noPaddingRight { padding-right:0;   }
-        @media only screen and (max-width: 767px) { .titleDashboardMidle{ padding-right:110px;} }
-    </style>#}
+	{{ parent() }}
+	{#<style>
+										        #StudentsDashboard { text-transform: uppercase; }
+										        .iconsDashboardTop { margin:25%; width:110px; height:110px; }
+										        .iconsDashboardMidle { margin:auto; width:110px; height:110px; }
+										        .titleDashboardMidle { display:inline; color:#1310EE; background-size:80px!important; padding-top:40px; padding-right: 70px; padding-bottom: 10px; background-repeat:no-repeat !important; background-position: top right!important; }
+										        .blackInput{ background: #131313!important; color:#999999!important; }
+										        .centretTextInput { text-align: center;}
+										        .noPaddingRight { padding-right:0;   }
+										        @media only screen and (max-width: 767px) { .titleDashboardMidle{ padding-right:110px;} }
+										    </style>#}
 
 
+{% endblock %}
 
-{% endblock %} 
- 
 {% block body %}
- 
-
-        <div class="container" >
-           <div class="row justify-content-center">  
-           <div class-"col-xl-12">
-             <h1 class="title">DASHBOARD</h1>
-           </div>
-          </div>
-        </div>
-      
-      
-      
-    <section class="design-process-section" id="process-tab">
-  <div class="container">
-  <div class="row">
-  <div class="col">
-  <h3 class="design-process-title" >Application Progress </h3>
-  </div>
-                 
-  </div>
-    <div class="row">
-      <div class="col-xl-12"> 
-        <!-- design process steps--> 
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs process-model more-icon-preocess" role="tablist">
-          <li role="presentation" class="active"><a href="#discover" aria-controls="discover" role="tab" data-toggle="tab"><i class="fa fa-search" aria-hidden="true"></i>
-            <p>Recommendation Letter</p>
-            </a></li>
-          <li role="presentation"><a href="#strategy" aria-controls="strategy" role="tab" data-toggle="tab"><i class="fa fa-qrcode" aria-hidden="true"></i>
-            <p>Counselor Questionnaire</p>
-            </a></li>
-          <li role="presentation"><a href="#optimization" aria-controls="optimization" role="tab" data-toggle="tab"><i class="fa fa-qrcode" aria-hidden="true"></i>
-            <p>progress</p>
-            </a></li>
-          <li role="presentation"><a href="#content" aria-controls="content" role="tab" data-toggle="tab"><i class="fa fa-qrcode" aria-hidden="true"></i>
-            <p>progress</p>
-            </a></li>
-          <li role="presentation"><a href="#reporting" aria-controls="reporting" role="tab" data-toggle="tab"><i class="fa fa-clipboard" aria-hidden="true"></i>
-            <p>progress</p>
-            </a></li>
-        </ul>
-     
-    </div>
-  </div>
-</section>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-			<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-
-        <script>    
-
-         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-
-        var href = $(e.target).attr('href');
-        var $curr = $(".process-model  a[href='" + href + "']").parent();
-
-        $('.process-model li').removeClass();
-
-        $curr.addClass("active");
-        $curr.prevAll().addClass("visited");
-    });
-
-                    console.log("aa");
-
-</script>
-      			
-
-    
-{% endblock %}
-{% block javascripts %}
-    <script>
-        {#{% for category in categories %}
-            $("#categoryButton{{ category.id }}").click(function(){
-                $(".score").hide();
-                $(".scoreCategory{{ category.id }}").show();
-            });
-        {% endfor %}#}
 
 
-        // script for tab steps
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class-"col-xl-12">
+				<h1 class="title">DASHBOARD</h1>
+			</div>
+		</div>
+	</div>
 
-   // script for tab steps
-   
-// end  script for tab steps
-// end  script for tab steps
-    </script>
-{% endblock %}
+	<div class="container">
+		<div class="row">
+			<div class="col">
 
+				<section class="design-process-section" id="process-tab">
+					<div class="container">
+						<div class="row">
+							<div class="col">
+								<h3 class="design-process-title">Application Progress
+								</h3>
+							</div>
+
+						</div>
+
+						<div class="row">
+							<div class="col-xl-12">
+								<!-- design process steps-->
+								<!-- Nav tabs -->
+									<ul class="nav nav-tabs process-model more-icon-preocess" role="tablist"> <li role="presentation">
+										<a href="#discover" aria-controls="discover" role="tab" data-toggle="tab">
+											<i class="fa fa-search" aria-hidden="true"></i>
+											<p>Recommendation Letter</p>
+										</a>
+									</li>
+									<li role="presentation">
+										<a href="#strategy" aria-controls="strategy" role="tab" data-toggle="tab">
+											<i class="fa fa-qrcode" aria-hidden="true"></i>
+											<p>Counselor Questionnaire</p>
+										</a>
+									</li>
+									<li role="presentation">
+										<a href="#optimization" aria-controls="optimization" role="tab" data-toggle="tab">
+											<i class="fa fa-qrcode" aria-hidden="true"></i>
+											<p>progress</p>
+										</a>
+									</li>
+									<li role="presentation">
+										<a href="#content" aria-controls="content" role="tab" data-toggle="tab">
+											<i class="fa fa-qrcode" aria-hidden="true"></i>
+											<p>progress</p>
+										</a>
+									</li>
+									<li role="presentation">
+										<a href="#reporting" aria-controls="reporting" role="tab" data-toggle="tab">
+											<i class="fa fa-clipboard" aria-hidden="true"></i>
+											<p>progress</p>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+
+					</div>
+
+				</section>
+
+
+			</div>
+
+			<div class="col">
+				<section class="counseling-section">
+
+					ccounselking
+
+				</section>
+			</div>
+
+
+		</div>
+
+
+	</div>
+
+
+</div>{% endblock %}{% block javascripts %}{% endblock %}
