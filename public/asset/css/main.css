@@ -391,7 +391,7 @@ text-shadow: 0px 0px 0px;
 
 /*       start css counseling session    */
 
-.counseling-section {
+.counseling-section{
   margin-top: 20px;
   width: 250px;
   height: 250px;
@@ -408,3 +408,122 @@ text-shadow: 0px 0px 0px;
 }
 
 /*       end css counseling session      */
+
+
+
+.courses-section{
+  margin: 20px;
+  width: 300px;
+  height: 500px !important ;
+  background: #f8f8f8;
+  box-shadow: -8px 8px 50px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+
+}
+.card-header{
+  height: 50%;
+  background: #B8C3DA;
+  border-radius: 20px !important;
+  box-shadow: -12px 12px 70px rgba(0, 0, 0, 0.07);
+}
+.card-header >img{
+  position: relative;
+  top: -35px;
+}
+
+.btn-see-all{
+position: inherit;
+color: white;
+display: flex;
+outline: none !important;
+align-items: center;
+justify-content: center;
+font-family: Space Grotesk;
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+width: 93px;
+height: 25px;
+background: #B22640;
+border: none;
+border-radius: 10px;
+
+}
+
+.card-content{
+  margin-top: 40px;
+}
+.course-title{
+  font-family: Space Grotesk;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 31px;
+  padding-left: 10px;
+  color: #1D396B;
+  
+}
+
+
+.course-lvl{
+  padding-top: 0;
+  padding-left: 10px;
+  line-height: 0px;
+  font-family: Space Grotesk;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  color: #515B70;
+
+}
+
+.progress{
+  border-radius: 20px;
+  height: 10px;
+
+  margin: 10px;
+  background-color: #C4C4C4;
+
+}
+.progress-bar{
+  background-color: #57b87b;
+}
+
+.courses-progress{
+  font-family: Space Grotesk;
+font-style: normal;
+font-weight: 300;
+font-size: 20px;
+line-height: 26px;
+/* identical to box height */
+
+padding-left: 10px;
+color: #515B70;
+
+}
+
+
+.title-next-session{
+  font-family: Space Grotesk;
+font-style: normal;
+font-weight: 700;
+font-size: 24px;
+padding-left: 10px;
+color: #1D396B;
+line-height: 15px;
+
+}
+.course-date{
+  font-family: Space Grotesk;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 26px;
+  /* identical to box height */
+  padding-left: 10px;
+  
+  color: #515B70;
+  
+
+}
