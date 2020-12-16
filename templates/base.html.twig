@@ -9,7 +9,7 @@
 
 		<link rel="stylesheet" type="text/css" href="{{ asset('asset/css/main.css') }}"/>
 
-
+			<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
 
 		<title>Welcome</title>
@@ -18,7 +18,9 @@
 	<body>
 
 		<div class="top-bar">
+			
 			<img src="{{asset('image/edutestblanc.png')}}">
+			<p> Welcome to Edutest </p>
 		</div>
 
 
@@ -41,13 +43,18 @@
 
         
 		 
-         
-				<div class="main">
+      
+			
+				<section class="main">
 				{% block body %}
 			
 				{% endblock %}
-				</div>
-	
+				</section>
+				
+				
+	 
+		 
+		
 		
 		
 			<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -57,17 +64,16 @@
 		
 			<script>
 			
-			$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-
-			var href = $(e.target).attr('href');
-			var $curr = $(".process-model  a[href='" + href + "']").parent();
-
-			$('.process-model li').removeClass();
-
-			$curr.addClass("active");
-			$curr.prevAll().addClass("visited");
-			});
-			
+		$(document).ready( function() {
+  $('.step').each(function(index, element) {
+    // element == this
+    $(element).not('.active').addClass('done');
+    $('.done').html('<i class="icon-ok"></i>');
+    if($(this).is('.active')) {
+      return false;
+    }
+  });    
+});
 			</script>
 		
 		</body>

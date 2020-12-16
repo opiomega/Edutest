@@ -1,215 +1,221 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Dashboard!
 {% endblock %}
-
 {% block stylesheets %}
 	{{ parent() }}
-	
 {% endblock %}
-
 {% block body %}
-
-
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class-"col-xl-12">
-				<h1 class="title">Dashboard</h1>
+				<h1 class="title">Dashboard
+				</h1>
 			</div>
 		</div>
 	</div>
 
-	<div class="container">
-		<div class="row">
-			<div class="col">
 
-				<section class="design-process-section" id="process-tab">
-					<div class="container">
-						<div class="row">
-							<div class="col">
-								<h3 class="design-process-title">Application Progress
-								</h3>
-							</div>
+	<div class="payed">
 
-						</div>
+		<div class="container">
 
-						<div class="row">
-							<div class="col-xl-12">
-								<!-- design process steps-->
-								<!-- Nav tabs -->
-									<ul class="nav nav-tabs process-model more-icon-preocess" role="tablist"> <li role="presentation">
-										<a href="#discover" aria-controls="discover" role="tab" data-toggle="tab">
-											<i class="fa fa-search" aria-hidden="true"></i>
-											<p>Recommendation Letter</p>
-										</a>
-									</li>
-									<li role="presentation">
-										<a href="#strategy" aria-controls="strategy" role="tab" data-toggle="tab">
-											<i class="fa fa-qrcode" aria-hidden="true"></i>
-											<p>Counselor Questionnaire</p>
-										</a>
-									</li>
-									<li role="presentation">
-										<a href="#optimization" aria-controls="optimization" role="tab" data-toggle="tab">
-											<i class="fa fa-qrcode" aria-hidden="true"></i>
-											<p>progress</p>
-										</a>
-									</li>
-									<li role="presentation">
-										<a href="#content" aria-controls="content" role="tab" data-toggle="tab">
-											<i class="fa fa-qrcode" aria-hidden="true"></i>
-											<p>progress</p>
-										</a>
-									</li>
-									<li role="presentation">
-										<a href="#reporting" aria-controls="reporting" role="tab" data-toggle="tab">
-											<i class="fa fa-clipboard" aria-hidden="true"></i>
-											<p>progress</p>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</div>
+			<section class="application-progress-steps">
+
+
+				<div class="row">
+					<div class="col-md-12 ">
+						<h3 class="design-process-title">Application Progress
+						</h3>
+					</div>
+				</div>
+
+
+				<div class="row">
+
+					<div id="steps">
+						<div class="step" data-desc="Recommendation Letter">1</div>
+						<div class="step " data-desc="Counseling">2</div>
+						<div class="step active " data-desc="Review & Post">3</div>
+						<div class="step " data-desc="Your order">4</div>
 
 					</div>
 
-				</section>
+				</div>
 
 
-			</div>
-
-			<div class="col">
-				<section class="counseling-section">
-
-					<div class="container">
-						<div class="row">
-							<div class="col">
-								<p class="counseling-title">
-									counseling sessions</p>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col">
-								<h6>Counselor 1</h6>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-6">
-								<p>Topic</p>
-							</div>
-							<div class="col-6">
-								17/02/1998
-							</div>
-						</div>
-					</div>
-
-
-				</section>
-			</div>
+			</section>
 
 
 		</div>
 
 
+		<section>
+			<div class="container">
+
+				<div class="row justify-content-center">
+					<div class="col-xl-4  d-flex justify-content-center">
+						<div
+							class="courses-section">
+							{# card header #}
+							<div class="card-header">
+
+								<div class="container">
+									<div class="row">
+										<div class="col-6">
+											<p>Latest Courses
+											</p>
+										</div>
+										<div class="col">
+											<button class="btn-see-all">see all
+											</button>
+										</div>
+									</div>
+
+								</div>
+								<img src="{{asset('image/club-img.png')}}" alt="">
+
+							</div>
+							{# end card header #}
+
+							{# start card content #}
+
+							<div class="card-content">
+
+								<div class="row">
+									<div class="col">
+										<p class="course-title">
+											SAT math
+										</p>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col">
+										<p class="course-lvl">
+											Level 1
+										</p>
+									</div>
+								</div>
+
+
+								<div class="row">
+									<div class="col">
+										<div class="progress">
+											<div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+									</div>
+								</div>
+
+
+								<div class="row">
+									<div class="col">
+										<p class="courses-progress">
+											Completed: 80%
+										</p>
+									</div>
+								</div>
+
+
+								<div class="row">
+									<div class="col">
+										<p class="title-next-session">
+											Next Session
+										</p>
+									</div>
+								</div>
+
+
+								<div class="row">
+									<div class="col">
+										<p class="course-date">
+											17/02/2020
+										</p>
+									</div>
+								</div>
+							</div>
+							{# end card content #}
+
+						</div>
+						{# end course card #}
+
+
+					</div>
+
+					<div class="col-xl-4  d-flex justify-content-center">
+						<div class="counseling-section">
+							<div class="container">
+								<div class="row">
+									<div class="col">
+										<p class="counseling-title">
+											counseling sessions
+										</p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col">
+										<h6>Counselor 1
+										</h6>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-6">
+										<p>Topic
+										</p>
+									</div>
+									<div class="col-6">
+										17/02/1998
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</section>
+
+
 	</div>
 
 
-<div class="container">
-<div class="row">
-<div class="col">
+	<div class="didnt-pay" style="display:none;">
 
-<section class="courses-section">
+		<div class="container">
 
-	<div class="card-header">
-	
-	<div class="row">
-	<div class="col-6">
-	
-	<p>Latest Courses</p>
-	
-	
-	
+			<section class="application-progress-steps">
+
+
+				<div class="row">
+					<div class="col-md-12 ">
+						<h3 class="design-process-title">Registration Progress
+						</h3>
+					</div>
+				</div>
+
+
+				<div class="row">
+
+					<div id="steps">
+						<div class="step" data-desc="Recommendation Letter">1</div>
+						<div class="step " data-desc="Counseling">2</div>
+						<div class="step active " data-desc="Review & Post">3</div>
+						<div class="step " data-desc="Your order">4</div>
+
+					</div>
+
+				</div>
+
+
+			</section>
+
+
+		</div>
+
+
 	</div>
-	<div class="col">
-	<button class="btn-see-all">see all</button>
-	</div>
-
-	</div>
-	<img src="{{asset('image/club-img.png')}}" alt="">
-	</div>
-
-	
-	<div class="card-content">
-	
-	<div class="row">
-	
-	<div class="col">
-
-		<p class="course-title">	SAT math</p>	
-	</div>
-	
-	
-	</div>
-	
-	<div class="row">
-	
-	<div class="col">
-	<p class="course-lvl">
-	Level 1
-
-	
-	</p>
-	
-	</div>
-	</div>
-
-	<div class="row">
-	<div class="col">
-	<div class="progress">
-  <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-	</div>
-	
-	</div>
-	</div>
-
-<div class="row">
-<div class="col">
-
-	<p class="courses-progress"> Completed: 80%</p>
-
-</div>
-</div>
-<div class="row">
-
-<div class="col">
-<p class="title-next-session"> Next Session </p>
-</div>
-</div>
-
-
-<div class="row">
-<div class="col">
-<p class="course-date" > 17/02/2020</p>
-</div>
-</div>
-	</div>
-	
-	
-
-</section>
-
-
-</div>
-</div>
-
-</div>
-
-
-
-
-
-
-
-
-{% endblock %}{% block javascripts %}{% endblock %}
+{% endblock %}
+{% block javascripts %}{% endblock %}
