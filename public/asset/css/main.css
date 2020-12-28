@@ -4,9 +4,10 @@ body {
   margin: 0px;
   padding: 0px;
   font-family: "Open Sans", arial;
-  background-color: #f0e9e9;
+  
   font-weight: 300;
 }
+
 
 @import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
 
@@ -167,10 +168,11 @@ nav.main-menu.expanded {
   position: relative;
   display: table-cell;
   width: 55px;
-  height: 36px;
+  height: 55px;
   text-align: center;
   vertical-align: middle;
   font-size: 18px;
+  
 }
 
 .main-menu .fb-like {
@@ -649,6 +651,7 @@ text-shadow: 0px 0px 0px;
 .step:hover + .hide {
   position: absolute;
   display: block;
+  cursor :none;
   color: red;
 }
 
@@ -694,3 +697,8 @@ font-size: 20px;
   width: 25px;
   background-color: #32bea6;
 }
+
+
+/**************************  LOGIN  **********************************/
+
+
