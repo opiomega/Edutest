@@ -22,8 +22,8 @@
 			<section class="application-progress-steps">
 
 
-				<div class="row">
-					<div class="col-md-12 ">
+				<div class="row justify-content-center">
+					<div class="col">
 						<h3 class="design-process-title">Application Progress
 						</h3>
 					</div>
@@ -33,12 +33,16 @@
 				<div class="row">
 
 					<div id="steps">
-						<div class="step" data-desc="Recommendation Letter">1</div>
-            <div class="hide"> <p> Questionnair pdf </p></div>
+						<div class="step" data-desc="Basic Information">1</div>
+						<div class="hide">
+							<p>
+								Questionnair pdf
+							</p>
+						</div>
 
-						<div class="step " data-desc="Counseling">2</div>
-						<div class="step active " data-desc="Review & Post">3</div>
-						<div class="step " data-desc="Your order">4</div>
+						<div class="step " data-desc="Profile Setup">2</div>
+						<div class="step active " data-desc="Placement Test">3</div>
+						<div class="step " data-desc="Payment">4</div>
 
 					</div>
 
@@ -52,10 +56,13 @@
 
 
 		<section>
-			<div class="container">
+			<div class="container-fluid ">
 
-				<div class="row justify-content-center">
-					<div class="col-xl-4  d-flex justify-content-center">
+				<div
+					class="row ml-5">
+
+					{# start of course card #}
+					<div class="col ">
 						<div
 							class="courses-section">
 							{# card header #}
@@ -64,7 +71,7 @@
 								<div class="container">
 									<div class="row">
 										<div class="col-6">
-											<p>Latest Courses
+											<p>My courses
 											</p>
 										</div>
 										<div class="col">
@@ -74,7 +81,13 @@
 									</div>
 
 								</div>
-								<img src="{{asset('image/club-img.png')}}" alt="">
+								<div class="container">
+									<div class="row">
+										<div class="col d-flex justify-content-center">
+											<img src="{{asset('image/mycourses.png')}}" class="college-pic">
+										</div>
+									</div>
+								</div>
 
 							</div>
 							{# end card header #}
@@ -139,64 +152,153 @@
 							</div>
 							{# end card content #}
 							<div class="row">
-								<div
-									class="col  d-flex justify-content-center">
-									{# <div class="pagination-wrapper">
-																		<div class="pagination">
-																			<span></span>
-																			<span></span>
-																			<span class="active"></span>
-																			<span></span>
-																		</div>
-																	</div> #}
+								<div class="col  d-flex justify-content-center">
 
 									<div>
 										<div class="dot active"></div>
 										<div class="dot"></div>
 										<div class="dot"></div>
 										<div class="dot"></div>
-										
+
 									</div>
 
 								</div>
 
 							</div>
 						</div>
-						{# end course card #}
 
 
 					</div>
+					{# end course card #}
 
-					<div class="col-xl-4  d-flex justify-content-center">
-						<div class="counseling-section">
-							<div class="container">
-								<div class="row">
-									<div class="col">
-										<p class="counseling-title">
-											counseling sessions
-										</p>
+
+					{# start of college card #}
+					<div class="col mr-4">
+						<div
+							class="courses-section">
+							{# card header #}
+							<div class="card-header">
+
+								<div class="container">
+									<div class="row">
+										<div class="col-6">
+											<p>My college list
+											</p>
+										</div>
+										<div class="col">
+											<button class="btn-see-all">see all
+											</button>
+										</div>
+									</div>
+
+								</div>
+								<div class="container">
+									<div class="row">
+										<div class="col d-flex justify-content-center">
+											<img src="{{asset('image/college.png')}}" class="college-pic">
+										</div>
 									</div>
 								</div>
-								<div class="row">
-									<div class="col">
-										<h6>Counselor 1
-										</h6>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-6">
-										<p>Topic
-										</p>
-									</div>
-									<div class="col-6">
-										17/02/1998
-									</div>
-								</div>
+
+
 							</div>
+							{# end card header #}
+
+							{# start card content #}
+							<div class="card-content"></div>
+							{# end card content #}
+
 						</div>
 
 
 					</div>
+					{# end college card #}
+
+
+					{# start of club card #}
+					<div class="col ">
+						<div
+							class="courses-section">
+							{# card header #}
+							<div class="card-header">
+
+								<div class="container">
+									<div class="row">
+										<div class="col-6">
+											<p>My clubs
+											</p>
+										</div>
+										<div class="col">
+											<button class="btn-see-all">see all
+											</button>
+										</div>
+									</div>
+
+								</div>
+								<div class="container">
+									<div class="row">
+										<div class="col d-flex justify-content-center">
+											<img src="{{asset('image/club-pic.png')}}" class="college-pic">
+										</div>
+									</div>
+								</div>
+
+							</div>
+							{# end card header #}
+
+							{# start card content #}
+
+							<div class="card-content"></div>
+							{# end card content #}
+						</div>
+
+
+					</div>
+					{# end club card #}
+
+
+					{# start of documents card #}
+					<div class="col ">
+						<div
+							class="courses-section">
+							{# card header #}
+							<div class="card-header">
+
+								<div class="container">
+									<div class="row">
+										<div class="col-6">
+											<p>Translated documents
+											</p>
+										</div>
+										<div class="col">
+											<button class="btn-see-all">see all
+											</button>
+										</div>
+									</div>
+
+								</div>
+								<div class="container">
+									<div class="row">
+										<div class="col d-flex justify-content-center">
+											<img src="{{asset('image/document-pic.png')}}" class="document-pic">
+										</div>
+									</div>
+								</div>
+
+							</div>
+							{# end card header #}
+
+							{# start card content #}
+
+							<div class="card-content"></div>
+							{# end card content #}
+
+						</div>
+
+
+					</div>
+					{# end documents card #}
+
 
 				</div>
 
@@ -208,39 +310,5 @@
 	</div>
 
 
-	<div class="didnt-pay" style="display:none;">
-
-		<div class="container">
-
-			<section class="application-progress-steps">
-
-
-				<div class="row">
-					<div class="col-md-12 ">
-						<h3 class="design-process-title">Registration Progress
-						</h3>
-					</div>
-				</div>
-
-
-				<div class="row">
-
-					<div id="steps">
-						<div class="step" data-desc="Recommendation Letter">1</div>
-						<div class="step " data-desc="Counseling">2</div>
-						<div class="step active " data-desc="Review & Post">3</div>
-						<div class="step " data-desc="Your order">4</div>
-          </div>
-
-				</div>
-
-
-			</section>
-
-
-		</div>
-
-
-	</div>
 {% endblock %}
 {% block javascripts %}{% endblock %}
