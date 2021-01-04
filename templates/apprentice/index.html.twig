@@ -17,39 +17,101 @@
 
 	<div class="payed">
 
-		<div class="container">
+		<div class="container-fluid no-gutters ">
 
-			<section class="application-progress-steps">
-
-
-				<div class="row justify-content-center">
-					<div class="col">
-						<h3 class="design-process-title">Application Progress
-						</h3>
-					</div>
-				</div>
+			<div class="row ml-5 ">
+				<div class="col-xl-7 ml-5 pb-5">
+					<section class="application-progress-steps">
 
 
-				<div class="row">
-
-					<div id="steps">
-						<div class="step" data-desc="Basic Information">1</div>
-						<div class="hide">
-							<p>
-								Questionnair pdf
-							</p>
+						<div class="row">
+							<div class="col">
+								<h3 class="design-process-title">Application Progress
+								</h3>
+							</div>
 						</div>
 
-						<div class="step " data-desc="Profile Setup">2</div>
-						<div class="step active " data-desc="Placement Test">3</div>
-						<div class="step " data-desc="Payment">4</div>
 
-					</div>
+						<div class="row">
+
+							<div id="steps">
+								<div class="step" data-desc="part 1">1</div>
+
+								<div class="step " data-desc="Part 2">2</div>
+								<div class="step active " data-desc="part 3">3</div>
+								<div class="step " data-desc="Part 4">4</div>
+
+							</div>
+
+						</div>
+
+
+					</section>
 
 				</div>
 
+				<div class="col-xl ml-0 mb-5">
+					<div class="counseling">
+						<div class="container">
+							<div class="row">
 
-			</section>
+								<div class="col-7">
+									<p class="counseling-session-title">
+										Counseling Session</p>
+								</div>
+
+								<div class="col">
+									<button class="btn-see-all">see all
+									</button>
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-l">
+									<p>
+										Counselor 1
+									</p>
+									<span>
+										Topic</span>
+								</div>
+								<div class="col"></div>
+								<div class="col">
+									<br>
+									<span>
+										15/04/2020
+									</span>
+								</div>
+
+							</div>
+							<hr>
+
+							<div class="row">
+								<div class="col-l">
+									<p>
+										Counselor 2
+									</p>
+									<span>
+										Topic</span>
+								</div>
+								<div class="col"></div>
+								<div class="col">
+									<br>
+									<span>
+										25/07/2021
+									</span>
+								</div>
+
+							</div>
+
+
+						</div>
+
+					</div>
+
+
+				</div>
+
+			</div>
 
 
 		</div>
@@ -70,8 +132,8 @@
 
 								<div class="container">
 									<div class="row">
-										<div class="col-6">
-											<p>My courses
+										<div class="col-7">
+											<p class="card-title">My courses
 											</p>
 										</div>
 										<div class="col">
@@ -84,7 +146,7 @@
 								<div class="container">
 									<div class="row">
 										<div class="col d-flex justify-content-center">
-											<img src="{{asset('image/mycourses.png')}}" class="college-pic">
+											<img src="{{asset('image/mycourses.png')}}" class="course-pic">
 										</div>
 									</div>
 								</div>
@@ -130,10 +192,11 @@
 									</div>
 								</div>
 
-
+								<hr>
 								<div class="row">
 									<div class="col">
 										<p class="title-next-session">
+
 											Next Session
 										</p>
 									</div>
@@ -181,8 +244,8 @@
 
 								<div class="container">
 									<div class="row">
-										<div class="col-6">
-											<p>My college list
+										<div class="col-7">
+											<p class="card-title">My college list
 											</p>
 										</div>
 										<div class="col">
@@ -194,7 +257,7 @@
 								</div>
 								<div class="container">
 									<div class="row">
-										<div class="col d-flex justify-content-center">
+										<div class="col">
 											<img src="{{asset('image/college.png')}}" class="college-pic">
 										</div>
 									</div>
@@ -205,7 +268,28 @@
 							{# end card header #}
 
 							{# start card content #}
-							<div class="card-content"></div>
+							<div class="card-content">
+
+								<div class="college-lists">
+									<button class="show">show</button>
+									<img src="">
+									<span>college 1
+										<br>
+										deadline</span>
+
+
+								</div>
+								<div class="college-lists">
+									<button class="show">show</button>
+									<img src="">
+									<span>college 2
+										<br>
+										deadline</span>
+
+
+								</div>
+
+							</div>
 							{# end card content #}
 
 						</div>
@@ -224,8 +308,8 @@
 
 								<div class="container">
 									<div class="row">
-										<div class="col-6">
-											<p>My clubs
+										<div class="col-7">
+											<p class="card-title">My clubs
 											</p>
 										</div>
 										<div class="col">
@@ -238,7 +322,7 @@
 								<div class="container">
 									<div class="row">
 										<div class="col d-flex justify-content-center">
-											<img src="{{asset('image/club-pic.png')}}" class="college-pic">
+											<img src="{{asset('image/club-pic.png')}}" class="club-pic">
 										</div>
 									</div>
 								</div>
@@ -248,7 +332,28 @@
 
 							{# start card content #}
 
-							<div class="card-content"></div>
+							<div class="card-content">
+
+								<div class="college-lists">
+									<button class="show">show</button>
+									<img src="">
+
+									<span>Debate
+										<br>deadline 15/02/1225</span>
+
+
+								</div>
+								<div class="college-lists">
+									<button class="show">show</button>
+									<img src="">
+
+									<span>Debate
+										<br>deadline 15/02/2555</span>
+
+
+								</div>
+
+							</div>
 							{# end card content #}
 						</div>
 
@@ -266,8 +371,8 @@
 
 								<div class="container">
 									<div class="row">
-										<div class="col-6">
-											<p>Translated documents
+										<div class="col-7">
+											<p class="card-title">Translated documents
 											</p>
 										</div>
 										<div class="col">
@@ -290,7 +395,40 @@
 
 							{# start card content #}
 
-							<div class="card-content"></div>
+							<div class="card-content">
+
+								<div class="row">
+
+									<div class="col">
+
+
+										<p class="Document-name">
+											Document 1</p>
+									</div>
+									<div class="col-xs"></div>
+									<div class="col">
+
+										<button class="show">edit</button>
+
+									</div>
+								</div>
+								<div class="row">
+
+									<div class="col">
+
+
+										<p class="Document-name">
+											Document 2</p>
+									</div>
+									<div class="col-xs"></div>
+									<div class="col">
+
+										<button class="show">edit</button>
+
+									</div>
+								</div>
+
+							</div>
 							{# end card content #}
 
 						</div>
