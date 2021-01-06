@@ -67,7 +67,7 @@ body {
 }
 
 .scrollbar:hover {
-  height: 90%;
+  height: 50%;
   width: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -76,19 +76,19 @@ body {
 /* Scrollbar Style */
 
 #style-1::-webkit-scrollbar-track {
-  border-radius: 2px;
+  background: #c4c4c4;
+
+  box-sizing: border-box;
+  border-radius: 15px;
 }
 
 #style-1::-webkit-scrollbar {
-  width: 5px;
-  background-color: #b22640;
+  width: 22px;
 }
 
 #style-1::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-
+  border-radius: 15px;
+  filter: drop-shadow(-2px 2px 4px rgba(0, 0, 0, 0.25));
   background-color: #b22640;
 }
 /* Scrollbar End */
@@ -331,7 +331,6 @@ text-shadow: 0px 0px 0px;
 } */
 
 .btn-see-all {
-  
   color: white;
   display: flex;
   outline: none !important;
@@ -445,18 +444,17 @@ hr {
   border-radius: 20px;
   max-width: 800px;
   width: 80%;
-  
 }
 
 #steps {
   width: 80%;
-  margin: 50px ;
+  margin: 50px;
   display: inline-block;
   align-items: center;
   text-align: center;
   border: 1px solid #b22640;
   border-radius: 20px;
- padding: 20px;
+  padding: 20px;
 }
 
 .step {
@@ -518,15 +516,6 @@ hr {
 }
 
 /***************************************/
-
-.sat-text {
-  margin-left: 25px;
-  display: block;
-  position: relative;
-  background-color: white;
-  border-radius: 20px;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-}
 
 .dot {
   display: inline-block;
@@ -600,4 +589,64 @@ hr {
   line-height: 36px;
 
   color: #b22640;
+}
+
+/******************* sat **********************/
+
+.sat-text {
+  margin-left: 25px;
+
+  background-color: white;
+  border-radius: 20px;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.steps-test {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#stepstest {
+  margin: 50px;
+  display: inline-block;
+  align-items: center;
+  text-align: center;
+}
+
+.title-sat {
+  font-family: Space Grotesk;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 45px;
+  line-height: 57px;
+
+  color: #384d77;
+}
+
+.scrollspyied {
+  position: relative;
+  height: 350px;
+  overflow: auto;
+  padding: 35px;
+  margin: 20px;
+  border: 1px solid #384d77;
+  box-sizing: border-box;
+  border-radius: 15px;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 33px;
+
+  color: #000000;
+}
+
+
+.next{
+  
+  
+  margin-bottom: 35px;
+  
 }
