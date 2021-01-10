@@ -593,14 +593,6 @@ hr {
 
 /******************* sat **********************/
 
-.sat-text {
-  margin-left: 25px;
-
-  background-color: white;
-  border-radius: 20px;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-}
-
 .steps-test {
   display: flex;
   align-items: center;
@@ -608,25 +600,26 @@ hr {
 }
 
 #stepstest {
-  margin: 50px;
+  margin: 30px;
   display: inline-block;
   align-items: center;
   text-align: center;
 }
 
 .title-sat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: Space Grotesk;
   font-style: normal;
   font-weight: 500;
-  font-size: 45px;
-  line-height: 57px;
 
   color: #384d77;
 }
 
 .scrollspyied {
   position: relative;
-  height: 350px;
+  height: 450px;
   overflow: auto;
   padding: 35px;
   margin: 20px;
@@ -643,10 +636,50 @@ hr {
   color: #000000;
 }
 
-
-.next{
-  
-  
+.next {
   margin-bottom: 35px;
+}
+
+.show-txt {
+  box-shadow: -4px 2px 15px rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  left: -23px;
+  position: relative;
+  overflow-x: visible;
+  color: white;
+  background-color: #b22640;
+}
+
+.subject-parts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  background: #ffffff;
+  border: 1px solid #384d77;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+
+  font-family: Space Grotesk;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+}
+
+.current {
+  background-color: #384d77;
+  color: white;
+}
+
+.bb , .text-part , .question-part {
+  background: #f8f8f8;
+  box-shadow: -8px 4px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  height: 100%;
   
+}
+.text-part{
+ 
 }
