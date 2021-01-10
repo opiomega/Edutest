@@ -648,6 +648,7 @@ hr {
   overflow-x: visible;
   color: white;
   background-color: #b22640;
+  margin-left: 20px;
 }
 
 .subject-parts {
