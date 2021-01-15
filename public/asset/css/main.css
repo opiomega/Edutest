@@ -694,7 +694,7 @@ hr {
   position: relative;
 }
 #msform fieldset {
-  background: #F8F8F8;
+  background: #f8f8f8;
   border: 0 none;
   border-radius: 20px;
   box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
@@ -714,7 +714,7 @@ hr {
 /*inputs*/
 #msform input,
 #msform textarea {
-  background-color: #F0E9E9;
+  background-color: #f0e9e9;
   padding: 15px;
   border: 1px solid #ccc;
   border-radius: 3px;
@@ -734,7 +734,7 @@ hr {
   color: white;
   border: none;
   border-radius: 20px;
-  
+
   padding: 10px 5px;
   margin: 60px 5px;
 }
@@ -754,14 +754,13 @@ hr {
 }
 /*progressbar*/
 #progressbar {
-  
   overflow: hidden;
   /*CSS counters to number the steps*/
   counter-reset: step;
 }
 #progressbar li {
-  margin-top: 50px;
-  
+  margin-top: 20px;
+
   display: inline-block;
   justify-content: center;
   align-items: center;
@@ -778,27 +777,28 @@ hr {
   counter-increment: step;
   width: 40px;
   height: 40px;
-  line-height: 20px;
-  display: block;
+
+  display: flex;
   font-size: 10px;
-  color: #333;
-  background: white;
+  color: transparent;
+
   border-radius: 50px;
+  border: 3px solid #b22640;
   margin: 0 auto 5px;
 }
 /*progressbar connectors*/
 #progressbar li:after {
   content: "";
-  width: 100%;
+  width: 98px;
   height: 2px;
-  background: white;
+  background: transparent;
   position: absolute;
-  left: -50%;
-  top: 9px;
-  z-index: -1;
+
+  top: 20px;
   /*put it behind the numbers*/
 }
-#progressbar li:first-child:after {
+
+#progressbar li:last-child:after {
   /*connector not needed before the first step*/
   content: none;
 }
@@ -807,7 +807,8 @@ hr {
 #progressbar li.active:before,
 #progressbar li.active:after {
   background: #384d77;
-  color: white;
+  border: 1px solid #384d77;
+  color: transparent;
 }
 .help-block {
   font-size: 0.8em;
@@ -841,12 +842,10 @@ hr {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #CDD6EA;
-  border: 2px solid #B22640;
-box-sizing: border-box;
-
+  background: #cdd6ea;
+  border: 2px solid #b22640;
+  box-sizing: border-box;
 }
-
 
 .radiobtn input[type="radio"] {
   display: none;
@@ -858,10 +857,10 @@ box-sizing: border-box;
 }
 
 .radiobtn input[type="radio"]:checked + label:after {
-  background: #384D77;
+  background: #384d77;
+  border: 2px solid #384d77;
 }
 .radiobtn input[type="radio"]:checked + label:before {
   width: 20px;
   height: 20px;
 }
-
