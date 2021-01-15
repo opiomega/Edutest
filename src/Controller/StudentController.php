@@ -313,7 +313,7 @@ class StudentController extends AbstractController
         $cand= $this->getDoctrine()->getManager()->getRepository(Candidature::class)->findBy(["student"=>$std]);
         $candidature=isset($cand[0])?$cand[0]:null;
         $date= $this->getUser()->getDatebirth();
-        $date=\DateTime::createFromFormat('d/m/Y',$date);
+        // $date=\DateTime::createFromFormat('d/m/Y',$date);
         $curent = new \DateTime() ;
        
         $age= $curent->diff($date,true)->y;

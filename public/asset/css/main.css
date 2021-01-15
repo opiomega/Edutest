@@ -3,7 +3,6 @@ body {
   width: 100%;
   margin: 0px;
   padding: 0px;
-  font-family: "Space Grotesk", sans-serif;
 }
 
 .top-bar {
@@ -267,14 +266,6 @@ text-shadow: 0px 0px 0px;
   background: #384d77;
   width: 100%;
   height: 100%;
-}
-@font-face {
-  font-family: "Titillium Web";
-  font-style: normal;
-  font-weight: 300;
-  src: local("Titillium WebLight"), local("TitilliumWeb-Light"),
-    url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff)
-      format("woff");
 }
 
 /*       css for progress        */
@@ -863,4 +854,96 @@ hr {
 .radiobtn input[type="radio"]:checked + label:before {
   width: 20px;
   height: 20px;
+}
+
+/*************    profile    **********/
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
+.left-profile-panel {
+  position: relative;
+  height: auto;
+  width: 100%;
+  padding: 10px;
+  background: #f8f8f8;
+  box-shadow: -8px 8px 50px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+.username {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 37px;
+  letter-spacing: -1px;
+  padding-top: 16px;
+  color: #384d77;
+}
+
+.about {
+  padding: 20px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 25px;
+  line-height: 37px;
+  text-align: center;
+  letter-spacing: -1px;
+
+  color: #b22640;
+}
+.about > p {
+  padding: 20px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 27px;
+  text-align: center;
+
+  color: #000000;
+}
+
+.right-profile-panel {
+  position: relative;
+  height: 100%;
+  width: 90%;
+  padding: 38px;
+  background: #f8f8f8;
+  box-shadow: -8px 8px 50px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+
+.tab-content {
+  width: 100%;
+  display: block;
+  height: 100%;
+  border: 1px solid #384d77;
+  padding: 25px;
+  border-radius: 20px;
+}
+
+.nav-item {
+  margin: 25px;
+  background: none;
+}
+.nav-item > a {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 25px;
+  line-height: 37px;
+  letter-spacing: -1px;
+
+  color: #384d77;
+}
+
+#pills-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-item > a:focus {
+  border-bottom: #B22640 3px solid;
+  color: #B22640;
 }
