@@ -916,7 +916,7 @@ hr {
 .tab-content {
   width: 100%;
   display: block;
-  height: 100%;
+  
   border: 1px solid #384d77;
   padding: 25px;
   border-radius: 20px;
@@ -944,6 +944,31 @@ hr {
 }
 
 .nav-item > a:focus {
-  border-bottom: #B22640 3px solid;
-  color: #B22640;
+  border-bottom: #b22640 3px solid;
+  color: #b22640;
+}
+
+.profile-infos-title > label {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 30px;
+  letter-spacing: -1px;
+  border-bottom: 1px solid #384d77;
+  color: #384d77;
+}
+
+.profile-infos-title > p {
+ 
+  font-family: Poppins;
+font-style: normal;
+font-weight: 500;
+font-size: 15px;
+line-height: 30px;
+letter-spacing: -1px;
+
+color: #B22640;
+
+
 }
