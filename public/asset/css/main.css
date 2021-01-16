@@ -862,6 +862,7 @@ hr {
 .left-profile-panel {
   position: relative;
   height: auto;
+  margin: 15px;
   width: 100%;
   padding: 10px;
   background: #f8f8f8;
@@ -907,6 +908,7 @@ hr {
   position: relative;
   height: 100%;
   width: 90%;
+  margin: 15px;
   padding: 38px;
   background: #f8f8f8;
   box-shadow: -8px 8px 50px rgba(0, 0, 0, 0.25);
@@ -923,14 +925,14 @@ hr {
 }
 
 .nav-item {
-  margin: 25px;
+ 
   background: none;
 }
 .nav-item > a {
   font-family: Poppins;
   font-style: normal;
   font-weight: normal;
-  font-size: 25px;
+  font-size: 20px;
   line-height: 37px;
   letter-spacing: -1px;
 
