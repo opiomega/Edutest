@@ -53,7 +53,7 @@ body {
 
 .main {
   margin-top: 80px;
-  margin-left: 0;
+
   padding: 0;
 }
 
@@ -918,14 +918,13 @@ hr {
 .tab-content {
   width: 100%;
   display: block;
-  
+
   border: 1px solid #384d77;
   padding: 25px;
   border-radius: 20px;
 }
 
 .nav-item {
- 
   background: none;
 }
 .nav-item > a {
@@ -962,15 +961,171 @@ hr {
 }
 
 .profile-infos-title > p {
- 
   font-family: Poppins;
-font-style: normal;
-font-weight: 500;
-font-size: 15px;
-line-height: 30px;
-letter-spacing: -1px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 30px;
+  letter-spacing: -1px;
 
-color: #B22640;
+  color: #b22640;
+}
 
+/**************** univerity page *****************/
 
+.university-title {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 67px;
+  /* identical to box height */
+
+  letter-spacing: 0.05em;
+
+  color: #384d77;
+}
+
+.has-search .form-control {
+  background: #e4e9f2;
+  border: 2px solid #384d77;
+  box-sizing: border-box;
+  border-radius: 20px;
+  padding-left: 30px;
+}
+.search-bar {
+  width: 80%;
+}
+
+.has-search .form-control-feedback {
+  position: absolute;
+
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #384d77;
+}
+
+.search {
+  background: #e4e9f2;
+  border: 2px solid #384d77;
+  display: block;
+  outline: none;
+  padding: 5px;
+  border-radius: 20px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 21px;
+
+  color: #777272;
+  width: 100%;
+}
+.search > option {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 21px;
+
+  color: #777272;
+}
+.apply {
+  font-family: Poppins;
+  font-style: normal;
+
+  font-size: 15px;
+  line-height: 27px;
+  text-align: center;
+  width: 100px;
+  color: #f7f7f7;
+  margin-top: 10px;
+  background: #b22640;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+  border-radius: 25px;
+  height: 27px;
+}
+.search-label {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 19px;
+  line-height: 28px;
+  /* identical to box height */
+
+  letter-spacing: 0.05em;
+
+  color: #384d77;
+}
+
+.card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  background: #f8f8f8;
+  box-shadow: -8px 8px 50px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  border: none;
+  width: 290px;
+  height: 350px;
+}
+.view > img {
+  border-radius: 20px;
+  height: 170px;
+}
+
+.card-title {
+  padding-top: 25px;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 21px;
+  line-height: 5px;
+  letter-spacing: -1px;
+  text-align: center;
+  color: #b22640;
+}
+
+.card-text {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  letter-spacing: -1px;
+  padding-bottom: 20px;
+  color: #b22640;
+}
+.card-body > a {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  text-align: center;
+  outline: none;
+  color: white;
+  padding: 5px 10px;
+  background-color: #384d77;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+  border-radius: 25px;
+  border: none;
+}
+.recommendations-title {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 52px;
+  /* identical to box height */
+
+  letter-spacing: 0.05em;
+
+  color: #384d77;
 }
