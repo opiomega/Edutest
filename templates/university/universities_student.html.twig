@@ -1,0 +1,131 @@
+{% extends 'base.html.twig' %}
+
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
+
+
+{% block title %}University name
+{% endblock %}
+
+
+{% block body %}
+
+	<div class="container ">
+		<div class="row ml-5 ">
+			<div class=" university-infos">
+				<div class="col-12 ">
+
+					<div class="row ">
+
+						<div class="col-md-4 pl-0  ">
+
+							<div class="view">
+								<img src="https://www.collegeconsensus.com/wp-content/uploads/2016/12/o-HARVARD-UNIVERSITY-BUILDING-facebook.jpg" class="img-fluid" alt="photo">
+
+							</div>
+
+							<!--Card content-->
+							<div class="row text-center" style="margin:25px;">
+								<div
+									class="card-body">
+									<!--Title-->
+									<h5 class="card-rank">
+										<i class="fas fa-star"></i>
+										Rank : 1
+									</h5>
+									<!--Text-->
+
+
+									<h5 class="card-student-number ">
+										<i class="fas fa-users "></i>
+										Student numbers : 22,987</h5>
+
+									<br><br>
+
+									<a href="#" class="red-button" data-toggle="modal" data-target="#exampleModalLong">Apply Now</a>
+
+
+								</div>
+
+							</div>
+
+						</div>
+
+
+						<div class="col-lg-8  text-center">
+							<br>
+							<div class="vl"></div>
+
+							<div class="university-info-2">
+								<h1>Harvard university</h1>
+								<p>Harvard University is a private Ivy League research university in Cambridge, Massachusetts, with about 6,800 undergraduate students and about 14,000 postgraduate students. Established in 1636 and named for its first benefactor, clergyman John Harvard, Harvard is the United States' oldest institution of higher learning.Its history, influence, wealth, and academic reputation have made it one of the most prestigious universities in the world. college@fas.harvard.edu</p>
+
+
+								<h4>Eligibility</h4>
+								<div class="row">
+
+									<div class="col-sm-4">
+
+										<div class="icon">
+
+											<label>acceptence rate</label>
+											<br>
+											<i class="far fa-file-alt fa-5x"></i>
+											<br>
+											<label>65%</label>
+										</div>
+									</div>
+									<div class="col-sm-4">
+
+										<div class="icon">
+
+											<label>SAR Range</label>
+											<br>
+											<i class="fas fa-spell-check fa-4x"></i>
+											<br>
+											<label style="line-height:20px;">Reading/Writing:
+																																																																																																																																																																																				 730-790
+												<br>
+												Math:  730-800
+											</label>
+										</div>
+									</div>
+									<div class="col-sm-4">
+
+										<div class="icon">
+
+											<label>Deadline</label>
+											<br>
+											<i class="fas fa-calendar-minus fa-5x"></i>
+											<br>
+											<label>Jan 1st 2021</label>
+										</div>
+									</div>
+
+
+								</div>
+
+							</div>
+
+
+						</div>
+
+
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+
+	</div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+	{{parent()}}
+{% endblock %}
