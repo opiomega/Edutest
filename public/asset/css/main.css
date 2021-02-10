@@ -1077,7 +1077,7 @@ hr {
 }
 .view > img {
   border-radius: 20px;
-  width: 100%!important;
+  width: 100% !important;
   height: 170px;
 }
 
@@ -1150,20 +1150,17 @@ hr {
   line-height: 40px;
   text-align: center;
   letter-spacing: -1px;
-  color: #384D77;
-
+  color: #384d77;
 }
 
-.red-button{
-  background-color: #B22640 !important;
+.red-button {
+  background-color: #b22640 !important;
   font-family: Poppins;
-font-style: normal;
-font-weight: 300 !important;
-font-size: 18px !important;
-line-height: 40px;
-text-align: center;
-
-
+  font-style: normal;
+  font-weight: 300 !important;
+  font-size: 18px !important;
+  line-height: 40px;
+  text-align: center;
 }
 
 .university-infos {
@@ -1238,3 +1235,194 @@ text-align: center;
   color: #384d77;
 }
 
+/*****************  application ************************/
+
+.application {
+  position: absolute;
+  width: 100%;
+  margin-left: 80px;
+  top: 115px;
+  background: #f8f8f8;
+  box-shadow: -8px 8px 50px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+}
+
+.application h4 {
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 90px;
+  /* identical to box height */
+  padding-left: 87px;
+  letter-spacing: 2px;
+
+  color: #b22640;
+}
+
+.app-steps {
+  width: 50%;
+  margin: 0 !important;
+  display: inline-block;
+  align-items: center;
+  text-align: center;
+  border: none !important;
+}
+/* .application input {
+  margin: 10px;
+  border: 1px solid #b22640;
+  box-sizing: border-box;
+  filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.08));
+  border-radius: 80px;
+  outline: none;
+} */
+
+/**********/
+
+.inputfile-box {
+  margin-top: 30px;
+}
+
+.inputfile {
+  display: none;
+}
+
+.file-box {
+  margin-top: 50px;
+  display: inline-block;
+  height: 35px;
+  width: 440px;
+
+  content: "";
+  padding-left: 10px;
+
+  border: 2px solid #b22640;
+  box-sizing: border-box;
+  filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.08));
+  border-radius: 80px;
+}
+
+.file-button {
+  align-items: center;
+  justify-content: center;
+
+  padding: 5px 10px 5px 10px;
+
+  margin-left: 20px;
+  border: 2px solid #b22640;
+  box-sizing: border-box;
+  filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.08));
+  border-radius: 80px;
+}
+
+@media screen and (max-width: 1000px) {
+  .file-box {
+    width: 200px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .file-box {
+    width: 160px;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .file-box {
+    width: 160px;
+  }
+}
+
+
+
+
+.stepv{
+  
+  padding: 10px;
+  
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+ 
+  
+}
+
+.v-stepper {
+  position: relative;
+   visibility: visible; 
+}
+
+
+/* regular step */
+.stepv .circle {
+  background-color: #C4C4C4;
+  border: 2px solid #384D77;
+
+  border-radius: 100%;
+  width: 20px;    /* +6 for border */
+  height: 20px;
+  display: inline-block;
+  margin-left: 50px;
+  margin-top: 70px;
+
+}
+
+.stepv .line {
+  top: 90px;
+  left: 58px;
+/*   height: 120px; */
+  height: 150px;
+    z-index: 0;
+    position: absolute;
+    border-left: 3px solid#C4C4C4;
+}
+
+.stepv.completed .circle {
+  visibility: visible;
+  background-color: #384D77;
+ 
+  border-color: #384D77;
+}
+
+.stepv.completed .line {
+  border-left: 3px solid #384D77;
+  
+}
+
+.stepv.active .circle {
+visibility: visible;
+  border-color: #384D77;
+}
+
+.stepv.empty .circle {
+    visibility: hidden;
+}
+
+.stepv.empty .line {
+/*     visibility: hidden; */
+/*   height: 150%; */
+  top: 0;
+  height: 200%;
+}
+
+
+.stepv:last-child .line {
+  border-left: 3px solid white;
+  z-index: -1; /* behind the circle to completely hide */
+}
+
+.content {
+  font-family: Poppins;
+font-style: normal;
+font-weight: bold;
+font-size: 24px;
+line-height: 36px;
+/* identical to box height */
+
+letter-spacing: 2px;
+
+color: #B22640;
+  margin-top: 50px;
+  margin-left: 10px;
+  display: inline-block;
+}
