@@ -1319,11 +1319,24 @@ hr {
   .file-box {
     width: 200px;
   }
+
+  .common-app{
+
+    margin: 50px;
+    margin-top: 50px;
+  }
+
 }
 
 @media screen and (max-width: 500px) {
   .file-box {
     width: 160px;
+  }
+
+  .common-app{
+
+    margin: 10px;
+    margin-top: 10px;
   }
 }
 
@@ -1331,80 +1344,75 @@ hr {
   .file-box {
     width: 160px;
   }
+  .common-app{
+
+   margin-top: 100px;
+  
+  }
 }
 
-
-
-
-.stepv{
-  
+.stepv {
   padding: 10px;
-  
+
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
- 
-  
 }
 
 .v-stepper {
   position: relative;
-   visibility: visible; 
+  visibility: visible;
 }
-
 
 /* regular step */
 .stepv .circle {
-  background-color: #C4C4C4;
-  border: 2px solid #384D77;
+  background-color: #c4c4c4;
+  border: 2px solid #384d77;
 
   border-radius: 100%;
-  width: 20px;    /* +6 for border */
+  width: 20px; /* +6 for border */
   height: 20px;
   display: inline-block;
   margin-left: 50px;
   margin-top: 70px;
-
 }
 
 .stepv .line {
   top: 90px;
   left: 58px;
-/*   height: 120px; */
+  /*   height: 120px; */
   height: 150px;
-    z-index: 0;
-    position: absolute;
-    border-left: 3px solid#C4C4C4;
+  z-index: 0;
+  position: absolute;
+  border-left: 3px solid#C4C4C4;
 }
 
 .stepv.completed .circle {
   visibility: visible;
-  background-color: #384D77;
- 
-  border-color: #384D77;
+  background-color: #384d77;
+
+  border-color: #384d77;
 }
 
 .stepv.completed .line {
-  border-left: 3px solid #384D77;
-  
+  border-left: 3px solid #384d77;
 }
 
 .stepv.active .circle {
-visibility: visible;
-  border-color: #384D77;
+  visibility: visible;
+  border-color: #384d77;
 }
 
 .stepv.empty .circle {
-    visibility: hidden;
+  visibility: hidden;
 }
 
 .stepv.empty .line {
-/*     visibility: hidden; */
-/*   height: 150%; */
+  /*     visibility: hidden; */
+  /*   height: 150%; */
   top: 0;
   height: 200%;
 }
-
 
 .stepv:last-child .line {
   border-left: 3px solid white;
@@ -1413,16 +1421,41 @@ visibility: visible;
 
 .content {
   font-family: Poppins;
-font-style: normal;
-font-weight: bold;
-font-size: 24px;
-line-height: 36px;
-/* identical to box height */
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 36px;
+  /* identical to box height */
 
-letter-spacing: 2px;
+  letter-spacing: 2px;
 
-color: #B22640;
+  color: #b22640;
   margin-top: 50px;
   margin-left: 10px;
   display: inline-block;
+}
+
+.common-app{
+  width: 300px;
+ margin-top: 80px;
+  background: #e4e9f2;
+  border: 1px solid #384d77;
+  box-sizing: border-box;
+  border-radius: 30px;
+}
+
+.app{
+
+  margin-bottom: 40px;
+  width:200px;
+height: 40px;
+font-family: Poppins;
+font-style: normal;
+font-weight: 500;
+font-size: 15px;
+line-height: 30px;
+text-align: center;
+background-color: #8d1e32;
+color: #F7F7F7;
+
 }
