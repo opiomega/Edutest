@@ -28,7 +28,7 @@ class CandidatureType extends AbstractType
                 'application/x-pdf',             
                     ],
                 'mimeTypesMessage' => 'Please upload a valid PDF document',
-                ])],"required"=>false,"disabled"=>$options['fieldDisabled'][0]])
+                ])],"required"=>false/*,"disabled"=>$options['fieldDisabled'][0]]*/])
         ->add('letterOfRecommendationFile',FileType::class, ['attr' => ['class' => "form-control"],
         'constraints' => [
             new File([
@@ -39,7 +39,7 @@ class CandidatureType extends AbstractType
                 
                     ],
                 'mimeTypesMessage' => 'Please upload a valid PDF document',
-                ])],"required"=>false,"disabled"=>$options['fieldDisabled'][0]])
+                ])],"required"=>false/*,"disabled"=>$options['fieldDisabled'][0]*/])
         ->add('letterOfRecommendationMathFile',FileType::class, ['attr' => ['class' => "form-control"],
         'constraints' => [
             new File([
@@ -50,7 +50,7 @@ class CandidatureType extends AbstractType
                 
                     ],
                 'mimeTypesMessage' => 'Please upload a valid PDF document',
-                ])],"required"=>false,"disabled"=>$options['fieldDisabled'][0]])
+                ])],"required"=>false/*,"disabled"=>$options['fieldDisabled'][0]*/])
         ->add('transcriptBacFile',FileType::class, ['attr' => ['class' => "form-control"],'constraints' => [
             new File([
             'maxSize' => '2M',
@@ -62,7 +62,7 @@ class CandidatureType extends AbstractType
                 'mimeTypesMessage' => 'Please upload a valid Word document',
                 ])
                 ]
-        ,"required"=>false,"disabled"=>$options['fieldDisabled'][0]])
+        ,"required"=>false/*,"disabled"=>$options['fieldDisabled'][0]*/])
         ->add('transcriptThirdFile',FileType::class, ['attr' => ['class' => "form-control"],'constraints' => [
             new File([
             'maxSize' => '2M',
@@ -74,7 +74,7 @@ class CandidatureType extends AbstractType
                 'mimeTypesMessage' => 'Please upload a valid Word document',
                 ])
                 ]
-        ,"required"=>false,"disabled"=>$options['fieldDisabled'][0]])
+        ,"required"=>false/*,"disabled"=>$options['fieldDisabled'][0]*/])
 
         ->add('transcriptSecondFile',FileType::class, ['attr' => ['class' => "form-control"],'constraints' => [
             new File([
@@ -87,7 +87,7 @@ class CandidatureType extends AbstractType
                 'mimeTypesMessage' => 'Please upload a valid Word document',
                 ])
                 ]
-        ,"required"=>false,"disabled"=>$options['fieldDisabled'][0]])
+        ,"required"=>false/*,"disabled"=>$options['fieldDisabled'][0]*/])
         ->add('transcriptFirstFile',FileType::class, ['attr' => ['class' => "form-control"],'constraints' => [
             new File([
             'maxSize' => '2M',
@@ -100,7 +100,7 @@ class CandidatureType extends AbstractType
                 'mimeTypesMessage' => 'Please upload a valid Word document',
                 ])
                 ]
-        ,"required"=>false,"disabled"=>$options['fieldDisabled'][0]])
+        ,"required"=>false/*,"disabled"=>$options['fieldDisabled'][0]*/])
         ->add('surveyFile',FileType::class, ['attr' => ['class' => "form-control"],
         'constraints' => [
             new File([
@@ -111,7 +111,7 @@ class CandidatureType extends AbstractType
                     ],
                 'mimeTypesMessage' => 'Please upload a valid PDF document',
                 ])],
-        "required"=>false,"disabled"=>$options['fieldDisabled'][0]])
+        "required"=>false/*,"disabled"=>$options['fieldDisabled'][0]*/])
         ->add('bankStatementFile',FileType::class, ['attr' => ['class' => "form-control"],'constraints' => [
             new File([
             'maxSize' => '2M',
@@ -122,7 +122,7 @@ class CandidatureType extends AbstractType
                     ],
                 'mimeTypesMessage' => 'Please upload a valid Word document',
                 ])
-                ],"required"=>false,"disabled"=>$options['fieldDisabled'][0]])
+                ],"required"=>false/*,"disabled"=>$options['fieldDisabled'][0]*/])
         ->add('passportFile',FileType::class, ['attr' => ['class' => "form-control"],'constraints' => [
             new File([
             'maxSize' => '2M',
@@ -133,7 +133,7 @@ class CandidatureType extends AbstractType
                     ],
                 'mimeTypesMessage' => 'Please upload a valid Word document',
                 ])
-                ],"required"=>false,"disabled"=>$options['fieldDisabled'][0]])
+                ],"required"=>false/*,"disabled"=>$options['fieldDisabled'][0]*/])
         ->add('passportFilepdf',FileType::class, ['mapped'=>false,'attr' => ['class' => "form-control"],'constraints' => [
             new File([
             'maxSize' => '2M',
@@ -144,7 +144,7 @@ class CandidatureType extends AbstractType
                     ],
                 'mimeTypesMessage' => 'Please upload a valid PDF document',
                 ])
-            ],"required"=>false,"disabled"=>$options['fieldDisabled'][0]])
+            ],"required"=>false/*,"disabled"=>$options['fieldDisabled'][0]*/])
 
         ->add('cinFile',FileType::class, ['attr' => ['class' => "form-control"],'constraints' => [
             new File([
@@ -156,7 +156,7 @@ class CandidatureType extends AbstractType
                     ],
                 'mimeTypesMessage' => 'Please upload a valid Word document',
                 ])
-                ],"required"=>false,"disabled"=>$options['fieldDisabled'][0]])
+                ],"required"=>false/*,"disabled"=>$options['fieldDisabled'][0]*/])
         ->add('cinFilepdf',FileType::class, ['mapped'=>false,'attr' => ['class' => "form-control"],'constraints' => [
             new File([
             'maxSize' => '2M',
@@ -167,11 +167,11 @@ class CandidatureType extends AbstractType
                     ],
                 'mimeTypesMessage' => 'Please upload a valid PDF document',
                 ])
-            ],"required"=>false,"disabled"=>$options['fieldDisabled'][0]])
+            ],"required"=>false/*,"disabled"=>$options['fieldDisabled'][0]*/])
 
-        ->add('username', TextType::class, ['mapped'=>false,'attr' => ['class' => "form-control"],"required"=>false,"disabled"=>$options['fieldDisabled'][0]])
+        ->add('username', TextType::class, ['mapped'=>false,'attr' => ['class' => "form-control"],"required"=>false/*,"disabled"=>$options['fieldDisabled'][0]*/])
         ->add('password', null,['attr' => ['class' => 'password-field']])
-        ->add('satScore',null,['required'=>false,"disabled"=>$options['fieldDisabled'][0]])
+        ->add('satScore',null,['required'=>false/*,"disabled"=>$options['fieldDisabled'][0]*/])
         ->add('bankstatmentFilepdf',FileType::class,['mapped'=>false,'attr'     => [
             'class'=>'form-2-box form-control',
             
@@ -187,7 +187,7 @@ class CandidatureType extends AbstractType
                     ],
                 'mimeTypesMessage' => 'Please upload a valid PDF document',
                 ])
-            ],"required"=>false,"disabled"=>$options['fieldDisabled'][0]
+            ],"required"=>false/*,"disabled"=>$options['fieldDisabled'][0]*/
             ])
         ->add('transcriptfirstFilepdf',FileType::class,['mapped'=>false,'attr'     => [
                 'class'=>'form-2-box form-control',
@@ -204,7 +204,7 @@ class CandidatureType extends AbstractType
                         ],
                     'mimeTypesMessage' => 'Please upload a valid PDF document',
                     ])
-                ],"required"=>false,"disabled"=>$options['fieldDisabled'][0]
+                ],"required"=>false/*,"disabled"=>$options['fieldDisabled'][0]*/
                 ])
         ->add('transcriptsecondFilepdf',FileType::class,['mapped'=>false,'attr'     => [
                     'class'=>'form-2-box form-control',
@@ -221,7 +221,7 @@ class CandidatureType extends AbstractType
                             ],
                         'mimeTypesMessage' => 'Please upload a valid PDF document',
                         ])
-                    ],"required"=>false,"disabled"=>$options['fieldDisabled'][0]
+                    ],"required"=>false/*,"disabled"=>$options['fieldDisabled'][0]*/
                     ])
         ->add('transcriptthirdFilepdf',FileType::class,['mapped'=>false,'attr'     => [
                         'class'=>'form-2-box form-control',
@@ -238,7 +238,7 @@ class CandidatureType extends AbstractType
                                 ],
                             'mimeTypesMessage' => 'Please upload a valid PDF document',
                             ])
-                        ],"required"=>false,"disabled"=>$options['fieldDisabled'][0]
+                        ],"required"=>false/*,"disabled"=>$options['fieldDisabled'][0]*/
                         ])
         ->add('transcriptbacFilepdf',FileType::class,['mapped'=>false,'attr'     => [
                             'class'=>'form-2-box form-control',
@@ -255,7 +255,7 @@ class CandidatureType extends AbstractType
                                     ],
                                 'mimeTypesMessage' => 'Please upload a valid PDF document',
                                 ])
-                            ],"required"=>false,"disabled"=>$options['fieldDisabled'][0]
+                            ],"required"=>false/*,"disabled"=>$options['fieldDisabled'][0]*/
                             ])
                 
     ;

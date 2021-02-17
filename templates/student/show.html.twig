@@ -1,640 +1,442 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Student{% endblock %}
+{% block title %}Student
+{% endblock %}
+
 {% block stylesheets %}
-{{parent()}}
-<link rel="stylesheet" href="{{asset('style.css')}}"/>
+	{{ parent() }}
 {% endblock %}
+
+
 {% block body %}
-  {#}   <style>
-            .bottom-left {
-  position: absolute;
-  
-  left: 16px;
-}
-          </style>
-<section name='Title' style='margin-top:140px;'>
-<div class="container">
-        <div class="row justify-content-center">
-             <h1 class="text-center"style="color:#B2273D;">Student profile
-           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
-           </h1>
-            <div class="row row-grid justify-content-center">
-         
-            </div>
-          </div>
-        </div>
-      </div>
-      </section>
-<section class="section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-7">
-            
-           {% if app.user.status=="Admin" %}
-            <div  class=" text-white float-right"  style="width:110px;height:50px;background-image:url('{{asset('image/icones/20.png')}}');background-size:cover;"  data-placement="right">
-              <div class="row">
-                <a class="text-white" href="{{path('pay',{'id': student.id})}}" style="
-   
-    padding-top: 13px;
-    padding-left:43px;
-" class="h6 text-center"style="">Payment</a>
 
-</div></div>
-                               {% endif %}
-           <div >
-                <h2 class="profile-title text-bluee bottom-left ">{{ student.firstname}} {{ student.lastname}},{{age}}  </h2>
-                 <img src="{{asset('image/icones/7.png')}}" style="padding-bottom: 20px; padding-left: 300px;" height="60px">
-              
-                <form>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label class="h4 text-rede">Education level</label>
-                        <input type="text" class="form-control " 
-                        value="{% if student.educationlevel.name is defined %}
-                        {{ student.educationlevel.name}} {% else %}--{% endif %}" disabled style="background-color:rgba(241,242,242,0.7);">
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label class="h4 text-rede">Email address</label>
-                        <input  class="form-control " value="{{ user.email}}" placeholder=""disabled style="background-color:rgba(241,242,242,0.7);"> 
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label class="h4 text-rede">Phone number</label>
-                        <input type="text" class="form-control bg-gris" value="{{student.user.phone}}"disabled style="background-color:rgba(241,242,242,0.7);">
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label class="h4 text-rede">Teacher's name</label>
-                        <input type="text" class="form-control" value="{% if student.teacher.lastname is defined %} {{ student.teacher.lastname }} {% else %} No teacher {% endif %}"disabled style="background-color:rgba(241,242,242,0.7);">
-                      </div>
-                    </div>
-                  </div>
- 
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label class="h4 text-rede">City</label>
-                        <input type="text" class="form-control bg-gris " value="{% if user.city!= null %} {{ user.city }}{% else %} No city{% endif %}" disabled style="background-color:rgba(241,242,242,0.7);">
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label class="h4 text-rede">Zipcode</label>
-                        <input  class="form-control " placeholder="" value="{% if user.zipcode is defined %}{{ user.zipcode}}{% else %}No zipcode {% endif %}"disabled style="background-color:rgba(241,242,242,0.7);">
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label class=" h4 text-rede">Address</label>
-                        <input value="{{ user.adress }}" type="text" class="form-control " disabled style="background-color:rgba(241,242,242,0.7);">
-                      </div>
-                    </div>
-                  </div>
-                </form>
-           </div>
-          </div>
-          <div class="col-5 " style="margin-top:70px;">   
-            <div class="carousel-inner" role="listbox">
-                  <div class="carousel-item active">
-                  {% if student.user.photo == null %}
-                  <img src="{{ asset('image/fac.png') }}"class="d-block"width="370px" height="370px" style="margin-top:28px;"/>
-                   {% else %}
-                     <img class="d-block"width="370px" height="370px" src="{{asset('uploads/user/photos/'~student.user.photo)}}"style="margin-top:28px;"  />
-                     {% endif %}      
-                                <img src="{{asset('image/icones/30.png')}}" height="100px"  style="top:0; right:0;position: absolute;padding-right:40px;"> 
-                  </div>
-            </div>   
-          </div>
-        </div>
-      </div>
-      <div class="container">
-      <div class="row">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label class="h4 text-rede">About me</label>
-                        <textarea  rows="4" class="form-control form-control-alternative" style="background-color:rgba(241,242,242,0.7);" disabled>{{ student.comments }}</textarea>
-                      </div>
-                    </div>
-                  </div>
-         {% if app.user.status=="Student" or app.user.status=="Admin" %}          
-<div class=" text-white float-right"  style="width:110px;height:50px;background-image:url('{{asset('image/icones/20.png')}}');background-size:cover;"  data-placement="right">
-                           <div class="row"><a class="text-white" href="{{ path('student_edit', {'id': student.id}) }}" style="
-    padding-left: 30px;
-    padding-top: 13px;
-    font-size:14px;
-" class="h7 text-center"style="">Edit profile</a></div></div>
-{% endif %}
-      <div class="row">
-        
-         
-                     <h3 class="text-bluee">All clubs</h3>
-                  </div>   
-                  <div class="">
-                      <div class="row">
-                      <div class="col">
-                        <h5 class="text-rede">Name</h5>
-                      </div>
-                      </div>
-                        {% for club in clubs %}
-                      <!-- for club -->
-                      <div class="row "  >
-                        <div class="col">
-                        <input value="Club name" type="text" class="form-control " disabled>
-                        </div>
-                        <div class="col">
-                          <div href="#" class=" text-white "  style="width:110px;height:50px;background-image:url('{{asset('image/icones/20.png')}}');background-size:cover;"  data-placement="right">
-                           <div class="row"><a class="text-white" href="#" style="
-    padding-left: 29px;
-    padding-top: 13px;
-    font-size:15px;
-" class="h6 text-center"style="">Go to club</a></div></div>
 
-                        </div>
-                      </div>
-                      <br>
-                     {% else %}
-                     <div class="row "  >
-                       <div class="col">
-                        <input value="--" type="text" class="form-control " disabled>
-                        </div>
+	<div class="container-fluid">
 
-                        </div>
-                      </div>
-                     {% endfor %}
-                      </div>
-                      </div>
-                  </div> 
-        </div>
-      </div>
-      </div>
-    </section>
+		<div class="row ml-5">
+			<div class="col-md-4">
 
-    <div class="section section-tabs" style="margin-top:80px;">
-        <div class="container">
-        
-             <div class="row ">
-          
-          <div class="col-md-10 ml-auto col-xl-6 mr-auto" style="margin-right:30px;">
-          <div style="padding-bottom:40px;">
-          
-          
-          <h2 style="color:#2F5BA3;font-family:'Neou-bold';">Application & Universities<img src="{{asset('image/icones/7.png')}}" height="130px" class="path"style='padding-bottom:20px; width:70px;height:80px;'>
-          </h2>
-    </div>
-     {% for candidature in candidatures %}
-    <div class="row">
-           <div class="col-md-6">
-           
-         <div class="form-group has-danger">
-        <input style="{% if candidature.test is defined  %}
-                      {% if candidature.test!= null  %}
-        background-color:green;
-        {% else %}background-color:#B2273D; {% endif %}{% else %}background-color:#B2273D;{% endif %}
-        "  type="text" value="Test"placeholder="" class="form-control text-white form-control-danger" disabled />
-      </div></div>
-      <div class="col-md-6">
-         <div class="form-group has-danger">
-        <input style="{% if candidature.letterOfRecommendation is defined  %}
-                 {% if candidature.letterOfRecommendation!= null  %}
-                 
-                 {% else %}background-color:#B2273D; {% endif %}{% else %}background-color:green;{% endif %}
-                 " type="text" value="Lettre of recommendation"placeholder="" class="form-control text-white " disabled/>
-      </div>
-    </div></div>
-    <div class="row">
-           <div class="col-md-6">
-         <div class="form-group has-danger
-          ">
-        <input style="{% if candidature.survey is defined  %}
-                 {% if candidature.survey!= null  %}
-        background-color:green;
-        {% else %}background-color:#B2273D;{% endif %}{% else %}background-color:#B2273D;{% endif %}
-        " type="text" value="Questionnaire"placeholder="" class="form-control text-white"disabled />
-      </div></div>
-      <div class="col-md-6">
-         <div class="form-group has-danger ">
-        <input style="{% if candidature.bankStatement is defined  %}
-                 {% if candidature.bankStatement!= null  %}
-        background-color:green;
-        {% else %}background-color:#B2273D;{% endif %}{% else %}background-color:#B2273D;{% endif %}
-        " type="text" value="Bank statement"placeholder="" class="form-control  text-white" disabled/>
-      </div>
-    </div></div>
-    <div class="row">
-           <div class="col-md-6">
-         <div class="form-group has-danger ">
-        <input style="
-        {% if candidature.transcriptFirst is defined  %}
-                 {% if candidature.transcriptFirst!= null  %}
-        background-color:green;
-        {% else %}background-color:#B2273D;{% endif %}{% else %}background-color:#B2273D;{% endif %}
-        " type="text" value="First year transcript"placeholder="" class="form-control  text-white"disabled />
-      </div></div>
-      <div class="col-md-6">
-         <div class="form-group  has-danger">
-        <input style="
-        {% if candidature.transcriptSecond is defined  %}
-                 {% if candidature.transcriptSecond!= null  %}
-        background-color:green;
-        {% else %}background-color:#B2273D;{% endif %}{% else %}background-color:#B2273D;{% endif %}
-        " type="text" value="Second year transcript"placeholder="" class="form-control  text-white"disabled />
-      </div>
-    </div></div>
-    <div class="row">
-           <div class="col-md-6">
-         <div class="form-group has-danger">
-        <input style="
-        {% if candidature.transcriptThird is defined  %}
-                 {% if candidature.transcriptThird!= null  %}
-        background-color:green;
-        {% else %}background-color:#B2273D;{% endif %}{% else %}background-color:#B2273D;{% endif %}
-        " type="text" value="Third year transcript"placeholder="" class="form-control  text-white "disabled />
-      </div></div>
-      <div class="col-md-6">
-         <div class="form-group has-danger">
-        <input style="
-        {% if candidature.transcriptBac   is defined  %}
-                 {% if candidature.transcriptBac!= null  %}
-        background-color:green;
-        {% else %}background-color:#B2273D;{% endif %}{% else %}background-color:#B2273D;{% endif %}
-        " type="text" value="Baccalaureate transcript"placeholder="" class="form-control text-white "disabled style="background-color:red;" />
-      </div>
-   </div></div>
-   <div class="row">
-           <div class="col-md-6">
-         <div class="form-group has-danger">
-        <input style="
-        {% if candidature.password   is defined  %}
-                 {% if candidature.passport!= null  %}
-        background-color:green;
-        {% else %}background-color:#B2273D;{% endif %}{% else %}background-color:#B2273D;{% endif %}
-        " type="text" value="Passport"placeholder="" class="form-control bg-rede text-white "disabled />
-      </div></div>
-      <div class="col-md-6">
-         <div class="form-group has-danger">
-        <input style="{% if candidature.cin   is defined  %}
-                 {% if candidature.password!= null  %}
-        background-color:green;
-        {% else %}background-color:#B2273D;{% endif %}{% else %}background-color:#B2273D;{% endif %}
-        " type="text" value="ID (CIN)"placeholder="" class="form-control text-white "disabled />
-      </div>
-   </div></div>
+				<div class="left-profile-panel ">
+					<div class="row ">
+						<div class="col-xl d-flex  align-items-center justify-content-center">
+							<svg width="117" height="116" viewbox="0 0 117 116" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<ellipse cx="58.5" cy="58" rx="58.5" ry="58" fill="#384D77"/>
+							</svg>
 
-   </div>
-   {% else %}
-   <div class="row">
-           <div class="col-md-6">
-           
-         <div class="form-group has-danger">
-        <input style="background-color:#B2273D;"  type="text" value="Test"placeholder="" class="form-control text-white form-control-danger" disabled />
-      </div></div>
-      <div class="col-md-6">
-         <div class="form-group has-danger">
-        <input style="background-color:#B2273D;" type="text" value="Lettre of recommendation"placeholder="" class="form-control text-white " disabled/>
-      </div>
-    </div></div>
-    <div class="row">
-           <div class="col-md-6">
-         <div class="form-group has-danger
-          ">
-        <input style="background-color:#B2273D;" type="text" value="Questionnaire"placeholder="" class="form-control text-white"disabled />
-      </div></div>
-      <div class="col-md-6">
-         <div class="form-group has-danger ">
-        <input style="background-color:#B2273D;" type="text" value="Bank statement"placeholder="" class="form-control  text-white" disabled/>
-      </div>
-    </div></div>
-    <div class="row">
-           <div class="col-md-6">
-         <div class="form-group has-danger ">
-        <input style="background-color:#B2273D;" type="text" value="First year transcript"placeholder="" class="form-control  text-white"disabled />
-      </div></div>
-      <div class="col-md-6">
-         <div class="form-group  has-danger">
-        <input style="background-color:#B2273D;" type="text" value="Second year transcript"placeholder="" class="form-control  text-white"disabled />
-      </div>
-    </div></div>
-    <div class="row">
-           <div class="col-md-6">
-         <div class="form-group has-danger">
-        <input style="background-color:#B2273D;" type="text" value="Third year transcript"placeholder="" class="form-control  text-white "disabled />
-      </div></div>
-      <div class="col-md-6">
-         <div class="form-group has-danger">
-        <input style="background-color:#B2273D;" type="text" value="Baccalaureate transcript"placeholder="" class="form-control text-white "disabled style="background-color:red;" />
-      </div>
-   </div></div>
-   <div class="row">
-           <div class="col-md-6">
-         <div class="form-group has-danger">
-        <input style="background-color:#B2273D;" type="text" value="Passport"placeholder="" class="form-control bg-rede text-white "disabled />
-      </div></div>
-      <div class="col-md-6">
-         <div class="form-group has-danger">
-        <input style="background-color:#B2273D;" type="text" value="ID (CIN)"placeholder="" class="form-control text-white "disabled />
-      </div>
-   </div></div>
+						</div>
 
-   </div>
-   {% endfor %}
+					</div>
+					<div class="row  ">
+						<div class="col-xl d-flex  align-items-center justify-content-center">
+							<div class="username">
+								<span>
+									Name and Surname
+								</span>
 
-     
- <div class="col-md-10 ml-auto col-xl-6 mr-auto">
-{% set left=20 - applications|length %}
-         <div style="padding-top:100px;">
-            <h4 class="text-danger"><img src="{{asset('image/icones/25.png')}}" height="40px">{{left}}<!--LEFT--> universities left to apply </h4>
-                <form>
-                <div class="row">
-                <div class="col-6">
-                <h6 style="color:#384D77;font-weight:bold;">University</h4>
-                </div>
-                <div class="col">
-                <h6 style="color:#384D77;font-weight:bold;">Email</h4>
-                </div>
-                </div>
-                {% set i=0 %}
-                {% for application in applications %}
-                {% if i< 5%}
-                <div class="row">
-                <div class="col-6">
-                  
-                  <input style="" type="text" value="{{application.universityname}}" class="form-control form-control-danger" disabled>
-               
-                </div>
-                  <div class="col">
-                  
-                  <input type="text" value="{{application.email}}" class="form-control form-control-danger" disabled>
-                </div>
-              </div>
-              <br>
+							</div>
+						</div>
 
-              {% set i=i+1 %}
-              {% endif %}
-              {% else %}
-              <div class="row">
-                <div class="col-8">
-                  
-                  <input style="" type="text" value="--" class="form-control form-control-danger" disabled>
-               
-                </div>
-                </div>
-              {% endfor %}
-              
+					</div>
+					<div class="row  ">
+						<div class="col-xl d-flex  align-items-center justify-content-center">
+							<div class="about">
+								<span>
+									about me
+								</span>
+								<br>
+								<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita dolor rerum, excepturi eius similique 
+																																																																																																																																																																																																																																																		ipsa consequuntur mollitia explicabo perspiciatis, aperiam ea voluptatem id culpa aut minima, ducimus sed ipsam quidem.</p>
+							</div>
+						</div>
 
-                </form>
-              
-            </div>
-          
-      </div>
-</div>
+					</div>
 
-    <section name="parents " style="margin-top:80px;margin-bottom:50px;">
-        <div class="container">
-          <div class="row">
-            <div class="col">
-                <h1 class="profile-title text-bluee bottom-left">Parents</h1>
-                <img src="{{asset('image/icones/7.png')}}" style="padding-bottom: 20px;padding-left:160px;" height="60px"> 
-            </div>
-              </div>
-            <div class="row">
-              <div class="col-lg-6 ">
-                <h4 class="title text-rede"><img src="{{asset('image/icones/25.png')}}" height="40px"> Father's information</h4>
-                <div class="row" style="margin-bottom:20px;">
-                  <div class="col-8">
-                  <div class="row">
-                      <div class="col-3">
-                    <h5>Name</h5>
-                    </div>
-                      <div class="col">
-                    <input class="form-control" type="text" value="{{ student.firstparentname }}"disabled >
-                    </div>
-                    </div>
-                  </div>
-                 
-                </div>
-                <div class="row" style="margin-bottom:20px;">
-                  <div class="col-8">
-                  <div class="row">
-                      <div class="col-3">
-                    <h5>EMAIL</h5>
-                    </div>
-                      <div class="col">
-                    <input class="form-control" type="text" value="{{ student.fristparentemail }}"disabled >
-                    </div>
-                    </div>
-                  </div>
-                  
-                </div>
-                <div class="row" style="margin-bottom:20px;">
-                 <div class="col-8">
-                 <div class="row">
-                      <div class="col-3">
-                    <h5>PHONE</h5>
-                    </div>
-                      <div class="col">
-                    <input class="form-control" type="text" value="{{ student.firstparentnumber }}"disabled >
-                    </div>
-                    </div>
-                  </div>
-                  
-                </div>
-                <div class="row">
-                  <div class="col-8">
-                  <div class="row">
-                      <div class="col-5">
-                    <h5>Occupation</h5>
-                    </div>
-                      <div class="col">
-                    <input class="form-control" type="text" value="{{ student.firstparentjob }}"disabled >
-                    </div>
-                    </div>
-                  </div>
-                 
-                </div>
-              </div>
-              <div class="col-6">
-                <h4 class="title text-rede"><img src="{{asset('image/icones/25.png')}}" height="40px"> Mother's information</h4>
-                <div class="row" style="margin-bottom:20px;">
-                  <div class="col-8">
-                  <div class="row">
-                      <div class="col-3">
-                    <h5>Name</h5>
-                    </div>
-                      <div class="col">
-                    <input class="form-control" type="text" value="{{ student.secondparentname }}"disabled >
-                    </div>
-                    </div>
-                  </div>
-                  
-                </div>
-                <div class="row" style="margin-bottom:20px;">
-                  <div class="col-8">
-                  <div class="row">
-                      <div class="col-3">
-                    <h5>Email</h5>
-                    </div>
-                      <div class="col">
-                    <input class="form-control" type="text" value=" {{ student.secondparentemail }}"disabled >
-                    </div>
-                    </div>
-                  </div>
-                 
-                </div> 
-                <div class="row"style="margin-bottom:20px;">
-                  <div class="col-8">
-                    <div class="row">
-                      <div class="col-3">
-                        <h5>Phone</h5>
-                    </div>
-                      <div class="col">
-                    <input class="form-control" type="text" value=" {{ student.secondparentnumbre }}"disabled >
-                    </div>
-                    </div>
-                  </div>
-                
-                </div>
-                <div class="row" >
-                  <div class="col-8">
-                    <div class="row">
-                      <div class="col-5">
-                        <h5>Occupation</h5>
-                      </div>
-                      <div class="col">
-                        <input class="form-control" type="text" value="{{ student.secondparentjob }}"disabled ></span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                </div>
-              </div>
+					<div class="row">
+						<div class="col-xl d-flex  align-items-center justify-content-center">
+							<div class="about">
+								<span>
+									courses takes
+								</span>
+								<br>
+								<span class="username">
+									03
+								</span>
+								<br>
+								<hr>
+							</div>
+						</div>
 
-        </div>
-    </section>
-#}
-<section class="content-bar ps-container">
-        <div class="container">
-            <ul style="width: 630px;">
-                <li>
-                    <a href="account-learning.html">
-                        <i class="icon md-book-1"></i>
-                        Learning
-                    </a>
-                </li>
-                <li>
-                    <a href="account-teaching.html">
-                        <i class="icon md-people"></i>
-                        Teaching
-                    </a>
-                </li>
-                <li>
-                    <a href="account-assignment.html">
-                        <i class="icon md-shopping"></i>
-                        Assignment
-                    </a>
-                </li>
-                <li>
-                    <a href="account-profile-guest-view.html">
-                        <i class="icon md-user-minus"></i>
-                        Profile
-                    </a>
-                </li>
-                <li class="current">
-                    <a href="account-inbox.html">
-                        <i class="icon md-email"></i>
-                        Inbox
-                    </a>
-                </li>
-            </ul>
-        </div>
-    <div class="ps-scrollbar-x-rail" style="width: 794px; display: none; left: 0px;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; height: 53px; display: none; right: 0px;"><div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div></div></section>
-<section class="profile" style="background-color:transparent;">
-        <div class="container">
-            <h3 class="md black">Profile</h3>
-            <div class="row">
-                <div class="col-md-9">
-                    <div class="avatar-acount">
-                        <div class="changes-avatar">
-                            <div class="img-acount">
-                                {% if student.user.photo == null %}
-                  <img src="{{ asset('image/fac.png') }}"/>
-                   {% else %}
-                     <img src="{{asset('uploads/user/photos/'~student.user.photo)}}" />
-                     {% endif %}      
-                               
-                 
-                            </div>
-                            <div class="choses-file up-file">
-                                <input type="file">
-                                <input type="hidden">
-                                <a href="" class="mc-btn btn-style-6">Changes image</a>
-                            </div>
-                        </div>   
-                        <div class="info-acount">
-                            <h3 class="md black">{{ student.firstname}} {{ student.lastname}},{{age}}</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. </p>
-                            <div class="security">
-                                <div class="tittle-security">
-                                    <h5>Email</h5>
-                                    <input type="text">
-                                    <h5>Password</h5>
-                                    <input type="password" placeholder="Current password">
-                                    <input type="password" placeholder="New password">
-                                    <input type="password" placeholder="Confirm password">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="input-save">   
-                            <input type="submit" value="Save changes" class="mc-btn btn-style-1">
-                        </div>
-                    </div>    
-                </div>
-                <div class="col-md-3">
-                    <div class="social-connect">
-                        <h5>Social connect</h5>
-                        <ul>
-                            <li>
-                                <a href="#" class="twitter">
-                                    <i class="icon md-twitter"></i>
-                                    <p>https://www.facebook.com/</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="facebook">
-                                    <i class="icon md-facebook-1"></i>
-                                    <p>https://www.facebook.com/</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="gg-plus">
-                                    <i class="icon md-google-plus"></i>
-                                    <p>https://www.facebook.com/</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="printerest">
-                                    <i class="icon md-pinterest-1"></i>
-                                    <p>https://www.facebook.com/</p>
-                                </a>
-                            </li>
-                        </ul>
-                        <div class="add-link">
-                            <i class="icon md-plus"></i>
-                            <input type="text" placeholder="paste link here">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+					</div>
+					<div class="row">
+						<div class="col-xl d-flex  align-items-center justify-content-center">
+							<div class="about">
+								<span>
+									Tests passed
+								</span>
+								<br>
+								<span class="username">
+									02
+								</span>
+								<br>
+								<hr>
+							</div>
+						</div>
+
+					</div>
+					<div class="row">
+						<div class="col-xl d-flex  align-items-center justify-content-center">
+							<div class="about">
+								<span>
+									University applications
+								</span>
+								<br>
+								<span class="username">
+									05
+								</span>
+								<br>
+								<hr>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+
+
+			</div>
+
+
+			<div class="col-lg ml-5">
+
+				<div class="right-profile-panel">
+					<div class="row">
+						<div class="col">
+
+							<ul class="nav mb-5" id="pills-tab" role="tablist">
+								<li class="nav-item">
+									<a class="nav-link active " id="pills-informations-tab" data-toggle="pill" href="#pills-informations" role="tab" aria-controls="pills-informations" aria-selected="true">My information</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link " id="pills-education-tab" data-toggle="pill" href="#pills-education" role="tab" aria-controls="pills-education" aria-selected="false">My education</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" id="pills-progress-tab" data-toggle="pill" href="#pills-progress" role="tab" aria-controls="pills-progress" aria-selected="false">My progress</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" id="pills-account-tab" data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account" aria-selected="false">My account</a>
+								</li>
+							</ul>
+							<div class="tab-content" id="pills-tabContent">
+								<div class="tab-pane  active" id="pills-informations" role="tabpanel" aria-labelledby="pills-informations-tab">
+									<div class="row">
+										<div class="col">
+											<div class="profile-infos-title">
+
+												<label>
+													First name
+												</label>
+												<p>
+													khaled
+												</p>
+
+
+											</div>
+
+										</div>
+										<div class="col">
+											<div class="profile-infos-title">
+
+												<label>
+													Last name
+												</label>
+												<p>
+													Battiche
+												</p>
+
+
+											</div>
+										</div>
+
+									</div>
+									<br>
+									<div class="row">
+										<div class="col">
+											<div class="profile-infos-title">
+
+												<label>
+													Date of birth
+												</label>
+												<p>
+													17/02/1998
+												</p>
+
+
+											</div>
+										</div>
+										<div class="col">
+											<div class="profile-infos-title">
+
+												<label>
+													City of birth
+												</label>
+												<p>
+													Tunis , Tunisia
+												</p>
+
+
+											</div>
+										</div>
+										<div class="col">
+											<div class="profile-infos-title">
+
+												<label>
+													phone number
+												</label>
+												<p>
+													+216 24 974 836
+												</p>
+
+
+											</div>
+										</div>
+
+									</div>
+									<br>
+									<div class="row">
+										<div class="col">
+											<div class="profile-infos-title">
+
+
+												<label>
+													Father's name
+												</label>
+												<p>
+													jhon
+												</p>
+
+
+											</div>
+
+
+										</div>
+
+
+										<div class="col">
+											<div class="profile-infos-title">
+
+
+												<label>
+													Mother's name
+												</label>
+												<p>
+													Marie
+												</p>
+
+
+											</div>
+
+
+										</div>
+									</div>
+									<br>
+									<div class="row">
+										<div class="col">
+											<div class="profile-infos-title">
+
+
+												<label>
+													Father's job
+												</label>
+												<p>
+													Accountant
+												</p>
+
+
+											</div>
+
+
+										</div>
+
+
+										<div class="col">
+											<div class="profile-infos-title">
+
+
+												<label>
+													Mother's najobme
+												</label>
+												<p>
+													teacher
+												</p>
+
+
+											</div>
+
+
+										</div>
+									</div>
+
+								</div>
+
+
+								<div class="tab-pane " id="pills-education" role="tabpanel" aria-labelledby="pills-education-tab">
+
+
+									<div class="row">
+										<div class="col">
+											<div class="profile-infos-title">
+
+												<label>
+													Highschool
+												</label>
+												<p>
+													marsa saada
+												</p>
+
+
+											</div>
+
+										</div>
+										<div class="col">
+											<div class="profile-infos-title">
+
+												<label>
+													Subject
+												</label>
+												<p>
+													Maths
+												</p>
+
+
+											</div>
+										</div>
+										<div class="col">
+											<div class="profile-infos-title">
+
+												<label>
+													Year of Graduation
+												</label>
+												<p>
+													2021
+												</p>
+
+
+											</div>
+										</div>
+
+									</div>
+									<br>
+									<div class="row">
+										<div class="col">
+											<div class="profile-infos-title">
+
+												<label>
+													College
+												</label>
+												<p>
+													i am still in highschool
+												</p>
+
+
+											</div>
+										</div>
+										<div class="col">
+											<div class="profile-infos-title">
+
+												<label>
+													Speciality
+												</label>
+												<p>
+													Computer science
+												</p>
+
+
+											</div>
+										</div>
+										<div class="col">
+											<div class="profile-infos-title">
+
+												<label>
+													Year of graduation
+												</label>
+												<p>
+													2045
+												</p>
+
+
+											</div>
+										</div>
+
+									</div>
+									<br>
+
+								</div>
+
+
+								<div class="tab-pane " id="pills-progress" role="tabpanel" aria-labelledby="pills-progress-tab">Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis iste porro culpa sit molestias soluta atque in saepe. Atque quia aliquid sequi consequuntur eius quos corporis consequatur illum sit alias?</div>
+
+
+								<div class="tab-pane " id="pills-account" role="tabpanel" aria-labelledby="pills-account-tab">
+
+									<div class="row">
+										<div class="col">
+											<div class="profile-infos-title">
+												<label>
+													E-mail</label>
+												<p>khaledbattiche@gmail.com</p>
+
+											</div>
+
+										</div>
+
+									</div>
+									<br>
+									<div class="row">
+										<div class="col">
+											<div class="profile-infos-title">
+												<label>
+													Phone number</label>
+												<p>+216 24974836</p>
+
+											</div>
+
+										</div>
+
+									</div>
+									<br>
+									<div class="row">
+										<div class="col">
+											<div class="profile-infos-title">
+												<label>
+													Password</label>
+												<p>Click edit to change password</p>
+
+											</div>
+
+										</div>
+
+									</div>
+
+
+								</div>
+							</div>
+
+
+						</div>
+
+
+					</div>
+
+
+				</div>
+
+			</div>
+
+
+		</div>
+
+	</div>
+
+
 {% endblock %}
+{% block javascripts %}{% endblock %}

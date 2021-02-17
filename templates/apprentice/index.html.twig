@@ -1,393 +1,452 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Dashboard!{% endblock %}
-
-{#{% block stylesheets %}
-    {{ parent() }}
-    <style>
-        #StudentsDashboard { text-transform: uppercase; }
-        .iconsDashboardTop { margin:25%; width:110px; height:110px; }
-        .iconsDashboardMidle { margin:auto; width:110px; height:110px; }
-        .titleDashboardMidle { display:inline; color:#1310EE; background-size:80px!important; padding-top:40px; padding-right: 70px; padding-bottom: 10px; background-repeat:no-repeat !important; background-position: top right!important; }
-        .blackInput{ background: #131313!important; color:#999999!important; }
-        .centretTextInput { text-align: center;}
-        .noPaddingRight { padding-right:0;   }
-        @media only screen and (max-width: 767px) { .titleDashboardMidle{ padding-right:110px;} }
-    </style>
-{% endblock %} #}
- 
+{% block title %}Dashboard!
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
 {% block body %}
-  <script>
-$(document).ready(function() {
-  $('#headerVideoLink').magnificPopup({
-    type:'inline',
-    midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
-  });         
-});
-</script>
-<style>
-  #headerPopup{
-  width:75%;
-  margin:0 auto;
-}
-
-#headerPopup iframe{
-  width:100%;
-  margin:0 auto;
-}
-</style>
-<!-- Listing Modal -->
-
-  <style>
-      #bottom a{
-  position: fixed;
-  right: 10%;
-  bottom: 0%;
-  z-index: 1000;
-  transform: rotate(360deg);
-  -webkit-transform: rotate(360deg);
-  -moz-transform: rotate(360deg);
-  -o-transform: rotate(360deg);
- filter: progid: dximagetransform.microsoft.basicimage(rotation=3);
-  text-align: center;
-  text-decoration: none;
-}
-      </style>
-      <div id="bottom">
-    <a href="#headerPopup" id="headerVideoLink" target="_blank" class="btn btn-outline-info popup-modal">Tutorial</a>
-  </div>
-      <div id="headerPopup" class="mfp-hide embed-responsive embed-responsive-21by9">
-        <iframe class="embed-responsive-item" width="854" height="480" src="https://www.youtube.com/embed/eQBTasMrpEc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-      </div>
-
-    <!-- Modal -->
-{#<div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered " role="document">
-    <div class="modal-content modal-bg" style="width:1100px;">
-      <div class="modal-header">
-        <h5 class="modal-title " id="exampleModalLabel"style="color:#B2273D;">Guiding Tutorial </h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" style="width:100%;">
-      <iframe width="727" height="409" src="https://www.youtube.com/embed/LPAYWvlryTw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-     
-      </div>
-    </div>
-  </div>
-</div>
-#}
-  
-</div>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class-"col-xl-12">
+				<h1 class="title">Dashboard
+				</h1>
+			</div>
+		</div>
+	</div>
 
 
-     <div id="StudentsDashboard">
-    <section name='Title' style='margin-top:140px;'>
-        <div class="container">
-        <div class="row justify-content-center">
-          <h1 class="text-center"style="color:#B2273D;">   DASHBOARD
-            <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
-           </h1>
-            <div class="row row-grid justify-content-center">
+	<div class="payed">
 
-            </div>
-          </div>
-        </div>
-      </section>
-    
-           <div class="container">
-               <div class="justify-content-center">
-    <div class="row">
-        <div class="col-md-3"><img src="{{ asset('image/icones/2.png') }}" class="iconsDashboardTop" /><h5>COURSES YOU'RE TAKING</h5><p style="color:#999999">{% for group in app.user.student[0].educationGroups %}
-                          {#{% for module in group.module %}
-                      {% for category in categories %}#}
-                            <a href="{{ path('module_test_index_student',{'id':group.id}) }}" class="grayHoverBlue">{{ group.name }}</a><br/>
-                       {% endfor %}</p></div>
-        <div class="col-md-3"><img src="{{ asset('image/icones/3.png') }}" class="iconsDashboardTop" /><h5>APPLICATION PROGRESS</h5><p style="color:#999999">{% set applicationAverrage = ((app.user.student[0].applications | length) | number_format) %}
-                      {% if app.user.student[0].candidatures[0] is defined %}
-                      {% if app.user.student[0].candidatures[0].test is not null %}
-                          {% set applicationAverrage = applicationAverrage +1 %}
-                      {% endif %}
-                      {% if app.user.student[0].candidatures[0].letterOfRecommendation is not null %}
-                          {% set applicationAverrage = applicationAverrage +1 %}
-                      {% endif %}
-                      {% if app.user.student[0].candidatures[0].transcriptBac is not null %}
-                          {% set applicationAverrage = applicationAverrage +1 %}
-                      {% endif %}
-                      {% if app.user.student[0].candidatures[0].transcriptThird is not null %}
-                          {% set applicationAverrage = applicationAverrage +1 %}
-                      {% endif %}
-                      {% if app.user.student[0].candidatures[0].transcriptSecond is not null %}
-                          {% set applicationAverrage = applicationAverrage +1 %}
-                      {% endif %}
-                      {% if app.user.student[0].candidatures[0].transcriptFirst is not null %}
-                          {% set applicationAverrage = applicationAverrage +1 %}
-                      {% endif %}
-                      {% if app.user.student[0].candidatures[0].survey is not null %}
-                          {% set applicationAverrage = applicationAverrage +1 %}
-                      {% endif %}
-                      {% if app.user.student[0].candidatures[0].bankStatement is not null %}
-                          {% set applicationAverrage = applicationAverrage +1 %}
-                      {% endif %}
-                      {% if app.user.student[0].candidatures[0].cin is not null %}
-                          {% set applicationAverrage = applicationAverrage +1 %}
-                      {% endif %}
-                      {% if app.user.student[0].candidatures[0].passport is not null %}
-                          {% set applicationAverrage = applicationAverrage +1 %}
-                      {% endif %}
-                      {% if app.user.student[0].candidatures[0].letterOfRecommendationMath is not null %}
-                          {% set applicationAverrage = applicationAverrage +1 %}
-                      {% endif %}
-                      {% endif %}
-                      {#<a href="#" class="grayHoverBlue">#}{{ ((applicationAverrage/31)*100)|number_format(2)}} %{#</a>#}</p></div>
-        <div class="col-md-3"><img src="{{ asset('image/icones/4.png') }}" class="iconsDashboardTop" /><h5>NEXT COUNSELING SESSION</h5><p style="color:#999999"><p class="grayHoverBlue">{{ nextCounsolingSession }}</p></p></div>
-        <div class="col-md-3"><img src="{{ asset('image/icones/5.png') }}" class="iconsDashboardTop" /><h5>UPCOMING DEADLINE</h5><p style="color:#999999">{#<a href="#" class="grayHoverBlue">#}{{ upcomingDeadline }}
-{#transcriptBac</a>#}</p></div>
-    </div>
-    <div class="row" style="margin-top:11%; margin-bottom: 11%;">
-        
-        <div class="col-md-6">
-            <h2 class="titleDashboardMidle noPaddingLeft" style="background:url({{ asset('image/icones/6.png') }})">SCORE</h2>{#<img src="{{ asset('image/icones/6.png') }}" class="iconsDashboardMidle" />#}
-            <div style="clear:both;"></div>
-            <div class="row textDashboardMidle" style="margin-top: 15px;">
-                <div class="col-lg-2 noPaddingLeft" style=" font-weight:bold!important;">
-                    <h5 class="blackInputLabel">Current</h5>
-                </div>
-                <div class="col-lg-3">
-                    
-                        <input class="form-control blackInput centretTextInput" type="text" disabled="" value="{% if app.user.student[0].candidatures[0] is defined %}{{ app.user.student[0].candidatures[0].satScore?app.user.student[0].candidatures[0].satScore:'--' }}{% endif %}"/>
-                    
-                 </div> 
-                <div class="col-lg-2">
-                    <h5 class="blackInputLabel">Goal</h5>
-                </div>
-                <div class="col-lg-4 noPaddingRight">
-                    <input class="form-control blackInput centretTextInput" type="text" disabled="" value="{{ leastUniversityScore?leastUniversityScore:'--' }}"/>
-                </div>
-            
-            </div>
-        </div>
-        <div class="col-md-6">
-            <h2 class="titleDashboardMidle" style="background:url({{ asset('image/icones/6.png') }});">Chances of university</h2>{#<img src="{{ asset('image/icones/6.png') }}" class="iconsDashboardMidle" />#}
-            <div style="clear:both;"></div>
-            <div class="textDashboardMidle row" style="margin-top: 15px;">
-                <div class="col-lg-3">
-                    <h3 class="blackInputLabel">REFERRAL</h3>
-                </div>
-                <div class="col-lg-9 noPaddingRight">
-                    <select class="blackInput form-control" style="width:100%;">
-                        {% set loop_index = 0 %}
-                        {% for university in universities if loop_index<5 %}
-                            {% set loop_index = loop.index %} 
-                            <option>{{ university.title }} {{ university.chance }}%</option>
-                        {% endfor %}
-                    </select> 
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row" style="margin-top:11%; margin-bottom: 11%;">
-        
-        <div class="col-md-6">
-            <h2 class="titleDashboardMidle" style="background:url({{ asset('image/icones/7.png') }})">Required documents</h2>{#<img src="{{ asset('image/icones/7.png') }}" class="iconsDashboardMidle" />#}
-            
-            <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Document</th>
-      <th scope="col">Deadline</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% if app.user.student[0].candidatures[0] is defined %}
-                  {% if app.user.student[0].candidatures[0].test is null %}
-                  <tr class="table-active">
-                    <th scope="row">
-                      test
-                    </th>
-                    <td>
-                      {{ candidatureDeadline.test|date('Y-m-d H:i:s') }}
-                    </td>
-                  </tr>
-                  {% endif %}
-                  {% if app.user.student[0].candidatures[0].letterOfRecommendation is null %}
-                  <tr class="table-active">
-                    <th scope="row">
-                      Letter of recommendation
-                    </th>
-                    {% if candidatureDeadline is not null %}
-                    <td>
-                      {{ candidatureDeadline.letterOfRecommendation|date('Y-m-d H:i:s') }}
-                    </td>
-                    {% else %}
-                        <td  class="danger">Deadlines not specified by administration</td>
-                    {% endif %}
-                  </tr>
-                  {% endif %}
-                  {% if app.user.student[0].candidatures[0].letterOfRecommendationMath is null %}
-                  <tr class="table-active">
-                      <th scope="row">
-                          letter of recommendationMath
-                      </th>
-                      {% if candidatureDeadline is not null %}
-                      <td>
-                        {{ candidatureDeadline.letterOfRecommendationMath|date('Y-m-d H:i:s') }}
-                      </td>
-                      {% else %}
-                        <td  class="danger">Deadlines not specified by administration</td>
-                    {% endif %}
-                  </tr>
-                  {% endif %}
-                  {% if app.user.student[0].candidatures[0].transcriptBac is null %}
-                  <tr class="table-active">
-                    <th scope="row">
-                      Transcript bac
-                    </th>
-                    {% if candidatureDeadline is not null %}
-                    <td>
-                      {{ candidatureDeadline.transcriptBac|date('Y-m-d H:i:s') }}
-                    </td>
-                    {% else %}
-                        <td  class="danger">Deadlines not specified by administration</td>
-                    {% endif %}
-                  </tr>
-                  {% endif %}
-                  {% if app.user.student[0].candidatures[0].transcriptThird is null %}
-                  <tr class="table-active">
-                    <th scope="row">
-                      Transcript third
-                    </th>
-                    {% if candidatureDeadline is not null %}
-                    <td>
-                      {{ candidatureDeadline.transcriptThird|date('Y-m-d H:i:s') }}
-                    </td>
-                    {% else %}
-                        <td  class="danger">Deadlines not specified by administration</td>
-                    {% endif %}
-                  </tr>
-                  {% endif %}
-                  {% if app.user.student[0].candidatures[0].transcriptSecond is null %}
-                  <tr class="table-active">
-                    <th scope="row">
-                      Transcript second
-                    </th>
-                    {% if candidatureDeadline is not null %}
-                    <td>
-                      {{ candidatureDeadline.transcriptSecond|date('Y-m-d H:i:s') }}
-                    </td>
-                    {% else %}
-                        <td  class="danger">Deadlines not specified by administration</td>
-                    {% endif %}
-                  </tr>
-                  {% endif %}
-                  {% if app.user.student[0].candidatures[0].transcriptFirst is null %}
-                  <tr class="table-active">
-                    <th scope="row">
-                      Transcript first
-                    </th>
-                    {% if candidatureDeadline is not null %}
-                    <td>
-                      {{ candidatureDeadline.transcriptFirst|date('Y-m-d H:i:s') }}
-                    </td>
-                    {% else %}
-                        <td  class="danger">Deadlines not specified by administration</td>
-                    {% endif %}
-                  </tr>
-                  {% endif %}
-                  {% if app.user.student[0].candidatures[0].passport is null %}
-                  <tr class="table-active">
-                    <th scope="row">
-                      Passport
-                    </th>
-                    {% if candidatureDeadline is not null %}
-                    <td>
-                      {{ candidatureDeadline.passport|date('Y-m-d H:i:s') }}
-                    </td>
-                    {% else %}
-                        <td  class="danger">Deadlines not specified by administration</td>
-                    {% endif %}
-                  </tr>
-                  {% endif %}
-                  {% if app.user.student[0].candidatures[0].cin is null %}
-                  <tr class="table-active">
-                    <th scope="row">
-                      CIN
-                    </th>
-                    {% if candidatureDeadline is not null %}
-                    <td>
-                      {{ candidatureDeadline.cin|date('Y-m-d H:i:s') }}
-                    </td>
-                    {% else %}
-                        <td  class="danger">Deadlines not specified by administration</td>
-                    {% endif %}
-                  </tr>
-                  {% endif %}
-                  {% if app.user.student[0].candidatures[0].survey is null %}
-                  <tr class="table-active">
-                    <th scope="row">
-                      Survey
-                    </th>
-                    {% if candidatureDeadline is not null %}
-                    <td>
-                      {{ candidatureDeadline.survey|date('Y-m-d H:i:s') }}
-                    </td>
-                    {% else %}
-                        <td  class="danger">Deadlines not specified by administration</td>
-                    {% endif %}
-                  </tr>
-                  {% endif %}
-                  {% endif %}
-  </tbody>
-</table>
-        </div>
-        <div class="col-md-6"><h2 class="titleDashboardMidle previousClassContent" style="background:url({{ asset('image/icones/7.png') }})">Previous class content</h2>{#<img src="{{ asset('image/icones/7.png') }}" class="iconsDashboardMidle" />#}
-        <div style="clear:both;"></div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">CATEGORY</th>
-                    <th scope="col">GROUP</th>
-                    <th scope="col">TEACHER</th>
-                    <th scope="col">DATE</th>
-                    <th scope="col">COURSE</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-			{% if session != null %}
-                        {% if session.module != null %}
-                        <td>{{ session.category.name }}</td>
-                        <td>{{ session.educationGroup.name }}</td>
-                        <td>{{ session.teacher.firstname }}</td>
-                        <td>{{ session.date }}</td>
-                        <td>{% if session.module != null %}<a href="{{ path('module_show',{'id':session.module.id}) }}">{{ session.module.title }}</a>{% else %}There is no modules{% endif %}
-                      {% endif %}
-			  {% else %}
-                        <td colspan="4"> No sessions</td>
-                        {% endif %}
-		
-                    </tr>
-            </tbody>
-        </table>
-        </div>
-    </div>
-               </div>
-           </div>
-    </div>
-    
+		<div class="container-fluid no-gutters ">
+
+			<div class="row ml-5 ">
+				<div class="col-xl-7 ml-5 pb-5">
+					<section class="application-progress-steps">
+
+
+						<div class="row">
+							<div class="col">
+								<h3 class="design-process-title">Application Progress
+								</h3>
+							</div>
+						</div>
+
+
+						<div class="row">
+
+							<div id="steps">
+								<div class="step" data-desc="part 1">1</div>
+
+								<div class="step " data-desc="Part 2">2</div>
+								<div class="step active " data-desc="part 3">3</div>
+								<div class="step " data-desc="Part 4">4</div>
+
+							</div>
+
+						</div>
+
+
+					</section>
+
+				</div>
+
+				<div class="col-xl ml-0 mb-5">
+					<div class="counseling">
+						<div class="container">
+							<div class="row">
+
+								<div class="col-7">
+									<p class="counseling-session-title">
+										Counseling Session</p>
+								</div>
+
+								<div class="col">
+									<button class="btn-see-all">see all
+									</button>
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<div class="col-l">
+									<p>
+										Counselor 1
+									</p>
+									<span>
+										Topic</span>
+								</div>
+								<div class="col"></div>
+								<div class="col">
+									<br>
+									<span>
+										15/04/2020
+									</span>
+								</div>
+
+							</div>
+							<hr>
+
+							<div class="row">
+								<div class="col-l">
+									<p>
+										Counselor 2
+									</p>
+									<span>
+										Topic</span>
+								</div>
+								<div class="col"></div>
+								<div class="col">
+									<br>
+									<span>
+										25/07/2021
+									</span>
+								</div>
+
+							</div>
+
+
+						</div>
+
+					</div>
+
+
+				</div>
+
+			</div>
+
+
+		</div>
+
+
+		<section>
+			<div class="container-fluid ">
+
+				<div
+					class="row ml-5">
+
+					{# start of course card #}
+					<div class="col ">
+						<div
+							class="courses-section">
+							{# card header #}
+							<div class="card-header">
+
+								<div class="container">
+									<div class="row">
+										<div class="col-7">
+											<p class="card-title">My courses
+											</p>
+										</div>
+										<div class="col">
+											<button class="btn-see-all">see all
+											</button>
+										</div>
+									</div>
+
+								</div>
+								<div class="container">
+									<div class="row">
+										<div class="col d-flex justify-content-center">
+											<img src="{{asset('image/mycourses.png')}}" class="course-pic">
+										</div>
+									</div>
+								</div>
+
+							</div>
+							{# end card header #}
+
+							{# start card content #}
+
+							<div class="card-content">
+
+								<div class="row">
+									<div class="col">
+										<p class="course-title">
+											SAT math
+										</p>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col">
+										<p class="course-lvl">
+											Level 1
+										</p>
+									</div>
+								</div>
+
+
+								<div class="row">
+									<div class="col">
+										<div class="progress">
+											<div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+									</div>
+								</div>
+
+
+								<div class="row">
+									<div class="col">
+										<p class="courses-progress">
+											Completed: 80%
+										</p>
+									</div>
+								</div>
+
+								<hr>
+								<div class="row">
+									<div class="col">
+										<p class="title-next-session">
+
+											Next Session
+										</p>
+									</div>
+								</div>
+
+
+								<div class="row">
+									<div class="col">
+										<p class="course-date">
+											17/02/2020
+										</p>
+									</div>
+								</div>
+
+
+							</div>
+							{# end card content #}
+							<div class="row">
+								<div class="col  d-flex justify-content-center">
+
+									<div>
+										<div class="dot active"></div>
+										<div class="dot"></div>
+										<div class="dot"></div>
+										<div class="dot"></div>
+
+									</div>
+
+								</div>
+
+							</div>
+						</div>
+
+
+					</div>
+					{# end course card #}
+
+
+					{# start of college card #}
+					<div class="col mr-4">
+						<div
+							class="courses-section">
+							{# card header #}
+							<div class="card-header">
+
+								<div class="container">
+									<div class="row">
+										<div class="col-7">
+											<p class="card-title">My college list
+											</p>
+										</div>
+										<div class="col">
+											<button class="btn-see-all">see all
+											</button>
+										</div>
+									</div>
+
+								</div>
+								<div class="container">
+									<div class="row">
+										<div class="col">
+											<img src="{{asset('image/college.png')}}" class="college-pic">
+										</div>
+									</div>
+								</div>
+
+
+							</div>
+							{# end card header #}
+
+							{# start card content #}
+							<div class="card-content">
+
+								<div class="college-lists">
+									<button class="show">show</button>
+									<img src="">
+									<span>college 1
+										<br>
+										deadline</span>
+
+
+								</div>
+								<div class="college-lists">
+									<button class="show">show</button>
+									<img src="">
+									<span>college 2
+										<br>
+										deadline</span>
+
+
+								</div>
+
+							</div>
+							{# end card content #}
+
+						</div>
+
+
+					</div>
+					{# end college card #}
+
+
+					{# start of club card #}
+					<div class="col ">
+						<div
+							class="courses-section">
+							{# card header #}
+							<div class="card-header">
+
+								<div class="container">
+									<div class="row">
+										<div class="col-7">
+											<p class="card-title">My clubs
+											</p>
+										</div>
+										<div class="col">
+											<button class="btn-see-all">see all
+											</button>
+										</div>
+									</div>
+
+								</div>
+								<div class="container">
+									<div class="row">
+										<div class="col d-flex justify-content-center">
+											<img src="{{asset('image/club-pic.png')}}" class="club-pic">
+										</div>
+									</div>
+								</div>
+
+							</div>
+							{# end card header #}
+
+							{# start card content #}
+
+							<div class="card-content">
+
+								<div class="college-lists">
+									<button class="show">show</button>
+									<img src="">
+
+									<span>Debate
+										<br>deadline 15/02/1225</span>
+
+
+								</div>
+								<div class="college-lists">
+									<button class="show">show</button>
+									<img src="">
+
+									<span>Debate
+										<br>deadline 15/02/2555</span>
+
+
+								</div>
+
+							</div>
+							{# end card content #}
+						</div>
+
+
+					</div>
+					{# end club card #}
+
+
+					{# start of documents card #}
+					<div class="col ">
+						<div
+							class="courses-section">
+							{# card header #}
+							<div class="card-header">
+
+								<div class="container">
+									<div class="row">
+										<div class="col-7">
+											<p class="card-title">Translated documents
+											</p>
+										</div>
+										<div class="col">
+											<button class="btn-see-all">see all
+											</button>
+										</div>
+									</div>
+
+								</div>
+								<div class="container">
+									<div class="row">
+										<div class="col d-flex justify-content-center">
+											<img src="{{asset('image/document-pic.png')}}" class="document-pic">
+										</div>
+									</div>
+								</div>
+
+							</div>
+							{# end card header #}
+
+							{# start card content #}
+
+							<div class="card-content">
+
+								<div class="row">
+
+									<div class="col">
+
+
+										<p class="Document-name">
+											Document 1</p>
+									</div>
+									<div class="col-xs"></div>
+									<div class="col">
+
+										<button class="show">edit</button>
+
+									</div>
+								</div>
+								<div class="row">
+
+									<div class="col">
+
+
+										<p class="Document-name">
+											Document 2</p>
+									</div>
+									<div class="col-xs"></div>
+									<div class="col">
+
+										<button class="show">edit</button>
+
+									</div>
+								</div>
+
+							</div>
+							{# end card content #}
+
+						</div>
+
+
+					</div>
+					{# end documents card #}
+
+
+				</div>
+
+			</div>
+
+		</section>
+
+
+	</div>
+
+
 {% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    <script>
-        {#{% for category in categories %}
-            $("#categoryButton{{ category.id }}").click(function(){
-                $(".score").hide();
-                $(".scoreCategory{{ category.id }}").show();
-            });
-        {% endfor %}#}
-    </script>
-{% endblock %}
+{% block javascripts %}{% endblock %}

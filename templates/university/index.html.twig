@@ -1,175 +1,343 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}university index{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
+
+
+{% block title %}Universities
+{% endblock %}
+
 
 {% block body %}
-<section name='Title' style='margin-top:140px;'>
-<div class="container">
-        <div class="row justify-content-center">
-          <h1 class="text-center"style="color:#B2273D;font-family:'Neou-bold';">   universities
-           <img src="{{asset('image/icones/1.png')}}" height="80px"width="80px" class="path">
-           </h1>
-            <div class="row row-grid justify-content-center">
-         
-            </div>
-          </div>
-        </div>
-      </div>
-      </section>
 
 
-<div style="margin-right:50px;margin-left:50px;margin-top:50px;">
-          
-                                  
-             
-             {% for message in app.flashes('success') %}
-            <div class="alert alert-success">
-                {{ message }}
-            </div>
-        {% endfor %}
-          {% for message in app.flashes('delete') %}
-            <div class="alert alert-danger">
-                {{ message }}
-            </div>
-        {% endfor %}
-          {% for message in app.flashes('update') %}
-           
-          
-            <div class="alert alert-warning" role="alert">
-                {{ message }}
-                </div>   
-                {% endfor %} 
-                
-<table style="border:none;" id="example"  class="table align-items-center table-flush  display dataTable">
-            <thead >
-            <tr>
-                <th scope="col"><h5 class="text-bluee">Title</h5></th>
-                <th scope="col"><h5 class="text-bluee">actions</h5></th>
-            </tr>
-        </thead>
-        <tbody id="myTable">
-        {% for university in universities %}
-            <tr class="bg-gris"height="50px"  onmouseover="show({{university.id}})"onmouseout="hide({{university.id}})">
-                <script>
-                    function show(a){
-                      document.getElementById('td'+a).style.backgroundColor='yellow';
-                      document.getElementById('act'+a).style='display:inline;background:url({{ asset('image/icones/20.png') }}); background-size:cover; border:none; padding:15px; color:#FFFFFF;';
-                    }
-                    function hide(a){
-                      document.getElementById('td'+a).style='';
-                      document.getElementById('act'+a).style='display:none';
-                    }
-                </script>
-                <td id="td{{university.id}}">
-                      <div class="media align-items-center">
-                        <a href="#" class=" img-fluid rounded-circle shadow-lg mr-3">
-                           {% if university.photo == null %}
-                                <img src="{{ asset('img/univer.png') }}"    />
-                            {% else %}
-                                <img style="width:80px; height:80px;"src="{{ asset('uploads/universities/photos/'~university.photo) }}"   />
-                            {% endif %}
-                        </a>
-                        <div class="media-body">
-                          <span class="mb-0 text-dark text-sm"> {{ university.title }}</span>
-                        </div>
-                      </div>
-                    </td>
+	<div class="container">
 
-             <td  class="bg-gris" class="actions">
-                  <div  class="btn-group">
-                                        <button id="act{{university.id}}" style="display:none; " class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-bottom: 0px;margin-top: 0px">Actions</button>
-                                        <div class="dropdown-menu ">
-                                            <a class="dropdown-item" href="{{ path('university_show', { 'id': university.id }) }}">
-                                    
-                                            show</a>
-                                         {% if app.user.status=="Admin"%}
-                                         <a class="dropdown-item" href="{{ path('university_edit', { 'id': university.id }) }}">
-                                    
-                                            edit</a>
-                                         <a class="dropdown-item" href="#" onclick="showModal('myModal{{ university.id }}')" >
-                                        
-                                         Delete</a>
-                                         {% endif %}
-                                        </div>
-                  </div>
-              
-                                </td>
-                            </tr>
-                              <!-- Modal -->
+		<div class="row ml-5">
+			<div class="col-xl-12">
+				<h1 class="university-title">
+					Browse Universities
+				</h1>
+			</div>
+		</div>
+	</div>
 
-                              <div id="myModal{{ university.id }}" class="modal fade" role="dialog">
-                                <div class="modal-dialog">
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">Confirmation de supprission</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>Voulez-vous vraiment supprimer cette ce cours !</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                        <form method="post" action="{{ path('university_delete', {'id': university.id}) }}">
-                                            <button type="button" class="btn btn-default btn-md" data-dismiss="modal">Close</button>
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ university.id) }}">
-                                            <button type="submit" class="btn btn-danger btn-md">Supprimer</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+	<div class="container">
+
+		<div class="row ml-5 mb-0 align-items-end">
+			<div class="col  align-self-start"></div>
+			<div class="col-xs align-self-center">
+				<div class="col">
+					<button style="border:none; outline:none; background-color:transparent;" onclick="myFunction()">
+						<i class="fa fa-sliders-h" style="color:gray;"></i>
+					</button>
+				</div>
+
+			</div>
+
+			<div class=" col-sm-4 align-self-end">
+
+				<div class="form-group has-search search-bar">
+					<span class="fas fa-search form-control-feedback"></span>
+					<input type="text" class="form-control" placeholder="Search for university">
+				</div>
+
+			</div>
+
+		</div>
+		<div id="searchby" style="display:none;">
+			<div class="row ml-5 ">
+
+				<div class="col-md-7 ">
+					<div class="row">
+						<div class="col">
+							<label for="search" class="search-label">
+								Subject
+							</label>
+							<select class="search">
+								<option selected="selected">Subject</option>
+								<option>aaaa</option>
+								<option>bbbb</option>
+								<option>cccc</option>
+							</select>
 
 
-         
-                         
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+						</div>
+						<div class="col">
+							<label for="search" class="search-label">
+								Study level
+							</label>
+							<select class="search">
+								<option selected="selected">Level</option>
+								<option>aaaa</option>
+								<option>bbbb</option>
+								<option>cccc</option>
+							</select>
 
-    <script>
-        function showModal(id) {
-            $("#"+id).modal();
-        }
-    </script>
+						</div>
+						<div class="col">
+							<label for="search" class="search-label">
+								Location
+							</label>
+							<select class="search">
+								<option selected="selected">Location</option>
+								<option>aaaa</option>
+								<option>bbbb</option>
+								<option>cccc</option>
+							</select>
 
-    <script type="text/javascript">
-    var host = "startbootstrap.com";
-    if ((host == window.location.host) && (window.location.protocol != "https:"))
-      window.location.protocol = "https";
-  </script>
-
-  <script>
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-});
-</script>
-
- <script>
-        function showModal(id) {
-            $("#"+id).modal();
-        }
-          $(document).ready(function() {
-    $('#example').DataTable();
-} );
-$(document).ready(function(){
-    document.getElementById('example_info').style="color:#B2273D";
-});
-    </script>
+						</div>
 
 
-    </div></div></div></div></div>
-{% if app.user.status!="Student" %}
-    <a href="{{ path('university_new') }}" class="btn btn-success">Create new</a>
-{% endif %}
+					</div>
+					<div class="row">
+						<div class="col-md-12"></div>
+						<div class="col-md-4 offset-sm-11">
+							<button type="submit" class="btn-see-all apply">Apply</button>
+						</div>
 
-    
+
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+
+	{# ************************************************** #}
+
+
+	<div class="container ">
+		<div class="row ml-5">
+			<div class="col-xl-12">
+				<h4 class="recommendations-title">
+					Our recommendations
+				</h4>
+			</div>
+		</div>
+		<!-- Grid row -->
+		<div
+			class="row ml-5 align-items-end">
+
+			<!-- Grid column -->
+			<div
+				class=" col-xl-4 col-md-12 mb-4  text-center">
+
+				<!--Card-->
+				<div
+					class="card">
+
+					<!--Card image-->
+					<div class="view">
+						<img src="https://www.collegeconsensus.com/wp-content/uploads/2016/12/o-HARVARD-UNIVERSITY-BUILDING-facebook.jpg" class="img-fluid" alt="photo">
+
+					</div>
+
+					<!--Card content-->
+					<div
+						class="card-body">
+						<!--Title-->
+						<h5 class="card-title">Harvard University</h5>
+						<!--Text-->
+						<p class="card-text">MA,United,States</p>
+
+						<a href="#">See More</a>
+
+					</div>
+
+				</div>
+				<!--/.Card-->
+
+			</div>
+			<!-- Grid column -->
+			<!-- Grid column -->
+			<div
+				class=" col-xl-4 col-md-12 mb-4  text-center">
+
+				<!--Card-->
+				<div
+					class="card">
+
+					<!--Card image-->
+					<div class="view">
+						<img src="https://www.collegeconsensus.com/wp-content/uploads/2016/12/o-HARVARD-UNIVERSITY-BUILDING-facebook.jpg" class="img-fluid" alt="photo">
+
+					</div>
+
+					<!--Card content-->
+					<div
+						class="card-body">
+						<!--Title-->
+						<h5 class="card-title">Harvard University</h5>
+						<!--Text-->
+						<p class="card-text">MA,United,States</p>
+
+						<a href="#">See More</a>
+
+					</div>
+
+				</div>
+				<!--/.Card-->
+
+			</div>
+			<!-- Grid column -->
+			<!-- Grid column -->
+			<div
+				class=" col-xl-4 col-md-12 mb-4  text-center">
+
+				<!--Card-->
+				<div
+					class="card">
+
+					<!--Card image-->
+					<div class="view">
+						<img src="https://www.collegeconsensus.com/wp-content/uploads/2016/12/o-HARVARD-UNIVERSITY-BUILDING-facebook.jpg" class="img-fluid" alt="photo">
+
+					</div>
+
+					<!--Card content-->
+					<div
+						class="card-body">
+						<!--Title-->
+						<h5 class="card-title">Harvard University</h5>
+						<!--Text-->
+						<p class="card-text">MA,United,States</p>
+
+						<a href="#">See More</a>
+
+					</div>
+
+				</div>
+				<!--/.Card-->
+
+			</div>
+			<!-- Grid column -->
+
+
+		</div>
+		<div
+			class="row ml-5 align-items-end">
+
+			<!-- Grid column -->
+			<div
+				class=" col-xl-4 col-md-12 mb-4  text-center">
+
+				<!--Card-->
+				<div
+					class="card">
+
+					<!--Card image-->
+					<div class="view">
+						<img src="https://www.collegeconsensus.com/wp-content/uploads/2016/12/o-HARVARD-UNIVERSITY-BUILDING-facebook.jpg" class="img-fluid" alt="photo">
+
+					</div>
+
+					<!--Card content-->
+					<div
+						class="card-body">
+						<!--Title-->
+						<h5 class="card-title">Harvard University</h5>
+						<!--Text-->
+						<p class="card-text">MA,United,States</p>
+
+						<a href="#">See More</a>
+
+					</div>
+
+				</div>
+				<!--/.Card-->
+
+			</div>
+			<!-- Grid column -->
+			<!-- Grid column -->
+			<div
+				class=" col-xl-4 col-md-12 mb-4  text-center">
+
+				<!--Card-->
+				<div
+					class="card">
+
+					<!--Card image-->
+					<div class="view">
+						<img src="https://www.collegeconsensus.com/wp-content/uploads/2016/12/o-HARVARD-UNIVERSITY-BUILDING-facebook.jpg" class="img-fluid" alt="photo">
+
+					</div>
+
+					<!--Card content-->
+					<div
+						class="card-body">
+						<!--Title-->
+						<h5 class="card-title">Harvard University</h5>
+						<!--Text-->
+						<p class="card-text">MA,United,States</p>
+
+						<a href="#">See More</a>
+
+					</div>
+
+				</div>
+				<!--/.Card-->
+
+			</div>
+			<!-- Grid column -->
+			<!-- Grid column -->
+			<div
+				class=" col-xl-4 col-md-12 mb-4  text-center">
+
+				<!--Card-->
+				<div
+					class="card">
+
+					<!--Card image-->
+					<div class="view">
+						<img src="https://www.collegeconsensus.com/wp-content/uploads/2016/12/o-HARVARD-UNIVERSITY-BUILDING-facebook.jpg" class="img-fluid" alt="photo">
+
+					</div>
+
+					<!--Card content-->
+					<div
+						class="card-body">
+						<!--Title-->
+						<h5 class="card-title">Harvard University</h5>
+						<!--Text-->
+						<p class="card-text">MA,United,States</p>
+
+						<a href="#">See More</a>
+
+					</div>
+
+				</div>
+				<!--/.Card-->
+
+			</div>
+			<!-- Grid column -->
+
+
+		</div>
+
+	</div>
+
+
+	<script>
+
+		function myFunction() {
+var x = document.getElementById("searchby");
+
+
+if (x.style.display === "none") {
+x.style.display = "block";
+} else {
+x.style.display = "none";
+}
+
+}
+	</script>
+{% endblock %}
+
+{% block javascripts %}
+	{{parent()}}
 {% endblock %}

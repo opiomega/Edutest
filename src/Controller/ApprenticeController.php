@@ -16,7 +16,7 @@ use App\Repository\UniversityRepository;
 
 class ApprenticeController extends Controller
 {
-    
+
     /**
      * @Route("/apprentice", name="apprentice")
      */
@@ -144,4 +144,19 @@ ORDER BY c.date ASC LIMIT 1;';
         ]);
     
     }
+
+
+
+    /**
+     * @Route("/sat", name="sat")
+     */
+    public function sat()
+    {
+
+        return $this->render('sat.html.twig', [
+           
+        ]);
+
+    }
+
 }
